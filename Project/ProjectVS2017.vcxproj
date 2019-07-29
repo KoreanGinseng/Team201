@@ -96,12 +96,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="Scene\Game\Game.cpp" />
+    <ClCompile Include="Scene\Title\Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h" />
-    <ClInclude Include="SceneBase.h" />
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="GameDefine.h" />
+    <ClInclude Include="Scene\Game\Game.h" />
+    <ClInclude Include="Scene\SceneBase.h" />
+    <ClInclude Include="Scene\Title\Title.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc" />

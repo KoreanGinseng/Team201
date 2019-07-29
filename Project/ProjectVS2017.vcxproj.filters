@@ -13,24 +13,63 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{c2246e29-c93c-40ed-bb4b-86a58807f572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game">
+      <UniqueIdentifier>{d722f67a-7927-42d5-8d2a-b4b670f9f03b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Title">
+      <UniqueIdentifier>{f476d0f9-bcea-48a9-80e1-2dcbc18d94e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameClear">
+      <UniqueIdentifier>{04c099ab-dd55-4d68-ab18-31c653fb865d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameOver">
+      <UniqueIdentifier>{ae7e244c-19b6-439f-97cf-71eeb52aee98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\_Inoue">
+      <UniqueIdentifier>{f5b8e89e-724d-47c1-8d14-9df178003514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\_Fujiwara">
+      <UniqueIdentifier>{8d9fb75f-b31a-4b87-b79f-efdd86ce3f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\_Kimura">
+      <UniqueIdentifier>{8265a766-c668-4fbe-8fbc-b4adfef252a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\_Oonishi">
+      <UniqueIdentifier>{807a00bf-436a-4053-8ea0-0274e5e9202d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GameApp.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Game\Game.cpp">
+      <Filter>ソース ファイル\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Title\Title.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
+    <ClInclude Include="GameDefine.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="Scene\SceneBase.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Game\Game.h">
+      <Filter>ソース ファイル\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Title\Title.h">
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
