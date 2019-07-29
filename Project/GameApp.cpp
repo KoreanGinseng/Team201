@@ -18,7 +18,6 @@
 #include	"Title/Title.h"
 
 //! GLOBAL
-bool				g_bDebug = false;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
 /*************************************************************************//*!
@@ -37,6 +36,12 @@ MofBool CGameApp::Initialize(void){
 	g_pScene->Load();
 	//シーンの初期化
 	g_pScene->Initialize();
+
+	//FPSの設定
+	if (!CUtilities::SetFPS(GAMEFPS)) 
+	{
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -106,9 +111,14 @@ MofBool CGameApp::Render(void){
 	//シーンの描画
 	g_pScene->Render();
 
-	//シーンのデバッグ描画
-	if (g_bDebug) g_pScene->RenderDebug();
-
+	//デバッグ表示
+	if (g_bDebug) 
+	{
+		//シーンのデバッグ描画
+		g_pScene->RenderDebug();
+		//FPSの表示
+		CGraphicsUtilities::RenderString(DEBUGPOSX_FPS, DEBUGPOSY_FPS, "%d", CUtilities::GetFPS());
+	}
 	//描画の終了
 	g_pGraphics->RenderEnd();
 	return TRUE;
@@ -129,7 +139,7 @@ MofBool CGameApp::Release(void){
 	{
 		delete g_pScene;
 		//削除したポインタには0を入れる
-		g_pScene = 0;
+		g_pScene = NULL;
 	}
 
 	return TRUE;
