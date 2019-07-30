@@ -1,12 +1,12 @@
 /*****************************************************************
- *	@file			Game.cpp
- *	@brief			ƒQ[ƒ€ƒV[ƒ“ΐ‘•
+ *	@file			Kimura.cpp
+ *	@brief			ƒLƒ€ƒ‰ƒV[ƒ“ΐ‘•
  *	@author			δγιD‹R
  *	@date			2019/07/29
  *****************************************************************/
 
 //! INCLUDE
-#include	"Game.h"
+#include	"Kimura.h"
 
 /*****************************************************************
  * @fn
@@ -14,7 +14,7 @@
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-CGame::CGame() :
+CKimura::CKimura() :
 CSceneBase() {
 }
 
@@ -24,7 +24,7 @@ CSceneBase() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-CGame::~CGame() {
+CKimura::~CKimura() {
 	Release();
 }
 
@@ -34,7 +34,7 @@ CGame::~CGame() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::Load() {
+void CKimura::Load() {
 
 }
 
@@ -44,7 +44,7 @@ void CGame::Load() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::Initialize() {
+void CKimura::Initialize() {
 
 }
 
@@ -54,7 +54,7 @@ void CGame::Initialize() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::Update() {
+void CKimura::Update() {
 
 }
 
@@ -64,7 +64,7 @@ void CGame::Update() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::Render() {
+void CKimura::Render() {
 
 }
 
@@ -74,7 +74,7 @@ void CGame::Render() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::RenderDebug() {
+void CKimura::RenderDebug() {
 
 }
 
@@ -84,6 +84,6 @@ void CGame::RenderDebug() {
  * @param ‚Θ‚µ
  * @return ‚Θ‚µ
  *****************************************************************/
-void CGame::Release() {
+void CKimura::Release() {
 
 }

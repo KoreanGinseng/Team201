@@ -16,6 +16,10 @@
 #include	"GameClear/GameClear.h"
 #include	"GameOver/GameOver.h"
 #include	"Title/Title.h"
+#include	"_Inoue/Inoue.h"
+#include	"_Fujiwara/Fujiwara.h"
+#include	"_Kimura/Kimura.h"
+#include	"_Onishi/Onishi.h"
 
 //! GLOBAL
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
@@ -80,6 +84,18 @@ MofBool CGameApp::Update(void){
 			break;
 		case SCENENO_GAMEOVER:
 			g_pScene = new CGameOver();
+			break;
+		case SCENENO_FUJIWARA:
+			g_pScene = new CFujiwara();
+			break;
+		case SCENENO_INOUE:
+			g_pScene = new CInoue();
+			break;
+		case SCENENO_KIMURA:
+			g_pScene = new CKimura();
+			break;
+		case SCENENO_ONISHI:
+			g_pScene = new COnishi();
 			break;
 		}
 		//新しいシーンの読み込みと初期化

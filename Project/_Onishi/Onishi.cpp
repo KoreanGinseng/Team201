@@ -1,12 +1,12 @@
 /*****************************************************************
- *	@file			Game.cpp
- *	@brief			ゲームシーン実装
+ *	@file			Onishi.cpp
+ *	@brief			オオニシシーン実装
  *	@author			井上颯騎
  *	@date			2019/07/29
  *****************************************************************/
 
 //! INCLUDE
-#include	"Game.h"
+#include	"Onishi.h"
 
 /*****************************************************************
  * @fn
@@ -14,7 +14,7 @@
  * @param なし
  * @return なし
  *****************************************************************/
-CGame::CGame() :
+COnishi::COnishi() :
 CSceneBase() {
 }
 
@@ -24,7 +24,7 @@ CSceneBase() {
  * @param なし
  * @return なし
  *****************************************************************/
-CGame::~CGame() {
+COnishi::~COnishi() {
 	Release();
 }
 
@@ -34,7 +34,7 @@ CGame::~CGame() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::Load() {
+void COnishi::Load() {
 
 }
 
@@ -44,7 +44,7 @@ void CGame::Load() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::Initialize() {
+void COnishi::Initialize() {
 
 }
 
@@ -54,7 +54,7 @@ void CGame::Initialize() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::Update() {
+void COnishi::Update() {
 
 }
 
@@ -64,7 +64,7 @@ void CGame::Update() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::Render() {
+void COnishi::Render() {
 
 }
 
@@ -74,7 +74,7 @@ void CGame::Render() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::RenderDebug() {
+void COnishi::RenderDebug() {
 
 }
 
@@ -84,6 +84,6 @@ void CGame::RenderDebug() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CGame::Release() {
+void COnishi::Release() {
 
 }
