@@ -25,6 +25,18 @@
     <Filter Include="ソース ファイル\GameOver">
       <UniqueIdentifier>{ae7e244c-19b6-439f-97cf-71eeb52aee98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\_Fujiwara">
+      <UniqueIdentifier>{d1f08968-7834-4c5e-b6bd-868390c43dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\_Kimura">
+      <UniqueIdentifier>{d5af0733-0015-40bb-bf04-aed1e9c77d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\_Inoue">
+      <UniqueIdentifier>{bdfc033b-1e55-400e-94b7-73c5e8373445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\_Onishi">
+      <UniqueIdentifier>{076f89f4-0808-4735-80c9-cfcd07f186cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -45,15 +57,24 @@
     <ClCompile Include="Title\Title.cpp">
       <Filter>ソース ファイル\Title</Filter>
     </ClCompile>
+    <ClCompile Include="_Fujiwara\Fujiwara.cpp">
+      <Filter>ソース ファイル\_Fujiwara</Filter>
+    </ClCompile>
+    <ClCompile Include="_Inoue\Inoue.cpp">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\Kimura.cpp">
+      <Filter>ソース ファイル\_Kimura</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Onishi.cpp">
+      <Filter>ソース ファイル\_Onishi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameDefine.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneBase.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
@@ -67,6 +88,21 @@
     </ClInclude>
     <ClInclude Include="Title\Title.h">
       <Filter>ソース ファイル\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="_Fujiwara\Fujiwara.h">
+      <Filter>ソース ファイル\_Fujiwara</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\Inoue.h">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\Kimura.h">
+      <Filter>ソース ファイル\_Kimura</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Onishi.h">
+      <Filter>ソース ファイル\_Onishi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
