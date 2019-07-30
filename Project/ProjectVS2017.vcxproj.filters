@@ -25,6 +25,12 @@
     <Filter Include="ソース ファイル\GameOver">
       <UniqueIdentifier>{ae7e244c-19b6-439f-97cf-71eeb52aee98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\fujiwara">
+      <UniqueIdentifier>{b1fc4e78-8c56-4852-8605-034a6f2f3e73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\other">
+      <UniqueIdentifier>{8d6b3da5-0033-42ac-8b3e-a11b4378ddc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -45,15 +51,24 @@
     <ClCompile Include="Title\Title.cpp">
       <Filter>ソース ファイル\Title</Filter>
     </ClCompile>
+    <ClCompile Include="_Fujiwara\Fujiwara.cpp">
+      <Filter>ソース ファイル\fujiwara</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\Kimura.cpp">
+      <Filter>ソース ファイル\other</Filter>
+    </ClCompile>
+    <ClCompile Include="_Inoue\Inoue.cpp">
+      <Filter>ソース ファイル\other</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Onishi.cpp">
+      <Filter>ソース ファイル\other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameDefine.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneBase.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
@@ -67,6 +82,21 @@
     </ClInclude>
     <ClInclude Include="Title\Title.h">
       <Filter>ソース ファイル\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="_Fujiwara\Fujiwara.h">
+      <Filter>ソース ファイル\fujiwara</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\Kimura.h">
+      <Filter>ソース ファイル\other</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\Inoue.h">
+      <Filter>ソース ファイル\other</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Onishi.h">
+      <Filter>ソース ファイル\other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
