@@ -8,6 +8,12 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
+#include	"../Camera2D.h"
+#include	"../Coordinate.h"
+
+//! DEFINE
+#define		RECTSIZE	10
+#define		MOVESPEED	10
 
  /*****************************************************************
   *	@brief			イノウエシーンクラス
@@ -15,6 +21,10 @@
   *****************************************************************/
 class CInoue : public CSceneBase {
 private:
+	CCamera2D	m_MainCamera;
+	Vector2		m_Pos;
+
+	
 
 public:
 	/*****************************************************************
@@ -80,4 +90,6 @@ public:
 	 * @return なし
 	 *****************************************************************/
 	void Release();
+
+	CRectangle	GetRect() { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + RECTSIZE, m_Pos.y + RECTSIZE); }
 };

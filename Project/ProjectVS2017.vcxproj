@@ -95,6 +95,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
     <ClCompile Include="GameOver\GameOver.cpp" />
@@ -107,6 +109,8 @@
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="Coordinate.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameClear\GameClear.h" />

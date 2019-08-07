@@ -45,7 +45,7 @@ void CInoue::Load() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Initialize() {
-
+	m_Pos = Vector2(0, 0);
 }
 
 /*****************************************************************
@@ -56,6 +56,45 @@ void CInoue::Initialize() {
  *****************************************************************/
 void CInoue::Update() {
 
+	Vector2 move = Vector2(0, 0);
+
+	if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
+		move.x -= MOVESPEED;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_UP)) {
+		move.y += MOVESPEED;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
+		move.x += MOVESPEED;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_DOWN)) {
+		move.y -= MOVESPEED;
+	}
+
+	m_Pos += move;
+
+	if (m_Pos != m_MainCamera.GetScroll()) {
+		Vector2 d = m_Pos - m_MainCamera.GetScroll();
+		d /= MOVESPEED;
+		m_MainCamera.AddScroll(d);
+	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
+		PostQuitMessage(0);
+	}
+
+	/*if (g_pInput->IsKeyHold(MOFKEY_A)) {
+		m_MainCamera.AddScroll(Vector2(-MOVESPEED, 0));
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_W)) {
+		m_MainCamera.AddScroll(Vector2( 0, MOVESPEED));
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_D)) {
+		m_MainCamera.AddScroll(Vector2(MOVESPEED, 0));
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_S)) {
+		m_MainCamera.AddScroll(Vector2(0, -MOVESPEED));
+	}*/
 }
 
 /*****************************************************************
@@ -65,7 +104,8 @@ void CInoue::Update() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Render() {
-
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
+	CGraphicsUtilities::RenderFillRect(screenPos.x, screenPos.y, screenPos.x + RECTSIZE, screenPos.y + RECTSIZE, MOF_COLOR_GREEN);
 }
 
 /*****************************************************************
@@ -75,7 +115,10 @@ void CInoue::Render() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::RenderDebug() {
-
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
+	CGraphicsUtilities::RenderString(10, 10, "camera[x]:%5.1f [y]:%5.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
+	CGraphicsUtilities::RenderString(10, 30, "world [x]:%5.1f [y]:%5.1f", m_Pos.x, m_Pos.y);
+	CGraphicsUtilities::RenderString(10, 50, "screen[x]:%5.1f [y]:%5.1f", screenPos.x, screenPos.y);
 }
 
 /*****************************************************************

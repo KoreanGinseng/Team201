@@ -69,6 +69,12 @@
     <ClCompile Include="_Onishi\Onishi.cpp">
       <Filter>ソース ファイル\_Onishi</Filter>
     </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinate.cpp">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -103,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="_Onishi\Onishi.h">
       <Filter>ソース ファイル\_Onishi</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinate.h">
+      <Filter>ソース ファイル\_Inoue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
