@@ -24,8 +24,6 @@ private:
 	CCamera2D	m_MainCamera;
 	Vector2		m_Pos;
 
-	
-
 public:
 	/*****************************************************************
 	 * @fn
