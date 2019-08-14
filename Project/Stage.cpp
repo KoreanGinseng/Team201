@@ -159,8 +159,10 @@ void CStage::Render(Vector2 scroll) {
 	int sch = g_pGraphics->GetTargetHeight();
 	int wn = m_BackTexture.GetWidth();
 	int hn = m_BackTexture.GetHeight();
-	for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
-		for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
+	//for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
+	for (float y = ((int)scroll.y % hn) - hn; y < sch; y += hn) {
+		//for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
+		for (float x = ((int)scroll.x % wn) - wn; x < scw; x += wn) {
 			m_BackTexture.Render(x, y);
 		}
 	}
@@ -179,7 +181,8 @@ void CStage::Render(Vector2 scroll) {
 			//マップチップの矩形
 			CRectangle cr(m_ChipSize * (cn % tcx), m_ChipSize*(cn / tcx), m_ChipSize * (cn % tcx + 1), m_ChipSize * (cn / tcx + 1));
 			//マップチップの描画
-			m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize);
+			//m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
+			m_ChipTexture.Render(scroll.x + x * m_ChipSize, scroll.y + y * m_ChipSize, cr);
 		}
 	}
 }
@@ -191,6 +194,17 @@ void CStage::RenderDebug(Vector2 scroll) {
 void CStage::Release() {
 	m_BackTexture.Release();
 	m_ChipTexture.Release();
+
+	for (int i = 0; i < m_EnemyTextureCount; i++) {
+		m_pEnemyTexture[i].Release();
+	}
+	for (int i = 0; i < m_ItemTextureCount; i++) {
+		m_pItemTexture[i].Release();
+	}
+	for (int i = 0; i < m_ObjectTextureCount; i++) {
+		m_pObjectTexture[i].Release();
+	}
+
 	if (m_pChipData) {
 		free(m_pChipData);
 		m_pChipData = NULL;

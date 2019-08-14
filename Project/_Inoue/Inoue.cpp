@@ -46,6 +46,7 @@ void CInoue::Load() {
  *****************************************************************/
 void CInoue::Initialize() {
 	m_Pos = Vector2(0, 0);
+	m_Stage.Initialize();
 }
 
 /*****************************************************************
@@ -59,13 +60,15 @@ void CInoue::Update() {
 	Vector2 move = Vector2(0, 0);
 
 	if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
-		move.x -= MOVESPEED;
+		//move.x -= MOVESPEED;
+		move.x += MOVESPEED;
 	}
 	if (g_pInput->IsKeyHold(MOFKEY_UP)) {
 		move.y += MOVESPEED;
 	}
 	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
-		move.x += MOVESPEED;
+		//move.x += MOVESPEED;
+		move.x -= MOVESPEED;
 	}
 	if (g_pInput->IsKeyHold(MOFKEY_DOWN)) {
 		move.y -= MOVESPEED;
@@ -75,7 +78,7 @@ void CInoue::Update() {
 
 	if (m_Pos != m_MainCamera.GetScroll()) {
 		Vector2 d = m_Pos - m_MainCamera.GetScroll();
-		d /= MOVESPEED;
+		d /= MOVESPEED*0.5;
 		m_MainCamera.AddScroll(d);
 	}
 
@@ -95,6 +98,8 @@ void CInoue::Update() {
 	if (g_pInput->IsKeyHold(MOFKEY_S)) {
 		m_MainCamera.AddScroll(Vector2(0, -MOVESPEED));
 	}*/
+
+	m_Stage.Update();
 }
 
 /*****************************************************************
@@ -104,6 +109,9 @@ void CInoue::Update() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Render() {
+
+	m_Stage.Render(m_MainCamera.GetScroll());
+
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
 	CGraphicsUtilities::RenderFillRect(screenPos.x, screenPos.y, screenPos.x + RECTSIZE, screenPos.y + RECTSIZE, MOF_COLOR_GREEN);
 }
@@ -115,6 +123,9 @@ void CInoue::Render() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::RenderDebug() {
+
+	m_Stage.RenderDebug(m_MainCamera.GetScroll());
+
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
 	CGraphicsUtilities::RenderString(10, 10, "camera[x]:%5.1f [y]:%5.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 	CGraphicsUtilities::RenderString(10, 30, "world [x]:%5.1f [y]:%5.1f", m_Pos.x, m_Pos.y);
@@ -128,5 +139,5 @@ void CInoue::RenderDebug() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Release() {
-
+	m_Stage.Release();
 }
