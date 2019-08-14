@@ -10,6 +10,7 @@
 #include	"../SceneBase.h"
 #include	"../Camera2D.h"
 #include	"../Coordinate.h"
+#include	"../Stage.h"
 
 //! DEFINE
 #define		RECTSIZE	10
@@ -23,6 +24,7 @@ class CInoue : public CSceneBase {
 private:
 	CCamera2D	m_MainCamera;
 	Vector2		m_Pos;
+	CStage		m_Stage;
 
 public:
 	/*****************************************************************
