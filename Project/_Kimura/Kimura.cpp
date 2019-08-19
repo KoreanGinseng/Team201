@@ -36,6 +36,8 @@ CKimura::~CKimura() {
  *****************************************************************/
 void CKimura::Load() {
 
+	
+
 }
 
 /*****************************************************************
@@ -45,6 +47,14 @@ void CKimura::Load() {
  * @return ‚È‚µ
  *****************************************************************/
 void CKimura::Initialize() {
+
+	CUtilities::SetCurrentDirectoryA("Resource");
+
+	m_bEnd = false;
+
+	m_Player.Load();
+
+	m_Player.Initialize();
 
 }
 
@@ -56,6 +66,8 @@ void CKimura::Initialize() {
  *****************************************************************/
 void CKimura::Update() {
 
+	m_Player.Update();
+
 }
 
 /*****************************************************************
@@ -66,6 +78,9 @@ void CKimura::Update() {
  *****************************************************************/
 void CKimura::Render() {
 
+	m_Player.Render();
+
+	RenderDebug();
 }
 
 /*****************************************************************
@@ -76,6 +91,8 @@ void CKimura::Render() {
  *****************************************************************/
 void CKimura::RenderDebug() {
 
+	CGraphicsUtilities::RenderString(0, 0, "KimuraScene");
+
 }
 
 /*****************************************************************
@@ -85,5 +102,7 @@ void CKimura::RenderDebug() {
  * @return ‚È‚µ
  *****************************************************************/
 void CKimura::Release() {
+
+	m_Player.Release();
 
 }
