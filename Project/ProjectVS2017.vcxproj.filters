@@ -51,9 +51,6 @@
     <ClCompile Include="Title\Title.cpp">
       <Filter>ソース ファイル\Title</Filter>
     </ClCompile>
-    <ClCompile Include="_Kimura\Kimura.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="_Inoue\Inoue.cpp">
       <Filter>ソース ファイル\other</Filter>
     </ClCompile>
@@ -62,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="_Onishi\Onishi.cpp">
       <Filter>ソース ファイル\other</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\Kimura.cpp">
+      <Filter>ソース ファイル\_KimuraFilter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,9 +86,6 @@
     <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="_Kimura\Kimura.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="_Inoue\Inoue.h">
       <Filter>ソース ファイル\other</Filter>
     </ClInclude>
@@ -97,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="_Onishi\Onishi.h">
       <Filter>ソース ファイル\other</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\Kimura.h">
+      <Filter>ソース ファイル\_KimuraFilter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
