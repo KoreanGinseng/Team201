@@ -8,6 +8,12 @@
 //! INCLUDE
 #include	"Inoue.h"
 
+char*		g_StageFileName[STAGECOUNT] = {
+			"testMap.txt",
+			"testMap2.txt",
+			"testMap3.txt",
+};
+
 /*****************************************************************
  * @fn
  * 引数なしコンストラクタ
@@ -35,7 +41,9 @@ CInoue::~CInoue() {
  * @return なし
  *****************************************************************/
 void CInoue::Load() {
-	m_Stage.Load("testMap.txt");
+	for (int i = 0; i < STAGECOUNT; i++) {
+		m_Stage[i].Load(g_StageFileName[i]);
+	}
 }
 
 /*****************************************************************
@@ -46,7 +54,10 @@ void CInoue::Load() {
  *****************************************************************/
 void CInoue::Initialize() {
 	m_Pos = Vector2(0, 0);
-	m_Stage.Initialize();
+	for (int i = 0; i < STAGECOUNT; i++) {
+		m_Stage[i].Initialize();
+	}
+	m_StageNo = 0;
 }
 
 /*****************************************************************
@@ -99,7 +110,18 @@ void CInoue::Update() {
 		m_MainCamera.AddScroll(Vector2(0, -MOVESPEED));
 	}*/
 
-	m_Stage.Update();
+	if (g_pInput->IsKeyPush(MOFKEY_O)) {
+		m_StageNo++;
+		if (m_StageNo >= STAGECOUNT) {
+			m_StageNo = 0;
+		}
+	}
+
+	std::string a;
+
+	std::cin >> a;
+
+	m_Stage[m_StageNo].Update();
 }
 
 /*****************************************************************
@@ -110,7 +132,8 @@ void CInoue::Update() {
  *****************************************************************/
 void CInoue::Render() {
 
-	m_Stage.Render(m_MainCamera.GetScroll());
+	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
+
 
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
 	CGraphicsUtilities::RenderFillRect(screenPos.x, screenPos.y, screenPos.x + RECTSIZE, screenPos.y + RECTSIZE, MOF_COLOR_GREEN);
@@ -124,7 +147,8 @@ void CInoue::Render() {
  *****************************************************************/
 void CInoue::RenderDebug() {
 
-	m_Stage.RenderDebug(m_MainCamera.GetScroll());
+	m_Stage[m_StageNo].RenderDebug(m_MainCamera.GetScroll());
+	
 
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
 	CGraphicsUtilities::RenderString(10, 10, "camera[x]:%5.1f [y]:%5.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
@@ -139,5 +163,7 @@ void CInoue::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CInoue::Release() {
-	m_Stage.Release();
+	for (int i = 0; i < STAGECOUNT; i++) {
+		m_Stage[i].Release();
+	}
 }

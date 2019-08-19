@@ -1,6 +1,8 @@
 #pragma once
 #include	"Mof.h"
 
+
+
 class CStage {
 private:
 	CTexture	m_BackTexture;

@@ -14,6 +14,8 @@
 //! GLOBAL
 bool		g_bDebug = true;		//! デバッグ表示フラグ
 
+int			FPS = 60;
+
 //! デバック表示位置定義
 #define		DEBUGPOSX_FPS		g_pGraphics->GetTargetWidth() - 30	//! FPS表示位置X
 #define		DEBUGPOSY_FPS		10									//! FPS表示位置Y

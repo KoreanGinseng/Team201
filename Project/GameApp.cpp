@@ -44,7 +44,7 @@ MofBool CGameApp::Initialize(void){
 	g_pScene->Initialize();
 
 	//FPSÇÃê›íË
-	if (!CUtilities::SetFPS(GAMEFPS)) 
+	if (!CUtilities::SetFPS(FPS)) 
 	{
 		return FALSE;
 	}

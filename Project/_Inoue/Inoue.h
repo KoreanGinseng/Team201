@@ -15,6 +15,7 @@
 //! DEFINE
 #define		RECTSIZE	10
 #define		MOVESPEED	10
+#define		STAGECOUNT	3
 
  /*****************************************************************
   *	@brief			イノウエシーンクラス
@@ -24,7 +25,9 @@ class CInoue : public CSceneBase {
 private:
 	CCamera2D	m_MainCamera;
 	Vector2		m_Pos;
-	CStage		m_Stage;
+	CStage		m_Stage[STAGECOUNT];
+
+	int			m_StageNo;
 
 public:
 	/*****************************************************************

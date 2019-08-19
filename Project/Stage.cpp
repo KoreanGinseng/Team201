@@ -1,5 +1,6 @@
 #include	"Stage.h"
 
+
 CStage::CStage() :
 m_BackTexture(),
 m_ChipTexture(),
@@ -160,9 +161,9 @@ void CStage::Render(Vector2 scroll) {
 	int wn = m_BackTexture.GetWidth();
 	int hn = m_BackTexture.GetHeight();
 	//for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
-	for (float y = ((int)scroll.y % hn) - hn; y < sch; y += hn) {
+	for (float y = ((int)scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		//for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
-		for (float x = ((int)scroll.x % wn) - wn; x < scw; x += wn) {
+		for (float x = ((int)scroll.x / 4 % wn) - wn; x < scw; x += wn) {
 			m_BackTexture.Render(x, y);
 		}
 	}
