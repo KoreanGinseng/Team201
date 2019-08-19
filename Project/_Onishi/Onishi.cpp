@@ -45,6 +45,8 @@ void COnishi::Load() {
  * @return なし
  *****************************************************************/
 void COnishi::Initialize() {
+	poase = false;
+	time = 0;
 
 }
 
@@ -56,6 +58,13 @@ void COnishi::Initialize() {
  *****************************************************************/
 void COnishi::Update() {
 
+	if (g_pInput->IsKeyPush(MOFKEY_F4)) {
+		poase = !poase;
+	}
+	if (poase) {
+		return;
+	}
+	time += 1 * CUtilities::GetFrameSecond();
 }
 
 /*****************************************************************
@@ -65,7 +74,7 @@ void COnishi::Update() {
  * @return なし
  *****************************************************************/
 void COnishi::Render() {
-	CGraphicsUtilities::RenderString(500, 500, ("モンハンサイコー"));
+	CGraphicsUtilities::RenderString(500, 500, "モンハンサイコー?.%.1f",time);
 }
 
 /*****************************************************************
