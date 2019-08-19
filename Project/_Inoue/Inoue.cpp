@@ -67,6 +67,7 @@ void CInoue::Initialize() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Update() {
+	g_pInput->GetMousePos(m_MousePos);
 
 	Vector2 move = Vector2(0, 0);
 
@@ -117,10 +118,6 @@ void CInoue::Update() {
 		}
 	}
 
-	std::string a;
-
-	std::cin >> a;
-
 	m_Stage[m_StageNo].Update();
 }
 
@@ -133,7 +130,6 @@ void CInoue::Update() {
 void CInoue::Render() {
 
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
-
 
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
 	CGraphicsUtilities::RenderFillRect(screenPos.x, screenPos.y, screenPos.x + RECTSIZE, screenPos.y + RECTSIZE, MOF_COLOR_GREEN);

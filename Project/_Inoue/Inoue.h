@@ -27,6 +27,8 @@ private:
 	Vector2		m_Pos;
 	CStage		m_Stage[STAGECOUNT];
 
+	Vector2		m_MousePos;
+
 	int			m_StageNo;
 
 public:

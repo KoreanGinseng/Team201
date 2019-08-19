@@ -78,6 +78,9 @@
     <ClCompile Include="Stage.cpp">
       <Filter>ソース ファイル\_Inoue</Filter>
     </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -120,6 +123,9 @@
       <Filter>ソース ファイル\_Inoue</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
+      <Filter>ソース ファイル\_Inoue</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
       <Filter>ソース ファイル\_Inoue</Filter>
     </ClInclude>
   </ItemGroup>
