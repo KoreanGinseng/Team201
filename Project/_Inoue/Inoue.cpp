@@ -10,7 +10,7 @@
 
 char*		g_StageFileName[STAGECOUNT] = {
 			"testMap.txt",
-			"testMap2.txt",
+			"testMap2-2.txt",
 			"testMap3.txt",
 };
 
@@ -44,6 +44,8 @@ void CInoue::Load() {
 	for (int i = 0; i < STAGECOUNT; i++) {
 		m_Stage[i].Load(g_StageFileName[i]);
 	}
+	m_Player1.Load("Player.png");
+	m_Player2.Load("Player2.png");
 }
 
 /*****************************************************************
@@ -119,6 +121,10 @@ void CInoue::Update() {
 	}
 
 	m_Stage[m_StageNo].Update();
+
+	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+		g_pGraphics->ChangeScreenMode();
+	}
 }
 
 /*****************************************************************
@@ -131,7 +137,14 @@ void CInoue::Render() {
 
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 
+
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Pos);
+	if (m_StageNo == 0) {
+		m_Player1.Render(screenPos.x, screenPos.y);
+	}
+	else {
+		m_Player2.Render(screenPos.x, screenPos.y);
+	}
 	CGraphicsUtilities::RenderFillRect(screenPos.x, screenPos.y, screenPos.x + RECTSIZE, screenPos.y + RECTSIZE, MOF_COLOR_GREEN);
 }
 

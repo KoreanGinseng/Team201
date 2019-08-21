@@ -33,6 +33,9 @@ private:
 
 	//test code add
 
+	CTexture	m_Player1;
+	CTexture	m_Player2;
+
 public:
 	/*****************************************************************
 	 * @fn
