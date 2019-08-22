@@ -15,14 +15,17 @@ typedef struct tag_RankingEntry {
 	int			Score;
 } RankingEntry;
 
-
 class CRanking : public CSceneBase {
 private:
-	CString m_String;
-	int		m_VisibleCount;	//点滅用カウント
-	Vector2 m_MousePos;
-	CFont	m_NameFont;		//ランキング登録用フォント
-	bool	m_bInputEnable;	//入力中かの判定
+	//! Ime関連
+	CString						 m_String;
+	int							 m_VisibleCount;		//点滅用カウント
+	Vector2						 m_MousePos;
+	CFont					     m_NameFont;			//ランキング登録用フォント
+	bool						 m_bInputEnable;		//入力中かの判定
+	int							 m_CursolPointX;
+
+	int							 m_InputCount;
 
 	CDynamicArray<RankingEntry*> m_RankingEntryArray;	//ランキング登録を記録する配列
 
@@ -40,8 +43,13 @@ public:
 	void ImeUpdate();
 	void ImeRender();
 
+	void SendKeyBoard(int x, int y);
+	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
 													g_pGraphics->GetTargetWidth() / 2 + TEXTBOX_WIDHT + TEXTBOX_MARGIN, TEXTBOX_TOP + m_NameFont.GetSize()); }	//テキストボックスの矩形
+
+
+
 };
 
 #define	g_pImeInput CImeProc::GetImeInput()

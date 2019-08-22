@@ -1,5 +1,12 @@
 #include	"Ranking.h"
 
+char KeyBoard[4][10] = {
+	{'1','2','3','4','5','6','7','8','9','0' },
+    {'q','w','e','r','t','y','u','i','o','p' },
+	{'a','s','d','f','g','h','j','k','l',';' },
+	{'z','x','c','v','b','n','m',',','.','/' }
+};
+
 CRanking::CRanking() {
 }
 
@@ -16,6 +23,7 @@ void CRanking::Initialize() {
 	//入力確定文字列を格納
 	m_String = "";
 	m_VisibleCount = 0;
+	m_InputCount = 0;
 	//フォントの生成
 	m_NameFont.Create(FONT_SIZE, "ＭＳ　明朝");
 }
@@ -64,7 +72,10 @@ void CRanking::ImeUpdate() {
 		//入力確定文字列を入力中に変換
 		g_pImeInput->SetInputString(m_String);
 		m_String = "";
+
 	}
+
+		SendKeyBoard(0, 8);
 
 	//エンターキーを押した時に入力中文字があれば
 	if (g_pImeInput->GetEnterString()->GetLength() > 0)
@@ -112,4 +123,9 @@ void CRanking::ImeRender() {
 	if (((int)m_VisibleCount) >= CUtilities::GetFPS() / 2.0f && m_bInputEnable) {
 		CGraphicsUtilities::RenderLine(ir.Right + 2, ir.Top + 2, ir.Right + 2, ir.Bottom, MOF_COLOR_BLACK);
 	}
+}
+
+void CRanking::SendKeyBoard(int x, int y) {
+	keybd_event(KeyBoard[x][y], (BYTE)MapVirtualKey(KeyBoard[x][y], 0), 0, 0);
+	keybd_event(KeyBoard[x][y], (BYTE)MapVirtualKey(KeyBoard[x][y], 0), KEYEVENTF_KEYUP, 0);
 }
