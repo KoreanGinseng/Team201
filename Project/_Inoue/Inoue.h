@@ -12,6 +12,9 @@
 #include	"../Coordinate.h"
 #include	"../Stage.h"
 
+//! SCENE ADD
+#include	"../Ranking.h"
+
 //! DEFINE
 #define		RECTSIZE	10
 #define		MOVESPEED	10
