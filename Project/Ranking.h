@@ -8,6 +8,14 @@
 #define		TEXTBOX_WIDHT	FONT_SIZE * (FONT_LENGTH / 2)
 #define		TEXTBOX_MARGIN	20
 
+
+typedef struct tag_RankingEntry {
+	CRectangle	IconRect;
+	CString		Name;
+	int			Score;
+} RankingEntry;
+
+
 class CRanking : public CSceneBase {
 private:
 	CString m_String;
@@ -15,6 +23,9 @@ private:
 	Vector2 m_MousePos;
 	CFont	m_NameFont;		//ランキング登録用フォント
 	bool	m_bInputEnable;	//入力中かの判定
+
+	CDynamicArray<RankingEntry*> m_RankingEntryArray;	//ランキング登録を記録する配列
+
 public:
 	CRanking();
 	~CRanking() {}

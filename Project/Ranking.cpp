@@ -31,6 +31,10 @@ void CRanking::Update() {
 void CRanking::Render() {
 	//Ime関連描画
 	ImeRender();
+	
+	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
+		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
+	}
 }
 
 void CRanking::RenderDebug() {
@@ -67,6 +71,14 @@ void CRanking::ImeUpdate() {
 	{
 		//入力確定文字列として追加
 		m_String += g_pImeInput->GetEnterString()->GetString();
+
+		//入力された値を保存
+		RankingEntry* re = new RankingEntry;
+		re->Name = m_String;
+		re->IconRect = CRectangle(0, 0, 0, 0);
+		re->Score = 0;
+		m_RankingEntryArray.Add(&re);
+
 		//追加したら入力中文字列リセット
 		g_pImeInput->ResetEnterString();
 		//入力を無効にする
