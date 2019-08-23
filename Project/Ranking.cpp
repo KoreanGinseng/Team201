@@ -1,10 +1,11 @@
 #include	"Ranking.h"
+#include	"VirtualKeyBoard.h"
 
 char KeyBoard[4][10] = {
-	'1','2','3','4','5','6','7','8','9','0',
-    'Q','W','E','R','T','Y','U','I','O','P',
-	'A','S','D','F','G','H','J','K','L','+',
-	'Z','X','C','V','B','N','M','<','>','?'
+	VK_1,VK_2,VK_3,VK_4,VK_5,VK_6,VK_7,VK_8,VK_9,VK_0,
+	VK_Q,VK_W,VK_E,VK_R,VK_T,VK_Y,VK_U,VK_I,VK_O,VK_P,
+	VK_A,VK_S,VK_D,VK_F,VK_G,VK_H,VK_J,VK_K,VK_L,VK_OEM_PLUS,
+	VK_Z,VK_X,VK_C,VK_V,VK_B,VK_N,VK_M,VK_OEM_COMMA,VK_OEM_PERIOD,VK_OEM_2
 };
 
 CRanking::CRanking() {
@@ -46,7 +47,7 @@ void CRanking::Render() {
 }
 
 void CRanking::RenderDebug() {
-	CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
+	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
 }
 
 void CRanking::Release() {
@@ -74,11 +75,14 @@ void CRanking::ImeUpdate() {
 		m_String = "";
 
 	}
-		//SendKeyBoard(2, 9);
+	
 
 	//エンターキーを押した時に入力中文字があれば
 	if (g_pImeInput->GetEnterString()->GetLength() > 0)
 	{
+		//登録する名前はこれでよろしか
+		//
+
 		//入力確定文字列として追加
 		m_String += g_pImeInput->GetEnterString()->GetString();
 
