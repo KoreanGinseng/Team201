@@ -52,6 +52,11 @@ void COnishi::Initialize() {
 	atack = false;
 	MXpos = 0;
 	MYpos = 0;
+	h = false;
+	getxpos = 0;
+	getypos = 0;
+	getx = 0;
+	gety = 0;
 }
 
 /*****************************************************************
@@ -69,6 +74,7 @@ void COnishi::Update() {
 		return;
 	}
 	g_pInput->GetMousePos(MXpos, MYpos);
+	
 	if (!atack) {
 		if (g_pInput->IsKeyHold(MOFKEY_UP)) {
 			Ypos -= spead;
@@ -96,6 +102,20 @@ void COnishi::Update() {
 	}
 	
 	time += 1 * CUtilities::GetFrameSecond();
+	float gx = getxpos - Xpos;
+	float gy = getypos - Ypos;
+	float v = sqrtf(gx*gx + gy * gy);
+	gx /= v;
+	gy /= v;
+	if (h) {
+		
+		getx += gx*10;
+		gety += gy*10;
+	}
+	if (!h) {
+		getx = 0;
+		gety = 0;
+	}
 }
 
 /*****************************************************************
@@ -107,31 +127,56 @@ void COnishi::Update() {
 void COnishi::Render() {
 	float x = (MXpos - Xpos);
 	float y = (MYpos - Ypos);
+	
+
+
 
 	float tx = sqrtf(x*x);
 	float ty = sqrtf(y*y);
 
+	if (MXpos<=Xpos) {
+		tx = -tx;
+	}
+
+	if (MYpos<=Ypos) {
+		ty = -ty;
+	}
+
+	float a = tx / ty;
+	float ax = MYpos/a;
+	float ay = a*MXpos;
+	
+
 	float c = sqrtf(x * x + y * y);
 
-	float cx = c / x;
-	float cy = c / y;
+	float cx = x / c;
+	float cy = y / c;
+	
+	
 
-	CGraphicsUtilities::RenderString(0, 0,MOF_COLOR_BLACK, "モンハンサイコー?.%.1f",time);
-	CGraphicsUtilities::RenderCircle(Xpos, Ypos,10,MOF_COLOR_BLACK);
+
+	CGraphicsUtilities::RenderString(g_pGraphics->GetTargetWidth()/4*3,0,MOF_COLOR_BLACK, "タイム：%.1f",time);
+	CGraphicsUtilities::RenderFillCircle(Xpos, Ypos, 10, MOF_COLOR_BLACK);
 	if (atack) {
-		//CGraphicsUtilities::RenderLine(Xpos, Ypos, MXpos, MYpos, MOF_COLOR_WHITE);
-		if (MXpos>=Xpos&&MYpos>=Ypos) {
-			CGraphicsUtilities::RenderLine(Xpos, Ypos, tx * 1000, ty * 1000, MOF_COLOR_WHITE);
+		CGraphicsUtilities::RenderLine(Xpos, Ypos, tx*1000, ty*1000, MOF_COLOR_WHITE);
+		if (g_pInput->IsMouseKeyPush(MOFMOUSE_LBUTTON)) {
+			getxpos = MXpos;
+			getypos = MYpos;
+			h = !h;
 		}
-		else if (MXpos<=Xpos&& MYpos > Ypos) {
-			CGraphicsUtilities::RenderLine(Xpos, Ypos, -tx * 1000, ty * 1000, MOF_COLOR_WHITE);
-		}else if (MXpos <= Xpos && MYpos <= Ypos) {
-			CGraphicsUtilities::RenderLine(Xpos, Ypos, -tx * 1000, -ty * 1000, MOF_COLOR_WHITE);
-		}else if (MXpos >= Xpos && MYpos < Ypos) {
-			CGraphicsUtilities::RenderLine(Xpos, Ypos, tx * 1000, -ty * 1000, MOF_COLOR_WHITE);
-		}
-
 	}
+	if (h) {
+		CGraphicsUtilities::RenderFillCircle(Xpos+getx,Ypos+gety, 30, MOF_COLOR_GREEN);
+		
+	}
+	/*if (h) {
+	
+			CGraphicsUtilities::RenderFillRect(, MOF_COLOR_GREEN);
+		
+	}
+	else {
+		CGraphicsUtilities::RenderFillRect(, MOF_COLOR_RED);
+	}*/
 	if (poase) {
 		CGraphicsUtilities::RenderFillRect(g_pGraphics->GetTargetWidth() / 4, g_pGraphics->GetTargetHeight() / 3, 700, 600, MOF_COLOR_WHITE);
 	}

@@ -23,6 +23,12 @@ private:
 	float MXpos;
 	float MYpos;
 	bool atack;
+	bool h;
+	float getxpos;
+	float getypos;
+	float getx;
+	float gety;
+
 public:
 	/*****************************************************************
 	 * @fn
