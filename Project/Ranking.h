@@ -43,7 +43,7 @@ public:
 	void ImeUpdate();
 	void ImeRender();
 
-	void SendKeyBoard(int x, int y);
+	void SendKeyBoard(int y, int x);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
 													g_pGraphics->GetTargetWidth() / 2 + TEXTBOX_WIDHT + TEXTBOX_MARGIN, TEXTBOX_TOP + m_NameFont.GetSize()); }	//テキストボックスの矩形

@@ -1,10 +1,10 @@
 #include	"Ranking.h"
 
 char KeyBoard[4][10] = {
-	{'1','2','3','4','5','6','7','8','9','0' },
-    {'q','w','e','r','t','y','u','i','o','p' },
-	{'a','s','d','f','g','h','j','k','l',';' },
-	{'z','x','c','v','b','n','m',',','.','/' }
+	'1','2','3','4','5','6','7','8','9','0',
+    'Q','W','E','R','T','Y','U','I','O','P',
+	'A','S','D','F','G','H','J','K','L','+',
+	'Z','X','C','V','B','N','M','<','>','?'
 };
 
 CRanking::CRanking() {
@@ -46,7 +46,7 @@ void CRanking::Render() {
 }
 
 void CRanking::RenderDebug() {
-
+	CGraphicsUtilities::RenderString(10, 200, "0x%x", KeyBoard[2][0]);
 }
 
 void CRanking::Release() {
@@ -74,8 +74,7 @@ void CRanking::ImeUpdate() {
 		m_String = "";
 
 	}
-
-		SendKeyBoard(0, 8);
+		SendKeyBoard(2, 9);
 
 	//エンターキーを押した時に入力中文字があれば
 	if (g_pImeInput->GetEnterString()->GetLength() > 0)
@@ -125,7 +124,7 @@ void CRanking::ImeRender() {
 	}
 }
 
-void CRanking::SendKeyBoard(int x, int y) {
-	keybd_event(KeyBoard[x][y], (BYTE)MapVirtualKey(KeyBoard[x][y], 0), 0, 0);
-	keybd_event(KeyBoard[x][y], (BYTE)MapVirtualKey(KeyBoard[x][y], 0), KEYEVENTF_KEYUP, 0);
+void CRanking::SendKeyBoard(int y, int x) {
+	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), 0, 0);
+	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), KEYEVENTF_KEYUP, 0);
 }
