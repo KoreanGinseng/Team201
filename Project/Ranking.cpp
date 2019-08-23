@@ -46,7 +46,7 @@ void CRanking::Render() {
 }
 
 void CRanking::RenderDebug() {
-	CGraphicsUtilities::RenderString(10, 200, "0x%x", KeyBoard[2][0]);
+	CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
 }
 
 void CRanking::Release() {
