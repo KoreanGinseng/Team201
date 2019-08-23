@@ -35,7 +35,7 @@ MofBool CGameApp::Initialize(void){
 	//開始シーン
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
 	g_pScene = new CInoue();			//ゲームシーンからスタート(デバック用)
-	g_pScene = new CRanking();			//ランキングシーンからスタート(デバック用)
+	//g_pScene = new CRanking();			//ランキングシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
 
 	CUtilities::SetCurrentDirectoryA("Resource");

@@ -74,7 +74,7 @@ void CRanking::ImeUpdate() {
 		m_String = "";
 
 	}
-		SendKeyBoard(2, 9);
+		//SendKeyBoard(2, 9);
 
 	//エンターキーを押した時に入力中文字があれば
 	if (g_pImeInput->GetEnterString()->GetLength() > 0)

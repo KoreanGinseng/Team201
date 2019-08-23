@@ -122,6 +122,7 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Title\Title.h" />
+    <ClInclude Include="VirtualKeyBoard.h" />
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
     <ClInclude Include="_Inoue\Inoue.h" />
     <ClInclude Include="_Kimura\Kimura.h" />
