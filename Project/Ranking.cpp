@@ -1,7 +1,7 @@
 #include	"Ranking.h"
 #include	"VirtualKeyBoard.h"
 
-char KeyBoard[4][10] = {
+unsigned short int KeyBoard[4][10] = {
 	VK_1,VK_2,VK_3,VK_4,VK_5,VK_6,VK_7,VK_8,VK_9,VK_0,
 	VK_Q,VK_W,VK_E,VK_R,VK_T,VK_Y,VK_U,VK_I,VK_O,VK_P,
 	VK_A,VK_S,VK_D,VK_F,VK_G,VK_H,VK_J,VK_K,VK_L,VK_OEM_PLUS,
@@ -12,7 +12,7 @@ CRanking::CRanking() {
 }
 
 void CRanking::Load() {
-
+	
 }
 
 void CRanking::Initialize() {
