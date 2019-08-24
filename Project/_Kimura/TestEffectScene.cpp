@@ -45,6 +45,8 @@ void CTestEffectScene::Update() {
 
 void CTestEffectScene::Render() {
 
+	m_BackTexture.Render(0, 0);
+
 	EffectRender(EFFECTNO_2);
 
 	RenderDebug();

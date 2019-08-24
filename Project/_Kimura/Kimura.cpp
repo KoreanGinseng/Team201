@@ -96,6 +96,8 @@ void CKimura::Update() {
  *****************************************************************/
 void CKimura::Render() {
 
+	m_BackTexture.Render(0, 0, MOF_ARGB(m_Effect.Alpha, 255, 255, 255));
+
 	EffectRender(EFFECTNO_1);
 
 	m_Player.Render();

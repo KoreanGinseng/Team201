@@ -26,10 +26,7 @@ void CSceneBase::SceneEffect1Update() {
 	}
 }
 
-void CSceneBase::SceneEffect1Render() {
 
-	m_BackTexture.Render(0, 0, MOF_ARGB(m_Effect.Alpha, 255, 255, 255));
-}
 
 void CSceneBase::SceneEffect2Update() {
 
@@ -71,7 +68,7 @@ void CSceneBase::SceneEffect2Render() {
 
 	
 
-		m_BackTexture.Render(0, 0);
+		
 
 		if (m_NowScene != m_NextScene) {
 
@@ -122,8 +119,6 @@ void CSceneBase::EffectRender(int effectNo) {
 	{
 
 	case EFFECTNO_1:
-		SceneEffect1Render();
-		break;
 	case EFFECTNO_2:
 
 		SceneEffect2Render();
