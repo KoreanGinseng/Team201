@@ -9,6 +9,7 @@
 //! INCLUDE
 
 #include	"../SceneBase.h"
+//#include	"../GameDefine.h"
 #include	"Player.h"
 
  /*****************************************************************

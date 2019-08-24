@@ -66,6 +66,12 @@
     <ClCompile Include="_Kimura\Player.cpp">
       <Filter>ソース ファイル\_KimuraFilter</Filter>
     </ClCompile>
+    <ClCompile Include="_Kimura\SceneBase.cpp">
+      <Filter>ソース ファイル\_KimuraFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\TestEffectScene.cpp">
+      <Filter>ソース ファイル\_KimuraFilter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -105,6 +111,9 @@
       <Filter>ソース ファイル\_KimuraFilter</Filter>
     </ClInclude>
     <ClInclude Include="_Kimura\Player.h">
+      <Filter>ソース ファイル\_KimuraFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\TestEffectScene.h">
       <Filter>ソース ファイル\_KimuraFilter</Filter>
     </ClInclude>
   </ItemGroup>

@@ -105,6 +105,8 @@
     <ClCompile Include="_Inoue\Inoue.cpp" />
     <ClCompile Include="_Kimura\Kimura.cpp" />
     <ClCompile Include="_Kimura\Player.cpp" />
+    <ClCompile Include="_Kimura\SceneBase.cpp" />
+    <ClCompile Include="_Kimura\TestEffectScene.cpp" />
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +122,7 @@
     <ClInclude Include="_Kimura\GamePad.h" />
     <ClInclude Include="_Kimura\Kimura.h" />
     <ClInclude Include="_Kimura\Player.h" />
+    <ClInclude Include="_Kimura\TestEffectScene.h" />
     <ClInclude Include="_Onishi\Onishi.h" />
   </ItemGroup>
   <ItemGroup>

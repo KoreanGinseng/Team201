@@ -8,6 +8,7 @@
 //! INCLUDE
 #include	"Kimura.h"
 
+
 /*****************************************************************
  * @fn
  * 引数なしコンストラクタ
@@ -36,7 +37,7 @@ CKimura::~CKimura() {
  *****************************************************************/
 void CKimura::Load() {
 
-	
+	m_BackTexture.Load("TestKimura.png");
 
 }
 
@@ -48,9 +49,15 @@ void CKimura::Load() {
  *****************************************************************/
 void CKimura::Initialize() {
 
-	CUtilities::SetCurrentDirectoryA("Resource");
+
+	Load();
 
 	m_bEnd = false;
+
+	m_NowScene = /*SCENENO_GAME*/6;
+	m_NextScene = /*SCENENO_GAME*/6;
+
+	m_Effect = { 255,0,0 };
 
 	m_Player.Load();
 
@@ -66,6 +73,17 @@ void CKimura::Initialize() {
  *****************************************************************/
 void CKimura::Update() {
 
+	EffectUpdate(EFFECTNO_1);
+
+	if (g_pInput->GetGamePadCount()) {
+
+		if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
+
+			m_NowScene = 8;
+
+		}
+	}
+
 	m_Player.Update();
 
 }
@@ -77,6 +95,8 @@ void CKimura::Update() {
  * @return なし
  *****************************************************************/
 void CKimura::Render() {
+
+	EffectRender(EFFECTNO_1);
 
 	m_Player.Render();
 
@@ -91,7 +111,7 @@ void CKimura::Render() {
  *****************************************************************/
 void CKimura::RenderDebug() {
 
-	CGraphicsUtilities::RenderString(0, 0, "KimuraScene");
+	CGraphicsUtilities::RenderString(0, 0, MOF_XRGB(255,0,0),"KimuraScene Bボタンで画面遷移");
 
 }
 

@@ -20,6 +20,7 @@
 #include	"_Fujiwara/Fujiwara.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
+#include	"_Kimura/TestEffectScene.h"
 
 //! GLOBAL
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
@@ -32,6 +33,9 @@ CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
+
+	CUtilities::SetCurrentDirectoryA("Resource");
+
 	//開始シーン
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
 	g_pScene = new CKimura();			//ゲームシーンからスタート(デバック用)
@@ -98,6 +102,10 @@ MofBool CGameApp::Update(void){
 		case SCENENO_ONISHI:
 			g_pScene = new COnishi();
 			break;
+		case SCENENO_TEST:
+			g_pScene = new CTestEffectScene();
+			break;
+
 		}
 		//新しいシーンの読み込みと初期化
 		g_pScene->Load();
