@@ -28,6 +28,18 @@
     <Filter Include="ソース ファイル\Actor">
       <UniqueIdentifier>{7354fd29-5307-4245-99a8-c3b345fa31d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Camera2D">
+      <UniqueIdentifier>{2b3003cf-65d2-409f-8e4f-b9f4e07989dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage">
+      <UniqueIdentifier>{60d1bfa8-896d-490b-8dde-5de5fbb971dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{2d248bc9-d2b6-47dd-89ac-cc3dcfb2690b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Ranking">
+      <UniqueIdentifier>{8d8ad326-e97e-4e71-ba12-2e6b5e063341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -59,6 +71,21 @@
     </ClCompile>
     <ClCompile Include="_Onishi\Onishi.cpp">
       <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>ソース ファイル\Camera2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranking\Ranking.cpp">
+      <Filter>ソース ファイル\Ranking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +121,27 @@
     </ClInclude>
     <ClInclude Include="_Onishi\Onishi.h">
       <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>ソース ファイル\Camera2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinate.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePad.h">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualKeyBoard.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking\Ranking.h">
+      <Filter>ソース ファイル\Ranking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
