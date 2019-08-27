@@ -63,6 +63,10 @@ void CPlayer::Update() {
 		}
 
 	}
+	//キーボード操作
+	else {
+		KeyOperation();
+	}
 	//残機処理の更新
 	LifeDecrease();
 
@@ -135,10 +139,10 @@ void CPlayer::PadOperation() {
 
 	m_PosY += m_MoveY;
 
-	//とりあえず縦座標が600の位置をステージに
-	if (m_PosY > 600) {
+	//とりあえず縦座標が300の位置をステージに
+	if (m_PosY > 300) {
 
-		m_PosY = 600;
+		m_PosY = 300;
 
 		m_MoveY = 0;
 
@@ -150,9 +154,88 @@ void CPlayer::PadOperation() {
 
 	}
 
+}
 
-	
+void CPlayer::KeyOperation() {
 
+	//スティックを右か左に倒した場合、倒した方向に移動
+	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
+
+		m_MoveX += 0.3f;
+
+		if (m_MoveX > PLAYER_MAXSPEED) {
+
+			m_MoveX = PLAYER_MAXSPEED;
+
+		}
+
+	}
+	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
+
+		m_MoveX -= 0.3f;
+
+		if (m_MoveX < -PLAYER_MAXSPEED) {
+
+			m_MoveX = -PLAYER_MAXSPEED;
+
+		}
+
+	}//スティックを離した場合（移動の操作をしていない場合）
+	else {
+
+		//移動量が0なら処理に入らない
+		//移動量が存在する場合、徐々に移動量を0にする
+		if (m_MoveX > 0) {
+
+			m_MoveX -= 0.3f;
+
+			if (m_MoveX < 0) {
+
+				m_MoveX = 0;
+			}
+
+		}
+		else if (m_MoveX < 0) {
+
+			m_MoveX += 0.3f;
+
+			if (m_MoveX > 0) {
+
+				m_MoveX = 0;
+			}
+
+		}
+	}
+
+	//移動量を座標に加算
+	m_PosX += m_MoveX;
+
+	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
+	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump) {
+
+		m_bJump = true;
+
+		m_MoveY = -10.0f;
+	}
+
+	m_MoveY += PLAYER_GRAVITY;
+
+	m_PosY += m_MoveY;
+
+	//とりあえず縦座標が300の位置をステージに
+	if (m_PosY > 100) {
+
+		m_PosY = 100;
+
+		m_MoveY = 0;
+
+		if (m_bJump) {
+
+			m_bJump = false;
+
+		}
+
+	}
 }
 
 void CPlayer::LifeDecrease() {
@@ -165,10 +248,11 @@ void CPlayer::LifeDecrease() {
 	}
 }
 
-void CPlayer::Render() {
+void CPlayer::Render(Vector2 scroll) {
 
 	//プレイヤー(仮)の描画
-	CGraphicsUtilities::RenderRect(m_PosX, m_PosY, m_PosX + PLAYER_WIDTH, m_PosY + PLAYER_HEIGHT, MOF_XRGB(255, 0, 0));
+	//CGraphicsUtilities::RenderRect(m_PosX, m_PosY, m_PosX + PLAYER_WIDTH, m_PosY + PLAYER_HEIGHT, MOF_XRGB(255, 0, 0));
+	CGraphicsUtilities::RenderRect(scroll.x, scroll.y, scroll.x + PLAYER_WIDTH, scroll.y + PLAYER_HEIGHT, MOF_XRGB(255, 0, 0));
 	//プレイヤーのHPの描画
 	RenderState();
 

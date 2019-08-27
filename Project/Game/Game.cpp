@@ -7,6 +7,7 @@
 
 //! INCLUDE
 #include	"Game.h"
+#include	"../Coordinate.h"
 
 char*		g_StageFileName[STAGE_COUNT] = {
 			"testMap.txt",
@@ -71,6 +72,13 @@ void CGame::Update() {
 
 	m_Player.Update();
 
+	if (m_Player.GetPos() != m_MainCamera.GetScroll())
+	{
+		Vector2 d = m_Player.GetPos() - m_MainCamera.GetScroll();
+		d /= PLAYER_MAXSPEED * 0.5;
+		m_MainCamera.AddScroll(d);
+	}
+
 	m_Stage[m_StageNo].Update();
 
 	// Oキーでステージ変更
@@ -100,7 +108,9 @@ void CGame::Update() {
  *****************************************************************/
 void CGame::Render() {
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
-	m_Player.Render();
+	
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), Vector2(m_Player.GetPos().x, -m_Player.GetPos().y));
+	m_Player.Render(screenPos);
 }
 
 /*****************************************************************

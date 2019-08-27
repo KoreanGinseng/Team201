@@ -100,7 +100,7 @@ void CKimura::Render() {
 
 	EffectRender(EFFECTNO_1);
 
-	m_Player.Render();
+	//m_Player.Render();
 
 	RenderDebug();
 }

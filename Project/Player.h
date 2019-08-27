@@ -42,12 +42,15 @@ public:
 	bool	Load(void);
 	void	Initialize(void);
 	void	Update(void);
-	void	Render(void);
+	void	Render(Vector2 scroll);
 	void	Release(void);
 
 	void	RenderDebug(void);
 	void	RenderState(void);
 	void	PadOperation(void);
+	void	KeyOperation(void);
 	void	LifeDecrease(void);
 
+	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
+	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
 };

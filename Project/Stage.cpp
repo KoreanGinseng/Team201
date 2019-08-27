@@ -161,9 +161,9 @@ void CStage::Render(Vector2 scroll) {
 	int wn = m_BackTexture.GetWidth();
 	int hn = m_BackTexture.GetHeight();
 	//for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
-	for (float y = ((int)scroll.y / 4 % hn) - hn; y < sch; y += hn) {
+	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		//for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
-		for (float x = ((int)scroll.x / 4 % wn) - wn; x < scw; x += wn) {
+		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
 			m_BackTexture.Render(x, y);
 		}
 	}
@@ -183,7 +183,7 @@ void CStage::Render(Vector2 scroll) {
 			CRectangle cr(m_ChipSize * (cn % tcx), m_ChipSize*(cn / tcx), m_ChipSize * (cn % tcx + 1), m_ChipSize * (cn / tcx + 1));
 			//マップチップの描画
 			//m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
-			m_ChipTexture.Render(scroll.x + x * m_ChipSize, scroll.y + y * m_ChipSize, cr);
+			m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
 }
