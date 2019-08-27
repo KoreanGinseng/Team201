@@ -8,6 +8,12 @@
 //! INCLUDE
 #include	"Game.h"
 
+char*		g_StageFileName[STAGE_COUNT] = {
+			"testMap.txt",
+			"testMap2-2.txt",
+			"testMap3.txt",
+};
+
 /*****************************************************************
  * @fn
  * 引数なしコンストラクタ
@@ -35,7 +41,10 @@ CGame::~CGame() {
  * @return なし
  *****************************************************************/
 void CGame::Load() {
-
+	for (int i = 0; i < STAGE_COUNT; i++) {
+		m_Stage[i].Load(g_StageFileName[i]);
+	}
+	m_Player.Load();
 }
 
 /*****************************************************************
@@ -45,7 +54,11 @@ void CGame::Load() {
  * @return なし
  *****************************************************************/
 void CGame::Initialize() {
-
+	m_StageNo = 0;
+	for (int i = 0; i < STAGE_COUNT; i++) {
+		m_Stage[i].Initialize();
+	}
+	m_Player.Initialize();
 }
 
 /*****************************************************************
@@ -56,6 +69,27 @@ void CGame::Initialize() {
  *****************************************************************/
 void CGame::Update() {
 
+	m_Player.Update();
+
+	m_Stage[m_StageNo].Update();
+
+	// Oキーでステージ変更
+	if (g_pInput->IsKeyPush(MOFKEY_O)) {
+		m_StageNo++;
+		if (m_StageNo >= STAGE_COUNT) {
+			m_StageNo = 0;
+		}
+	}
+
+	// スペースキーでフルスクリーンに変換
+	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+		g_pGraphics->ChangeScreenMode();
+	}
+
+	// ESCAPEキーで終了
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
+		PostQuitMessage(0);
+	}
 }
 
 /*****************************************************************

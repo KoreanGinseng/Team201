@@ -6,6 +6,7 @@
  *****************************************************************/
 #pragma once
 #include	"Mof.h"
+#include	"GameDefine.h"
 
 typedef struct {
 

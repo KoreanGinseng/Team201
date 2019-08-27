@@ -11,8 +11,10 @@
 //! DEFINE
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
+#define		STAGE_COUNT		3		//! ゲームステージ数
+
 //! GLOBAL
-bool		g_bDebug = true;		//! デバッグ表示フラグ
+extern bool		g_bDebug;			//! デバッグ表示フラグ
 
 //! デバック表示位置定義
 #define		DEBUGPOSX_FPS		g_pGraphics->GetTargetWidth() - 30	//! FPS表示位置X

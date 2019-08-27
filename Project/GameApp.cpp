@@ -9,7 +9,6 @@
 
 //! INCLUDE
 #include	"GameApp.h"
-#include	"GameDefine.h"
 
 //! SCENE
 #include	"Game/Game.h"
@@ -20,8 +19,10 @@
 #include	"_Fujiwara/Fujiwara.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
+#include	"Ranking/Ranking.h"
 
 //! GLOBAL
+bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
 /*************************************************************************//*!

@@ -124,7 +124,7 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking\Ranking.h" />
-    <ClInclude Include="Scene\SceneBase.h" />
+    <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestEffectScene.h" />
     <ClInclude Include="Title\Title.h" />
