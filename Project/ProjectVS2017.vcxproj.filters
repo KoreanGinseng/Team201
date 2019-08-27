@@ -40,6 +40,9 @@
     <Filter Include="ソース ファイル\Ranking">
       <UniqueIdentifier>{8d8ad326-e97e-4e71-ba12-2e6b5e063341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{d51261e7-7110-4c5d-94b8-b79ad76f59c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -86,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="Ranking\Ranking.cpp">
       <Filter>ソース ファイル\Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEffectScene.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Ranking\Ranking.h">
       <Filter>ソース ファイル\Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEffectScene.h">
+      <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

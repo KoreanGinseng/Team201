@@ -1,10 +1,10 @@
 #pragma once
 
-#include	"../SceneBase.h"
+#include	"SceneBase.h"
 //#include	"../Project/GameDefine.h"
 #include	"GamePad.h"
 
-class CTestEffectScene : public CSceneBase{
+class CTestEffectScene : public CSceneBase {
 
 private:
 public:

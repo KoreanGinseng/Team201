@@ -1,4 +1,4 @@
-#include		"../SceneBase.h"
+#include		"SceneBase.h"
 
 
 void CSceneBase::SceneEffect1Update() {
