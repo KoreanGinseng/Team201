@@ -101,6 +101,10 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Title\Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
+    <ClCompile Include="_Inoue\Inoue.cpp" />
+    <ClCompile Include="_Kimura\Kimura.cpp" />
+    <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h" />
@@ -110,6 +114,10 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Title\Title.h" />
+    <ClInclude Include="_Fujiwara\Fujiwara.h" />
+    <ClInclude Include="_Inoue\Inoue.h" />
+    <ClInclude Include="_Kimura\Kimura.h" />
+    <ClInclude Include="_Onishi\Onishi.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc" />

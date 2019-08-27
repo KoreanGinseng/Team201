@@ -25,6 +25,9 @@
     <Filter Include="ソース ファイル\GameOver">
       <UniqueIdentifier>{ae7e244c-19b6-439f-97cf-71eeb52aee98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Actor">
+      <UniqueIdentifier>{7354fd29-5307-4245-99a8-c3b345fa31d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -44,6 +47,18 @@
     </ClCompile>
     <ClCompile Include="Title\Title.cpp">
       <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="_Fujiwara\Fujiwara.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="_Inoue\Inoue.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\Kimura.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Onishi.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +82,18 @@
     </ClInclude>
     <ClInclude Include="Title\Title.h">
       <Filter>ソース ファイル\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="_Fujiwara\Fujiwara.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\Inoue.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\Kimura.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Onishi.h">
+      <Filter>ソース ファイル\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
