@@ -99,7 +99,8 @@ void CGame::Update() {
  * @return ‚È‚µ
  *****************************************************************/
 void CGame::Render() {
-
+	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
+	m_Player.Render();
 }
 
 /*****************************************************************
@@ -119,5 +120,9 @@ void CGame::RenderDebug() {
  * @return ‚È‚µ
  *****************************************************************/
 void CGame::Release() {
-
+	for (int i = 0; i < STAGE_COUNT; i++)
+	{
+		m_Stage[i].Release();
+	}
+	m_Player.Release();
 }

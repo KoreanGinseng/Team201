@@ -13,6 +13,18 @@
 
 #define		STAGE_COUNT		3		//! ゲームステージ数
 
+
+#define		PLAYER_WIDTH	60
+#define		PLAYER_HEIGHT	64
+
+#define		PLAYER_MAXHP	100
+
+#define		PLAYER_MAXLIFE	3
+
+#define		PLAYER_MAXSPEED	8
+
+#define		PLAYER_GRAVITY	0.3f
+
 //! GLOBAL
 extern bool		g_bDebug;			//! デバッグ表示フラグ
 

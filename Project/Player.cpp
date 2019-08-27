@@ -1,4 +1,5 @@
 #include		"Player.h"
+#include		"GameDefine.h"
 
 CPlayer::CPlayer() {
 	//オブジェクト生成時の初期化

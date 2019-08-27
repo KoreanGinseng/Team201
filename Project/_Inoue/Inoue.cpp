@@ -8,11 +8,7 @@
 //! INCLUDE
 #include	"Inoue.h"
 
-char*		g_StageFileName[STAGECOUNT] = {
-			"testMap.txt",
-			"testMap2-2.txt",
-			"testMap3.txt",
-};
+extern char*		g_StageFileName[STAGECOUNT];
 
 /*****************************************************************
  * @fn
