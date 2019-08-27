@@ -9,6 +9,9 @@ CPlayer::CPlayer() {
 	m_MoveX = 0;
 	m_MoveY = 0;
 
+	m_MoveX2 = 0;
+	m_MoveY2 = 0;
+
 	m_Hp = PLAYER_MAXHP;
 	m_Life = PLAYER_MAXLIFE;
 
@@ -35,7 +38,9 @@ bool CPlayer::Load() {
 }
 void CPlayer::Initialize() {
 	//座標の初期化
-	m_PosX = 0;
+	//m_PosX = 0;
+	m_PosX = g_pGraphics->GetTargetWidth() / 2;
+	//m_PosY = 0;
 	m_PosY = 0;
 	//移動量の初期化
 	m_MoveX = 0;
@@ -139,20 +144,14 @@ void CPlayer::PadOperation() {
 
 	m_PosY += m_MoveY;
 
-	//とりあえず縦座標が300の位置をステージに
-	if (m_PosY > 300) {
-
-		m_PosY = 300;
-
-		m_MoveY = 0;
-
-		if (m_bJump) {
-
-			m_bJump = false;
-
-		}
-
-	}
+	////とりあえず縦座標が300の位置をステージに
+	//if (m_PosY > 300) {
+	//	m_PosY = 300;
+	//	m_MoveY = 0;
+	//	if (m_bJump) {
+	//		m_bJump = false;
+	//	}
+	//}
 
 }
 
@@ -162,10 +161,15 @@ void CPlayer::KeyOperation() {
 	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
 
 		m_MoveX += 0.3f;
-
+		m_MoveX2 += 2.5f;
 		if (m_MoveX > PLAYER_MAXSPEED) {
 
 			m_MoveX = PLAYER_MAXSPEED;
+
+		}
+		if (m_MoveX2 > PLAYER_MAXSPEED * 50) {
+
+			m_MoveX2 = PLAYER_MAXSPEED * 50;
 
 		}
 
@@ -173,10 +177,16 @@ void CPlayer::KeyOperation() {
 	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
 
 		m_MoveX -= 0.3f;
+		m_MoveX2 -= 2.5f;
 
 		if (m_MoveX < -PLAYER_MAXSPEED) {
 
 			m_MoveX = -PLAYER_MAXSPEED;
+
+		}
+		if (m_MoveX2 < -PLAYER_MAXSPEED * 50) {
+
+			m_MoveX2 = -PLAYER_MAXSPEED * 50;
 
 		}
 
@@ -205,6 +215,29 @@ void CPlayer::KeyOperation() {
 			}
 
 		}
+
+		//移動量が0なら処理に入らない
+		//移動量が存在する場合、徐々に移動量を0にする
+		if (m_MoveX2 > 0) {
+
+			m_MoveX2 -= 2.5f;
+
+			if (m_MoveX2 < 0) {
+
+				m_MoveX2 = 0;
+			}
+
+		}
+		else if (m_MoveX2 < 0) {
+
+			m_MoveX2 += 2.5f;
+
+			if (m_MoveX2 > 0) {
+
+				m_MoveX2 = 0;
+			}
+
+		}
 	}
 
 	//移動量を座標に加算
@@ -222,20 +255,14 @@ void CPlayer::KeyOperation() {
 
 	m_PosY += m_MoveY;
 
-	//とりあえず縦座標が300の位置をステージに
-	if (m_PosY > 100) {
-
-		m_PosY = 100;
-
-		m_MoveY = 0;
-
-		if (m_bJump) {
-
-			m_bJump = false;
-
-		}
-
-	}
+	////とりあえず縦座標が300の位置をステージに
+	//if (m_PosY > 100) {
+	//	m_PosY = 100;
+	//	m_MoveY = 0;
+	//	if (m_bJump) {
+	//		m_bJump = false;
+	//	}
+	//}
 }
 
 void CPlayer::LifeDecrease() {
@@ -279,4 +306,27 @@ void CPlayer::RenderDebug() {
 void CPlayer::Release() {
 	//HPテクスチャー(仮)の解放
 	m_HpTexture.Release();
+}
+
+void CPlayer::CollisionStage(Vector2 o) {
+	m_PosX += o.x;
+	m_PosY += o.y;
+	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化
+	if (o.y < 0 && m_MoveY > 0)
+	{
+		m_MoveY = 0;
+		if (m_bJump)
+		{
+			m_bJump = false;
+		}
+	}
+	else if (o.y > 0 && m_MoveY < 0)
+	{
+		m_MoveY = 0;
+	}
+	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する
+	if ((o.x < 0 && m_MoveX>0) || (o.x > 0 && m_MoveX < 0))
+	{
+		m_MoveX = 0;
+	}
 }

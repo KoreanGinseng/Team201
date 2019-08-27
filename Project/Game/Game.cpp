@@ -72,10 +72,20 @@ void CGame::Update() {
 
 	m_Player.Update();
 
-	if (m_Player.GetPos() != m_MainCamera.GetScroll())
+	Vector2 o;
+	if (m_Stage[m_StageNo].Collision(m_Player.GetRect(), o))
 	{
-		Vector2 d = m_Player.GetPos() - m_MainCamera.GetScroll();
-		d /= PLAYER_MAXSPEED * 0.5;
+		m_Player.CollisionStage(o);
+	}
+
+	Vector2 centerPos = m_Player.GetPos()
+		- Vector2(g_pGraphics->GetTargetWidth() / 2,
+				  g_pGraphics->GetTargetHeight() / 2 + 180) + m_Player.GetMove2();
+
+	if (centerPos != m_MainCamera.GetScroll())
+	{
+		Vector2 d = centerPos - m_MainCamera.GetScroll();
+		d /= PLAYER_MAXSPEED;
 		m_MainCamera.AddScroll(d);
 	}
 
@@ -109,7 +119,7 @@ void CGame::Update() {
 void CGame::Render() {
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 	
-	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), Vector2(m_Player.GetPos().x, -m_Player.GetPos().y));
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.Render(screenPos);
 }
 
