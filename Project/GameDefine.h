@@ -16,13 +16,9 @@
 
 #define		PLAYER_WIDTH	60
 #define		PLAYER_HEIGHT	64
-
 #define		PLAYER_MAXHP	100
-
 #define		PLAYER_MAXLIFE	3
-
 #define		PLAYER_MAXSPEED	8
-
 #define		PLAYER_GRAVITY	0.3f
 
 //! GLOBAL
