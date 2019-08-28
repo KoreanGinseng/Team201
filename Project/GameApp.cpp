@@ -100,6 +100,9 @@ MofBool CGameApp::Update(void){
 		case SCENENO_GAMEOVER:
 			g_pScene = new CGameOver();
 			break;
+		case SCENENO_RANKING:
+			g_pScene = new CRanking();
+			break;
 		case SCENENO_FUJIWARA:
 			g_pScene = new CFujiwara();
 			break;
