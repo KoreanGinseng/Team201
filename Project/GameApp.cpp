@@ -25,6 +25,17 @@
 bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
+class CLoading : public CThread {
+public:
+	bool bEnd = false;
+	void Run(void)
+	{
+		Sleep(10000);
+		bEnd = true;
+		return;
+	}
+};
+CLoading a;
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
@@ -50,7 +61,7 @@ MofBool CGameApp::Initialize(void){
 	{
 		return FALSE;
 	}
-
+	a.Start("Loading");
 	return TRUE;
 }
 /*************************************************************************//*!
@@ -131,6 +142,14 @@ MofBool CGameApp::Render(void){
 	//シーンの描画
 	g_pScene->Render();
 
+	if (a.bEnd)
+	{
+		CGraphicsUtilities::RenderString(0, 0, "LoadEnd");
+	}
+	else
+	{
+		CGraphicsUtilities::RenderString(0, 0, "Load...");
+	}
 	//デバッグ表示
 	if (g_bDebug) 
 	{
