@@ -9,12 +9,25 @@
 //! INCLUDE
 #include	"../SceneBase.h"
 
+#define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
   *	@author			井上颯騎
   *****************************************************************/
 class COnishi : public CSceneBase {
 private:
+	bool poase;
+	float time;
+	float Xpos;
+	float Ypos;
+	float MXpos;
+	float MYpos;
+	bool atack;
+	bool h;
+	float getxpos;
+	float getypos;
+	float getx;
+	float gety;
 
 public:
 	/*****************************************************************

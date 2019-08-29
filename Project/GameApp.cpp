@@ -9,7 +9,6 @@
 
 //! INCLUDE
 #include	"GameApp.h"
-#include	"GameDefine.h"
 
 //! SCENE
 #include	"Game/Game.h"
@@ -20,11 +19,23 @@
 #include	"_Fujiwara/Fujiwara.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
-#include	"_Kimura/TestEffectScene.h"
+#include	"Ranking/Ranking.h"
 
 //! GLOBAL
+bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
+class CLoading : public CThread {
+public:
+	bool bEnd = false;
+	void Run(void)
+	{
+		Sleep(10000);
+		bEnd = true;
+		return;
+	}
+};
+CLoading a;
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
@@ -33,13 +44,12 @@ CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-
-	CUtilities::SetCurrentDirectoryA("Resource");
-
 	//開始シーン
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
-	g_pScene = new CKimura();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
+
+	//読み込みカレントディレクトリの設定
+	CUtilities::SetCurrentDirectoryA("Resource");
 
 	//シーンの読み込み
 	g_pScene->Load();
@@ -51,7 +61,7 @@ MofBool CGameApp::Initialize(void){
 	{
 		return FALSE;
 	}
-
+	a.Start("Loading");
 	return TRUE;
 }
 /*************************************************************************//*!
@@ -90,6 +100,9 @@ MofBool CGameApp::Update(void){
 		case SCENENO_GAMEOVER:
 			g_pScene = new CGameOver();
 			break;
+		case SCENENO_RANKING:
+			g_pScene = new CRanking();
+			break;
 		case SCENENO_FUJIWARA:
 			g_pScene = new CFujiwara();
 			break;
@@ -102,10 +115,6 @@ MofBool CGameApp::Update(void){
 		case SCENENO_ONISHI:
 			g_pScene = new COnishi();
 			break;
-		case SCENENO_TEST:
-			g_pScene = new CTestEffectScene();
-			break;
-
 		}
 		//新しいシーンの読み込みと初期化
 		g_pScene->Load();
@@ -136,6 +145,14 @@ MofBool CGameApp::Render(void){
 	//シーンの描画
 	g_pScene->Render();
 
+	if (a.bEnd)
+	{
+		CGraphicsUtilities::RenderString(0, 0, "LoadEnd");
+	}
+	else
+	{
+		CGraphicsUtilities::RenderString(0, 0, "Load...");
+	}
 	//デバッグ表示
 	if (g_bDebug) 
 	{
