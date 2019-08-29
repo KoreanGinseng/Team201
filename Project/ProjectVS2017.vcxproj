@@ -95,10 +95,17 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
     <ClCompile Include="GameOver\GameOver.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ranking\Ranking.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TestEffectScene.cpp" />
     <ClCompile Include="Title\Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
@@ -107,13 +114,21 @@
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="Coordinate.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameClear\GameClear.h" />
     <ClInclude Include="GameOver\GameOver.h" />
+    <ClInclude Include="GamePad.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Ranking\Ranking.h" />
     <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="TestEffectScene.h" />
     <ClInclude Include="Title\Title.h" />
+    <ClInclude Include="VirtualKeyBoard.h" />
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
     <ClInclude Include="_Inoue\Inoue.h" />
     <ClInclude Include="_Kimura\Kimura.h" />

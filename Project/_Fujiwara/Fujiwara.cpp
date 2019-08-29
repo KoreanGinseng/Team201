@@ -35,7 +35,11 @@ CFujiwara::~CFujiwara() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Load() {
-
+	//リソース配置ディレクトリの設定
+	CUtilities::SetCurrentDirectory("Resource");
+	m_pFontTexture = new CTexture();
+	m_pFontTexture->Load("sumple_imvisible.png");
+	
 }
 
 /*****************************************************************
@@ -45,6 +49,9 @@ void CFujiwara::Load() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Initialize() {
+	X = 0;
+	Y = 0;
+	Lenth = 0;
 
 }
 
@@ -65,7 +72,8 @@ void CFujiwara::Update() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Render() {
-
+	//m_pFontTexture->RenderScale(0, 0, FONT_SIZE/64);
+	String(0, 0, FONT_SIZE, "ABC");
 }
 
 /*****************************************************************
@@ -85,5 +93,19 @@ void CFujiwara::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Release() {
+	m_pFontTexture->Release();
+}
 
+void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
+{
+	for (int i = 0; str[i] != '\0'; i++)
+	{
+		X = str[i] % 16;
+		Y = ((str[i] - 32)/ 16);
+		CRectangle SRect(X * 64, Y * 64,
+						 X * 64 + 64, Y * 64 + 64);
+		m_pFontTexture->RenderScale(sx, sy, fontsize/64.0, SRect);
+		//m_pFontTexture->Render(sx, sy, SRect);
+		sx += fontsize;
+	}
 }

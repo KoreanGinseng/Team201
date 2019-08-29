@@ -9,13 +9,21 @@
 //! INCLUDE
 #include	"../SceneBase.h"
 
+#include	"../Stage.h"
+#include	"../Player.h"
+#include	"../Camera2D.h"
+
  /*****************************************************************
   *	@brief			ゲームシーンクラス
   *	@author			井上颯騎
   *****************************************************************/
 class CGame : public CSceneBase {
 private:
+	CCamera2D	m_MainCamera;
+	CPlayer		m_Player;
 
+	int			m_StageNo;
+	CStage		m_Stage[STAGE_COUNT];
 public:
 	/*****************************************************************
 	 * @fn
