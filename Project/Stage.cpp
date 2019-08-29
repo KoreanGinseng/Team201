@@ -161,9 +161,9 @@ void CStage::Render(Vector2 scroll) {
 	int wn = m_BackTexture.GetWidth();
 	int hn = m_BackTexture.GetHeight();
 	//for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
-	for (float y = ((int)scroll.y / 4 % hn) - hn; y < sch; y += hn) {
+	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		//for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
-		for (float x = ((int)scroll.x / 4 % wn) - wn; x < scw; x += wn) {
+		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
 			m_BackTexture.Render(x, y);
 		}
 	}
@@ -183,7 +183,7 @@ void CStage::Render(Vector2 scroll) {
 			CRectangle cr(m_ChipSize * (cn % tcx), m_ChipSize*(cn / tcx), m_ChipSize * (cn % tcx + 1), m_ChipSize * (cn / tcx + 1));
 			//マップチップの描画
 			//m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
-			m_ChipTexture.Render(scroll.x + x * m_ChipSize, scroll.y + y * m_ChipSize, cr);
+			m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
 }
@@ -222,4 +222,106 @@ void CStage::Release() {
 		free(m_pObjectData);
 		m_pObjectData = NULL;
 	}
+}
+
+bool CStage::Collision(CRectangle r, Vector2& o) {
+	bool re = false;
+
+	//当たり判定する矩形の左上と右下のチップ位置を求める
+	int lc = r.Left / m_ChipSize;
+	int rc = r.Right / m_ChipSize;
+	int tc = r.Top / m_ChipSize;
+	int bc = r.Bottom / m_ChipSize;
+	
+	//ステージの範囲外にはならないようにする
+	if (lc < 0)
+	{
+		lc = 0;
+	}
+	if (tc < 0)
+	{
+		tc = 0;
+	}
+	if (rc >= m_XCount)
+	{
+		rc = m_XCount - 1;
+	}
+	if (bc >= m_YCount)
+	{
+		bc = m_YCount - 1;
+	}
+
+	//当たり判定をする矩形の左上から右下の範囲のみ当たり判定を行う
+	//それ以外の番号は当たることはないので判定が必要ない
+	for (int y = tc; y <= bc; y++)
+	{
+		for (int x = lc; x <= rc; x++)
+		{
+			//描画するチップ番号
+			//チップ番号０は当たり判定しない
+			char cn = m_pChipData[y*m_XCount + x] - 1;
+			if (cn < 0)
+			{
+				continue;
+			}
+			//マップチップの矩形
+			CRectangle cr(x*m_ChipSize, y*m_ChipSize, x*m_ChipSize + m_ChipSize, y*m_ChipSize + m_ChipSize);
+			//当たり判定用のキャラクタ矩形
+			//下で範囲を限定した専用の矩形を作成する。
+			CRectangle brec = r;
+			brec.Top = brec.Bottom - 1;//
+			brec.Expansion(-6, 0);//
+			//下と当たり判定
+			if (cr.CollisionRect(brec))
+			{
+				re = true;
+				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+				o.y += cr.Top - brec.Bottom;
+				r.Top += cr.Top - brec.Bottom;
+				r.Bottom += cr.Top - brec.Bottom;
+			}
+			//当たり判定用のキャラクタ矩形
+			//左、右それぞれで範囲を限定した専用の矩形を作成する。
+			CRectangle lrec = r;
+			lrec.Right = lrec.Left - 1;//
+			lrec.Expansion(0, -6);//
+			CRectangle rrec = r;
+			rrec.Left = rrec.Right - 1;//
+			rrec.Expansion(0, -6);//
+			//左と当たり判定
+			if (cr.CollisionRect(lrec))
+			{
+				re = true;
+				//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
+				o.x += cr.Right - lrec.Left;
+				r.Left += cr.Right - lrec.Left;
+				r.Right += cr.Right - lrec.Left;
+			}
+			//右と当たり判定
+			if (cr.CollisionRect(rrec))
+			{
+				re = true;
+				//右の埋まりなのでチップの左端から
+				o.x += cr.Left - rrec.Right;
+				r.Left += cr.Left - rrec.Right;
+				r.Right += cr.Left - rrec.Right;
+			}
+			//当たり判定用のキャラクタ矩形
+			//上で範囲を限定した専用の矩形を作成する。
+			CRectangle trec = r;
+			trec.Bottom = trec.Top - 1;//
+			trec.Expansion(-6, 0);//
+			//上と当たり判定
+			if (cr.CollisionRect(trec))
+			{
+				re = true;
+				//上の埋まりなのでチップした端から矩形の上端を
+				o.y += cr.Bottom - trec.Top;
+				r.Top += cr.Bottom - trec.Top;
+				r.Bottom += cr.Bottom - trec.Top;
+			}
+		}
+	}
+
+	return re;
 }

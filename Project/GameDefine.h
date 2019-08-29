@@ -11,10 +11,18 @@
 //! DEFINE
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
-//! GLOBAL
-bool		g_bDebug = true;		//! デバッグ表示フラグ
+#define		STAGE_COUNT		3		//! ゲームステージ数
 
-int			FPS = 60;
+
+#define		PLAYER_WIDTH	60
+#define		PLAYER_HEIGHT	64
+#define		PLAYER_MAXHP	100
+#define		PLAYER_MAXLIFE	3
+#define		PLAYER_MAXSPEED	8
+#define		PLAYER_GRAVITY	0.3f
+
+//! GLOBAL
+extern bool		g_bDebug;			//! デバッグ表示フラグ
 
 //! デバック表示位置定義
 #define		DEBUGPOSX_FPS		g_pGraphics->GetTargetWidth() - 30	//! FPS表示位置X
@@ -29,6 +37,7 @@ enum tag_SCENENO {
 	SCENENO_GAME,
 	SCENENO_GAMECLEAR,
 	SCENENO_GAMEOVER,
+	SCENENO_RANKING,
 
 	SCENENO_FUJIWARA,
 	SCENENO_INOUE,

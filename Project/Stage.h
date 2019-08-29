@@ -37,4 +37,7 @@ public:
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
 	void Release();
+
+	bool Collision(CRectangle r, Vector2& o);
+
 };

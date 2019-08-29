@@ -13,12 +13,11 @@
 #include	"../Stage.h"
 
 //! SCENE ADD
-#include	"../Ranking.h"
+#include	"../Ranking/Ranking.h"
 
 //! DEFINE
 #define		RECTSIZE	10
 #define		MOVESPEED	10
-#define		STAGECOUNT	3
 
  /*****************************************************************
   *	@brief			イノウエシーンクラス
@@ -28,7 +27,7 @@ class CInoue : public CSceneBase {
 private:
 	CCamera2D	m_MainCamera;
 	Vector2		m_Pos;
-	CStage		m_Stage[STAGECOUNT];
+	CStage		m_Stage[STAGE_COUNT];
 
 	Vector2		m_MousePos;
 
