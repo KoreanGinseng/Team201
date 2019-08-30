@@ -218,13 +218,13 @@ void COnishi::Render() {
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
-		CGraphicsUtilities::RenderString(0,0,"クリボー スペースで攻撃、死亡");
+		CGraphicsUtilities::RenderString(100,0,"クリボー スペースで攻撃、死亡");
 		break;
 	case ENEMY_NOKONOKO:
-		CGraphicsUtilities::RenderString(0, 0, "ノコノコ スペースで攻撃、5秒後に動き出す、攻撃した後にAで死亡");
+		CGraphicsUtilities::RenderString(100, 0, "ノコノコ スペースで攻撃、5秒後に動き出す、攻撃した後にAで死亡");
 		break;
 	case ENEMY_TERESA:
-		CGraphicsUtilities::RenderString(0, 0, "テレサ　スペースで攻撃、死亡");
+		CGraphicsUtilities::RenderString(100, 0, "テレサ　スペースで攻撃、死亡");
 		break;
 	}
 }
