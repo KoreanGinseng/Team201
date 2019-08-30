@@ -9,7 +9,6 @@
 
 //! INCLUDE
 #include	"GameApp.h"
-#include	"GameDefine.h"
 
 //! SCENE
 #include	"Game/Game.h"
@@ -20,10 +19,23 @@
 #include	"_Fujiwara/Fujiwara.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
+#include	"Ranking/Ranking.h"
 
 //! GLOBAL
+bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
+class CLoading : public CThread {
+public:
+	bool bEnd = false;
+	void Run(void)
+	{
+		Sleep(10000);
+		bEnd = true;
+		return;
+	}
+};
+CLoading a;
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
@@ -34,8 +46,10 @@ CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 MofBool CGameApp::Initialize(void){
 	//開始シーン
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
-	g_pScene = new COnishi();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
+
+	//読み込みカレントディレクトリの設定
+	CUtilities::SetCurrentDirectoryA("Resource");
 
 	//シーンの読み込み
 	g_pScene->Load();
@@ -47,7 +61,7 @@ MofBool CGameApp::Initialize(void){
 	{
 		return FALSE;
 	}
-
+	a.Start("Loading");
 	return TRUE;
 }
 /*************************************************************************//*!
@@ -85,6 +99,9 @@ MofBool CGameApp::Update(void){
 			break;
 		case SCENENO_GAMEOVER:
 			g_pScene = new CGameOver();
+			break;
+		case SCENENO_RANKING:
+			g_pScene = new CRanking();
 			break;
 		case SCENENO_FUJIWARA:
 			g_pScene = new CFujiwara();
@@ -128,6 +145,14 @@ MofBool CGameApp::Render(void){
 	//シーンの描画
 	g_pScene->Render();
 
+	if (a.bEnd)
+	{
+		CGraphicsUtilities::RenderString(0, 0, "LoadEnd");
+	}
+	else
+	{
+		CGraphicsUtilities::RenderString(0, 0, "Load...");
+	}
 	//デバッグ表示
 	if (g_bDebug) 
 	{
