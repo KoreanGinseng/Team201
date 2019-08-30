@@ -8,8 +8,17 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
+#include	"Enemy.h"
 
 #define		spead 20
+
+
+enum ENEMY
+{
+	ENEMY_KURIBO,
+	ENEMY_NOKONOKO,
+	ENEMY_TERESA,
+};
  /*****************************************************************
   *	@brief			オオニシシーンクラス
   *	@author			井上颯騎
@@ -28,6 +37,10 @@ private:
 	float getypos;
 	float getx;
 	float gety;
+	bool Revers;
+
+	int gEnemytype;
+	CEnemy gEnemy;
 
 public:
 	/*****************************************************************

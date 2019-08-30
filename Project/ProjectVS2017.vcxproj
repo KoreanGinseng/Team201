@@ -104,6 +104,7 @@
     <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
     <ClCompile Include="_Inoue\Inoue.cpp" />
     <ClCompile Include="_Kimura\Kimura.cpp" />
+    <ClCompile Include="_Onishi\Enemy.cpp" />
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,7 @@
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
     <ClInclude Include="_Inoue\Inoue.h" />
     <ClInclude Include="_Kimura\Kimura.h" />
+    <ClInclude Include="_Onishi\Enemy.h" />
     <ClInclude Include="_Onishi\Onishi.h" />
   </ItemGroup>
   <ItemGroup>

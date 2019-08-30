@@ -57,6 +57,10 @@ void COnishi::Initialize() {
 	getypos = 0;
 	getx = 0;
 	gety = 0;
+	Revers = false;
+
+	gEnemy.Initialize();
+	gEnemytype = ENEMY_TERESA;
 }
 
 /*****************************************************************
@@ -85,10 +89,12 @@ void COnishi::Update() {
 		}
 		if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
 			Xpos -= spead;
+			Revers = true;
 		}
 		else if (g_pInput->IsKeyHold(MOFKEY_RIGHT))
 		{
 			Xpos += spead;
+			Revers = false;
 		}
 		if (g_pInput->IsKeyPush(MOFKEY_B)) {
 			atack = !atack;
@@ -116,6 +122,32 @@ void COnishi::Update() {
 		getx = 0;
 		gety = 0;
 	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+		if (gEnemytype == ENEMY_KURIBO) {
+			gEnemytype = ENEMY_NOKONOKO;
+		}
+		else if (gEnemytype == ENEMY_NOKONOKO) {
+			gEnemytype = ENEMY_TERESA;
+		}
+		else {
+			gEnemytype = ENEMY_KURIBO;
+		}
+	}
+	switch (gEnemytype)
+	{
+		case ENEMY_KURIBO:
+			gEnemy.KUpdate();
+			break;
+		case ENEMY_NOKONOKO:
+			gEnemy.NUpdate();
+			break;
+		case ENEMY_TERESA:
+			gEnemy.TUpdate(Xpos,Ypos,Revers);
+			break;
+	}
+
+
 }
 
 /*****************************************************************
@@ -179,6 +211,21 @@ void COnishi::Render() {
 	}*/
 	if (poase) {
 		CGraphicsUtilities::RenderFillRect(g_pGraphics->GetTargetWidth() / 4, g_pGraphics->GetTargetHeight() / 3, 700, 600, MOF_COLOR_WHITE);
+	}
+
+	gEnemy.Render();
+
+	switch (gEnemytype)
+	{
+	case ENEMY_KURIBO:
+		CGraphicsUtilities::RenderString(0,0,"クリボー スペースで攻撃、死亡");
+		break;
+	case ENEMY_NOKONOKO:
+		CGraphicsUtilities::RenderString(0, 0, "ノコノコ スペースで攻撃、5秒後に動き出す、攻撃した後にAで死亡");
+		break;
+	case ENEMY_TERESA:
+		CGraphicsUtilities::RenderString(0, 0, "テレサ　スペースで攻撃、死亡");
+		break;
 	}
 }
 
