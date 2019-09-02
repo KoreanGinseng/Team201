@@ -19,6 +19,7 @@ private:
 	char*		m_pEnemyData;
 	char*		m_pItemData;
 	char*		m_pObjectData;
+	char*		m_pObjEndData;
 
 	int			m_EnemyTextureCount;
 	int			m_ItemTextureCount;

@@ -65,6 +65,7 @@ bool CStage::Load(char* pName) {
 	m_pEnemyData = (char*)malloc(m_XCount*m_YCount);
 	m_pItemData = (char*)malloc(m_XCount*m_YCount);
 	m_pObjectData = (char*)malloc(m_XCount*m_YCount);
+	m_pObjEndData = (char*)malloc(m_XCount*m_YCount);
 
 	//チップデータの読み込み
 	for (int y = 0; y < m_YCount; y++) {
@@ -137,6 +138,12 @@ bool CStage::Load(char* pName) {
 			if (m_pObjectData[y*m_XCount + x] > 0) {
 				m_ObjectCount++;
 			}
+		}
+	}
+	for (int y = 0; y < m_YCount; y++) {
+		for (int x = 0; x < m_XCount; x++) {
+			pstr = strtok(NULL, ",");
+			m_pObjEndData[y*m_XCount + x] = atoi(pstr);
 		}
 	}
 
@@ -221,6 +228,10 @@ void CStage::Release() {
 	if (m_pObjectData) {
 		free(m_pObjectData);
 		m_pObjectData = NULL;
+	}
+	if (m_pObjEndData) {
+		free(m_pObjEndData);
+		m_pObjEndData = NULL;
 	}
 }
 
