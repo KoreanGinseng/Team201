@@ -122,11 +122,10 @@ void CGame::Update() {
 
 	// Oキーでステージ変更
 	if (g_pInput->IsKeyPush(MOFKEY_O)) {
-		m_StageNo++;
-		if (m_StageNo >= STAGE_COUNT) {
+		Release();
+		if (++m_StageNo >= STAGE_COUNT) {
 			m_StageNo = 0;
 		}
-		Release();
 		Load();
 		Initialize();
 	}
@@ -201,10 +200,8 @@ void CGame::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CGame::Release() {
-	for (int i = 0; i < STAGE_COUNT; i++)
-	{
-		m_Stage[i].Release();
-	}
+
+	m_Stage[m_StageNo].Release();
 	
 	//敵の解放
 	if (m_EnemyArray)

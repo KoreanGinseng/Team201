@@ -232,22 +232,6 @@ void CStage::Release() {
 	m_BackTexture.Release();
 	m_ChipTexture.Release();
 
-	if (m_pEnemyTexture)
-	{
-		delete[] m_pEnemyTexture;
-		m_pEnemyTexture = NULL;
-	}
-	if (m_pItemTexture)
-	{
-		delete[] m_pItemTexture;
-		m_pItemTexture = NULL;
-	}
-	if (m_pObjectTexture)
-	{
-		delete[] m_pObjectTexture;
-		m_pObjectTexture = NULL;
-	}
-
 	if (m_pChipData) {
 		free(m_pChipData);
 		m_pChipData = NULL;
@@ -267,6 +251,22 @@ void CStage::Release() {
 	if (m_pObjEndData) {
 		free(m_pObjEndData);
 		m_pObjEndData = NULL;
+	}
+
+	if (m_pEnemyTexture)
+	{
+		delete[] m_pEnemyTexture;
+		m_pEnemyTexture = NULL;
+	}
+	if (m_pItemTexture)
+	{
+		delete[] m_pItemTexture;
+		m_pItemTexture = NULL;
+	}
+	if (m_pObjectTexture)
+	{
+		delete[] m_pObjectTexture;
+		m_pObjectTexture = NULL;
 	}
 }
 

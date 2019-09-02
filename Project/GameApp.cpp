@@ -30,7 +30,7 @@ public:
 	bool bEnd = false;
 	void Run(void)
 	{
-		Sleep(10000);
+		Sleep(1000);
 		bEnd = true;
 		return;
 	}
