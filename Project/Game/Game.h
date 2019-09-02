@@ -21,9 +21,12 @@ class CGame : public CSceneBase {
 private:
 	CCamera2D	m_MainCamera;
 	CPlayer		m_Player;
-
-	int			m_StageNo;
 	CStage		m_Stage[STAGE_COUNT];
+	int			m_StageNo;
+	// “G
+	CEnemy*		m_EnemyArray;
+	// ƒAƒCƒeƒ€
+	CItem*		m_ItemArray;
 public:
 	/*****************************************************************
 	 * @fn

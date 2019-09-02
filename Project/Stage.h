@@ -1,6 +1,7 @@
 #pragma once
 #include	"Mof.h"
-
+#include	"Enemy.h"
+#include	"Item.h"
 
 
 class CStage {
@@ -33,12 +34,16 @@ public:
 	CStage();
 	~CStage() {}
 	bool Load(char* pName);
-	void Initialize();
+	void Initialize(CEnemy* pEne, CItem* pItem);
 	void Update();
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
 	void Release();
 
 	bool Collision(CRectangle r, Vector2& o);
+
+	int	 GetEnemyCount()  const { return m_EnemyCount; }
+	int	 GetItemCount()   const { return m_ItemCount; }
+	int	 GetObjectCount() const { return m_ObjectCount; }
 
 };

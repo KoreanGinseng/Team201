@@ -57,7 +57,7 @@ void CGame::Load() {
 void CGame::Initialize() {
 	m_StageNo = 0;
 	for (int i = 0; i < STAGE_COUNT; i++) {
-		m_Stage[i].Initialize();
+		m_Stage[i].Initialize(m_EnemyArray, m_ItemArray);
 	}
 	m_Player.Initialize();
 }
