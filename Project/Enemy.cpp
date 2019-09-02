@@ -135,6 +135,64 @@ void CEnemy::Update(void){
 	}
 }
 
+
+/**
+ * 描画
+ *
+ * 引数
+ * [in]			wx					ワールドの変化
+ * [in]			wy					ワールドの変化
+ */
+void CEnemy::Render(Vector2 sp){
+	//非表示
+	if(!m_bShow)
+	{
+		return;
+	}
+	//インターバル2フレームごとに描画をしない
+	if(m_DamageWait % 4 >= 2)
+	{
+		return;
+	}
+	//描画矩形
+	CRectangle dr = m_SrcRect;
+	//反転フラグがONの場合描画矩形を反転させる
+	if(m_bReverse)
+	{
+		float tmp = dr.Right;
+		dr.Right = dr.Left;
+		dr.Left = tmp;
+	}
+	//テクスチャの描画
+	m_pTexture->Render(sp.x, sp.y, dr);
+}
+
+/**
+ * デバッグ描画
+ *
+ * 引数
+ * [in]			wx					ワールドの変化
+ * [in]			wy					ワールドの変化
+ */
+void CEnemy::RenderDebug(Vector2 sp){
+	//非表示
+	if(!m_bShow)
+	{
+		return;
+	}
+	//当たり判定の表示
+	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
+	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
+}
+
+/**
+ * 解放
+ *
+ */
+void CEnemy::Release(void){
+	m_Motion.Release();
+}
+
 /**
  * ダメージ処理
  * 引数分のＨＰを減らしＨＰが０以下になれば敵を消去する
@@ -166,20 +224,20 @@ void CEnemy::Damage(int dmg,bool bRev){
  * [in]			ox					X埋まり量
  * [in]			oy					Y埋まり量
  */
-void CEnemy::CollisionStage(float ox,float oy){
-	m_PosX += ox;
-	m_PosY += oy;
+void CEnemy::CollisionStage(Vector2 o){
+	m_PosX += o.x;
+	m_PosY += o.y;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化する。
-	if(oy < 0 && m_MoveY > 0)
+	if(o.y < 0 && m_MoveY > 0)
 	{
 		m_MoveY = 0;
 	}
-	else if(oy > 0 && m_MoveY < 0)
+	else if(o.y > 0 && m_MoveY < 0)
 	{
 		m_MoveY = 0;
 	}
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
-	if(ox < 0 && m_MoveX > 0)
+	if(o.x < 0 && m_MoveX > 0)
 	{
 		if(m_Motion.GetMotionNo() == MOTION_DAMAGE)
 		{
@@ -191,7 +249,7 @@ void CEnemy::CollisionStage(float ox,float oy){
 			m_bReverse = true;
 		}
 	}
-	else if(ox > 0 && m_MoveX < 0)
+	else if(o.x > 0 && m_MoveX < 0)
 	{
 		if(m_Motion.GetMotionNo() == MOTION_DAMAGE)
 		{
@@ -203,61 +261,4 @@ void CEnemy::CollisionStage(float ox,float oy){
 			m_bReverse = false;
 		}
 	}
-}
-
-/**
- * 描画
- *
- * 引数
- * [in]			wx					ワールドの変化
- * [in]			wy					ワールドの変化
- */
-void CEnemy::Render(float wx,float wy){
-	//非表示
-	if(!m_bShow)
-	{
-		return;
-	}
-	//インターバル2フレームごとに描画をしない
-	if(m_DamageWait % 4 >= 2)
-	{
-		return;
-	}
-	//描画矩形
-	CRectangle dr = m_SrcRect;
-	//反転フラグがONの場合描画矩形を反転させる
-	if(m_bReverse)
-	{
-		float tmp = dr.Right;
-		dr.Right = dr.Left;
-		dr.Left = tmp;
-	}
-	//テクスチャの描画
-	m_pTexture->Render(m_PosX - wx,m_PosY - wy,dr);
-}
-
-/**
- * デバッグ描画
- *
- * 引数
- * [in]			wx					ワールドの変化
- * [in]			wy					ワールドの変化
- */
-void CEnemy::RenderDebug(float wx,float wy){
-	//非表示
-	if(!m_bShow)
-	{
-		return;
-	}
-	//当たり判定の表示
-	CRectangle hr = GetRect();
-	CGraphicsUtilities::RenderRect(hr.Left - wx,hr.Top - wy,hr.Right - wx,hr.Bottom - wy,MOF_XRGB(255,0,0));
-}
-
-/**
- * 解放
- *
- */
-void CEnemy::Release(void){
-	m_Motion.Release();
 }

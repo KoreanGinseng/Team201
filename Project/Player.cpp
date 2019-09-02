@@ -84,24 +84,32 @@ void CPlayer::PadOperation() {
 	if (g_pGamePad->GetStickHorizontal() > 0.8f) {
 
 		m_MoveX += 0.3f;
-
+		m_MoveX2 += 2.5f;
 		if (m_MoveX > PLAYER_MAXSPEED) {
 
 			m_MoveX = PLAYER_MAXSPEED;
 
 		}
+		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
 
+			m_MoveX2 = PLAYER_MAXSPEED * 2;
+
+		}
 	}
 	else if (g_pGamePad->GetStickHorizontal() < -0.8f) {
 
 		m_MoveX -= 0.3f;
-
+		m_MoveX2 -= 2.5f;
 		if (m_MoveX < -PLAYER_MAXSPEED) {
 
 			m_MoveX = -PLAYER_MAXSPEED;
 
 		}
+		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
 
+			m_MoveX2 = -PLAYER_MAXSPEED * 2;
+
+		}
 	}//スティックを離した場合（移動の操作をしていない場合）
 	else {
 
@@ -124,6 +132,28 @@ void CPlayer::PadOperation() {
 			if (m_MoveX > 0) {
 
 				m_MoveX = 0;
+			}
+
+		}
+		//移動量が0なら処理に入らない
+		//移動量が存在する場合、徐々に移動量を0にする
+		if (m_MoveX2 > 0) {
+
+			m_MoveX2 -= 2.5f;
+
+			if (m_MoveX2 < 0) {
+
+				m_MoveX2 = 0;
+			}
+
+		}
+		else if (m_MoveX2 < 0) {
+
+			m_MoveX2 += 2.5f;
+
+			if (m_MoveX2 > 0) {
+
+				m_MoveX2 = 0;
 			}
 
 		}
@@ -167,9 +197,9 @@ void CPlayer::KeyOperation() {
 			m_MoveX = PLAYER_MAXSPEED;
 
 		}
-		if (m_MoveX2 > PLAYER_MAXSPEED * 50) {
+		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
 
-			m_MoveX2 = PLAYER_MAXSPEED * 50;
+			m_MoveX2 = PLAYER_MAXSPEED * 2;
 
 		}
 
@@ -184,9 +214,9 @@ void CPlayer::KeyOperation() {
 			m_MoveX = -PLAYER_MAXSPEED;
 
 		}
-		if (m_MoveX2 < -PLAYER_MAXSPEED * 50) {
+		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
 
-			m_MoveX2 = -PLAYER_MAXSPEED * 50;
+			m_MoveX2 = -PLAYER_MAXSPEED * 2;
 
 		}
 

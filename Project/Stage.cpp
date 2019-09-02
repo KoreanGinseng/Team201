@@ -141,12 +141,12 @@ bool CStage::Load(char* pName) {
 			}
 		}
 	}
-	for (int y = 0; y < m_YCount; y++) {
+	/*for (int y = 0; y < m_YCount; y++) {
 		for (int x = 0; x < m_XCount; x++) {
 			pstr = strtok(NULL, ",");
 			m_pObjEndData[y*m_XCount + x] = atoi(pstr);
 		}
-	}
+	}*/
 
 	//ファイルを閉じる
 	fclose(fp);
@@ -155,7 +155,38 @@ bool CStage::Load(char* pName) {
 }
 
 void CStage::Initialize(CEnemy* pEne, CItem* pItem) {
-
+	int n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pEnemyData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			pEne[n].SetTexture(&m_pEnemyTexture[on]);
+			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+		}
+	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pItemData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			pItem[n].SetTexture(&m_pItemTexture[on]);
+			pItem[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+		}
+	}
 }
 
 void CStage::Update() {

@@ -74,35 +74,6 @@ void CItem::Update(void){
 	m_SrcRect = m_Motion.GetSrcRect();
 }
 
-/**
- * ステージとの当たり
- *
- * 引数
- * [in]			ox					X埋まり量
- * [in]			oy					Y埋まり量
- */
-void CItem::CollisionStage(float ox,float oy){
-	m_PosX += ox;
-	m_PosY += oy;
-	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化する。
-	if(oy < 0 && m_MoveY > 0)
-	{
-		m_MoveY = 0;
-	}
-	else if(oy > 0 && m_MoveY < 0)
-	{
-		m_MoveY = 0;
-	}
-	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
-	if(ox < 0 && m_MoveX > 0)
-	{
-		m_MoveX = 0;
-	}
-	else if(ox > 0 && m_MoveX < 0)
-	{
-		m_MoveX = 0;
-	}
-}
 
 /**
  * 描画
@@ -111,14 +82,14 @@ void CItem::CollisionStage(float ox,float oy){
  * [in]			wx					ワールドの変化
  * [in]			wy					ワールドの変化
  */
-void CItem::Render(float wx,float wy){
+void CItem::Render(Vector2 sp){
 	//非表示
 	if(!m_bShow)
 	{
 		return;
 	}
 	//テクスチャの描画
-	m_pTexture->Render(m_PosX - wx,m_PosY - wy,m_SrcRect);
+	m_pTexture->Render(sp.x, sp.y, m_SrcRect);
 }
 
 /**
@@ -128,15 +99,15 @@ void CItem::Render(float wx,float wy){
  * [in]			wx					ワールドの変化
  * [in]			wy					ワールドの変化
  */
-void CItem::RenderDebug(float wx,float wy){
+void CItem::RenderDebug(Vector2 sp){
 	//非表示
 	if(!m_bShow)
 	{
 		return;
 	}
 	//当たり判定の表示
-	CRectangle hr = GetRect();
-	CGraphicsUtilities::RenderRect(hr.Left - wx,hr.Top - wy,hr.Right - wx,hr.Bottom - wy,MOF_XRGB(255,0,0));
+	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
+	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
 }
 
 /**
@@ -145,4 +116,34 @@ void CItem::RenderDebug(float wx,float wy){
  */
 void CItem::Release(void){
 	m_Motion.Release();
+}
+
+/**
+ * ステージとの当たり
+ *
+ * 引数
+ * [in]			ox					X埋まり量
+ * [in]			oy					Y埋まり量
+ */
+void CItem::CollisionStage(Vector2 o){
+	m_PosX += o.x;
+	m_PosY += o.y;
+	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化する。
+	if(o.y < 0 && m_MoveY > 0)
+	{
+		m_MoveY = 0;
+	}
+	else if(o.y > 0 && m_MoveY < 0)
+	{
+		m_MoveY = 0;
+	}
+	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
+	if(o.x < 0 && m_MoveX > 0)
+	{
+		m_MoveX = 0;
+	}
+	else if(o.x > 0 && m_MoveX < 0)
+	{
+		m_MoveX = 0;
+	}
 }

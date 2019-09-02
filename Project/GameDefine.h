@@ -12,6 +12,7 @@
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
 #define		STAGE_COUNT		3		//! ゲームステージ数
+#define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 
 #define		PLAYER_WIDTH	60

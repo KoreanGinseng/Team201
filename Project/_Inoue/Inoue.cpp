@@ -53,7 +53,7 @@ void CInoue::Load() {
 void CInoue::Initialize() {
 	m_Pos = Vector2(0, 0);
 	for (int i = 0; i < STAGE_COUNT; i++) {
-		m_Stage[i].Initialize();
+		//m_Stage[i].Initialize();
 	}
 	m_StageNo = 0;
 }
