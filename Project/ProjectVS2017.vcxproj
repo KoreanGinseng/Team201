@@ -103,6 +103,7 @@
     <ClCompile Include="GameOver\GameOver.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking\Ranking.cpp" />
     <ClCompile Include="SceneBase.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="GamePad.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking\Ranking.h" />
     <ClInclude Include="SceneBase.h" />

@@ -49,6 +49,9 @@
     <Filter Include="ソース ファイル\Item">
       <UniqueIdentifier>{d2c7c21c-a980-44bf-b295-5b7b0c00f67d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{7675c992-593c-4591-aea5-3f5cef249a93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>ソース ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

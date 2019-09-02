@@ -10,9 +10,9 @@
 #include	"../Coordinate.h"
 
 char*		g_StageFileName[STAGE_COUNT] = {
-			"testMap.txt",
-			"testMap2-2.txt",
-			"testMap3.txt",
+			"testMap7-7.txt",
+			"testMap7-7.txt",
+			"testMap7-7.txt",
 };
 
 /*****************************************************************
