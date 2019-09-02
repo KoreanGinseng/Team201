@@ -48,6 +48,8 @@ void CGame::Load() {
 	m_EnemyArray = new CEnemy[m_Stage[m_StageNo].GetEnemyCount()];
 	//アイテムメモリ確保
 	m_ItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
+	//オブジェクトメモリ確保
+	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	m_Player.Load();
 }
 
@@ -58,7 +60,7 @@ void CGame::Load() {
  * @return なし
  *****************************************************************/
 void CGame::Initialize() {
-	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray);
+	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
 	m_Player.Initialize();
 }
 
@@ -105,6 +107,15 @@ void CGame::Update() {
 		{
 			m_ItemArray[i].CollisionStage(io);
 		}
+	}
+	//オブジェクトの更新
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		if (!m_pObjArray[i].GetShow())
+		{
+			continue;
+		}
+		m_pObjArray[i].Update();
 	}
 
 	Vector2 centerPos = m_Player.GetPos()
@@ -165,6 +176,12 @@ void CGame::Render() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_ItemArray[i].GetPos());
 		m_ItemArray[i].Render(screenPos);
 	}
+	//オブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
+		m_pObjArray[i].Render(screenPos);
+	}
 }
 
 /*****************************************************************
@@ -191,6 +208,12 @@ void CGame::RenderDebug() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_ItemArray[i].GetPos());
 		m_ItemArray[i].RenderDebug(screenPos);
 	}
+	//オブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
+		m_pObjArray[i].RenderDebug(screenPos);
+	}
 }
 
 /*****************************************************************
@@ -214,6 +237,12 @@ void CGame::Release() {
 	{
 		delete[] m_ItemArray;
 		m_ItemArray = NULL;
+	}
+	//オブジェクトの開放
+	if (m_pObjArray)
+	{
+		delete[] m_pObjArray;
+		m_pObjArray = NULL;
 	}
 	m_Player.Release();
 }

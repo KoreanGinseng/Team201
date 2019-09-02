@@ -27,6 +27,8 @@ private:
 	CEnemy*		m_EnemyArray;
 	// アイテム
 	CItem*		m_ItemArray;
+	// オブジェクト
+	CObject*	m_pObjArray;
 public:
 	/*****************************************************************
 	 * @fn

@@ -2,6 +2,7 @@
 #include	"Mof.h"
 #include	"Enemy.h"
 #include	"Item.h"
+#include	"Object.h"
 
 
 class CStage {
@@ -34,7 +35,7 @@ public:
 	CStage();
 	~CStage() {}
 	bool Load(char* pName);
-	void Initialize(CEnemy* pEne, CItem* pItem);
+	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
 	void Update();
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
