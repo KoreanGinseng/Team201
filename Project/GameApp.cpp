@@ -25,11 +25,6 @@
 bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
-typedef void(*FUNC_POINTER)(void *);
-void Loading()
-{
-	
-}
 
 class CLoading : public CThread {
 public:

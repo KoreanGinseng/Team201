@@ -117,7 +117,7 @@ void CPlayer::PadOperation() {
 		//移動量が存在する場合、徐々に移動量を0にする
 		if (m_MoveX > 0) {
 
-			m_MoveX -= 0.3f;
+			m_MoveX -= 0.2f;
 
 			if (m_MoveX < 0) {
 
@@ -127,7 +127,7 @@ void CPlayer::PadOperation() {
 		}
 		else if(m_MoveX<0){
 
-			m_MoveX += 0.3f;
+			m_MoveX += 0.2f;
 
 			if (m_MoveX > 0) {
 
@@ -190,7 +190,7 @@ void CPlayer::KeyOperation() {
 	//スティックを右か左に倒した場合、倒した方向に移動
 	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
 
-		m_MoveX += 0.3f;
+		m_MoveX += 0.2f;
 		m_MoveX2 += 2.5f;
 		if (m_MoveX > PLAYER_MAXSPEED) {
 
@@ -206,7 +206,7 @@ void CPlayer::KeyOperation() {
 	}
 	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
 
-		m_MoveX -= 0.3f;
+		m_MoveX -= 0.2f;
 		m_MoveX2 -= 2.5f;
 
 		if (m_MoveX < -PLAYER_MAXSPEED) {
@@ -314,6 +314,8 @@ void CPlayer::Render(Vector2 scroll) {
 	RenderState();
 
 	RenderDebug();
+
+	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
 
 }
 
