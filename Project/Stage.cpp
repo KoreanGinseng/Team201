@@ -145,6 +145,10 @@ bool CStage::Load(char* pName) {
 		for (int x = 0; x < m_XCount; x++) {
 			pstr = strtok(NULL, ",");
 			m_pObjEndData[y*m_XCount + x] = atoi(pstr);
+			if (m_pObjEndData[y*m_XCount + x] > 0)
+			{
+				MOF_PRINTLOG("a");
+			}
 		}
 	}
 
@@ -199,9 +203,9 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pObj[n].SetTexture(&m_pItemTexture[on]);
+			pObj[n].SetTexture(&m_pObjectTexture[on]);
 			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
 		}
 	}
 }

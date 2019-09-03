@@ -11,19 +11,30 @@ CObject::~CObject()
 {
 }
 
-void CObject::Initialize(float px, float py, bool motionEnd) {
-	m_bMotionEnd = motionEnd;
+void CObject::Initialize(float px, float py) {
 	m_PosX = px;
 	m_PosY = py;
 	m_bShow = true;
 	//アニメーションを作成
-	SpriteAnimationCreate anim = {
-		"オブジェクト",
-		0,0,
-		32,32,
-		TRUE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
+	SpriteAnimationCreate anim[] = {
+		{
+			"オブジェクト",
+			0,0,
+			64,64,
+			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
+		},
+		{
+			"オブジェクトエンド",
+			0,64,
+			64,64,
+			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
+		},
 	};
-	m_Motion.Create(anim);
+	m_Motion.Create(anim, MOTION_COUNT);
+	if (m_bMotionEnd)
+	{
+		m_Motion.ChangeMotion(MOTION_END);
+	}
 }
 
 void CObject::Update(void) {
@@ -32,6 +43,12 @@ void CObject::Update(void) {
 	{
 		return;
 	}
+
+	if (m_bMotionEnd)
+	{
+		//m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	}
+
 	m_SrcRect = m_Motion.GetSrcRect();
 }
 

@@ -11,10 +11,17 @@ private:
 	float					m_PosY;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
+
+	enum tag_MOTION {
+		MOTION_START,
+		MOTION_END,
+
+		MOTION_COUNT
+	};
 public:
 	CObject();
 	~CObject();
-	void Initialize(float px, float py, bool motionEnd);
+	void Initialize(float px, float py);
 	void Update(void);
 	void Render(Vector2 sp);
 	void RenderDebug(Vector2 sp);
