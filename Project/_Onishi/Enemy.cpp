@@ -6,7 +6,9 @@ CEnemy::CEnemy() :
 	m_bRevers(false),
 	m_bXpos(0.0f),
 	m_bYpos(0.0f),
-	m_bTimer(0) {
+	m_bTimer(0),
+	m_bMoveX(0.0f),
+	m_bMoveY(0.0f){
 }
 
 CEnemy::~CEnemy() {
@@ -18,6 +20,32 @@ void CEnemy::Initialize() {
 	m_bXpos = 500;
 	m_bYpos = 500;
 	m_bTimer = 0;
+	m_bMoveX = EnemySpeed;
+	m_bMoveY = EnemySpeed;
+}
+
+void CEnemy::Update(float Xpos, float Ypos, bool pRevers,int Type) {
+	if (Type!=2) {
+		m_bMoveY += GRAVITY;
+		if (m_bMoveY >= 20.0f) {
+			m_bMoveY = 20.0f;
+		}
+	}
+	switch (Type)
+	{
+	case 0:
+		KUpdate();
+		break;
+	case 1:
+		NUpdate();
+		break;
+	case 2:
+		TUpdate(Xpos, Ypos, pRevers);
+		break;
+	}
+
+
+	
 }
 
 void CEnemy::KUpdate() {
@@ -27,21 +55,11 @@ void CEnemy::KUpdate() {
 	if (m_bEnd) {
 		return;
 	}
-
-	if (m_bRevers) {
-		m_bXpos += EnemySpeed;
-	}
-	else {
-		m_bXpos -= EnemySpeed;
-	}
+	m_bXpos += m_bMoveX;
+	m_bYpos += m_bMoveY;
 }
 
 void CEnemy::NUpdate() {
-
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_bTimer=Timer;
-	}
-
 	if (m_bEnd) {
 		m_bTimer = 0;
 		if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
@@ -49,21 +67,20 @@ void CEnemy::NUpdate() {
 		}
 		return;
 	}
-
 	if (m_bTimer > 0) {
 		if (g_pInput->IsKeyPush(MOFKEY_A)) {
 			m_bEnd = true;
 		}
 		m_bTimer -= 1 * CUtilities::GetFrameSecond();
+		return;
 	}
-	else {
-		if (m_bRevers) {
-			m_bXpos += EnemySpeed;
-		}
-		else {
-			m_bXpos -= EnemySpeed;
-		}
+
+	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+		m_bTimer=Timer;
+		return;
 	}
+	m_bXpos += m_bMoveX;
+	m_bYpos += m_bMoveY;
 }
 
 void CEnemy::TUpdate(float Xpos, float Ypos, bool pRevers) {
@@ -93,9 +110,31 @@ void CEnemy::TUpdate(float Xpos, float Ypos, bool pRevers) {
 	float d = sqrt(dx*dx + dy * dy);
 	dx /= d;
 	dy /= d;
-	m_bXpos += dx * EnemySpeed;
+	m_bXpos += dx * m_bMoveX;
 
-	m_bYpos += dy * EnemySpeed;
+	m_bYpos += dy * m_bMoveY;
+}
+
+void CEnemy::CollisionStage(float ox, float oy, int Type) {
+	if (Type==2) {
+		m_bMoveY = EnemySpeed;
+		return;
+	}
+	m_bXpos += ox;
+	m_bYpos += oy;
+	if (oy<0&&m_bMoveY>0) {
+		m_bMoveY = 0;
+	}else if (oy > 0 && m_bMoveY<0) {
+		m_bMoveY = 0;
+	}
+	if (ox < 0 && m_bMoveX>0) {
+		m_bMoveX *= -1;
+		m_bRevers = false;
+	}
+	else if (ox > 0 && m_bMoveX < 0) {
+		m_bMoveX *= -1;
+		m_bRevers = true;
+	}
 }
 
 void CEnemy::Render() {

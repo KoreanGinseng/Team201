@@ -60,7 +60,7 @@ void COnishi::Initialize() {
 	Revers = false;
 
 	gEnemy.Initialize();
-	gEnemytype = ENEMY_TERESA;
+	gEnemytype = ENEMY_KURIBO;
 }
 
 /*****************************************************************
@@ -134,19 +134,21 @@ void COnishi::Update() {
 			gEnemytype = ENEMY_KURIBO;
 		}
 	}
-	switch (gEnemytype)
-	{
-		case ENEMY_KURIBO:
-			gEnemy.KUpdate();
-			break;
-		case ENEMY_NOKONOKO:
-			gEnemy.NUpdate();
-			break;
-		case ENEMY_TERESA:
-			gEnemy.TUpdate(Xpos,Ypos,Revers);
-			break;
+	gEnemy.Update(Xpos, Ypos, Revers, gEnemytype);
+	float ox = 0, oy = 0;
+	float mx = gEnemy.GetXpos(),my=gEnemy.GetYpos();
+	if (mx<200) {
+		ox = 200 - mx;
 	}
+	else if(mx>800)
+	{
+		ox = 800 - mx;
 
+	}
+	if (my>600) {
+		oy = 600 - my;
+	}
+	gEnemy.CollisionStage(ox,oy,gEnemytype);
 
 }
 
@@ -227,6 +229,9 @@ void COnishi::Render() {
 		CGraphicsUtilities::RenderString(100, 0, "テレサ　スペースで攻撃、死亡");
 		break;
 	}
+	CGraphicsUtilities::RenderLine(0, 600, g_pGraphics->GetTargetWidth(), 600, MOF_COLOR_WHITE);
+	CGraphicsUtilities::RenderLine(200, 0, 200, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
+	CGraphicsUtilities::RenderLine(800, 0, 800, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
 }
 
 /*****************************************************************
