@@ -33,13 +33,13 @@ void CEnemy::Update(float Xpos, float Ypos, bool pRevers,int Type) {
 	}
 	switch (Type)
 	{
-	case 0:
+	case ENEMY_KURIBO:
 		KUpdate();
 		break;
-	case 1:
+	case ENEMY_NOKONOKO:
 		NUpdate();
 		break;
-	case 2:
+	case ENEMY_TERESA:
 		TUpdate(Xpos, Ypos, pRevers);
 		break;
 	}
@@ -117,6 +117,7 @@ void CEnemy::TUpdate(float Xpos, float Ypos, bool pRevers) {
 
 void CEnemy::CollisionStage(float ox, float oy, int Type) {
 	if (Type==2) {
+		m_bMoveX = EnemySpeed;
 		m_bMoveY = EnemySpeed;
 		return;
 	}

@@ -13,12 +13,7 @@
 #define		spead 20
 
 
-enum ENEMY
-{
-	ENEMY_KURIBO,
-	ENEMY_NOKONOKO,
-	ENEMY_TERESA,
-};
+
  /*****************************************************************
   *	@brief			オオニシシーンクラス
   *	@author			井上颯騎

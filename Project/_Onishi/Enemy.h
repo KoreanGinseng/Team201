@@ -5,6 +5,12 @@
 #define Timer 5
 #define GRAVITY 0.4f
 
+enum ENEMY
+{
+	ENEMY_KURIBO,
+	ENEMY_NOKONOKO,
+	ENEMY_TERESA,
+};
 
 class CEnemy {
 private:
