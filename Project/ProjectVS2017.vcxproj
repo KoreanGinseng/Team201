@@ -97,10 +97,13 @@
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
     <ClCompile Include="GameOver\GameOver.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking\Ranking.cpp" />
     <ClCompile Include="SceneBase.cpp" />
@@ -116,12 +119,15 @@
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameClear\GameClear.h" />
     <ClInclude Include="GameOver\GameOver.h" />
     <ClInclude Include="GamePad.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking\Ranking.h" />
     <ClInclude Include="SceneBase.h" />
