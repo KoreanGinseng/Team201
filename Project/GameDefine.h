@@ -12,6 +12,7 @@
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
 #define		STAGE_COUNT		3		//! ゲームステージ数
+#define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 
 #define		PLAYER_WIDTH	60
@@ -20,6 +21,7 @@
 #define		PLAYER_MAXLIFE	3
 #define		PLAYER_MAXSPEED	8
 #define		PLAYER_GRAVITY	0.3f
+#define		GRAVITY			0.3f
 
 //! GLOBAL
 extern bool		g_bDebug;			//! デバッグ表示フラグ

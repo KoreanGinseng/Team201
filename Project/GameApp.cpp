@@ -25,6 +25,7 @@
 bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
+
 class CLoading : public CThread {
 public:
 	bool bEnd = false;

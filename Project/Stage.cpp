@@ -14,6 +14,7 @@ m_pChipData(nullptr),
 m_pEnemyData(nullptr),
 m_pItemData(nullptr),
 m_pObjectData(nullptr),
+m_pObjEndData(nullptr),
 m_EnemyTextureCount(0),
 m_ItemTextureCount(0),
 m_ObjectTextureCount(0),
@@ -65,6 +66,7 @@ bool CStage::Load(char* pName) {
 	m_pEnemyData = (char*)malloc(m_XCount*m_YCount);
 	m_pItemData = (char*)malloc(m_XCount*m_YCount);
 	m_pObjectData = (char*)malloc(m_XCount*m_YCount);
+	m_pObjEndData = (char*)malloc(m_XCount*m_YCount);
 
 	//チップデータの読み込み
 	for (int y = 0; y < m_YCount; y++) {
@@ -139,6 +141,16 @@ bool CStage::Load(char* pName) {
 			}
 		}
 	}
+	for (int y = 0; y < m_YCount; y++) {
+		for (int x = 0; x < m_XCount; x++) {
+			pstr = strtok(NULL, ",");
+			m_pObjEndData[y*m_XCount + x] = atoi(pstr);
+			if (m_pObjEndData[y*m_XCount + x] > 0)
+			{
+				MOF_PRINTLOG("a");
+			}
+		}
+	}
 
 	//ファイルを閉じる
 	fclose(fp);
@@ -146,8 +158,56 @@ bool CStage::Load(char* pName) {
 	return TRUE;
 }
 
-void CStage::Initialize() {
-
+void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
+	int n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pEnemyData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			pEne[n].SetTexture(&m_pEnemyTexture[on]);
+			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+		}
+	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pItemData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			pItem[n].SetTexture(&m_pItemTexture[on]);
+			pItem[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+		}
+	}
+	n = 0;
+	for(int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pObjectData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			pObj[n].SetTexture(&m_pObjectTexture[on]);
+			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
+			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+		}
+	}
 }
 
 void CStage::Update() {
@@ -160,9 +220,7 @@ void CStage::Render(Vector2 scroll) {
 	int sch = g_pGraphics->GetTargetHeight();
 	int wn = m_BackTexture.GetWidth();
 	int hn = m_BackTexture.GetHeight();
-	//for (float y = ((int)-scroll.y % hn) - hn; y < sch; y += hn) {
 	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
-		//for (float x = ((int)-scroll.x % wn) - wn; x < scw; x += wn) {
 		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
 			m_BackTexture.Render(x, y);
 		}
@@ -182,7 +240,6 @@ void CStage::Render(Vector2 scroll) {
 			//マップチップの矩形
 			CRectangle cr(m_ChipSize * (cn % tcx), m_ChipSize*(cn / tcx), m_ChipSize * (cn % tcx + 1), m_ChipSize * (cn / tcx + 1));
 			//マップチップの描画
-			//m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 			m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
@@ -195,16 +252,6 @@ void CStage::RenderDebug(Vector2 scroll) {
 void CStage::Release() {
 	m_BackTexture.Release();
 	m_ChipTexture.Release();
-
-	for (int i = 0; i < m_EnemyTextureCount; i++) {
-		m_pEnemyTexture[i].Release();
-	}
-	for (int i = 0; i < m_ItemTextureCount; i++) {
-		m_pItemTexture[i].Release();
-	}
-	for (int i = 0; i < m_ObjectTextureCount; i++) {
-		m_pObjectTexture[i].Release();
-	}
 
 	if (m_pChipData) {
 		free(m_pChipData);
@@ -221,6 +268,26 @@ void CStage::Release() {
 	if (m_pObjectData) {
 		free(m_pObjectData);
 		m_pObjectData = NULL;
+	}
+	if (m_pObjEndData) {
+		free(m_pObjEndData);
+		m_pObjEndData = NULL;
+	}
+
+	if (m_pEnemyTexture)
+	{
+		delete[] m_pEnemyTexture;
+		m_pEnemyTexture = NULL;
+	}
+	if (m_pItemTexture)
+	{
+		delete[] m_pItemTexture;
+		m_pItemTexture = NULL;
+	}
+	if (m_pObjectTexture)
+	{
+		delete[] m_pObjectTexture;
+		m_pObjectTexture = NULL;
 	}
 }
 
