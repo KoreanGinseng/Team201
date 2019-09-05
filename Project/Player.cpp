@@ -84,24 +84,32 @@ void CPlayer::PadOperation() {
 	if (g_pGamePad->GetStickHorizontal() > 0.8f) {
 
 		m_MoveX += 0.3f;
-
+		m_MoveX2 += 2.5f;
 		if (m_MoveX > PLAYER_MAXSPEED) {
 
 			m_MoveX = PLAYER_MAXSPEED;
 
 		}
+		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
 
+			m_MoveX2 = PLAYER_MAXSPEED * 2;
+
+		}
 	}
 	else if (g_pGamePad->GetStickHorizontal() < -0.8f) {
 
 		m_MoveX -= 0.3f;
-
+		m_MoveX2 -= 2.5f;
 		if (m_MoveX < -PLAYER_MAXSPEED) {
 
 			m_MoveX = -PLAYER_MAXSPEED;
 
 		}
+		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
 
+			m_MoveX2 = -PLAYER_MAXSPEED * 2;
+
+		}
 	}//スティックを離した場合（移動の操作をしていない場合）
 	else {
 
@@ -109,7 +117,7 @@ void CPlayer::PadOperation() {
 		//移動量が存在する場合、徐々に移動量を0にする
 		if (m_MoveX > 0) {
 
-			m_MoveX -= 0.3f;
+			m_MoveX -= 0.2f;
 
 			if (m_MoveX < 0) {
 
@@ -119,11 +127,33 @@ void CPlayer::PadOperation() {
 		}
 		else if(m_MoveX<0){
 
-			m_MoveX += 0.3f;
+			m_MoveX += 0.2f;
 
 			if (m_MoveX > 0) {
 
 				m_MoveX = 0;
+			}
+
+		}
+		//移動量が0なら処理に入らない
+		//移動量が存在する場合、徐々に移動量を0にする
+		if (m_MoveX2 > 0) {
+
+			m_MoveX2 -= 2.5f;
+
+			if (m_MoveX2 < 0) {
+
+				m_MoveX2 = 0;
+			}
+
+		}
+		else if (m_MoveX2 < 0) {
+
+			m_MoveX2 += 2.5f;
+
+			if (m_MoveX2 > 0) {
+
+				m_MoveX2 = 0;
 			}
 
 		}
@@ -160,23 +190,23 @@ void CPlayer::KeyOperation() {
 	//スティックを右か左に倒した場合、倒した方向に移動
 	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
 
-		m_MoveX += 0.3f;
+		m_MoveX += 0.2f;
 		m_MoveX2 += 2.5f;
 		if (m_MoveX > PLAYER_MAXSPEED) {
 
 			m_MoveX = PLAYER_MAXSPEED;
 
 		}
-		if (m_MoveX2 > PLAYER_MAXSPEED * 50) {
+		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
 
-			m_MoveX2 = PLAYER_MAXSPEED * 50;
+			m_MoveX2 = PLAYER_MAXSPEED * 2;
 
 		}
 
 	}
 	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
 
-		m_MoveX -= 0.3f;
+		m_MoveX -= 0.2f;
 		m_MoveX2 -= 2.5f;
 
 		if (m_MoveX < -PLAYER_MAXSPEED) {
@@ -184,9 +214,9 @@ void CPlayer::KeyOperation() {
 			m_MoveX = -PLAYER_MAXSPEED;
 
 		}
-		if (m_MoveX2 < -PLAYER_MAXSPEED * 50) {
+		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
 
-			m_MoveX2 = -PLAYER_MAXSPEED * 50;
+			m_MoveX2 = -PLAYER_MAXSPEED * 2;
 
 		}
 
@@ -284,6 +314,8 @@ void CPlayer::Render(Vector2 scroll) {
 	RenderState();
 
 	RenderDebug();
+
+	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
 
 }
 
