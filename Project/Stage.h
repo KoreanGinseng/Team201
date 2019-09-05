@@ -1,6 +1,8 @@
 #pragma once
 #include	"Mof.h"
-
+#include	"Enemy.h"
+#include	"Item.h"
+#include	"Object.h"
 
 
 class CStage {
@@ -19,6 +21,7 @@ private:
 	char*		m_pEnemyData;
 	char*		m_pItemData;
 	char*		m_pObjectData;
+	char*		m_pObjEndData;
 
 	int			m_EnemyTextureCount;
 	int			m_ItemTextureCount;
@@ -32,12 +35,16 @@ public:
 	CStage();
 	~CStage() {}
 	bool Load(char* pName);
-	void Initialize();
+	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
 	void Update();
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
 	void Release();
 
 	bool Collision(CRectangle r, Vector2& o);
+
+	int	 GetEnemyCount()  const { return m_EnemyCount; }
+	int	 GetItemCount()   const { return m_ItemCount; }
+	int	 GetObjectCount() const { return m_ObjectCount; }
 
 };

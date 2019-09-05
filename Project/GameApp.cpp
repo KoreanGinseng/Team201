@@ -25,6 +25,7 @@
 bool				g_bDebug = true;	//! デバッグ表示フラグ
 CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
+
 class CLoading : public CThread {
 public:
 	bool bEnd = false;
@@ -45,7 +46,7 @@ CLoading a;
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
 	//開始シーン
-	g_pScene = new COnishi();			//ゲームシーンからスタート(デバック用)
+	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
 
 	//読み込みカレントディレクトリの設定

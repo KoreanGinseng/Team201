@@ -57,10 +57,6 @@ void COnishi::Initialize() {
 	getypos = 0;
 	getx = 0;
 	gety = 0;
-	Revers = false;
-
-	gEnemy.Initialize();
-	gEnemytype = ENEMY_KURIBO;
 }
 
 /*****************************************************************
@@ -89,12 +85,10 @@ void COnishi::Update() {
 		}
 		if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
 			Xpos -= spead;
-			Revers = true;
 		}
 		else if (g_pInput->IsKeyHold(MOFKEY_RIGHT))
 		{
 			Xpos += spead;
-			Revers = false;
 		}
 		if (g_pInput->IsKeyPush(MOFKEY_B)) {
 			atack = !atack;
@@ -122,34 +116,6 @@ void COnishi::Update() {
 		getx = 0;
 		gety = 0;
 	}
-
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
-		if (gEnemytype == ENEMY_KURIBO) {
-			gEnemytype = ENEMY_NOKONOKO;
-		}
-		else if (gEnemytype == ENEMY_NOKONOKO) {
-			gEnemytype = ENEMY_TERESA;
-		}
-		else {
-			gEnemytype = ENEMY_KURIBO;
-		}
-	}
-	gEnemy.Update(Xpos, Ypos, Revers, gEnemytype);
-	float ox = 0, oy = 0;
-	float mx = gEnemy.GetXpos(),my=gEnemy.GetYpos();
-	if (mx<200) {
-		ox = 200 - mx;
-	}
-	else if(mx>800)
-	{
-		ox = 800 - mx;
-
-	}
-	if (my>600) {
-		oy = 600 - my;
-	}
-	gEnemy.CollisionStage(ox,oy,gEnemytype);
-
 }
 
 /*****************************************************************
@@ -214,24 +180,6 @@ void COnishi::Render() {
 	if (poase) {
 		CGraphicsUtilities::RenderFillRect(g_pGraphics->GetTargetWidth() / 4, g_pGraphics->GetTargetHeight() / 3, 700, 600, MOF_COLOR_WHITE);
 	}
-
-	gEnemy.Render();
-
-	switch (gEnemytype)
-	{
-	case ENEMY_KURIBO:
-		CGraphicsUtilities::RenderString(100,0,"クリボー スペースで攻撃、死亡");
-		break;
-	case ENEMY_NOKONOKO:
-		CGraphicsUtilities::RenderString(100, 0, "ノコノコ スペースで攻撃、5秒後に動き出す、攻撃した後にAで死亡");
-		break;
-	case ENEMY_TERESA:
-		CGraphicsUtilities::RenderString(100, 0, "テレサ　スペースで攻撃、死亡");
-		break;
-	}
-	CGraphicsUtilities::RenderLine(0, 600, g_pGraphics->GetTargetWidth(), 600, MOF_COLOR_WHITE);
-	CGraphicsUtilities::RenderLine(200, 0, 200, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
-	CGraphicsUtilities::RenderLine(800, 0, 800, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
 }
 
 /*****************************************************************

@@ -8,7 +8,7 @@
 //! INCLUDE
 #include	"Inoue.h"
 
-extern char*		g_StageFileName[STAGECOUNT];
+extern char*		g_StageFileName[STAGE_COUNT];
 
 /*****************************************************************
  * @fn
@@ -37,7 +37,7 @@ CInoue::~CInoue() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Load() {
-	for (int i = 0; i < STAGECOUNT; i++) {
+	for (int i = 0; i < STAGE_COUNT; i++) {
 		m_Stage[i].Load(g_StageFileName[i]);
 	}
 	m_Player1.Load("Player.png");
@@ -52,8 +52,8 @@ void CInoue::Load() {
  *****************************************************************/
 void CInoue::Initialize() {
 	m_Pos = Vector2(0, 0);
-	for (int i = 0; i < STAGECOUNT; i++) {
-		m_Stage[i].Initialize();
+	for (int i = 0; i < STAGE_COUNT; i++) {
+		//m_Stage[i].Initialize();
 	}
 	m_StageNo = 0;
 }
@@ -111,7 +111,7 @@ void CInoue::Update() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_O)) {
 		m_StageNo++;
-		if (m_StageNo >= STAGECOUNT) {
+		if (m_StageNo >= STAGE_COUNT) {
 			m_StageNo = 0;
 		}
 	}
@@ -168,7 +168,7 @@ void CInoue::RenderDebug() {
  * @return ‚È‚µ
  *****************************************************************/
 void CInoue::Release() {
-	for (int i = 0; i < STAGECOUNT; i++) {
+	for (int i = 0; i < STAGE_COUNT; i++) {
 		m_Stage[i].Release();
 	}
 }

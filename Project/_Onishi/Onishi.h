@@ -8,12 +8,8 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
-#include	"Enemy.h"
 
 #define		spead 20
-
-
-
  /*****************************************************************
   *	@brief			オオニシシーンクラス
   *	@author			井上颯騎
@@ -32,10 +28,6 @@ private:
 	float getypos;
 	float getx;
 	float gety;
-	bool Revers;
-
-	int gEnemytype;
-	CEnemy gEnemy;
 
 public:
 	/*****************************************************************
