@@ -6,8 +6,9 @@
  *****************************************************************/
 #pragma once
 
-//! INCLUDE
+ //! INCLUDE
 #include	"../SceneBase.h"
+#include	"EnemyMove.h"
 
 #define		spead 20
  /*****************************************************************
@@ -28,7 +29,9 @@ private:
 	float getypos;
 	float getx;
 	float gety;
-
+	bool Revers;
+	int gEnemytype;
+	CEnemyMove gEnemy;
 public:
 	/*****************************************************************
 	 * @fn
