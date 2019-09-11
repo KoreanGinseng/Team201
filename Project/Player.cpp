@@ -39,9 +39,9 @@ bool CPlayer::Load() {
 void CPlayer::Initialize() {
 	//À•W‚Ì‰Šú‰»
 	//m_PosX = 0;
-	m_PosX = g_pGraphics->GetTargetWidth() / 2;
+	m_PosX = 256.0f;
 	//m_PosY = 0;
-	m_PosY = 0;
+	m_PosY = 1344.0f;
 	//ˆÚ“®—Ê‚Ì‰Šú‰»
 	m_MoveX = 0;
 	m_MoveY = 0;
