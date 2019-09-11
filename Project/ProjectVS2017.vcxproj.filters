@@ -117,6 +117,9 @@
     <ClCompile Include="_Onishi\EnemyMove.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="_Onishi\EnemyAtack.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -186,6 +189,9 @@
       <Filter>ソース ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="_Onishi\EnemyMove.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyAtack.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

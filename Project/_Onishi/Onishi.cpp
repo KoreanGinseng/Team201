@@ -59,7 +59,7 @@ void COnishi::Initialize() {
 	gety = 0;
 	Revers = false;
 	gEnemy.Initialize();
-	gEnemytype = ENEMY_KOTEIHOUDAI;
+	gEnemytype = ENEMY_KURIBO;
 }
 
 /*****************************************************************

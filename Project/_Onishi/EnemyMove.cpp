@@ -38,7 +38,7 @@ void CEnemyMove::Update(float Xpos, float Ypos, bool pRevers,int Type) {
 	switch (Type)
 	{
 	case ENEMY_KURIBO:
-		KUpdate();
+		KUpdate(Xpos,Ypos);
 		break;
 	case ENEMY_NOKONOKO:
 		NUpdate();
@@ -58,13 +58,30 @@ void CEnemyMove::Update(float Xpos, float Ypos, bool pRevers,int Type) {
 	
 }
 
-void CEnemyMove::KUpdate() {
+void CEnemyMove::KUpdate(float Xpos,float Ypos) {
 	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 		m_bEnd = !m_bEnd;
 	}
 	if (m_bEnd) {
 		return;
 	}
+
+	if (m_bYpos - 50 < Ypos) {
+		if (m_bRevers) {
+			if (m_bXpos + 50 > Xpos&&m_bXpos < Xpos) {
+				m_bAtack.KUpdate(m_bXpos, m_bYpos, m_bRevers);
+				return;
+			}
+		}
+		else {
+			if (m_bXpos - 50 < Xpos&&m_bXpos > Xpos) {
+				m_bAtack.KUpdate(m_bXpos, m_bYpos, m_bRevers);
+				return;
+			}
+		}
+	}
+
+	
 	m_bXpos += m_bMoveX;
 	m_bYpos += m_bMoveY;
 }
@@ -164,15 +181,6 @@ void CEnemyMove::KOUpdate() {
 			m_bAtackTimer = AtackTimer;
 		}
 	}
-	/*if (m_bAtackTimer < 0) {
-		m_bCooltime = CoolTime;
-	}
-	if (m_bCooltime<0) {
-		m_bAtackTimer = AtackTimer;
-	}
-	if (m_bCooltime>=0) {
-		m_bCooltime -= 1 * CUtilities::GetFrameSecond();
-	}*/
 	
 }
 
@@ -203,7 +211,10 @@ void CEnemyMove::CollisionStage(float ox, float oy, int Type) {
 }
 
 void CEnemyMove::Render(float Xpos, float Ypos,int Type) {
-	
+	if (m_bEnd) {
+		return;
+	}
+	m_bAtack.Render();
 	CGraphicsUtilities::RenderFillCircle(m_bXpos,m_bYpos,10,MOF_COLOR_GREEN);
 	if (Type == ENEMY_KOTEIHOUDAI) {
 		if (m_bAtackTimer>0) {

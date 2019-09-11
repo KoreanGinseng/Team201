@@ -9,7 +9,6 @@
  //! INCLUDE
 #include	"../SceneBase.h"
 #include	"EnemyMove.h"
-
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス

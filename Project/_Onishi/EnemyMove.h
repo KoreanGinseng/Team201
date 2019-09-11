@@ -1,5 +1,6 @@
 #pragma once
 #include	"Mof.h"
+#include	"EnemyAtack.h"
 
 #define EnemySpeed 2
 #define Timer 5
@@ -27,12 +28,13 @@ private:
 	float m_bCooltime;
 	float m_bMoveX;
 	float m_bMoveY;
+	CEnemyAtack	m_bAtack;
 public:
 	CEnemyMove();
 	~CEnemyMove();
 	void Initialize(void);
 	void Update(float Xpos, float Ypos, bool pRevers,int Type);
-	void KUpdate(void);
+	void KUpdate(float Xpos,float Ypos);
 	void NUpdate(void);
 	void TUpdate(float Xpos, float Ypos, bool pRevers);
 	void BUpdate(float Xpos, float Ypos);
