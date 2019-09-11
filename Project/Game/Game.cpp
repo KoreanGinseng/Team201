@@ -118,14 +118,33 @@ void CGame::Update() {
 		m_pObjArray[i].Update();
 	}
 
-	Vector2 centerPos = m_Player.GetPos()
-		- Vector2(g_pGraphics->GetTargetWidth() / 2,
-				  g_pGraphics->GetTargetHeight() / 2 + 180) + m_Player.GetMove2();
+	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 0) + m_Player.GetMove2();
 
 	if (centerPos != m_MainCamera.GetScroll())
 	{
 		Vector2 d = centerPos - m_MainCamera.GetScroll();
-		d /= PLAYER_MAXSPEED;
+		d.x /= PLAYER_MAXSPEED;
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+		if ((m_MainCamera.GetCameraRect().Bottom < m_Stage[m_StageNo].GetStageRect().Bottom && screenPos.y > 580) ||
+			(m_Stage[m_StageNo].GetStageRect().Top < m_MainCamera.GetCameraRect().Top && screenPos.y < 180))
+		{
+			d.y /= PLAYER_MAXSPEED;
+		}
+		else
+		{
+			d.y = 0;
+		}
+		if (m_Stage[m_StageNo].GetStageRect().Bottom < m_MainCamera.GetCameraRect().Bottom)
+		{
+			m_MainCamera.SetScrollY(m_Stage[m_StageNo].GetStageRect().Bottom - g_pGraphics->GetTargetHeight());
+			d.y = 0;
+		}
+		if (m_Stage[m_StageNo].GetStageRect().Top > m_MainCamera.GetCameraRect().Top)
+		{
+			m_MainCamera.SetScrollY(0);
+			d.y = 0;
+		}
+		
 		m_MainCamera.AddScroll(d);
 	}
 
@@ -182,6 +201,8 @@ void CGame::Render() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].Render(screenPos);
 	}
+
+	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 /*****************************************************************
