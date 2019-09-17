@@ -7,7 +7,10 @@
 #pragma once
 
 //! INCLUDE
+
 #include	"../SceneBase.h"
+//#include	"../GameDefine.h"
+#include	"../Player.h"
 
  /*****************************************************************
   *	@brief			キムラシーンクラス
@@ -15,6 +18,7 @@
   *****************************************************************/
 class CKimura : public CSceneBase {
 private:
+	CPlayer			m_Player;
 
 public:
 	/*****************************************************************

@@ -25,11 +25,32 @@
     <Filter Include="ソース ファイル\GameOver">
       <UniqueIdentifier>{ae7e244c-19b6-439f-97cf-71eeb52aee98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\fujiwara">
-      <UniqueIdentifier>{b1fc4e78-8c56-4852-8605-034a6f2f3e73}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Actor">
+      <UniqueIdentifier>{7354fd29-5307-4245-99a8-c3b345fa31d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\other">
-      <UniqueIdentifier>{8d6b3da5-0033-42ac-8b3e-a11b4378ddc0}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Camera2D">
+      <UniqueIdentifier>{2b3003cf-65d2-409f-8e4f-b9f4e07989dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage">
+      <UniqueIdentifier>{60d1bfa8-896d-490b-8dde-5de5fbb971dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{2d248bc9-d2b6-47dd-89ac-cc3dcfb2690b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Ranking">
+      <UniqueIdentifier>{8d8ad326-e97e-4e71-ba12-2e6b5e063341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{d51261e7-7110-4c5d-94b8-b79ad76f59c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy">
+      <UniqueIdentifier>{5ea6ab3c-0813-4f44-866d-3789bd084645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Item">
+      <UniqueIdentifier>{d2c7c21c-a980-44bf-b295-5b7b0c00f67d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{7675c992-593c-4591-aea5-3f5cef249a93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,16 +73,46 @@
       <Filter>ソース ファイル\Title</Filter>
     </ClCompile>
     <ClCompile Include="_Fujiwara\Fujiwara.cpp">
-      <Filter>ソース ファイル\fujiwara</Filter>
-    </ClCompile>
-    <ClCompile Include="_Kimura\Kimura.cpp">
-      <Filter>ソース ファイル\other</Filter>
+      <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="_Inoue\Inoue.cpp">
-      <Filter>ソース ファイル\other</Filter>
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="_Kimura\Kimura.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="_Onishi\Onishi.cpp">
-      <Filter>ソース ファイル\other</Filter>
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>ソース ファイル\Camera2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranking\Ranking.cpp">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEffectScene.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,20 +134,53 @@
     <ClInclude Include="Title\Title.h">
       <Filter>ソース ファイル\Title</Filter>
     </ClInclude>
+    <ClInclude Include="_Fujiwara\Fujiwara.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\Inoue.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Kimura\Kimura.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Onishi.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>ソース ファイル\Camera2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinate.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePad.h">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualKeyBoard.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking\Ranking.h">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEffectScene.h">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClInclude>
     <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="_Fujiwara\Fujiwara.h">
-      <Filter>ソース ファイル\fujiwara</Filter>
+    <ClInclude Include="Enemy.h">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="_Kimura\Kimura.h">
-      <Filter>ソース ファイル\other</Filter>
+    <ClInclude Include="Item.h">
+      <Filter>ソース ファイル\Item</Filter>
     </ClInclude>
-    <ClInclude Include="_Inoue\Inoue.h">
-      <Filter>ソース ファイル\other</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Onishi.h">
-      <Filter>ソース ファイル\other</Filter>
+    <ClInclude Include="Object.h">
+      <Filter>ソース ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
