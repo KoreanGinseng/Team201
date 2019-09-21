@@ -20,8 +20,11 @@
 #define		PLAYER_MAXHP	100
 #define		PLAYER_MAXLIFE	3
 #define		PLAYER_MAXSPEED	8
+#define		PLAYER_JUMP		-10.0f
+#define		PLAYER_HIGHJUMP	-15.0f
 #define		PLAYER_GRAVITY	0.3f
 #define		GRAVITY			0.3f
+
 
 //! GLOBAL
 extern bool		g_bDebug;			//! デバッグ表示フラグ

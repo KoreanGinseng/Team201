@@ -97,6 +97,8 @@
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
@@ -107,6 +109,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking\Ranking.cpp" />
     <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestEffectScene.cpp" />
     <ClCompile Include="Title\Title.cpp" />
@@ -119,6 +123,8 @@
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
@@ -131,6 +137,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking\Ranking.h" />
     <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestEffectScene.h" />
     <ClInclude Include="Title\Title.h" />

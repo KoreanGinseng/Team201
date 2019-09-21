@@ -51,6 +51,11 @@ void CGame::Load() {
 	//オブジェクトメモリ確保
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	m_Player.Load();
+	//エフェクト素材の読み込み
+	m_EffectManager.Load();
+	//サウンド素材の読み込み
+	m_SoundManager.Load();
+
 }
 
 /*****************************************************************
@@ -62,6 +67,14 @@ void CGame::Load() {
 void CGame::Initialize() {
 	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
 	m_Player.Initialize();
+	//エフェクトの初期化
+	m_EffectManager.Initialize();
+	//サウンドの初期化
+	m_SoundManager.Initialize();
+	//プレイヤーにエフェクトクラスの設定
+	m_Player.SetEffectManager(&m_EffectManager);
+	m_Player.SetSoundManager(&m_SoundManager);
+
 }
 
 /*****************************************************************
@@ -131,6 +144,11 @@ void CGame::Update() {
 
 	m_Stage[m_StageNo].Update();
 
+	//エフェクトの更新
+	m_EffectManager.Update();
+	//サウンドの更新
+	m_SoundManager.Update();
+
 	// Oキーでステージ変更
 	if (g_pInput->IsKeyPush(MOFKEY_O)) {
 		Release();
@@ -164,6 +182,9 @@ void CGame::Render() {
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.Render(screenPos);
 
+	//エフェクトの描画
+	m_EffectManager.Render(screenPos);
+
 	//敵の描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
@@ -195,6 +216,7 @@ void CGame::RenderDebug() {
 
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.RenderDebug();
+	
 
 	//敵の描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -245,4 +267,11 @@ void CGame::Release() {
 		m_pObjArray = NULL;
 	}
 	m_Player.Release();
+
+	//エフェクトの解放
+	m_EffectManager.Release();
+
+	//サウンドの解放
+	m_SoundManager.Release();
+
 }

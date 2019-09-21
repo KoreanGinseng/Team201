@@ -52,6 +52,12 @@
     <Filter Include="ソース ファイル\Object">
       <UniqueIdentifier>{7675c992-593c-4591-aea5-3f5cef249a93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\EffectManager">
+      <UniqueIdentifier>{7a0e2ea8-44a2-4990-9f20-c9f30674f2cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SoundManager">
+      <UniqueIdentifier>{90ea9f55-df93-4623-9930-79554f7e0781}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -113,6 +119,18 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\EffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>ソース ファイル\EffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>ソース ファイル\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>ソース ファイル\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +199,18 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>ソース ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ソース ファイル\EffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>ソース ファイル\EffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>ソース ファイル\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>ソース ファイル\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
