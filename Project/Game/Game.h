@@ -29,6 +29,8 @@ private:
 	CItem*		m_ItemArray;
 	// オブジェクト
 	CObject*	m_pObjArray;
+
+	
 public:
 	/*****************************************************************
 	 * @fn

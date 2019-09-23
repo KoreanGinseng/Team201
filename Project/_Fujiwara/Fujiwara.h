@@ -20,6 +20,13 @@ private:
 	int Y;
 	CTexture* m_pFontTexture;
 	int Lenth;
+	
+	int testx;
+	int testy;
+	int x;
+	int y;
+	bool tester;
+	bool hit = false;
 public:
 	/*****************************************************************
 	 * @fn
@@ -93,4 +100,7 @@ public:
 	 *****************************************************************/
 	void String(int sx, int sy, int fontsize, const char* str);
 
+	void test(CRectangle r, CRectangle o);
+
+	bool GetHit() { return hit; }
 };

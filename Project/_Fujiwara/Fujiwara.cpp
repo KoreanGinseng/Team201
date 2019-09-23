@@ -52,6 +52,11 @@ void CFujiwara::Initialize() {
 	X = 0;
 	Y = 0;
 	Lenth = 0;
+	testx = 100;
+	testy = 200;
+	x = 300;
+	y = 200;
+	tester = false;
 
 }
 
@@ -62,6 +67,15 @@ void CFujiwara::Initialize() {
  * @return ‚È‚µ
  *****************************************************************/
 void CFujiwara::Update() {
+	if (g_pInput->IsKeyHold(MOFKEY_A))
+	{
+		testx -= 10;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_D))
+	{
+		testx += 10;
+	}
+	
 
 }
 
@@ -74,6 +88,12 @@ void CFujiwara::Update() {
 void CFujiwara::Render() {
 	//m_pFontTexture->RenderScale(0, 0, FONT_SIZE/64);
 	String(0, 0, FONT_SIZE, "ABC");
+	CRectangle ts(testx, testy, testx + 10, testy + 10);
+	CRectangle tss(x, y, x + 10, y + 10);
+	CGraphicsUtilities::RenderFillRect(tss, MOF_XRGB(0, 255, 0));
+	CGraphicsUtilities::RenderFillRect(ts, MOF_XRGB(255, 0, 0));
+	test(ts,tss);
+	CGraphicsUtilities::RenderString(10,40,"D=%s",(hit)?"true":"false");
 }
 
 /*****************************************************************
@@ -107,5 +127,21 @@ void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
 		m_pFontTexture->RenderScale(sx, sy, fontsize/64.0, SRect);
 		//m_pFontTexture->Render(sx, sy, SRect);
 		sx += fontsize;
+	}
+}
+
+void CFujiwara::test(CRectangle r, CRectangle o)
+{
+	CRectangle prec = r;
+	CRectangle enec = o;
+	
+
+	if (prec.CollisionRect(enec))
+	{
+		hit = true;
+	}
+	else
+	{
+		hit = false;
 	}
 }

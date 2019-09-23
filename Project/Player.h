@@ -55,6 +55,8 @@ public:
 	void	LifeDecrease(void);
 
 	void	   CollisionStage(Vector2 o);
+	//
+	void	   CollisionObject();
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }

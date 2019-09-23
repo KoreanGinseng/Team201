@@ -46,7 +46,8 @@ CLoading a;
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
 	//開始シーン
-	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
+	g_pScene = new CGame();
+	//g_pScene=new CFujiwara();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
 
 	//読み込みカレントディレクトリの設定

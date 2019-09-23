@@ -15,6 +15,10 @@ private:
 	enum tag_MOTION {
 		MOTION_START,
 		MOTION_END,
+		//ê¬
+		MOTION_CHANGE1,
+		//ê‘
+		MOTION_CHANGE2,
 
 		MOTION_COUNT
 	};
@@ -34,5 +38,8 @@ public:
 	bool GetShow(void) { return m_bShow; }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }
+
+	//
+	void Change();
 };
 

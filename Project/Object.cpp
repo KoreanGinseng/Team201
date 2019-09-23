@@ -29,11 +29,25 @@ void CObject::Initialize(float px, float py) {
 			64,64,
 			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
 		},
+		{
+			"オブジェクトチェンジ１",
+			0,0,
+			64,64,
+			FALSE,{{5,3,0},{5,2,0},{5,1,0},{5,0,0}},
+		},
+		{
+			"オブジェクトチェンジ２",
+			0,64,
+			64,64,
+			FALSE,{{5,3,0},{5,2,0},{5,1,0},{5,0,0}}
+		},
+
 	};
 	m_Motion.Create(anim, MOTION_COUNT);
 	if (m_bMotionEnd)
 	{
 		m_Motion.ChangeMotion(MOTION_END);
+
 	}
 }
 
@@ -75,4 +89,38 @@ void CObject::RenderDebug(Vector2 sp) {
 
 void CObject::Release(void) {
 	m_Motion.Release();
+}
+
+void CObject::Change()
+{
+	bool end = false;
+	if (m_Motion.GetMotionNo()==MOTION_START)
+	{
+		m_Motion.ChangeMotion(MOTION_CHANGE1);
+	}
+	
+	if (end&&m_Motion.GetMotionNo() == MOTION_CHANGE1)
+	{			
+		m_Motion.ChangeMotion(MOTION_CHANGE2);
+		
+	}
+
+	/*else if (m_Motion.GetMotionNo() == MOTION_CHANGE1)
+	{
+		if(m_Motion.IsEndMotion())
+		m_Motion.ChangeMotion(MOTION_CHANGE2);
+	}*/
+
+	/*if (m_Motion.GetMotionNo() == MOTION_CHANGE1)
+	{
+		m_Motion.ChangeMotion(MOTION_END);
+	}
+
+	if (m_Motion.GetMotionNo() == MOTION_CHANGE2)
+	{
+		m_Motion.ChangeMotion(MOTION_START);
+	}*/
+
+
+	
 }

@@ -80,6 +80,20 @@ void CGame::Update() {
 		m_Player.CollisionStage(o);
 	}
 
+	//ayarihantei
+	for(int i=0;i<m_Stage[m_StageNo].GetObjectCount();i++)
+	{ 
+		if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
+		{
+			
+			m_pObjArray[i].Change();
+		}
+		else
+		{
+			
+		}
+	}
+
 	//“G‚ÌXV
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
@@ -182,6 +196,7 @@ void CGame::Render() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].Render(screenPos);
 	}
+	
 }
 
 /*****************************************************************
@@ -214,6 +229,8 @@ void CGame::RenderDebug() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].RenderDebug(screenPos);
 	}
+
+	
 }
 
 /*****************************************************************

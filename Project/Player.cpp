@@ -362,3 +362,8 @@ void CPlayer::CollisionStage(Vector2 o) {
 		m_MoveX = 0;
 	}
 }
+
+void CPlayer::CollisionObject()
+{
+
+}
