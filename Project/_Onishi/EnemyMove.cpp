@@ -145,11 +145,11 @@ void CEnemyMove::TUpdate(float Xpos, float Ypos) {
 	}
 	float dx = Xpos - m_bXpos;
 	if (dx > 0) {
-		m_bRevers = false;
+		m_bRevers = true;
 	}
 	else
 	{
-		m_bRevers = true;
+		m_bRevers = false;
 	}
 	float dy = Ypos - m_bYpos;
 	float d = sqrt(dx*dx + dy * dy);
