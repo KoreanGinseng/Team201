@@ -13,16 +13,16 @@ private:
 
 	CTexture			m_Texture;
 	CTexture			m_HpTexture;
-
-	/*CEffectManager*		m_pEffectManager;
-	CSoundManager*		m_pSoundManager;
-*/
+	CCircle				m_SkillCircle;
+	Vector2*			m_pScroll;
+	
+	bool				m_bTrigger;
 	bool				m_bJump;
 	bool				m_bPowerUp;
 
 	int					m_Life;
 	int					m_Hp;
-
+	float				m_Skillrang;
 	float				m_PosX;
 	float				m_PosY;
 
@@ -50,6 +50,7 @@ public:
 	void	TestPadOperation(void);
 	void	TestKeyOperation(void);
 	void	LifeDecrease(void);
+	void	Skill(void);
 
 	void	   CollisionStage(Vector2 o);
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
@@ -57,6 +58,6 @@ public:
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
 	Vector2 GetMove2() { return Vector2(m_MoveX2, m_MoveY2); }
 
-	//void	SetEffectManager(CEffectManager* pmng) { m_pEffectManager = pmng; }
-	//void	SetSoundManager(CSoundManager* psng) { m_pSoundManager = psng; }
+	void	SetScroll(Vector2* scroll) { m_pScroll = scroll; }
+	
 };

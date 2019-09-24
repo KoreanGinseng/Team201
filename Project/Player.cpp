@@ -7,8 +7,10 @@ bool	g_OperationDebug = true;
 bool	g_PadRenderDebug = false;
 bool	g_KeyRenderDebug = false;
 
-CPlayer::CPlayer() {
+CPlayer::CPlayer() : m_pScroll(NULL) {
 	//オブジェクト生成時の初期化
+	m_Skillrang = 0.0f;
+
 	m_PosX = 0;
 	m_PosY = 0;
 
@@ -23,6 +25,7 @@ CPlayer::CPlayer() {
 
 	m_bJump = false;
 	m_bPowerUp = false;
+	m_bTrigger = false;
 
 
 }
@@ -46,6 +49,8 @@ bool CPlayer::Load() {
 }
 
 void CPlayer::Initialize() {
+	//スキルの範囲を初期化
+	m_Skillrang = 0.0f;
 	//座標の初期化
 	m_PosX = g_pGraphics->GetTargetWidth() / 2;
 	m_PosY = 0;
@@ -60,6 +65,9 @@ void CPlayer::Initialize() {
 	m_bJump = false;
 	//パワーアップフラグの初期化
 	m_bPowerUp = false;
+	//スキルの発動フラグを初期化
+	m_bTrigger = false;
+
 
 }
 
@@ -187,6 +195,8 @@ void CPlayer::TestKeyOperation() {
 
 void CPlayer::PadOperation() {
 
+	//スキルの更新
+	Skill();
 	//テスト操作用
 	TestPadOperation();
 
@@ -421,6 +431,48 @@ void CPlayer::KeyOperation() {
 
 }
 
+void CPlayer::Skill() {
+
+	//スキルの円に座標や半径を代入
+	m_SkillCircle.x = m_pScroll->x + PLAYER_WIDTH / 2;
+	m_SkillCircle.y = m_pScroll->y + PLAYER_HEIGHT / 2;
+	m_SkillCircle.r = m_Skillrang;
+
+	//LTボタンを押した場合、スキルが発動
+	if (g_pGamePad->GetPadState()->lZ > 500) {
+
+		m_bTrigger = true;
+
+	}
+	else if (g_pGamePad->GetPadState()->lZ < 1) {
+
+		m_bTrigger = false;
+
+	}
+
+	//スキルが発動している場合ターゲットの範囲を広げる
+	if (m_bTrigger) {
+
+		m_Skillrang += 10;
+
+		if (m_Skillrang >= PLAYER_MAXSKILLRANGE) {
+
+			m_Skillrang = PLAYER_MAXSKILLRANGE;
+
+		}
+	}
+	else {
+
+		if (m_Skillrang > 0.0f) {
+
+			m_Skillrang = 0.0f;
+
+		}
+
+	}
+
+}
+
 void CPlayer::LifeDecrease() {
 	//HPが0以下になった場合残機を減らしHPを初期値に戻す
 	if (m_Hp <= 0) {
@@ -440,7 +492,7 @@ void CPlayer::Render(Vector2 scroll) {
 	//デバックの描画
 	RenderDebug();
 
-	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderCircle(m_SkillCircle, MOF_COLOR_RED);
 
 }
 

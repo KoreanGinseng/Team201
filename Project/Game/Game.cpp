@@ -71,10 +71,6 @@ void CGame::Initialize() {
 	g_pEffectManager->Initialize();
 	//サウンドの初期化
 	g_pSoundManager->Initialize();
-	//プレイヤーにエフェクトクラスの設定
-	/*m_Player.SetEffectManager(&m_EffectManager);
-	m_Player.SetSoundManager(&m_SoundManager);*/
-	
 
 }
 
@@ -86,9 +82,15 @@ void CGame::Initialize() {
  *****************************************************************/
 void CGame::Update() {
 
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+
+	m_Player.SetScroll(&screenPos);
+
 	m_Player.Update();
 
 	Vector2 o(0, 0);
+
+
 	if (m_Stage[m_StageNo].Collision(m_Player.GetRect(), o))
 	{
 		m_Player.CollisionStage(o);
