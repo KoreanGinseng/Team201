@@ -7,9 +7,9 @@ enum ENEMYATACK {
 
 class CEnemyAtack {
 private:
-	float AposX;
-	float AposY;
-	float time;
+	float m_fAposX;
+	float m_fAposY;
+	float m_fTime;
 	bool m_bShow;
 
 

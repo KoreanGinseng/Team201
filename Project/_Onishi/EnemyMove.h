@@ -28,15 +28,15 @@ class CEnemyMove {
 private:
 	bool m_bEnd;
 	bool m_bRevers;
-	float m_bXpos;
-	float m_bYpos;
-	float m_bTimer;
-	float m_bAtackTimer;
-	float m_bCooltime;
-	float m_bMoveX;
-	float m_bMoveY;
-	float m_EnemySpeed;
-	CEnemyAtack	m_bAtack;
+	float m_fXpos;
+	float m_fYpos;
+	float m_fTimer;
+	float m_fAtackTimer;
+	float m_fCooltime;
+	float m_fMoveX;
+	float m_fMoveY;
+	float m_fEnemySpeed;
+	CEnemyAtack	m_Atack;
 	CSpriteMotionController m_Motion;
 	CRectangle				m_SrcRect;
 	CTexture	m_Texture;
@@ -53,7 +53,7 @@ public:
 	void CollisionStage(float ox, float oy, int Type);
 	void Render(float Xpos, float Ypos,int Type);
 
-	float GetXpos(void) { return m_bXpos; };
-	float GetYpos(void) { return m_bYpos; };
+	float GetXpos(void) { return m_fXpos; };
+	float GetYpos(void) { return m_fYpos; };
 
 };
