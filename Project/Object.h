@@ -11,7 +11,8 @@ private:
 	float					m_PosY;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
-
+	bool					bFlag;
+	//現在のモーションフラグ
 	enum tag_MOTION {
 		MOTION_START,
 		MOTION_END,
@@ -41,5 +42,7 @@ public:
 
 	//
 	void Change();
+	void ChangeEnd();
+	
 };
 

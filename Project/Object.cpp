@@ -57,11 +57,20 @@ void CObject::Update(void) {
 	{
 		return;
 	}
-
-	if (m_bMotionEnd)
+	//常にアニメーションを動かす
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	//現在のアニメーションがおわったら切り替える
+	if (m_Motion.GetMotionNo() == MOTION_CHANGE1 && m_Motion.IsEndMotion())
 	{
-		//m_Motion.AddTimer(CUtilities::GetFrameSecond());
+		m_Motion.ChangeMotion(MOTION_END);
 	}
+	if (m_Motion.GetMotionNo() == MOTION_CHANGE2 && m_Motion.IsEndMotion())
+	{
+		m_Motion.ChangeMotion(MOTION_START);
+	}
+	//if (m_bMotionEnd)
+	//{
+	//}
 
 	m_SrcRect = m_Motion.GetSrcRect();
 }
@@ -91,35 +100,54 @@ void CObject::Release(void) {
 	m_Motion.Release();
 }
 
+void CObject::ChangeEnd()
+{
+	//もう一度通るためにフラグをoffにする
+	bFlag = false;
+}
 void CObject::Change()
 {
-	bool end = false;
-	if (m_Motion.GetMotionNo()==MOTION_START)
+	//一回しか通らないようにするため
+	if (bFlag)
+	{
+		return;
+	}
+	bFlag = true;
+	//青色から赤色へ
+	if (m_Motion.GetMotionNo() == MOTION_START)
 	{
 		m_Motion.ChangeMotion(MOTION_CHANGE1);
 	}
+	if (m_Motion.GetMotionNo() == MOTION_END)
+	{
+		m_Motion.ChangeMotion(MOTION_CHANGE2);
+	}
 	
-	if (end&&m_Motion.GetMotionNo() == MOTION_CHANGE1)
-	{			
+//	else if (m_Motion.GetMotionNo() != MOTION_END)
+//	{
+		//m_Motion.AddTimer(STOPBITS_20);
+//		m_Motion.AddTimer(CUtilities::GetFrameSecond());
+//	}
+
+
+	//赤色から青色へ
+	/*if (m_Motion.GetMotionNo() == MOTION_END)
+	{
 		m_Motion.ChangeMotion(MOTION_CHANGE2);
-		
 	}
 
-	/*else if (m_Motion.GetMotionNo() == MOTION_CHANGE1)
-	{
-		if(m_Motion.IsEndMotion())
-		m_Motion.ChangeMotion(MOTION_CHANGE2);
-	}*/
-
-	/*if (m_Motion.GetMotionNo() == MOTION_CHANGE1)
-	{
-		m_Motion.ChangeMotion(MOTION_END);
-	}
-
-	if (m_Motion.GetMotionNo() == MOTION_CHANGE2)
+	else if (m_Motion.IsEndMotion())
 	{
 		m_Motion.ChangeMotion(MOTION_START);
+	}
+
+	else if (m_Motion.GetMotionNo() != MOTION_START)
+	{
+		m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	}*/
+
+	MOF_PRINTLOG("%s\n", m_Motion.IsEndMotion() ? "ture" : "false");
+	
 
 
 	

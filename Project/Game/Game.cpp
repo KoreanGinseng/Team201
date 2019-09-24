@@ -85,14 +85,15 @@ void CGame::Update() {
 	{ 
 		if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
 		{
-			
 			m_pObjArray[i].Change();
 		}
 		else
 		{
-			
+			m_pObjArray[i].ChangeEnd();
 		}
 	}
+
+
 
 	//ìGÇÃçXêV
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
