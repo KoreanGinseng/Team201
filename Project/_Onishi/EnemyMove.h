@@ -17,6 +17,13 @@ enum ENEMY
 	ENEMY_KOTEIHOUDAI,
 };
 
+enum BAT_ANIM
+{
+	BAT_MOVE,
+	BAT_DOWN,
+	BAT_ANIMCOUNT,
+};
+
 class CEnemyMove {
 private:
 	bool m_bEnd;
@@ -28,15 +35,19 @@ private:
 	float m_bCooltime;
 	float m_bMoveX;
 	float m_bMoveY;
+	float m_EnemySpeed;
 	CEnemyAtack	m_bAtack;
+	CSpriteMotionController m_Motion;
+	CRectangle				m_SrcRect;
+	CTexture	m_Texture;
 public:
 	CEnemyMove();
 	~CEnemyMove();
-	void Initialize(void);
-	void Update(float Xpos, float Ypos, bool pRevers,int Type);
+	void Initialize(int Type);
+	void Update(float Xpos, float Ypos,int Type);
 	void KUpdate(float Xpos,float Ypos);
 	void NUpdate(void);
-	void TUpdate(float Xpos, float Ypos, bool pRevers);
+	void TUpdate(float Xpos, float Ypos);
 	void BUpdate(float Xpos, float Ypos);
 	void KOUpdate(void);
 	void CollisionStage(float ox, float oy, int Type);
