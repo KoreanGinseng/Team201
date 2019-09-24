@@ -36,7 +36,7 @@ CKimura::~CKimura() {
  * @return ‚È‚µ
  *****************************************************************/
 void CKimura::Load() {
-
+	
 	m_BackTexture.Load("TestKimura.png");
 
 }

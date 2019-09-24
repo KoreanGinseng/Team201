@@ -14,9 +14,9 @@ private:
 	CTexture			m_Texture;
 	CTexture			m_HpTexture;
 
-	CEffectManager*		m_pEffectManager;
+	/*CEffectManager*		m_pEffectManager;
 	CSoundManager*		m_pSoundManager;
-
+*/
 	bool				m_bJump;
 	bool				m_bPowerUp;
 
@@ -57,6 +57,6 @@ public:
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
 	Vector2 GetMove2() { return Vector2(m_MoveX2, m_MoveY2); }
 
-	void	SetEffectManager(CEffectManager* pmng) { m_pEffectManager = pmng; }
-	void	SetSoundManager(CSoundManager* psng) { m_pSoundManager = psng; }
+	//void	SetEffectManager(CEffectManager* pmng) { m_pEffectManager = pmng; }
+	//void	SetSoundManager(CSoundManager* psng) { m_pSoundManager = psng; }
 };

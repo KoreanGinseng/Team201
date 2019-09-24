@@ -11,6 +11,7 @@
 #include	"../SceneBase.h"
 //#include	"../GameDefine.h"
 #include	"../Player.h"
+#include	"../SoundManager.h"
 
  /*****************************************************************
   *	@brief			キムラシーンクラス

@@ -1,15 +1,16 @@
 #include		"SoundManager.h"
 
-CSoundManager::CSoundManager() {
+//CSoundManager::CSoundManager() {
+//
+//
+//}
+//
+//CSoundManager::~CSoundManager() {
+//
+//
+//}
 
-
-}
-
-CSoundManager::~CSoundManager() {
-
-
-}
-
+CSoundManager* CSoundManager::m_pInstance = NULL;
 
 bool CSoundManager::Load() {
 

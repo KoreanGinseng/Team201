@@ -1,13 +1,15 @@
 #include		"EffectManager.h"
 
-CEffectManager::CEffectManager() {
+//CEffectManager::CEffectManager() {
+//
+//
+//}
+//CEffectManager::~CEffectManager() {
+//
+//
+//}
 
-
-}
-CEffectManager::~CEffectManager() {
-
-
-}
+CEffectManager* CEffectManager::m_pInstance = NULL;
 
 bool CEffectManager::Load() {
 

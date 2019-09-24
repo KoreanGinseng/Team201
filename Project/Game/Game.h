@@ -24,8 +24,8 @@ private:
 	CCamera2D			m_MainCamera;
 	CPlayer				m_Player;
 	CStage				m_Stage[STAGE_COUNT];
-	CEffectManager		m_EffectManager;
-	CSoundManager		m_SoundManager;
+	/*CEffectManager		m_EffectManager;
+	CSoundManager		m_SoundManager;*/
 
 	int					m_StageNo;
 	// “G

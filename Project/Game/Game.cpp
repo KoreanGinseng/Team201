@@ -52,9 +52,9 @@ void CGame::Load() {
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	m_Player.Load();
 	//エフェクト素材の読み込み
-	m_EffectManager.Load();
+	g_pEffectManager->Load();
 	//サウンド素材の読み込み
-	m_SoundManager.Load();
+	g_pSoundManager->Load();
 
 }
 
@@ -68,12 +68,13 @@ void CGame::Initialize() {
 	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
 	m_Player.Initialize();
 	//エフェクトの初期化
-	m_EffectManager.Initialize();
+	g_pEffectManager->Initialize();
 	//サウンドの初期化
-	m_SoundManager.Initialize();
+	g_pSoundManager->Initialize();
 	//プレイヤーにエフェクトクラスの設定
-	m_Player.SetEffectManager(&m_EffectManager);
-	m_Player.SetSoundManager(&m_SoundManager);
+	/*m_Player.SetEffectManager(&m_EffectManager);
+	m_Player.SetSoundManager(&m_SoundManager);*/
+	
 
 }
 
@@ -145,9 +146,9 @@ void CGame::Update() {
 	m_Stage[m_StageNo].Update();
 
 	//エフェクトの更新
-	m_EffectManager.Update();
+	g_pEffectManager->Update();
 	//サウンドの更新
-	m_SoundManager.Update();
+	g_pSoundManager->Update();
 
 	// Oキーでステージ変更
 	if (g_pInput->IsKeyPush(MOFKEY_O)) {
@@ -183,7 +184,7 @@ void CGame::Render() {
 	m_Player.Render(screenPos);
 
 	//エフェクトの描画
-	m_EffectManager.Render(screenPos);
+	g_pEffectManager->Render(screenPos);
 
 	//敵の描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -269,9 +270,9 @@ void CGame::Release() {
 	m_Player.Release();
 
 	//エフェクトの解放
-	m_EffectManager.Release();
+	g_pEffectManager->Release();
 
 	//サウンドの解放
-	m_SoundManager.Release();
+	g_pSoundManager->Release();
 
 }

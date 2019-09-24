@@ -128,22 +128,22 @@ void CPlayer::TestPadOperation() {
 	}//エフェクトのテスト処理
 	else if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
 
-		m_pEffectManager->Start(m_PosX + PLAYER_WIDTH * 0.5f, m_PosY + PLAYER_HEIGHT * 0.5f, EFC_TEST);
+		g_pEffectManager->Start(m_PosX + PLAYER_WIDTH * 0.5f, m_PosY + PLAYER_HEIGHT * 0.5f, EFC_TEST);
 
 	}//サウンドの再生テスト
 	else if (g_pGamePad->IsKeyPush(GAMEKEY_LB)) {
 
-		m_pSoundManager->Start(SUD_SOUNDBGM, SOUND_BGM);
+		g_pSoundManager->Start(SUD_SOUNDBGM, SOUND_BGM);
 
 	}//サウンドのストップテスト1
 	else if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
 
-		m_pSoundManager->Stop(SUD_SOUNDBGM, STOP_SUDDEN);
+		g_pSoundManager->Stop(SUD_SOUNDBGM, STOP_SUDDEN);
 
 	}//サウンドのストップテスト2
 	else if (g_pGamePad->IsKeyPush(GAMEKEY_BACK)) {
 
-		m_pSoundManager->Stop(SUD_SOUNDBGM,STOP_GRADUALLY);
+		g_pSoundManager->Stop(SUD_SOUNDBGM,STOP_GRADUALLY);
 
 	}
 
@@ -164,22 +164,22 @@ void CPlayer::TestKeyOperation() {
 	}//エフェクトのテスト処理
 	else if (g_pInput->IsKeyPush(MOFKEY_3)) {
 
-		m_pEffectManager->Start(m_PosX + PLAYER_WIDTH * 0.5f, m_PosY + PLAYER_HEIGHT * 0.5f, EFC_TEST);
+		g_pEffectManager->Start(m_PosX + PLAYER_WIDTH * 0.5f, m_PosY + PLAYER_HEIGHT * 0.5f, EFC_TEST);
 
 	}//サウンドの再生テスト
 	else if (g_pInput->IsKeyPush(MOFKEY_4)) {
 
-		m_pSoundManager->Start(SUD_SOUNDBGM, SOUND_BGM);
+		g_pSoundManager->Start(SUD_SOUNDBGM, SOUND_BGM);
 
 	}//サウンドのストップテスト1
 	else if (g_pInput->IsKeyPush(MOFKEY_5)) {
 
-		m_pSoundManager->Stop(SUD_SOUNDBGM, STOP_SUDDEN);
+		g_pSoundManager->Stop(SUD_SOUNDBGM, STOP_SUDDEN);
 
 	}//サウンドのストップテスト2
 	else if (g_pInput->IsKeyPush(MOFKEY_6)) {
 
-		m_pSoundManager->Stop(SUD_SOUNDBGM, STOP_GRADUALLY);
+		g_pSoundManager->Stop(SUD_SOUNDBGM, STOP_GRADUALLY);
 
 	}
 
@@ -276,7 +276,7 @@ void CPlayer::PadOperation() {
 	if (g_pGamePad->IsKeyPush(GAMEKEY_A)&&!m_bJump) {
 
 		//ジャンプ効果音のテスト処理
-		m_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
+		g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
 
 		m_bJump = true;
 
@@ -397,7 +397,7 @@ void CPlayer::KeyOperation() {
 	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump) {
 
 		//ジャンプ効果音のテスト処理
-		m_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
+		g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
 
 		m_bJump = true;
 
