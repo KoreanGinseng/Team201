@@ -14,6 +14,7 @@
 #include	"../Camera2D.h"
 #include	"../EffectManager.h"
 #include	"../SoundManager.h"
+#include	"../Coordinate.h"
 
  /*****************************************************************
   *	@brief			ゲームシーンクラス

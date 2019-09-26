@@ -54,9 +54,11 @@ public:
 
 	void	   CollisionStage(Vector2 o);
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
+	CCircle	GetCircle(void) { return m_SkillCircle; }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
 	Vector2 GetMove2() { return Vector2(m_MoveX2, m_MoveY2); }
+	bool	IsTrigger(void) { return m_bTrigger; }
 
 	void	SetScroll(Vector2* scroll) { m_pScroll = scroll; }
 	

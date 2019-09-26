@@ -88,6 +88,15 @@ void CGame::Update() {
 
 	m_Player.Update();
 
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount() && m_Player.IsTrigger(); i++) {
+
+		if (CollisionRectCircle(m_EnemyArray[i].GetRect(), m_Player.GetCircle())) {
+
+
+		}
+
+	}
+
 	Vector2 o(0, 0);
 
 
