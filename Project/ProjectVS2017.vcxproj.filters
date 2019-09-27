@@ -52,6 +52,9 @@
     <Filter Include="ソース ファイル\Object">
       <UniqueIdentifier>{7675c992-593c-4591-aea5-3f5cef249a93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ResourceMAnager">
+      <UniqueIdentifier>{f04be855-241d-481f-92db-e124c5ae7553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -113,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>ソース ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

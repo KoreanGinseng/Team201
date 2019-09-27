@@ -46,3 +46,42 @@ enum tag_SCENENO {
 	SCENENO_ONISHI,
 	SCENENO_KIMURA,
 };
+
+/*****************************************************************
+ * @enum tag_TEXTUREDATA
+ * テクスチャファイルの列挙
+ *****************************************************************/
+typedef enum tag_TEXTUREDATA {
+	TEXTURE_PLAYER,
+	TEXTURE_ENEMY_1,
+	TEXTURE_ENEMY_2,
+	TEXTURE_ENEMY_3,
+	TEXTURE_OBJ_1,
+	TEXTURE_OBJ_2,
+	TEXTURE_OBJ_3,
+	TEXTURE_OBJ_4,
+	TEXTURE_ENEMY_ATTACK,
+	TEXTURE_MAP_BACK,
+	TEXTURE_MAP_BACKCHIP_1,
+	TEXTURE_MAP_BACKCHIP_2,
+	TEXTURE_MAP_CHIP,
+
+	TEXTURE_COUNT,
+}TEXTUREDATA;
+
+/*****************************************************************
+ * @enum tag_ANIMATIONDATA
+ * アニメーションファイルの列挙
+ *****************************************************************/
+typedef enum tag_ANIMATIONDATA {
+	ANIMATION_PLAYER,
+	ANIMATION_ENEMY_1,
+	ANIMATION_ENEMY_2,
+	ANIMATION_ENEMY_3,
+	ANIMATION_OBJ_1,
+	ANIMATION_OBJ_2,
+	ANIMATION_OBJ_3,
+	ANIMATION_OBJ_4,
+
+	ANIMATION_COUNT,
+}ANIMATIONDATA;
