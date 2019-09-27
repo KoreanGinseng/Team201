@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_BAT;
+	gEnemytype = ENEMY_TERESA;
 	gEnemy.Initialize(gEnemytype);
 }
 
