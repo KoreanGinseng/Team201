@@ -10,14 +10,23 @@ CEnemyAtack::CEnemyAtack() :
 
 CEnemyAtack::~CEnemyAtack() {
 }
-
+/**
+ * @brief	初期化
+ * @return 無し
+ */
 void CEnemyAtack::Initialize() {
 	m_fAposX = 0;
 	m_fAposY = 0;
 	m_bShow = false;
 	m_fTime = 0;
 }
-
+/**
+ * @brief	クリボー更新
+ * @param (EposX) エネミーのX座標
+ * @param (EposY) エネミーのY座標
+ * @param (ERevers) エネミーの方向
+ * @return 無し
+ */
 void CEnemyAtack::KUpdate(float EposX, float EposY, bool ERevers) {
 	if (m_bShow) {
 		return;
@@ -36,7 +45,10 @@ void CEnemyAtack::KUpdate(float EposX, float EposY, bool ERevers) {
 
 	}
 }
-
+/**
+ * @brief	描画
+ * @return 無し
+ */
 void CEnemyAtack::Render() {
 	if (!m_bShow) {
 		return;
