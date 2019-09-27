@@ -147,14 +147,14 @@ MofBool CGameApp::Render(void){
 	//シーンの描画
 	g_pScene->Render();
 
-	if (a.bEnd)
+	/*if (a.bEnd)
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LoadEnd");
 	}
 	else
 	{
 		CGraphicsUtilities::RenderString(0, 0, "Load...");
-	}
+	}*/
 	//デバッグ表示
 	if (g_bDebug) 
 	{

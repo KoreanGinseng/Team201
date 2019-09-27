@@ -68,9 +68,7 @@ void CObject::Update(void) {
 	{
 		m_Motion.ChangeMotion(MOTION_START);
 	}
-	//if (m_bMotionEnd)
-	//{
-	//}
+	
 
 	m_SrcRect = m_Motion.GetSrcRect();
 }
@@ -123,28 +121,7 @@ void CObject::Change()
 		m_Motion.ChangeMotion(MOTION_CHANGE2);
 	}
 	
-//	else if (m_Motion.GetMotionNo() != MOTION_END)
-//	{
-		//m_Motion.AddTimer(STOPBITS_20);
-//		m_Motion.AddTimer(CUtilities::GetFrameSecond());
-//	}
 
-
-	//ê‘êFÇ©ÇÁê¬êFÇ÷
-	/*if (m_Motion.GetMotionNo() == MOTION_END)
-	{
-		m_Motion.ChangeMotion(MOTION_CHANGE2);
-	}
-
-	else if (m_Motion.IsEndMotion())
-	{
-		m_Motion.ChangeMotion(MOTION_START);
-	}
-
-	else if (m_Motion.GetMotionNo() != MOTION_START)
-	{
-		m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	}*/
 
 	MOF_PRINTLOG("%s\n", m_Motion.IsEndMotion() ? "ture" : "false");
 	

@@ -167,7 +167,7 @@ void CPlayer::PadOperation() {
 
 		m_bJump = true;
 
-		m_MoveY = -10.0f;
+		m_MoveY = -7.0f;
 	}
 
 	m_MoveY += PLAYER_GRAVITY;
