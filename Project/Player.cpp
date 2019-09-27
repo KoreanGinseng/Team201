@@ -1,6 +1,9 @@
 #include		"Player.h"
 #include		"GameDefine.h"
 
+
+bool	bDebug = true;
+
 CPlayer::CPlayer() {
 	//オブジェクト生成時の初期化
 	m_PosX = 0;
@@ -56,8 +59,18 @@ void CPlayer::Initialize() {
 
 void CPlayer::Update() {
 
+	if (g_pInput->IsKeyPush(MOFKEY_F4))
+	{
+		bDebug = !bDebug;
+	}
+
+	if (bDebug)
+	{
+		Debug();
+	}
+
 	//コントローラーがPCに接続されている場合操作できる
-	if (g_pInput->GetGamePadCount()) {
+	else if (g_pInput->GetGamePadCount()) {
 
 		PadOperation();
 		//ダメージのテスト処理
@@ -362,3 +375,26 @@ void CPlayer::CollisionStage(Vector2 o) {
 		m_MoveX = 0;
 	}
 }
+
+#ifdef _DEBUG
+void CPlayer::Debug()
+{
+	int s = 5;
+	if (g_pInput->IsKeyHold(MOFKEY_LEFT))
+	{
+		m_PosX -= s;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_RIGHT))
+	{
+		m_PosX += s;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_UP))
+	{
+		m_PosY -= s;
+	}
+	if (g_pInput->IsKeyHold(MOFKEY_DOWN))
+	{
+		m_PosY += s;
+	}
+}
+#endif	//_DEBUG

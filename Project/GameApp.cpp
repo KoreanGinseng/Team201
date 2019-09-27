@@ -31,7 +31,7 @@ public:
 	bool bEnd = false;
 	void Run(void)
 	{
-		Sleep(10000);
+		Sleep(10);
 		bEnd = true;
 		return;
 	}
@@ -45,6 +45,7 @@ CLoading a;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
+	g_pGraphics->ChangeScreenMode();
 	//開始シーン
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
@@ -120,6 +121,11 @@ MofBool CGameApp::Update(void){
 		//新しいシーンの読み込みと初期化
 		g_pScene->Load();
 		g_pScene->Initialize();
+	}
+
+	// スペースキーでフルスクリーンに変換
+	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+		g_pGraphics->ChangeScreenMode();
 	}
 
 	//F1キーでデバッグフラグの切り替え

@@ -10,9 +10,9 @@
 #include	"../Coordinate.h"
 
 char*		g_StageFileName[STAGE_COUNT] = {
-			"testMap7-7.txt",
-			"testMap7-7.txt",
-			"testMap7-7.txt",
+			"testMap1-3.txt",
+			"testMap1-2.txt",
+			"testMap1-1.txt",
 };
 
 /*****************************************************************
@@ -176,11 +176,6 @@ void CGame::Update() {
 		}
 		Load();
 		Initialize();
-	}
-
-	// スペースキーでフルスクリーンに変換
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		g_pGraphics->ChangeScreenMode();
 	}
 
 	// ESCAPEキーで終了
