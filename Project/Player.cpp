@@ -473,6 +473,84 @@ void CPlayer::Skill() {
 
 }
 
+void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+//表示されている要素数を探す、その数を数える
+	//要素の数をを継続条件に、格納した要素数を引いていく
+
+	//表示されている敵の要素数を順に格納
+	list<int> element;
+	list<int>::iterator itr;
+
+
+	for (int i = 0; i < eneCount; i++) {
+
+		if (!pene[i].GetShow()) {
+
+			continue;
+
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
+
+			element.push_back(i);
+
+		}
+
+	}
+
+	//Listのポインタ
+	itr = element.begin;
+
+	float stx = m_PosX + PLAYER_WIDTH * 0.5f;
+	float sty = m_PosY + PLAYER_HEIGHT;
+	/*float stx = m_PosX + m_Motion.GetStrRect().GetWidth()*0.5f;
+		float sty = m_m_PosX + m_Motion.GetStrRect().GetHeight();*/
+	
+	for (itr = element.cbegin; itr < element.cend;++itr) {
+
+		CRectangle erec = pene[*itr].GetRect();
+
+		Vector2 cv = erec.GetCenter();
+
+		float dx = cv.x - stx;
+		float dy = cv.y - sty;
+
+		float d = (dx*dx + dy * dy);
+
+
+
+		
+
+	}
+	/**/
+	
+	/*for (int i = 0; i < element.size(); i++) {
+
+		eneclose[i] = pene[element.]
+	}
+	if (pene[i].GetRect().Left > m_PosX + PLAYER_WIDTH) {
+
+		x = pene[i].GetRect().Left - m_PosX + PLAYER_WIDTH;
+
+	}
+	else if (pene[i].GetRect().Right < m_PosX) {
+
+		x = m_PosX - pene[i].GetRect().Right;
+
+	}
+	else if (pene[i].GetRect().Bottom < m_PosY) {
+
+		x = m_PosY - pene[i].GetRect().Bottom;
+
+	}
+	else if (pene[i].GetRect().Top > m_PosY + PLAYER_HEIGHT) {
+
+		x = pene[i].GetRect().Top - m_PosY + PLAYER_HEIGHT;
+
+	}*/
+}
+
 void CPlayer::LifeDecrease() {
 	//HPが0以下になった場合残機を減らしHPを初期値に戻す
 	if (m_Hp <= 0) {

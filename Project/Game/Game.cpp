@@ -88,12 +88,10 @@ void CGame::Update() {
 
 	m_Player.Update();
 
-	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount() && m_Player.IsTrigger(); i++) {
+	//プレイヤーがスキル発動時の場合、
+	if (m_Player.IsTrigger()) {
 
-		if (CollisionRectCircle(m_EnemyArray[i].GetRect(), m_Player.GetCircle())) {
-
-
-		}
+		m_Player.SkillColision(m_EnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 
 	}
 

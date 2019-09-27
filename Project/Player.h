@@ -4,6 +4,12 @@
 #include		"GamePad.h"
 #include		"EffectManager.h"
 #include		"SoundManager.h"
+#include		"Enemy.h"
+#include		"Object.h"
+#include		"Coordinate.h"
+#include		<list>
+using namespace std;
+
 
 class CPlayer {
 
@@ -51,7 +57,7 @@ public:
 	void	TestKeyOperation(void);
 	void	LifeDecrease(void);
 	void	Skill(void);
-
+	void	SkillColision(CEnemy* pene, int eneCount,CObject* pobj,int objCount);
 	void	   CollisionStage(Vector2 o);
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
 	CCircle	GetCircle(void) { return m_SkillCircle; }
