@@ -8,7 +8,8 @@ int WINAPI _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 	Mof::WINDOWSGAMEFRAMEWORKINITIALIZEINFO Info;
 	Info.WindowCreateInfo.Width = 1920;
 	Info.WindowCreateInfo.Height = 1080;
-	Info.GraphicsCreateInfo.bWindowed = FALSE;
+	//Info.GraphicsCreateInfo.bWindowed = FALSE;
+	Info.GraphicsCreateInfo.bWindowed = TRUE;
 	Info.pApplication = new CGameApp();
 	if ( pFrame->Initialize(&Info) )
 	{

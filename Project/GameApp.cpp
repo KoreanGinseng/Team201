@@ -40,6 +40,7 @@ bool			gbDebug = false;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
+	CUtilities::SetCurrentDirectory("Resource");
 	
 	gpScene = new CTitle();			//タイトルから開始
 
@@ -56,6 +57,11 @@ MofBool CGameApp::Initialize(void){
 		gpScene->Initialize();
 	}
 
+	//FPSの設定
+	if (!CUtilities::SetFPS(GAMEFPS))
+	{
+		return FALSE;
+	}
 	return TRUE;
 }
 /*************************************************************************//*!

@@ -34,7 +34,7 @@ CEnemy::~CEnemy(){
  * [in]			py					Y座標
  * [in]			type				敵タイプ
  */
-void CEnemy::Initialize(float px,float py,int type){
+void CEnemy::Initialize(float px,float py,int type) {
 	m_Type = type;
 	m_Pos = Vector2(px, py);
 	m_Move = Vector2(-3.0f, 0.0f);

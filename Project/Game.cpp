@@ -16,7 +16,8 @@ char*		g_StageFileName[STAGE_COUNT] = {
 
 //コンストラクタ
 CGame::CGame() :
-CSceneBase()
+CSceneBase(),
+m_StageNo(START_STAGE)
 {
 }
 
@@ -134,7 +135,31 @@ void CGame::Update()
 //描画
 void CGame::Render()
 {
+	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+	m_Player.Render(screenPos);
+
+	//敵の描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_EnemyArray[i].GetPos());
+		m_EnemyArray[i].Render(screenPos);
+	}
+	//アイテムの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_ItemArray[i].GetPos());
+		m_ItemArray[i].Render(screenPos);
+	}
+	//オブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
+		m_pObjArray[i].Render(screenPos);
+	}
+
+	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 //デバッグ描画
