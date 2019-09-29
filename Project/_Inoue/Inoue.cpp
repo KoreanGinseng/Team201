@@ -36,12 +36,13 @@ CInoue::~CInoue() {
  * @param ‚È‚µ
  * @return ‚È‚µ
  *****************************************************************/
-void CInoue::Load() {
+bool CInoue::Load() {
 	for (int i = 0; i < STAGE_COUNT; i++) {
 		m_Stage[i].Load(g_StageFileName[i]);
 	}
 	m_Player1.Load("Player.png");
 	m_Player2.Load("Player2.png");
+	return TRUE;
 }
 
 /*****************************************************************

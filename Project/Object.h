@@ -7,8 +7,7 @@ private:
 	CTexture*				m_pTexture;
 	CSpriteMotionController	m_Motion;
 	bool					m_bMotionEnd;
-	float					m_PosX;
-	float					m_PosY;
+	Vector2					m_Pos;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 
@@ -27,12 +26,14 @@ public:
 	void RenderDebug(Vector2 sp);
 	void Release(void);
 
-	void SetTexture(CTexture* pt) { m_pTexture = pt; }
-	void SetShow(bool bs) { m_bShow = bs; }
-	void SetMotionEnd(bool bme) { m_bMotionEnd = bme; }
+	//Set
+	void SetTexture(CTexture* pt)	  { m_pTexture = pt; }
+	void SetMotionEnd(const bool be)  { m_bMotionEnd = be; }
+	void SetShow(const bool bs)	      { m_bShow = bs; }
 
-	bool GetShow(void) { return m_bShow; }
-	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
-	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }
+	//Get
+	bool		GetShow(void)	 const { return m_bShow; }
+	Vector2		GetPos(void)	 const { return m_Pos; }
+	CRectangle	GetRect(void)	 const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 };
 

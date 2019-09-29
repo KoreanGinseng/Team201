@@ -2,10 +2,10 @@
 #include	"Mof.h"
 #include	"SceneBase.h"
 
-#define		FONT_SIZE		64
+#define		IME_FONT_SIZE	64
 #define		FONT_LENGTH		10
 #define		TEXTBOX_TOP		50
-#define		TEXTBOX_WIDHT	FONT_SIZE * (FONT_LENGTH / 2)
+#define		TEXTBOX_WIDHT	IME_FONT_SIZE * (FONT_LENGTH / 2)
 #define		TEXTBOX_MARGIN	20
 
 
@@ -32,7 +32,7 @@ private:
 public:
 	CRanking();
 	~CRanking() {}
-	void Load();
+	bool Load();
 	void Initialize();
 	void Update();
 	void Render();

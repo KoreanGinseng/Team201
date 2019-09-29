@@ -1,30 +1,39 @@
+/*****************************************************************
+ *	@file			Stage.cpp
+ *	@brief			ステージクラス
+ *	@author			井上颯騎
+ *	@date			2019/09/29
+ *****************************************************************/
+
+//INCLUDE
 #include	"Stage.h"
 
-
+//コンストラクタ
 CStage::CStage() :
-m_BackTexture(),
-m_ChipTexture(),
-m_pEnemyTexture(nullptr),
-m_pItemTexture(nullptr),
-m_pObjectTexture(nullptr),
-m_ChipSize(0),
-m_XCount(0),
-m_YCount(0),
-m_pChipData(nullptr),
-m_pEnemyData(nullptr),
-m_pItemData(nullptr),
-m_pObjectData(nullptr),
-m_pObjEndData(nullptr),
-m_EnemyTextureCount(0),
-m_ItemTextureCount(0),
-m_ObjectTextureCount(0),
-m_EnemyCount(0),
-m_ItemCount(0),
-m_ObjectCount(0)
+	m_BackTexture(),
+	m_ChipTexture(),
+	m_pEnemyTexture(nullptr),
+	m_pItemTexture(nullptr),
+	m_pObjectTexture(nullptr),
+	m_ChipSize(0),
+	m_XCount(0),
+	m_YCount(0),
+	m_pChipData(nullptr),
+	m_pEnemyData(nullptr),
+	m_pItemData(nullptr),
+	m_pObjectData(nullptr),
+	m_pObjEndData(nullptr),
+	m_EnemyTextureCount(0),
+	m_ItemTextureCount(0),
+	m_ObjectTextureCount(0),
+	m_EnemyCount(0),
+	m_ItemCount(0),
+	m_ObjectCount(0)
 {
 }
 
-bool CStage::Load(char* pName) {
+//読み込み
+bool CStage::Load(const char* pName) {
 	//テキストファイルを開く
 	FILE* fp = fopen(pName, "rt");
 	if (fp == NULL) {
@@ -50,7 +59,7 @@ bool CStage::Load(char* pName) {
 	if (!m_ChipTexture.Load(pstr)) {
 		return FALSE;
 	}
-	
+
 	//チップサイズ
 	pstr = strtok(NULL, ",");
 	m_ChipSize = atof(pstr);
@@ -158,6 +167,7 @@ bool CStage::Load(char* pName) {
 	return TRUE;
 }
 
+//初期化
 void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 	int n = 0;
 	for (int y = 0; y < m_YCount; y++)
@@ -192,7 +202,7 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 		}
 	}
 	n = 0;
-	for(int y = 0; y < m_YCount; y++)
+	for (int y = 0; y < m_YCount; y++)
 	{
 		for (int x = 0; x < m_XCount; x++)
 		{
@@ -210,10 +220,12 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 	}
 }
 
+//更新
 void CStage::Update() {
 
 }
 
+//描画
 void CStage::Render(Vector2 scroll) {
 	//遠景の描画
 	int scw = g_pGraphics->GetTargetWidth();
@@ -245,10 +257,12 @@ void CStage::Render(Vector2 scroll) {
 	}
 }
 
+//デバッグ描画
 void CStage::RenderDebug(Vector2 scroll) {
 
 }
 
+//解放
 void CStage::Release() {
 	m_BackTexture.Release();
 	m_ChipTexture.Release();
@@ -291,6 +305,7 @@ void CStage::Release() {
 	}
 }
 
+//当たり判定
 bool CStage::Collision(CRectangle r, Vector2& o) {
 	bool re = false;
 
@@ -299,7 +314,7 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 	int rc = r.Right / m_ChipSize;
 	int tc = r.Top / m_ChipSize;
 	int bc = r.Bottom / m_ChipSize;
-	
+
 	//ステージの範囲外にはならないようにする
 	if (lc < 0)
 	{

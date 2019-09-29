@@ -1,12 +1,12 @@
 /*****************************************************************
- *	@file			Title.cpp
- *	@brief			タイトルシーン実装
+ *	@file			GameClear.cpp
+ *	@brief			ゲームクリアシーン実装
  *	@author			井上颯騎
  *	@date			2019/07/29
  *****************************************************************/
 
 //! INCLUDE
-#include	"Title.h"
+#include	"GameClear.h"
 
 /*****************************************************************
  * @fn
@@ -14,7 +14,7 @@
  * @param なし
  * @return なし
  *****************************************************************/
-CTitle::CTitle() :
+CGameClear::CGameClear() :
 CSceneBase() {
 }
 
@@ -24,7 +24,7 @@ CSceneBase() {
  * @param なし
  * @return なし
  *****************************************************************/
-CTitle::~CTitle() {
+CGameClear::~CGameClear() {
 	Release();
 }
 
@@ -34,8 +34,8 @@ CTitle::~CTitle() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::Load() {
-
+bool CGameClear::Load() {
+	return TRUE;
 }
 
 /*****************************************************************
@@ -44,7 +44,7 @@ void CTitle::Load() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::Initialize() {
+void CGameClear::Initialize() {
 
 }
 
@@ -54,7 +54,7 @@ void CTitle::Initialize() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::Update() {
+void CGameClear::Update() {
 
 }
 
@@ -64,7 +64,7 @@ void CTitle::Update() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::Render() {
+void CGameClear::Render() {
 
 }
 
@@ -74,7 +74,7 @@ void CTitle::Render() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::RenderDebug() {
+void CGameClear::RenderDebug() {
 
 }
 
@@ -84,6 +84,6 @@ void CTitle::RenderDebug() {
  * @param なし
  * @return なし
  *****************************************************************/
-void CTitle::Release() {
+void CGameClear::Release() {
 
 }

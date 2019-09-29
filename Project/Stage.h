@@ -1,11 +1,19 @@
+/*****************************************************************
+ *	@file			Stage.h
+ *	@brief			ステージクラス
+ *	@author			井上颯騎
+ *	@date			2019/09/29
+ *****************************************************************/
 #pragma once
+
+//INCLUDE
 #include	"Mof.h"
 #include	"Enemy.h"
 #include	"Item.h"
 #include	"Object.h"
 
-
-class CStage {
+class CStage
+{
 private:
 	CTexture	m_BackTexture;
 	CTexture	m_ChipTexture;
@@ -32,19 +40,22 @@ private:
 	int			m_ObjectCount;
 
 public:
-	CStage();
-	~CStage() {}
-	bool Load(char* pName);
+	CStage(void);
+	~CStage(void) {}
+	bool Load(const char* pName);
 	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
-	void Update();
+	void Update(void);
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
-	void Release();
+	void Release(void);
 
+	//Collision
 	bool Collision(CRectangle r, Vector2& o);
 
+	//Get
 	int	 GetEnemyCount()  const { return m_EnemyCount; }
 	int	 GetItemCount()   const { return m_ItemCount; }
 	int	 GetObjectCount() const { return m_ObjectCount; }
 
 };
+

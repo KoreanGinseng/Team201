@@ -12,8 +12,8 @@ CObject::~CObject()
 }
 
 void CObject::Initialize(float px, float py) {
-	m_PosX = px;
-	m_PosY = py;
+	m_Pos.x = px;
+	m_Pos.y = py;
 	m_bShow = true;
 	//アニメーションを作成
 	SpriteAnimationCreate anim[] = {

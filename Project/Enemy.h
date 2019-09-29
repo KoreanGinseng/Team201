@@ -12,10 +12,8 @@ private:
 	CTexture*				m_pTexture;
 	CSpriteMotionController	m_Motion;
 	int						m_Type;
-	float					m_PosX;
-	float					m_PosY;
-	float					m_MoveX;
-	float					m_MoveY;
+	Vector2					m_Pos;
+	Vector2					m_Move;
 	bool					m_bShow;
 	bool					m_bReverse;
 	CRectangle				m_SrcRect;
@@ -30,24 +28,29 @@ private:
 
 		MOTION_COUNT,
 	};
+
 public:
 	CEnemy();
 	~CEnemy();
 	void Initialize(float px,float py,int type);
 	void Update(void);
-	void Render(Vector2 sp);
-	void RenderDebug(Vector2 sp);
+	void Render(const Vector2& sp);
+	void RenderDebug(const Vector2& sp);
 	void Release(void);
 
-	void SetTexture(CTexture* pt){ m_pTexture = pt; }
+	//Set
+	void SetTexture(CTexture* pt) { m_pTexture = pt; }
 	
+	//Collision
 	void CollisionStage(Vector2 o);
 	void Damage(int dmg,bool bRev);
 	
-	bool GetShow(void){ return m_bShow; }
-	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
-	int GetDamageWait(void){ return m_DamageWait; }
-	CRectangle GetRect(){
-		return CRectangle(m_PosX + ENEMY_RECTDECREASE,m_PosY + ENEMY_RECTDECREASE,m_PosX + m_SrcRect.GetWidth() - ENEMY_RECTDECREASE,m_PosY + m_SrcRect.GetHeight());
+	//Get
+	bool		GetShow(void)			const { return m_bShow; }
+	Vector2		GetPos(void)			const { return m_Pos; }
+	int			GetDamageWait(void)		const { return m_DamageWait; }
+	CRectangle	GetRect(void)			const {
+		return CRectangle(m_Pos.x + ENEMY_RECTDECREASE, m_Pos.y + ENEMY_RECTDECREASE,
+			m_Pos.x + m_SrcRect.GetWidth() - ENEMY_RECTDECREASE, m_Pos.y + m_SrcRect.GetHeight());
 	}
 };

@@ -7,10 +7,8 @@
 CEnemy::CEnemy() :
 m_pTexture(NULL) ,
 m_Motion() ,
-m_PosX(0.0f) ,
-m_PosY(0.0f) ,
-m_MoveX(0.0f) ,
-m_MoveY(0.0f) ,
+m_Pos(Vector2(0,0)) ,
+m_Move(Vector2(0,0)) ,
 m_bShow(false) ,
 m_bReverse(false) ,
 m_SrcRect() ,
@@ -38,10 +36,8 @@ CEnemy::~CEnemy(){
  */
 void CEnemy::Initialize(float px,float py,int type){
 	m_Type = type;
-	m_PosX = px;
-	m_PosY = py;
-	m_MoveX = -3.0f;
-	m_MoveY = 0.0f;
+	m_Pos = Vector2(px, py);
+	m_Move = Vector2(-3.0f, 0.0f);
 	m_bReverse = true;
 	m_bShow = true;
 	m_HP = 10;
@@ -89,45 +85,45 @@ void CEnemy::Update(void){
 			}
 			if(m_bReverse)
 			{
-				m_MoveX = -3.0f;
+				m_Move.x = -3.0f;
 			}
 			else
 			{
-				m_MoveX = 3.0f;
+				m_Move.x = 3.0f;
 			}
 		}
 		else
 		{
-			if(m_MoveX > 0)
+			if(m_Move.x > 0)
 			{
-				m_MoveX -= 0.2f;
-				if(m_MoveX <= 0)
+				m_Move.x -= 0.2f;
+				if(m_Move.x <= 0)
 				{
-					m_MoveX = 0;
+					m_Move.x = 0;
 				}
 			}
-			else if(m_MoveX < 0)
+			else if(m_Move.x < 0)
 			{
-				m_MoveX += 0.2f;
-				if(m_MoveX >= 0)
+				m_Move.x += 0.2f;
+				if(m_Move.x >= 0)
 				{
-					m_MoveX = 0;
+					m_Move.x = 0;
 				}
 			}
 		}
 	}
 	//重力により下に少しずつ下がる
-	m_MoveY += GRAVITY;
-	if(m_MoveY >= 20.0f)
+	m_Move.y += GRAVITY;
+	if(m_Move.y >= 20.0f)
 	{
-		m_MoveY = 20.0f;
+		m_Move.y = 20.0f;
 	}
 	//実際に座標を移動させる
-	m_PosX += m_MoveX;
-	m_PosY += m_MoveY;
+	m_Pos += m_Move;
 	//アニメーションの更新
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	m_SrcRect = m_Motion.GetSrcRect();
+
 	//ダメージのインターバルを減らす
 	if(m_DamageWait > 0)
 	{
@@ -138,12 +134,8 @@ void CEnemy::Update(void){
 
 /**
  * 描画
- *
- * 引数
- * [in]			wx					ワールドの変化
- * [in]			wy					ワールドの変化
  */
-void CEnemy::Render(Vector2 sp){
+void CEnemy::Render(const Vector2& sp){
 	//非表示
 	if(!m_bShow)
 	{
@@ -169,12 +161,8 @@ void CEnemy::Render(Vector2 sp){
 
 /**
  * デバッグ描画
- *
- * 引数
- * [in]			wx					ワールドの変化
- * [in]			wy					ワールドの変化
  */
-void CEnemy::RenderDebug(Vector2 sp){
+void CEnemy::RenderDebug(const Vector2& sp){
 	//非表示
 	if(!m_bShow)
 	{
@@ -206,12 +194,12 @@ void CEnemy::Damage(int dmg,bool bRev){
 	m_DamageWait = 60;
 	if(bRev)
 	{
-		m_MoveX = -5.0f;
+		m_Move.x = -5.0f;
 		m_bReverse = false;
 	}
 	else
 	{
-		m_MoveX = 5.0f;
+		m_Move.x = 5.0f;
 		m_bReverse = true;
 	}
 	m_Motion.ChangeMotion(MOTION_DAMAGE);
@@ -219,45 +207,40 @@ void CEnemy::Damage(int dmg,bool bRev){
 
 /**
  * ステージとの当たり
- *
- * 引数
- * [in]			ox					X埋まり量
- * [in]			oy					Y埋まり量
  */
-void CEnemy::CollisionStage(Vector2 o){
-	m_PosX += o.x;
-	m_PosY += o.y;
+void CEnemy::CollisionStage(Vector2 o) {
+	m_Pos += o;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化する。
-	if(o.y < 0 && m_MoveY > 0)
+	if(o.y < 0 && m_Move.y > 0)
 	{
-		m_MoveY = 0;
+		m_Move.y = 0;
 	}
-	else if(o.y > 0 && m_MoveY < 0)
+	else if(o.y > 0 && m_Move.y < 0)
 	{
-		m_MoveY = 0;
+		m_Move.y = 0;
 	}
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
-	if(o.x < 0 && m_MoveX > 0)
+	if(o.x < 0 && m_Move.x > 0)
 	{
 		if(m_Motion.GetMotionNo() == MOTION_DAMAGE)
 		{
-			m_MoveX = 0;
+			m_Move.x = 0;
 		}
 		else
 		{
-			m_MoveX *= -1;
+			m_Move.x *= -1;
 			m_bReverse = true;
 		}
 	}
-	else if(o.x > 0 && m_MoveX < 0)
+	else if(o.x > 0 && m_Move.x < 0)
 	{
 		if(m_Motion.GetMotionNo() == MOTION_DAMAGE)
 		{
-			m_MoveX = 0;
+			m_Move.x = 0;
 		}
 		else
 		{
-			m_MoveX *= -1;
+			m_Move.x *= -1;
 			m_bReverse = false;
 		}
 	}

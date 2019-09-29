@@ -11,8 +11,8 @@ unsigned short int KeyBoard[4][10] = {
 CRanking::CRanking() {
 }
 
-void CRanking::Load() {
-	
+bool CRanking::Load() {
+	return TRUE;
 }
 
 void CRanking::Initialize() {
@@ -26,7 +26,7 @@ void CRanking::Initialize() {
 	m_VisibleCount = 0;
 	m_InputCount = 0;
 	//ƒtƒHƒ“ƒg‚Ì¶¬
-	m_NameFont.Create(FONT_SIZE, "‚l‚r@–¾’©");
+	m_NameFont.Create(IME_FONT_SIZE, "‚l‚r@–¾’©");
 }
 
 void CRanking::Update() {
@@ -117,7 +117,7 @@ void CRanking::ImeRender() {
 	m_NameFont.RenderString(or.Right, or.Top, MOF_COLOR_BLACK, it.GetString());
 
 	//“ü—Í’†•¶Žš‚Ì‹éŒ`‚ðŽæ“¾
-	CRectangle ir(GetTextBoxRect().Left, GetTextBoxRect().Top, GetTextBoxRect().Left + 2, GetTextBoxRect().Top + FONT_SIZE - 2);
+	CRectangle ir(GetTextBoxRect().Left, GetTextBoxRect().Top, GetTextBoxRect().Left + 2, GetTextBoxRect().Top + IME_FONT_SIZE - 2);
 	if (it.GetLength() > 0) {
 		m_NameFont.CalculateStringRect(GetTextBoxRect().Left, GetTextBoxRect().Top, it.GetString(), ir);
 	}

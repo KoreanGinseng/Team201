@@ -13,7 +13,7 @@
 #include	"../Stage.h"
 
 //! SCENE ADD
-#include	"../Ranking/Ranking.h"
+#include	"../Ranking.h"
 
 //! DEFINE
 #define		RECTSIZE	10
@@ -61,7 +61,7 @@ public:
 	 * @param ‚È‚µ
 	 * @return ‚È‚µ
 	 *****************************************************************/
-	void Load();
+	bool Load();
 
 	/*****************************************************************
 	 * @fn
