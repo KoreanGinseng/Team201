@@ -11,6 +11,10 @@
 #include	"GameDefine.h"
 #include	"GamePad.h"
 #include	"SoundManager.h"
+#include	"ResourceManager.h"
+
+//DEFINE
+#define		PLAYER_RECTDIS		40
 
 class CPlayer
 {
@@ -25,11 +29,13 @@ private:
 	Vector2	  m_Pos;
 	Vector2	  m_Move;
 	Vector2	  m_Spd;
+	bool	  m_bMove;
+	bool	  m_bReverse;
 	bool	  m_bJump;
 	bool	  m_bPowUp;
 	int		  m_HP;
 	int		  m_Stock;
-	CSpriteMotionController m_Motion;
+	CSpriteMotionController* m_pMotion;
 	CRectangle m_SrcRect;
 
 	void PadOparation(void);
@@ -38,10 +44,12 @@ private:
 	void Move(void);
 	void MoveAdd(WAY w);
 	void MoveSub(WAY w);
+	void Animation(void);
 	void Jump(void);
 
 	enum tag_Animation {
 		ANIM_WAIT,
+		ANIM_MOVE,
 
 		ANIM_COUNT,
 	};
@@ -60,10 +68,12 @@ public:
 
 	//Set
 	void SetTexture(CTexture* pt) { m_pTexture = pt; }
+	void SetMotion(CSpriteMotionController* pm) { m_pMotion = pm; }
 
 	//Get
 	Vector2 GetPos(void) const { return m_Pos; }
 	Vector2 GetSpd(void) const { return m_Spd; }
-	CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(),m_Pos.y + m_SrcRect.GetHeight()); }
+	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
+		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
 };
 

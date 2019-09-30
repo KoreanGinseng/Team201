@@ -40,8 +40,9 @@ bool CGame::Load()
 	//オブジェクトメモリ確保
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 
-	m_PlayerTex.Load("player3.png");
-	m_Player.SetTexture(&m_PlayerTex);
+	g_pResouseManager->Load("PlayerAnim.bin", TEXTURE_PLAYER, ANIMATION_PLAYER);
+	m_Player.SetTexture(g_pResouseManager->GetTexture(TEXTURE_PLAYER));
+	m_Player.SetMotion(g_pResouseManager->GetAnimation(ANIMATION_PLAYER));
 
 	return TRUE;
 }
@@ -169,7 +170,8 @@ void CGame::Render()
 //デバッグ描画
 void CGame::RenderDebug()
 {
-
+	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+	m_Player.RenderDebug(screenPos);
 }
 
 //解放

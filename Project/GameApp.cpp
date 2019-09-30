@@ -51,7 +51,7 @@ MofBool CGameApp::Initialize(void){
 	//別スレッドでやりたい。(LOADING)
 	{
 		g_pEffectManager->Load();
-		g_pResouseManager->Load();
+		//g_pResouseManager->Load();
 		g_pSoundManager->Load();
 		gpScene->Load();
 		gpScene->Initialize();
@@ -177,6 +177,8 @@ MofBool CGameApp::Release(void){
 	gpScene->Release();
 	delete gpScene;
 	gpScene = NULL;
+
+	g_pResouseManager->Release();
 
 	return TRUE;
 }

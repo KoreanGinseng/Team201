@@ -24,6 +24,12 @@
 #define		PLAYER_JUMPPOW			-10.0f
 #define		PLAYER_HIGHJUMPPOW		-15.0f
 
+
+//STRUCT
+typedef struct st {
+	char* g_AnimName;
+}ST, *LPST;
+
 //ENUM
 /*****************************************************************
  * @enum tag_SCENENO

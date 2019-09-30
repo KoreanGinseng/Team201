@@ -16,8 +16,7 @@ m_Move(Vector2(0,0)),
 m_Spd(Vector2(0,0)),
 m_bJump(false),
 m_HP(10),
-m_Stock(3),
-m_Motion()
+m_Stock(3)
 {
 }
 
@@ -43,16 +42,6 @@ void CPlayer::Initialize(void)
 	m_bJump = false;
 	//パワーアップフラグの初期化
 	m_bPowUp = false;
-
-	SpriteAnimationCreate anim[] = {
-		{
-			"待機",
-			0,0,
-			180,192,
-			TRUE,{{5,1,0},{5,2,0},{5,3,0},{5,4,0},{5,4,0},{5,6,0}}
-		},
-	};
-	m_Motion.Create(anim, ANIM_COUNT);
 }
 
 //更新
@@ -71,23 +60,29 @@ void CPlayer::Update(void)
 	//移動
 	Move();
 
-	//アニメーション加算
-	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-
-	//アニメーション矩形更新
-	m_SrcRect = m_Motion.GetSrcRect();
+	//アニメーション更新
+	Animation();
 }
 
 //描画
 void CPlayer::Render(Vector2 screenPos)
 {
-	m_pTexture->Render(screenPos.x, screenPos.y, m_SrcRect);
+	CRectangle dr = m_SrcRect;
+	//反転フラグが立っているとき描画矩形を反転
+	if (m_bReverse)
+	{
+		float tmp = dr.Right;
+		dr.Right = dr.Left;
+		dr.Left = tmp;
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 }
 
 //デバッグ描画
 void CPlayer::RenderDebug(Vector2 screenPos)
 {
-
+	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
+		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
 }
 
 //解放
@@ -120,6 +115,10 @@ void CPlayer::PadOparation(void)
 		else if (m_Move.x < 0)
 		{
 			MoveSub(WAY_LEFT);
+		}
+		else
+		{
+			m_bMove = false;
 		}
 	}
 
@@ -155,6 +154,10 @@ void CPlayer::KeyOparation(void)
 		{
 			MoveSub(WAY_LEFT);
 		}
+		else
+		{
+			m_bMove = false;
+		}
 	}
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
@@ -178,6 +181,7 @@ void CPlayer::MoveAdd(WAY w)
 	switch(w)
 	{
 	case WAY_RIGHT:
+		m_bReverse = false;
 		m_Move.x += m_Spd.x;
 		//最大速度を超えないようにする
 		if (m_Move.x > PLAYER_MAXSPEED)
@@ -185,7 +189,9 @@ void CPlayer::MoveAdd(WAY w)
 			m_Move.x = PLAYER_MAXSPEED;
 		}
 		break;
+
 	case WAY_LEFT:
+		m_bReverse = true;
 		m_Move.x -= m_Spd.x;
 		//最大速度を超えないようにする
 		if (m_Move.x < -PLAYER_MAXSPEED)
@@ -194,6 +200,7 @@ void CPlayer::MoveAdd(WAY w)
 		}
 		break;
 	}
+	m_bMove = true;
 }
 
 //減速処理
@@ -218,6 +225,26 @@ void CPlayer::MoveSub(WAY w)
 		}
 		break;
 	}
+}
+
+//アニメーション処理
+void CPlayer::Animation(void)
+{
+	//移動中なら移動モーションにする
+	if(m_bMove && m_pMotion->GetMotionNo() == ANIM_WAIT)
+	{
+		m_pMotion->ChangeMotion(ANIM_MOVE);
+	}
+	if(!m_bMove && m_pMotion->GetMotionNo() == ANIM_MOVE)
+	{
+		m_pMotion->ChangeMotion(ANIM_WAIT);
+	}
+
+	//アニメーション加算
+	m_pMotion->AddTimer(CUtilities::GetFrameSecond());
+
+	//アニメーション矩形更新
+	m_SrcRect = m_pMotion->GetSrcRect();
 }
 
 //ジャンプ処理
