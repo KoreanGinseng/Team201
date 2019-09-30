@@ -9,15 +9,16 @@
 #include "Game.h"
 
 char*		g_StageFileName[STAGE_COUNT] = {
-			"testMap7-7.txt",
-			"testMap7-7.txt",
-			"testMap7-7.txt",
+			"testMap1-1.txt",
+			"testMap1-1.txt",
+			"testMap1-1.txt",
 };
 
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
-m_StageNo(START_STAGE)
+m_StageNo(START_STAGE),
+m_bPoase(false)
 {
 }
 
