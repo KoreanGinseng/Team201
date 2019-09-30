@@ -12,14 +12,6 @@
 #include	"GamePad.h"
 #include	"SoundManager.h"
 
-//DEFINE
-#define		PLAYER_MAXHP			10
-#define		PLAYER_MAXSTOCK			3
-#define		PLAYER_MAXSPEED			8
-#define		PLAYER_SPEED			0.3f
-#define		PLAYER_JUMPPOW			-10.0f
-#define		PLAYER_HIGHJUMPPOW		-15.0f
-
 class CPlayer
 {
 private:
@@ -48,6 +40,12 @@ private:
 	void MoveSub(WAY w);
 	void Jump(void);
 
+	enum tag_Animation {
+		ANIM_WAIT,
+
+		ANIM_COUNT,
+	};
+
 public:
 	CPlayer(void);
 	~CPlayer(void);
@@ -66,6 +64,6 @@ public:
 	//Get
 	Vector2 GetPos(void) const { return m_Pos; }
 	Vector2 GetSpd(void) const { return m_Spd; }
-	CRectangle GetRect(void) const { return CRectangle(m_SrcRect); }
+	CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(),m_Pos.y + m_SrcRect.GetHeight()); }
 };
 

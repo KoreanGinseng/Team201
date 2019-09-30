@@ -43,6 +43,16 @@ void CPlayer::Initialize(void)
 	m_bJump = false;
 	//パワーアップフラグの初期化
 	m_bPowUp = false;
+
+	SpriteAnimationCreate anim[] = {
+		{
+			"待機",
+			0,0,
+			180,192,
+			TRUE,{{5,1,0},{5,2,0},{5,3,0},{5,4,0},{5,4,0},{5,6,0}}
+		},
+	};
+	m_Motion.Create(anim, ANIM_COUNT);
 }
 
 //更新
@@ -60,12 +70,18 @@ void CPlayer::Update(void)
 
 	//移動
 	Move();
+
+	//アニメーション加算
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+
+	//アニメーション矩形更新
+	m_SrcRect = m_Motion.GetSrcRect();
 }
 
 //描画
 void CPlayer::Render(Vector2 screenPos)
 {
-
+	m_pTexture->Render(screenPos.x, screenPos.y, m_SrcRect);
 }
 
 //デバッグ描画
@@ -208,7 +224,7 @@ void CPlayer::MoveSub(WAY w)
 void CPlayer::Jump(void)
 {
 	//ジャンプ効果音のテスト処理
-	g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
+	//g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
 
 	//ジャンプフラグを立てる
 	m_bJump = true;

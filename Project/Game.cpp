@@ -40,7 +40,8 @@ bool CGame::Load()
 	//オブジェクトメモリ確保
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 
-	m_Player.SetTexture(nullptr);
+	m_PlayerTex.Load("player3.png");
+	m_Player.SetTexture(&m_PlayerTex);
 
 	return TRUE;
 }
@@ -55,9 +56,7 @@ void CGame::Initialize()
 //更新
 void CGame::Update()
 {
-
-	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
-
+	//プレイヤーの更新
 	m_Player.Update();
 
 	Vector2 o(0, 0);
@@ -75,6 +74,7 @@ void CGame::Update()
 			continue;
 		}
 		m_EnemyArray[i].Update();
+		//当たり判定
 		Vector2 eo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_EnemyArray[i].GetRect(), eo))
 		{
@@ -89,6 +89,7 @@ void CGame::Update()
 			continue;
 		}
 		m_ItemArray[i].Update();
+		//当たり判定
 		Vector2 io(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_ItemArray[i].GetRect(), io))
 		{
@@ -103,18 +104,21 @@ void CGame::Update()
 			continue;
 		}
 		m_pObjArray[i].Update();
+		//当たり判定
+		Vector2 oo(0, 0);
+		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))
+		{
+			m_pObjArray[i].CollisionStage(oo);
+		}
 	}
 
+	//カメラの更新
 	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
+	m_MainCamera.Update(centerPos, m_Player.GetRect(), m_Stage[m_StageNo].GetStageRect());
 
-	if (centerPos != m_MainCamera.GetScroll())
-	{
-		Vector2 d = centerPos - m_MainCamera.GetScroll();
-		d /= PLAYER_MAXSPEED;
-		m_MainCamera.AddScroll(d);
-	}
-
+	//ステージの更新
 	m_Stage[m_StageNo].Update();
+
 
 	// Oキーでステージ変更
 	if (g_pInput->IsKeyPush(MOFKEY_O)) {

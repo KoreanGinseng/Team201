@@ -26,6 +26,9 @@ public:
 	void RenderDebug(Vector2 sp);
 	void Release(void);
 
+	//Collision
+	void CollisionStage(const Vector2& o);
+
 	//Set
 	void SetTexture(CTexture* pt)	  { m_pTexture = pt; }
 	void SetMotionEnd(const bool be)  { m_bMotionEnd = be; }

@@ -53,9 +53,10 @@ public:
 	bool Collision(CRectangle r, Vector2& o);
 
 	//Get
-	int	 GetEnemyCount()  const { return m_EnemyCount; }
-	int	 GetItemCount()   const { return m_ItemCount; }
-	int	 GetObjectCount() const { return m_ObjectCount; }
-
+	int			GetEnemyCount()  const { return m_EnemyCount; }
+	int			GetItemCount()   const { return m_ItemCount; }
+	int			GetObjectCount() const { return m_ObjectCount; }
+	Vector2		GetStageSize()	 const { return Vector2(m_XCount, m_YCount); }
+	CRectangle  GetStageRect()	 const { return CRectangle(0, 0, m_XCount * m_ChipSize, m_YCount * m_ChipSize); }
 };
 

@@ -76,3 +76,8 @@ void CObject::RenderDebug(Vector2 sp) {
 void CObject::Release(void) {
 	m_Motion.Release();
 }
+
+void CObject::CollisionStage(const Vector2& o)
+{
+	m_Pos += o;
+}

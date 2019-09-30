@@ -17,6 +17,13 @@
 
 #define		GRAVITY			0.3f	//! ÉQÅ[ÉÄì‡èdóÕ
 
+#define		PLAYER_MAXHP			10
+#define		PLAYER_MAXSTOCK			3
+#define		PLAYER_MAXSPEED			8
+#define		PLAYER_SPEED			0.3f
+#define		PLAYER_JUMPPOW			-10.0f
+#define		PLAYER_HIGHJUMPPOW		-15.0f
+
 //ENUM
 /*****************************************************************
  * @enum tag_SCENENO

@@ -27,6 +27,9 @@ private:
 	CItem*				m_ItemArray;
 	// オブジェクト
 	CObject*			m_pObjArray;
+
+	CTexture m_PlayerTex;
+
 public:
 	CGame(void);
 	~CGame(void);
