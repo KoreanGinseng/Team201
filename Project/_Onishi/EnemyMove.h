@@ -1,12 +1,12 @@
 #pragma once
 #include	"Mof.h"
 #include	"EnemyAtack.h"
+#include	"../GameDefine.h"
 
 #define EnemySpeed 2
 #define Timer 5
 #define AtackTimer 5
 #define CoolTime 5
-#define GRAVITY 0.4f
 
 enum ENEMY
 {

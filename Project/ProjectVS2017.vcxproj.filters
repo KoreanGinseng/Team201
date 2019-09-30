@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\ACTOR">
       <UniqueIdentifier>{237f8164-b873-4770-bfdf-fcdd91fef627}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ENEMY">
+      <UniqueIdentifier>{56522d6b-a3cb-4924-a1a4-d1f968331ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ENEMY">
+      <UniqueIdentifier>{95b1efd5-3143-4e87-88be-130e8c088a29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -46,9 +52,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
@@ -105,6 +108,15 @@
     <ClCompile Include="_Onishi\Onishi.cpp">
       <Filter>ソース ファイル\ACTOR</Filter>
     </ClCompile>
+    <ClCompile Include="_Onishi\EnemyAtack.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\EnemyMove.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -129,9 +141,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -181,6 +190,15 @@
     </ClInclude>
     <ClInclude Include="_Onishi\Onishi.h">
       <Filter>ヘッダー ファイル\ACTOR</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyAtack.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyMove.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
