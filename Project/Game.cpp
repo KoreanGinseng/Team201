@@ -52,11 +52,28 @@ void CGame::Initialize()
 {
 	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
 	m_Player.Initialize();
+	g_pTimeManager->Reset();
 }
 
 //更新
 void CGame::Update()
 {
+	//F4キーでポーズ
+	if (g_pInput->IsKeyPush(MOFKEY_F4)) {
+		m_bPoase = !m_bPoase;
+	}
+
+	// ESCAPEキーで終了
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
+		PostQuitMessage(0);
+	}
+
+	//ポーズ中ならポーズ画面の更新のみする
+	if (m_bPoase) {
+
+		return;
+	}
+
 	//プレイヤーの更新
 	m_Player.Update();
 
@@ -131,17 +148,17 @@ void CGame::Update()
 		Initialize();
 	}
 
-	// ESCAPEキーで終了
-	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
-		PostQuitMessage(0);
-	}
+	//ゲーム時間を加算
+	g_pTimeManager->Tick();
 }
 
 //描画
 void CGame::Render()
 {
+	//ステージの描画
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 
+	//プレイヤーの描画
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.Render(screenPos);
 
@@ -164,7 +181,12 @@ void CGame::Render()
 		m_pObjArray[i].Render(screenPos);
 	}
 
-	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
+	//ポーズ中ならポーズ画面の描画
+	if (m_bPoase)
+	{
+		//ゲーム画面が灰色になるやつ
+		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
+	}
 }
 
 //デバッグ描画
@@ -172,6 +194,8 @@ void CGame::RenderDebug()
 {
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.RenderDebug(screenPos);
+	String(1600, 0, 128, g_pTimeManager->GetNowTime());
+	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 //解放

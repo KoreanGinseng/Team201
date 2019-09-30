@@ -113,6 +113,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
     <ClInclude Include="_Inoue\Inoue.h" />

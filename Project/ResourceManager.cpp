@@ -4,10 +4,14 @@ CResourceManager* CResourceManager::m_pInstance = nullptr;
 
 bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMATIONDATA ra)
 {
-	//Šù‚É“o˜^‚³‚ê‚Ä‚¢‚ê‚Î”ò‚Î‚·
+	//Šù‚É“o˜^‚³‚ê‚Ä‚¢‚ê‚Î‰ğ•ú
 	if (m_TextureResource.find(rt) != m_TextureResource.end())
 	{
-		return TRUE;
+		m_TextureResource[rt].Release();
+	}
+	if (m_AnimationResource.find(ra) != m_AnimationResource.end())
+	{
+		m_AnimationResource[ra].Release();
 	}
 
 	//ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚È‚©‚Á‚½ê‡error
@@ -77,9 +81,10 @@ bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMA
 	return TRUE;
 }
 
-void CResourceManager::AddTexture(const char* pName, const TEXTUREDATA rt)
+bool CResourceManager::AddTexture(const char* pName, const TEXTUREDATA rt)
 {
-	m_TextureResource[rt].Load(pName);
+	m_TextureResource[rt].Release();
+	return m_TextureResource[rt].Load(pName);
 }
 
 void CResourceManager::Release()

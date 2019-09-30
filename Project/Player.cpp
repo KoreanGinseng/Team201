@@ -251,7 +251,7 @@ void CPlayer::Animation(void)
 void CPlayer::Jump(void)
 {
 	//ジャンプ効果音のテスト処理
-	//g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT);
+	g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT)->Update();
 
 	//ジャンプフラグを立てる
 	m_bJump = true;

@@ -51,8 +51,10 @@ MofBool CGameApp::Initialize(void){
 	//別スレッドでやりたい。(LOADING)
 	{
 		g_pEffectManager->Load();
-		//g_pResouseManager->Load();
+		g_pEffectManager->Initialize();
+		g_pResouseManager->AddTexture("sumple_imvisible.png", TEXTURE_FONT);
 		g_pSoundManager->Load();
+		g_pSoundManager->Initialize();
 		gpScene->Load();
 		gpScene->Initialize();
 	}
@@ -179,6 +181,8 @@ MofBool CGameApp::Release(void){
 	gpScene = NULL;
 
 	g_pResouseManager->Release();
+	g_pSoundManager->Release();
+	g_pEffectManager->Release();
 
 	return TRUE;
 }

@@ -26,9 +26,7 @@
 
 
 //STRUCT
-typedef struct st {
-	char* g_AnimName;
-}ST, *LPST;
+
 
 //ENUM
 /*****************************************************************
@@ -83,6 +81,7 @@ typedef enum tag_TEXTUREDATA {
 	TEXTURE_MAP_BACKCHIP_1,
 	TEXTURE_MAP_BACKCHIP_2,
 	TEXTURE_MAP_CHIP,
+	TEXTURE_FONT,
 
 	TEXTURE_COUNT,
 }TEXTUREDATA;

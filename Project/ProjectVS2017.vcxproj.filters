@@ -117,6 +117,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\ENEMY</Filter>
     </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>ソース ファイル\MANAGER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>ヘッダー ファイル\MANAGER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

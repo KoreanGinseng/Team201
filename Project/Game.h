@@ -8,6 +8,10 @@
 
 // INCLUDE
 #include "SceneBase.h"
+#include "TimeManager.h"
+#include "EffectManager.h"
+#include "ResourceManager.h"
+#include "SoundManager.h"
 #include "Coordinate.h"
 #include "Camera2D.h"
 #include "Player.h"
@@ -28,7 +32,7 @@ private:
 	// オブジェクト
 	CObject*			m_pObjArray;
 
-	CTexture m_PlayerTex;
+	bool				m_bPoase;
 
 public:
 	CGame(void);

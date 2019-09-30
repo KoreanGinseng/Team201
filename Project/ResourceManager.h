@@ -13,7 +13,7 @@ private:
 
 public:
 	bool Load(const char* pName, const TEXTUREDATA rt, const ANIMATIONDATA ra);
-	void AddTexture(const char* pName, const TEXTUREDATA rt);
+	bool AddTexture(const char* pName, const TEXTUREDATA rt);
 	void Release(void);
 
 	//Get
