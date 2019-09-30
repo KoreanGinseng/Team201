@@ -8,6 +8,7 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
+#include    <string>
 #define		FONT_SIZE		32.0f
 
  /*****************************************************************
@@ -20,6 +21,10 @@ private:
 	int Y;
 	CTexture* m_pFontTexture;
 	int Lenth;
+	int time;
+	int num;
+	
+
 public:
 	/*****************************************************************
 	 * @fn
@@ -43,7 +48,7 @@ public:
 	 * @param ‚È‚µ
 	 * @return ‚È‚µ
 	 *****************************************************************/
-	bool Load();
+	void Load();
 
 	/*****************************************************************
 	 * @fn
@@ -92,5 +97,6 @@ public:
 	 * @return ‚È‚µ
 	 *****************************************************************/
 	void String(int sx, int sy, int fontsize, const char* str);
-
+	void String(int sx, int sy, int fontsize, const int& time);
+	
 };
