@@ -182,7 +182,10 @@ void CEnemy::RenderDebug(Vector2 sp){
 	}
 	//“–‚½‚è”»’è‚Ì•\Ž¦
 	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
-	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
+	/*CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));*/
+
+	CGraphicsUtilities::RenderRect(hr, m_DebugColor);
+	Debug();
 }
 
 /**
@@ -261,4 +264,10 @@ void CEnemy::CollisionStage(Vector2 o){
 			m_bReverse = false;
 		}
 	}
+}
+
+void CEnemy::Debug() {
+
+	m_DebugColor = MOF_COLOR_RED;
+
 }

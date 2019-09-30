@@ -7,7 +7,7 @@ bool	g_OperationDebug = true;
 bool	g_PadRenderDebug = false;
 bool	g_KeyRenderDebug = false;
 
-CPlayer::CPlayer() : m_pScroll(NULL) {
+CPlayer::CPlayer() {
 	//オブジェクト生成時の初期化
 	m_Skillrang = 0.0f;
 
@@ -434,8 +434,8 @@ void CPlayer::KeyOperation() {
 void CPlayer::Skill() {
 
 	//スキルの円に座標や半径を代入
-	m_SkillCircle.x = m_pScroll->x + PLAYER_WIDTH / 2;
-	m_SkillCircle.y = m_pScroll->y + PLAYER_HEIGHT / 2;
+	m_SkillCircle.x = m_PosX + PLAYER_WIDTH / 2;
+	m_SkillCircle.y = m_PosY + PLAYER_HEIGHT / 2;
 	m_SkillCircle.r = m_Skillrang;
 
 	//LTボタンを押した場合、スキルが発動
@@ -478,9 +478,11 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	//要素の数をを継続条件に、格納した要素数を引いていく
 
 	//表示されている敵の要素数を順に格納
-	list<int> element;
+	list<int> element; 
 	list<int>::iterator itr;
-
+	
+	int min = 0;
+	int idx = 0;
 
 	for (int i = 0; i < eneCount; i++) {
 
@@ -494,20 +496,21 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
 
 			element.push_back(i);
-
+			pene[i].TestSetColor();
 		}
 
 	}
 
+
 	//Listのポインタ
-	itr = element.begin;
+	itr = element.begin();
 
 	float stx = m_PosX + PLAYER_WIDTH * 0.5f;
 	float sty = m_PosY + PLAYER_HEIGHT;
 	/*float stx = m_PosX + m_Motion.GetStrRect().GetWidth()*0.5f;
 		float sty = m_m_PosX + m_Motion.GetStrRect().GetHeight();*/
 	
-	for (itr = element.cbegin; itr < element.cend;++itr) {
+	for (auto itr = element.cbegin(); itr != element.cend();++itr) {
 
 		CRectangle erec = pene[*itr].GetRect();
 
@@ -516,39 +519,10 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		float dx = cv.x - stx;
 		float dy = cv.y - sty;
 
-		float d = (dx*dx + dy * dy);
-
-
-
-		
+		float d = (dx*dx + dy * dy);	
 
 	}
-	/**/
-	
-	/*for (int i = 0; i < element.size(); i++) {
 
-		eneclose[i] = pene[element.]
-	}
-	if (pene[i].GetRect().Left > m_PosX + PLAYER_WIDTH) {
-
-		x = pene[i].GetRect().Left - m_PosX + PLAYER_WIDTH;
-
-	}
-	else if (pene[i].GetRect().Right < m_PosX) {
-
-		x = m_PosX - pene[i].GetRect().Right;
-
-	}
-	else if (pene[i].GetRect().Bottom < m_PosY) {
-
-		x = m_PosY - pene[i].GetRect().Bottom;
-
-	}
-	else if (pene[i].GetRect().Top > m_PosY + PLAYER_HEIGHT) {
-
-		x = pene[i].GetRect().Top - m_PosY + PLAYER_HEIGHT;
-
-	}*/
 }
 
 void CPlayer::LifeDecrease() {
@@ -570,7 +544,7 @@ void CPlayer::Render(Vector2 scroll) {
 	//デバックの描画
 	RenderDebug();
 
-	CGraphicsUtilities::RenderCircle(m_SkillCircle, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderCircle(scroll.x+PLAYER_WIDTH / 2, scroll.y + PLAYER_WIDTH / 2,m_Skillrang, MOF_COLOR_RED);
 
 }
 
@@ -588,7 +562,8 @@ void CPlayer::RenderDebug() {
 
 	CGraphicsUtilities::RenderString(0, 30, MOF_XRGB(0, 255, 0), "テスト操作方法説明の表示:キーボードの場合0キー : ゲームパッドの場合STRATボタン");
 	CGraphicsUtilities::RenderString(0, 60, MOF_XRGB(0, 255, 0), "ゲームパッドに接続されている状態でもエンターキーで操作をキーボードと切り替え可能");
-	CGraphicsUtilities::RenderString(0, 90, MOF_XRGB(0, 255, 0), "m_MoveX %.f m_MoveY %.f m_bPowerUp %d m_bJump %d m_Hp %d m_Life %d", m_MoveX, m_MoveY, m_bPowerUp, m_bJump, m_Hp, m_Life);
+	CGraphicsUtilities::RenderString(0, 90, MOF_XRGB(0, 255, 0), "m_MoveX %.f m_MoveY %.f m_bPowerUp %d m_bJump %d m_Hp %d m_Life %d m_PosX %.f", m_MoveX, m_MoveY, m_bPowerUp, m_bJump, m_Hp, m_Life,m_PosX);
+	
 
 	if (g_KeyRenderDebug) {
 

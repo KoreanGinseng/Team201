@@ -30,6 +30,8 @@ private:
 
 		MOTION_COUNT,
 	};
+
+	MofU32					m_DebugColor;
 public:
 	CEnemy();
 	~CEnemy();
@@ -50,5 +52,8 @@ public:
 	CRectangle GetRect(){
 		return CRectangle(m_PosX + ENEMY_RECTDECREASE,m_PosY + ENEMY_RECTDECREASE,m_PosX + m_SrcRect.GetWidth() - ENEMY_RECTDECREASE,m_PosY + m_SrcRect.GetHeight());
 	}
+
+	void TestSetColor(void) { m_DebugColor = MOF_COLOR_GREEN; }
+	void Debug(void);
 	
 };

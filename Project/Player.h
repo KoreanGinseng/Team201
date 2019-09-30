@@ -8,6 +8,7 @@
 #include		"Object.h"
 #include		"Coordinate.h"
 #include		<list>
+#include		<any>
 using namespace std;
 
 
@@ -20,7 +21,6 @@ private:
 	CTexture			m_Texture;
 	CTexture			m_HpTexture;
 	CCircle				m_SkillCircle;
-	Vector2*			m_pScroll;
 	
 	bool				m_bTrigger;
 	bool				m_bJump;
@@ -65,7 +65,5 @@ public:
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
 	Vector2 GetMove2() { return Vector2(m_MoveX2, m_MoveY2); }
 	bool	IsTrigger(void) { return m_bTrigger; }
-
-	void	SetScroll(Vector2* scroll) { m_pScroll = scroll; }
 	
 };

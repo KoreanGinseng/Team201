@@ -82,10 +82,6 @@ void CGame::Initialize() {
  *****************************************************************/
 void CGame::Update() {
 
-	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
-
-	m_Player.SetScroll(&screenPos);
-
 	m_Player.Update();
 
 	//プレイヤーがスキル発動時の場合、
@@ -94,7 +90,7 @@ void CGame::Update() {
 		m_Player.SkillColision(m_EnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 
 	}
-
+	
 	Vector2 o(0, 0);
 
 

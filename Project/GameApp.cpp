@@ -49,6 +49,7 @@ MofBool CGameApp::Initialize(void){
 	g_pScene = new CGame();			//ゲームシーンからスタート(デバック用)
 	//g_pScene = new CTitle();		//タイトルシーンからスタート
 
+
 	//読み込みカレントディレクトリの設定
 	CUtilities::SetCurrentDirectoryA("Resource");
 
