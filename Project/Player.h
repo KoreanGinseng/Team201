@@ -66,10 +66,6 @@ public:
 	//Collision
 	void CollisionStage(Vector2 o);
 
-	//Set
-	void SetTexture(CTexture* pt) { m_pTexture = pt; }
-	void SetMotion(CSpriteMotionController* pm) { m_pMotion = pm; }
-
 	//Get
 	Vector2 GetPos(void) const { return m_Pos; }
 	Vector2 GetSpd(void) const { return m_Spd; }

@@ -40,11 +40,6 @@ bool CGame::Load()
 	m_ItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
 	//オブジェクトメモリ確保
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
-
-	g_pResouseManager->Load("PlayerAnim.bin", TEXTURE_PLAYER, ANIMATION_PLAYER);
-	m_Player.SetTexture(g_pResouseManager->GetTexture(TEXTURE_PLAYER));
-	m_Player.SetMotion(g_pResouseManager->GetAnimation(ANIMATION_PLAYER));
-
 	return TRUE;
 }
 

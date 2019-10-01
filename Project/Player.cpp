@@ -28,6 +28,10 @@ CPlayer::~CPlayer(void)
 //初期化
 void CPlayer::Initialize(void)
 {
+	//画像データのセット
+	m_pTexture = g_pResouseManager->GetTexture(TEXTURE_PLAYER);
+	//アニメーションデータのセット
+	m_pMotion = g_pResouseManager->GetAnimation(ANIMATION_PLAYER);
 	//座標の初期化
 	m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
 	//移動量の初期化

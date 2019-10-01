@@ -105,6 +105,7 @@
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Loading.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GamePad.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Loading.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />

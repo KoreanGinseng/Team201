@@ -23,9 +23,11 @@
 #include	"EffectManager.h"
 #include	"ResourceManager.h"
 #include	"SoundManager.h"
+#include	"Loading.h"
 
 //GLOBAL
 CSceneBase*		gpScene = nullptr;
+CLoading		gLoading;
 
 #ifdef _DEBUG
 bool			gbDebug = false;
@@ -48,16 +50,11 @@ MofBool CGameApp::Initialize(void){
 	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
-	//別スレッドでやりたい。(LOADING)
-	{
-		g_pEffectManager->Load();
-		g_pEffectManager->Initialize();
-		g_pResouseManager->AddTexture("sumple_imvisible.png", TEXTURE_FONT);
-		g_pSoundManager->Load();
-		g_pSoundManager->Initialize();
-		gpScene->Load();
-		gpScene->Initialize();
-	}
+	/*gLoading.SetLoad(gpScene->Load);
+	gLoading.SetInit(gpScene->Initialize);*/
+	gLoading.Start("Loading");
+	gpScene->Load();
+	gpScene->Initialize();
 
 	//FPSの設定
 	if (!CUtilities::SetFPS(GAMEFPS))
@@ -76,6 +73,11 @@ MofBool CGameApp::Initialize(void){
 MofBool CGameApp::Update(void){
 	//キーの更新
 	g_pInput->RefreshKey();
+
+	if (!gLoading.IsEnd())
+	{
+		return TRUE;
+	}
 
 	//シーンの更新
 	gpScene->Update();
@@ -150,6 +152,17 @@ MofBool CGameApp::Render(void){
 	g_pGraphics->RenderStart();
 	//画面のクリア
 	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
+
+
+	if (!gLoading.IsEnd())
+	{
+		CGraphicsUtilities::RenderString(0, 0, "LOADING");
+		return TRUE;
+	}
+	else
+	{
+		CGraphicsUtilities::RenderString(0, 100, "LOADEND");
+	}
 
 	//シーンの描画
 	gpScene->Render();

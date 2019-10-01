@@ -81,6 +81,12 @@ bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMA
 	return TRUE;
 }
 
+bool CResourceManager::Load()
+{
+	g_pResouseManager->Load("PlayerAnim.bin", TEXTURE_PLAYER, ANIMATION_PLAYER);
+	return TRUE;
+}
+
 bool CResourceManager::AddTexture(const char* pName, const TEXTUREDATA rt)
 {
 	m_TextureResource[rt].Release();
