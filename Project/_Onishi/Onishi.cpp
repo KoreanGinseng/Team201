@@ -141,6 +141,9 @@ void COnishi::Update() {
 		gety = 0;
 	}
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+
+		gEnemy->Release();
+
 		if (gEnemytype == ENEMY_KURIBO) {
 			gEnemytype = ENEMY_NOKONOKO;
 			gEnemy = new CENEMY_NOKONOKO();
