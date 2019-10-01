@@ -180,11 +180,23 @@ void CEnemy::RenderDebug(Vector2 sp){
 	{
 		return;
 	}
+
+	
 	//“–‚½‚è”»’è‚Ì•\Ž¦
 	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
-	/*CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));*/
 
-	CGraphicsUtilities::RenderRect(hr, m_DebugColor);
+	if (m_bTarget) {
+
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(0, 255, 0));
+
+	}
+	else {
+
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
+	}
+
+
+	
 	Debug();
 }
 

@@ -14,7 +14,7 @@ protected:
 	CRectangle				m_SrcRect;
 
 public:
-	CSubstance() {}
+	CSubstance() { m_bShow = false, m_bTarget = false, m_bSkill = false; }
 	/*virtual */~CSubstance() {}/* = 0*/;
 	void	SetTarget(bool target) { m_bTarget = target; }
 	void	SetSkill(void) { m_bSkill = true; }

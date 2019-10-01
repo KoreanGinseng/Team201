@@ -8,6 +8,7 @@
 #include		"Object.h"
 #include		"Coordinate.h"
 #include		"Substance.h"
+#include		<vector>
 #include		<list>
 #include		<any>
 using namespace std;
@@ -22,6 +23,8 @@ private:
 	CTexture			m_Texture;
 	CTexture			m_HpTexture;
 	CCircle				m_SkillCircle;
+
+	/*vector<CSubstance*>	m_SkillTarget;*/
 	
 	bool				m_bTrigger;
 	bool				m_bJump;
@@ -29,6 +32,7 @@ private:
 
 	int					m_Life;
 	int					m_Hp;
+	int					m_Target;
 	float				m_Skillrang;
 	float				m_PosX;
 	float				m_PosY;

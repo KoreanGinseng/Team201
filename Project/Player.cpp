@@ -11,6 +11,8 @@ CPlayer::CPlayer() {
 	//オブジェクト生成時の初期化
 	m_Skillrang = 0.0f;
 
+	m_Target = 0;
+
 	m_PosX = 0;
 	m_PosY = 0;
 
@@ -481,6 +483,19 @@ void CPlayer::Skill() {
 		if (m_Skillrang > 0.0f) {
 
 			m_Skillrang = 0.0f;
+			m_Target = 0;
+
+			/*if (!m_SkillTarget.empty()) {
+
+				for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+					m_SkillTarget[i]->SetTarget(false);
+
+				}
+
+				m_SkillTarget.clear();
+
+			}*/
 
 		}
 
@@ -490,12 +505,14 @@ void CPlayer::Skill() {
 
 
 void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+	//ローカルなら行けるがメンバだとだめ
 	//表示されている要素数を探す、その数を数える
 		//要素の数をを継続条件に、格納した要素数を引いていく
 
 		//表示されている敵の要素数を順に格納
+	vector<CSubstance*> element2;
 	list<CSubstance*> element;
-	list<CSubstance*>::iterator itr;
+	/*list<CSubstance*>::iterator itr;*/
 
 	for (int i = 0; i < eneCount; i++) {
 
@@ -532,6 +549,11 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	}
 
+	if (element.empty()) {
+
+		return;
+
+	}
 
 	//Listのポインタ
 
@@ -571,9 +593,60 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
 	}
 
+	
 	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
 
-		(*itr)->
+		element2.push_back(*itr);
+	}
+
+	
+	if (g_pGamePad->IsKeyPush(GAMEKEY_LB)) {
+
+		m_Target--;
+
+		if (m_Target < 0) {
+
+			m_Target = element2.size();
+
+		}
+
+	}else if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
+
+		m_Target++;
+
+		if (m_Target > element2.size()) {
+
+			m_Target = 0;
+
+		}
+
+	}
+
+	for (int i = 0; i < element2.size(); i++) {
+
+		if (i == m_Target) {
+
+			element2[i]->SetTarget(true);
+
+		}
+		else {
+
+			element2[i]->SetTarget(false);
+
+		}
+	}
+
+
+	if (g_pGamePad->GetPadState()->lZ < -500) {
+
+		m_bTrigger = false;
+
+		for (int i = 0; i < element2.size(); i++) {
+
+			element2[i]->SetTarget(false);
+
+		}
+
 	}
 	
 }
