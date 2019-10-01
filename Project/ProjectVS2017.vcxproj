@@ -140,6 +140,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="Substance.h" />
     <ClInclude Include="TestEffectScene.h" />
     <ClInclude Include="Title\Title.h" />
     <ClInclude Include="VirtualKeyBoard.h" />

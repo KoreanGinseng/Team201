@@ -4,16 +4,16 @@
  * コンストラクタ
  *
  */
-CEnemy::CEnemy() :
+CEnemy::CEnemy() : CSubstance(),
 m_pTexture(NULL) ,
 m_Motion() ,
-m_PosX(0.0f) ,
-m_PosY(0.0f) ,
+//m_PosX(0.0f) ,
+//m_PosY(0.0f) ,
 m_MoveX(0.0f) ,
 m_MoveY(0.0f) ,
-m_bShow(false) ,
+//m_bShow(false) ,
 m_bReverse(false) ,
-m_SrcRect() ,
+//m_SrcRect() ,
 m_HP(0) ,
 m_DamageWait(0) {
 }

@@ -1,16 +1,15 @@
 #pragma once
-#include	"Mof.h"
 
-class CObject
+#include	"Mof.h"
+#include	"Substance.h"
+
+class CObject : public CSubstance
 {
 private:
 	CTexture*				m_pTexture;
 	CSpriteMotionController	m_Motion;
 	bool					m_bMotionEnd;
-	float					m_PosX;
-	float					m_PosY;
-	bool					m_bShow;
-	CRectangle				m_SrcRect;
+	
 
 	enum tag_MOTION {
 		MOTION_START,
@@ -33,6 +32,6 @@ public:
 
 	bool GetShow(void) { return m_bShow; }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
-	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }
+	/*CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }*/
 };
 

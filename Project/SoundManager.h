@@ -24,7 +24,11 @@ public:
 	void		Release(void);
 	
 	CSound*		Start(int type,int loop);
+	void		AllSetVolume(float volume);
+	void		SetVolume(int type, float volume);
 	void		Stop(int type,int stopType);
+
+	float			RenderDebug(int type);
 
 	static CSoundManager Create() { return CSoundManager(); }
 	static CSoundManager* GetInstance() {

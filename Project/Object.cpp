@@ -2,13 +2,16 @@
 
 
 
-CObject::CObject()
+CObject::CObject() : CSubstance()
 {
 }
 
 
 CObject::~CObject()
 {
+
+	Release();
+
 }
 
 void CObject::Initialize(float px, float py) {

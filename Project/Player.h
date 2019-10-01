@@ -7,6 +7,7 @@
 #include		"Enemy.h"
 #include		"Object.h"
 #include		"Coordinate.h"
+#include		"Substance.h"
 #include		<list>
 #include		<any>
 using namespace std;

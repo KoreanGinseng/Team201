@@ -61,6 +61,12 @@ void CSound::Stop(int stopType) {
 
 	
 }
+
+float CSound::RenderDebug() {
+
+	return m_Volume;
+
+}
 void CSound::Update() {
 
 	//プレイフラグが立っていて、サウンドが再生されていない場合再生する

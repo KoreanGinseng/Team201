@@ -190,6 +190,21 @@ void CPlayer::TestKeyOperation() {
 		g_pSoundManager->Stop(SUD_SOUNDBGM, STOP_GRADUALLY);
 
 	}
+	else if (g_pInput->IsKeyPush(MOFKEY_7)) {
+
+		g_pSoundManager->SetVolume(SUD_SOUNDEFFECT,0.5f);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_8)) {
+
+		g_pSoundManager->SetVolume(SUD_SOUNDBGM,0.5f);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_9)) {
+
+		g_pSoundManager->AllSetVolume(1.0f);
+
+	}
 
 }
 
@@ -473,16 +488,14 @@ void CPlayer::Skill() {
 
 }
 
-void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
-//表示されている要素数を探す、その数を数える
-	//要素の数をを継続条件に、格納した要素数を引いていく
 
-	//表示されている敵の要素数を順に格納
-	list<int> element; 
-	list<int>::iterator itr;
-	
-	int min = 0;
-	int idx = 0;
+void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+	//表示されている要素数を探す、その数を数える
+		//要素の数をを継続条件に、格納した要素数を引いていく
+
+		//表示されている敵の要素数を順に格納
+	list<CSubstance*> element;
+	list<CSubstance*>::iterator itr;
 
 	for (int i = 0; i < eneCount; i++) {
 
@@ -495,34 +508,74 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
 		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
 
-			element.push_back(i);
+			element.push_back(&pene[i]);
 			pene[i].TestSetColor();
 		}
 
 	}
 
+	for (int i = 0; i < objCount; i++) {
+
+		if (!pobj[i].GetShow()) {
+
+			continue;
+
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle)) {
+
+			element.push_back(&pobj[i]);
+
+		}
+
+
+	}
+
 
 	//Listのポインタ
-	itr = element.begin();
 
 	float stx = m_PosX + PLAYER_WIDTH * 0.5f;
 	float sty = m_PosY + PLAYER_HEIGHT;
 	/*float stx = m_PosX + m_Motion.GetStrRect().GetWidth()*0.5f;
 		float sty = m_m_PosX + m_Motion.GetStrRect().GetHeight();*/
+
 	
-	for (auto itr = element.cbegin(); itr != element.cend();++itr) {
 
-		CRectangle erec = pene[*itr].GetRect();
+	//一つずつv と　v++を比較してソートする
+	element.sort(
+		[&](CSubstance*& v1, CSubstance*& v2) {
 
-		Vector2 cv = erec.GetCenter();
+			CRectangle rec1 = v1->GetRect();
+			CRectangle rec2 = v2->GetRect();
 
-		float dx = cv.x - stx;
-		float dy = cv.y - sty;
+			Vector2 cv1 = rec1.GetCenter();
+			Vector2 cv2 = rec2.GetCenter();
 
-		float d = (dx*dx + dy * dy);	
+			float dx1 = cv1.x - stx;
+			float dy1 = cv1.y - sty;
+			float d1 = (dx1*dx1 + dy1 * dy1);
 
+			float dx2 = cv2.x - stx;
+			float dy2 = cv2.y - sty;
+			float d2 = (dx2*dx2 + dy2 * dy2);
+			if (d1 > d2) {
+				return false;
+			}
+			return true;
+		}
+	);
+
+	int no = 0;
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
+		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
 	}
 
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
+
+		(*itr)->
+	}
+	
 }
 
 void CPlayer::LifeDecrease() {
@@ -560,10 +613,11 @@ void CPlayer::RenderState() {
 
 void CPlayer::RenderDebug() {
 
-	CGraphicsUtilities::RenderString(0, 30, MOF_XRGB(0, 255, 0), "テスト操作方法説明の表示:キーボードの場合0キー : ゲームパッドの場合STRATボタン");
+	/*CGraphicsUtilities::RenderString(0, 30, MOF_XRGB(0, 255, 0), "テスト操作方法説明の表示:キーボードの場合0キー : ゲームパッドの場合STRATボタン");*/
 	CGraphicsUtilities::RenderString(0, 60, MOF_XRGB(0, 255, 0), "ゲームパッドに接続されている状態でもエンターキーで操作をキーボードと切り替え可能");
 	CGraphicsUtilities::RenderString(0, 90, MOF_XRGB(0, 255, 0), "m_MoveX %.f m_MoveY %.f m_bPowerUp %d m_bJump %d m_Hp %d m_Life %d m_PosX %.f", m_MoveX, m_MoveY, m_bPowerUp, m_bJump, m_Hp, m_Life,m_PosX);
 	
+	CGraphicsUtilities::RenderString(0, 30, "Effectボリューム%f BGMボリューム%f", g_pSoundManager->RenderDebug(SUD_SOUNDBGM), g_pSoundManager->RenderDebug(SUD_SOUNDEFFECT));
 
 	if (g_KeyRenderDebug) {
 

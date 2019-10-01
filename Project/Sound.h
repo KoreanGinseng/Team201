@@ -38,7 +38,10 @@ public:
 	void	Initialize(void);
 	void	Start(bool loop);
 	void	Update(void);
+	void	Play(int type);
+	void	SetVolume(float volume) { m_Volume = volume; }
 	void	Stop(int stopType);
+	float		RenderDebug(void);
 	void	SetSound(CSoundBuffer* ps) { m_pSound = ps; }
 	bool	IsPlay(void) {return m_bPlay;}
 };

@@ -33,6 +33,30 @@ bool CSoundManager::Load() {
 	return true;
 }
 
+void CSoundManager::AllSetVolume(float volume) {
+
+	//全てのサウンドのボリュームをセットする
+	for (int j = 0; j < SUD_TYPECOUNT; j++)
+	{
+		for (int i = 0; i < SOUNDCOUNT; i++)
+		{
+			m_CSound[i][j].SetVolume(volume);
+		}
+	}
+
+}
+
+void CSoundManager::SetVolume(int type, float volume) {
+
+	//指定した種類のサウンドだけボリュームをセットする
+	for (int i = 0; i < SOUNDCOUNT; i++) {
+
+		m_CSound[i][type].SetVolume(volume);
+
+	}
+
+}
+
 void CSoundManager::Initialize() {
 
 	//サウンドの基礎設定
@@ -97,6 +121,15 @@ void CSoundManager::Stop(int type,int stopType) {
 	for (int i = 0; i < SOUNDCOUNT; i++) {
 
 		m_CSound[i][type].Stop(stopType);
+
+	}
+}
+
+float CSoundManager::RenderDebug(int type) {
+
+	for (int i = 0; i < SOUNDCOUNT; i++) {
+
+		return m_CSound[i][type].RenderDebug();
 
 	}
 }
