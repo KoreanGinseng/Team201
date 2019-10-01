@@ -6,7 +6,6 @@ CEnemyMove::CEnemyMove() :
 	m_bRevers(false),
 	m_fXpos(0.0f),
 	m_fYpos(0.0f),
-	m_fTimer(0),
 	m_fAtackTimer(0),
 	m_fCooltime(0),
 	m_fMoveX(0.0f),
@@ -16,44 +15,43 @@ CEnemyMove::CEnemyMove() :
 CEnemyMove::~CEnemyMove() {
 }
 
-void CEnemyMove::Initialize(int Type) {
-	m_bEnd = false;
+void CEnemyMove::Initialize() {
+	/*m_bEnd = false;
 	m_bRevers = false;
-	m_fXpos = 500;
-	m_fYpos = 100;
+	
 	m_fTimer = 0;
-	m_fAtackTimer = AtackTimer;
-	m_fCooltime = 0;
 	m_fEnemySpeed = EnemySpeed;
 	m_fMoveX = -1*m_fEnemySpeed;
-	m_fMoveY = m_fEnemySpeed;
-	m_Texture.Load("TestEnemy.png");
-	switch (Type)
-	{
-		case ENEMY_BAT: {
-			SpriteAnimationCreate anim[] = {
-				{
-					"BAT_MOVE",
-					0,0,
-					48,48,
-					TRUE,{{5,0,1},{5,1,1},{5,2,1}}
-				},
-				{
-					"BAT_DOWN",
-					0,0,
-					48,48,
-					TRUE,{{5,0,0},{5,1,0},{5,2,0}}
-				},
-			};
-			m_Motion.Create(anim, BAT_ANIMCOUNT);
-			break;
-		}
-	}
+	m_fMoveY = m_fEnemySpeed;*/
+	//m_fAtackTimer = AtackTimer;
+	//m_fCooltime = 0;
+	//m_Texture.Load("TestEnemy.png");
+	//switch (Type)
+	//{
+	//	case ENEMY_BAT: {
+	//		SpriteAnimationCreate anim[] = {
+	//			{
+	//				"BAT_MOVE",
+	//				0,0,
+	//				48,48,
+	//				TRUE,{{5,0,1},{5,1,1},{5,2,1}}
+	//			},
+	//			{
+	//				"BAT_DOWN",
+	//				0,0,
+	//				48,48,
+	//				TRUE,{{5,0,0},{5,1,0},{5,2,0}}
+	//			},
+	//		};
+	//		m_Motion.Create(anim, BAT_ANIMCOUNT);
+	//		break;
+	//	}
+	//}
 
 }
 
-void CEnemyMove::Update(float Xpos, float Ypos,int Type) {
-	if (Type!=2) {
+void CEnemyMove::Update(float Xpos, float Ypos) {
+	/*if (Type!=2) {
 		m_fMoveY += GRAVITY;
 		if (m_fMoveY >= 20.0f) {
 			m_fMoveY = 20.0f;
@@ -83,7 +81,7 @@ void CEnemyMove::Update(float Xpos, float Ypos,int Type) {
 	}
 
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Motion.GetSrcRect();
+	m_SrcRect = m_Motion.GetSrcRect();*/
 	
 }
 
@@ -116,100 +114,19 @@ void CEnemyMove::KUpdate(float Xpos,float Ypos) {
 }
 
 void CEnemyMove::NUpdate() {
-	if (m_bEnd) {
-		m_fTimer = 0;
-		if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-			m_bEnd = false;
-		}
-		return;
-	}
-	if (m_fTimer > 0) {
-		if (g_pInput->IsKeyPush(MOFKEY_A)) {
-			m_bEnd = true;
-		}
-		m_fTimer -= 1 * CUtilities::GetFrameSecond();
-		return;
-	}
-
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_fTimer=Timer;
-		return;
-	}
-	m_fXpos += m_fMoveX;
-	m_fYpos += m_fMoveY;
+	
 }
 
 void CEnemyMove::TUpdate(float Xpos, float Ypos) {
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_bEnd = !m_bEnd;
-	}
-	float dx = Xpos - m_fXpos;
-	if (dx > 0) {
-		m_bRevers = true;
-	}
-	else
-	{
-		m_bRevers = false;
-	}
-	float dy = Ypos - m_fYpos;
-	float d = sqrt(dx*dx + dy * dy);
-	dx /= d;
-	dy /= d;
-	m_fXpos += (dx * m_fMoveX);
-
-	m_fYpos += (dy * m_fMoveY);
+	
 }
 
 void CEnemyMove::BUpdate(float Xpos, float Ypos) {
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_bEnd = !m_bEnd;
-	}
-	if (m_fYpos<=Ypos) {
-
-		if (m_bRevers) {
-		
-			if (m_fXpos + 200 > Xpos&&m_fXpos<Xpos) {
-				m_fYpos += 2*m_fMoveY;
-				if (m_Motion.GetMotionNo()==BAT_MOVE) {
-					m_Motion.ChangeMotion(BAT_DOWN);
-				}
-				return;
-			}
-		}
-		else {
-			if (m_fXpos-200<Xpos&&m_fXpos>Xpos) {
-
-				m_fYpos += 2*m_fMoveY;
-				if (m_Motion.GetMotionNo() == BAT_MOVE) {
-					m_Motion.ChangeMotion(BAT_DOWN);
-				}
-				return;
-			}
-		}
-	}
-	if (m_Motion.GetMotionNo()== BAT_DOWN) {
-		m_Motion.ChangeMotion(BAT_MOVE);
-	}
-	m_fXpos += m_fMoveX;
+	
 }
 
 void CEnemyMove::KOUpdate() {
-	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_bEnd = !m_bEnd;
-	}
 	
-	if (m_fAtackTimer>=0&& m_fCooltime <= 0) {
-		m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
-		if (m_fAtackTimer<0) {
-			m_fCooltime = CoolTime;
-		}
-	}
-	if (m_fCooltime>=0&&m_fAtackTimer<=0) {
-		m_fCooltime -= 1 * CUtilities::GetFrameSecond();
-		if (m_fCooltime < 0) {
-			m_fAtackTimer = AtackTimer;
-		}
-	}
 	
 }
 
@@ -239,8 +156,8 @@ void CEnemyMove::CollisionStage(float ox, float oy, int Type) {
 	}
 }
 
-void CEnemyMove::Render(float Xpos, float Ypos,int Type) {
-	if (m_bEnd) {
+void CEnemyMove::Render(float Xpos, float Ypos) {
+	/*if (m_bEnd) {
 		return;
 	}
 	m_Atack.Render();
@@ -275,5 +192,9 @@ void CEnemyMove::Render(float Xpos, float Ypos,int Type) {
 		dr.Right = dr.Left;
 		dr.Left = temp;
 	}
-		m_Texture.Render(m_fXpos, m_fYpos, dr);
+		m_Texture.Render(m_fXpos, m_fYpos, dr);*/
+}
+
+void CEnemyMove::Release() {
+	
 }

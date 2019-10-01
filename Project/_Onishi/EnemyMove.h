@@ -25,35 +25,48 @@ enum BAT_ANIM
 };
 
 class CEnemyMove {
-private:
+protected:
 	bool m_bEnd;
 	bool m_bRevers;
 	float m_fXpos;
 	float m_fYpos;
-	float m_fTimer;
-	float m_fAtackTimer;
-	float m_fCooltime;
 	float m_fMoveX;
 	float m_fMoveY;
 	float m_fEnemySpeed;
+
+private:
+	
+	float m_fAtackTimer;
+	float m_fCooltime;
 	CEnemyAtack	m_Atack;
-	CSpriteMotionController m_Motion;
+	//CSpriteMotionController m_Motion;
 	CRectangle				m_SrcRect;
-	CTexture	m_Texture;
+	//CTexture	m_Texture;
 public:
 	CEnemyMove();
 	~CEnemyMove();
-	void Initialize(int Type);
-	void Update(float Xpos, float Ypos,int Type);
+	virtual void Initialize() = 0;
+	virtual void Update(float Xpos, float Ypos) = 0;
+	virtual void Render(float Xpos, float Ypos) = 0;
+	virtual void Release()=0;
+	void CollisionStage(float ox, float oy, int Type);
+	/*virtual void Initialize(int Type) = 0;
+	virtual void Update(float Xpos, float Ypos, int Type) = 0;
+	virtual void Render(float Xpos, float Ypos, int Type) = 0;*/
+	float GetXpos(void) { return m_fXpos; };
+	float GetYpos(void) { return m_fYpos; };
+
 	void KUpdate(float Xpos,float Ypos);
 	void NUpdate(void);
 	void TUpdate(float Xpos, float Ypos);
 	void BUpdate(float Xpos, float Ypos);
 	void KOUpdate(void);
-	void CollisionStage(float ox, float oy, int Type);
-	void Render(float Xpos, float Ypos,int Type);
-
-	float GetXpos(void) { return m_fXpos; };
-	float GetYpos(void) { return m_fYpos; };
-
 };
+
+
+
+
+
+
+
+

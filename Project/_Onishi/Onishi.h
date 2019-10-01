@@ -9,6 +9,11 @@
  //! INCLUDE
 #include	"../SceneBase.h"
 #include	"EnemyMove.h"
+#include	"Enemy_KURIBO.h"
+#include	"Enemy_NOKONOKO.h"
+#include	"Enemy_TERESA.h"
+#include	"Enemy_BAT.h"
+#include	"Enemy_KOTEIHOUDAI.h"
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
@@ -30,7 +35,12 @@ private:
 	float gety;
 	bool Revers;
 	int gEnemytype;
-	CEnemyMove gEnemy;
+	CEnemyMove* gEnemy;
+	CEnemy_KURIBO*	gKURIBO;
+	CENEMY_NOKONOKO*	gNOKONOKO;
+	CENEMY_TERESA*	gTERESA;
+	CENEMY_BAT*	gBAT;
+	CENEMY_KOTEIHOUDAI*	gKOTEIHOUDAI;
 public:
 	/*****************************************************************
 	 * @fn

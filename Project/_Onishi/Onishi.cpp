@@ -58,8 +58,27 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_TERESA;
-	gEnemy.Initialize(gEnemytype);
+	gEnemytype = ENEMY_BAT;
+	switch (gEnemytype)
+	{
+	case ENEMY_KURIBO:
+		gEnemy = new CEnemy_KURIBO();
+		break;
+	case ENEMY_NOKONOKO:
+		gEnemy = new CENEMY_NOKONOKO();
+		break;
+	case ENEMY_TERESA:
+		gEnemy = new CENEMY_TERESA();
+		break;
+	case ENEMY_BAT:
+		gEnemy = new CENEMY_BAT();
+		break;
+	case ENEMY_KOTEIHOUDAI:
+		gEnemy = new CENEMY_KOTEIHOUDAI();
+		break;
+	}
+	gEnemy->Initialize();
+	//gEnemy.Initialize(gEnemytype);
 }
 
 /*****************************************************************
@@ -124,24 +143,33 @@ void COnishi::Update() {
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
 		if (gEnemytype == ENEMY_KURIBO) {
 			gEnemytype = ENEMY_NOKONOKO;
+			gEnemy = new CENEMY_NOKONOKO();
 		}
 		else if (gEnemytype == ENEMY_NOKONOKO) {
 			gEnemytype = ENEMY_TERESA;
+			gEnemy = new CENEMY_TERESA();
 		}
 		else if (gEnemytype == ENEMY_TERESA) {
 			gEnemytype = ENEMY_BAT;
+			gEnemy = new CENEMY_BAT();
 		}
 		else if (gEnemytype == ENEMY_BAT) {
 			gEnemytype = ENEMY_KOTEIHOUDAI;
+			gEnemy = new CENEMY_KOTEIHOUDAI();
 		}
 		else
 		{
 			gEnemytype = ENEMY_KURIBO;
+			gEnemy = new CEnemy_KURIBO();
 		}
+			gEnemy->Initialize();
 	}
-	gEnemy.Update(Xpos, Ypos, gEnemytype);
+
+
+	gEnemy->Update(Xpos, Ypos);
+	//gEnemy.Update(Xpos, Ypos, gEnemytype);
 	float ox = 0, oy = 0;
-	float mx = gEnemy.GetXpos(), my = gEnemy.GetYpos();
+	float mx = gEnemy->GetXpos(), my = gEnemy->GetYpos();
 	if (mx < 200) {
 		ox = 200 - mx;
 	}
@@ -153,7 +181,7 @@ void COnishi::Update() {
 	if (my > 600) {
 		oy = 600 - my;
 	}
-	gEnemy.CollisionStage(ox, oy, gEnemytype);
+	gEnemy->CollisionStage(ox, oy, gEnemytype);
 }
 
 /*****************************************************************
@@ -219,7 +247,8 @@ void COnishi::Render() {
 		CGraphicsUtilities::RenderFillRect(g_pGraphics->GetTargetWidth() / 4, g_pGraphics->GetTargetHeight() / 3, 700, 600, MOF_COLOR_WHITE);
 	}
 
-	gEnemy.Render(Xpos, Ypos,gEnemytype);
+	gEnemy->Render(Xpos,Ypos);
+	//gEnemy.Render(Xpos, Ypos,gEnemytype);
 
 	switch (gEnemytype)
 	{
@@ -262,5 +291,10 @@ void COnishi::RenderDebug() {
  * @return ‚È‚µ
  *****************************************************************/
 void COnishi::Release() {
-
+	if (gEnemy) {
+		gEnemy->Release();
+		delete gEnemy;
+		gEnemy = NULL;
+	}
+	
 }

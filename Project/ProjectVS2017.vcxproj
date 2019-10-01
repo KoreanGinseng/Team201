@@ -116,6 +116,11 @@
     <ClCompile Include="_Kimura\Kimura.cpp" />
     <ClCompile Include="_Onishi\EnemyAtack.cpp" />
     <ClCompile Include="_Onishi\EnemyMove.cpp" />
+    <ClCompile Include="_Onishi\Enemy_BAT.cpp" />
+    <ClCompile Include="_Onishi\Enemy_KOTEIHOUDAI.cpp" />
+    <ClCompile Include="_Onishi\Enemy_KURIBO.cpp" />
+    <ClCompile Include="_Onishi\Enemy_NOKONOKO.cpp" />
+    <ClCompile Include="_Onishi\Enemy_TERESA.cpp" />
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +147,11 @@
     <ClInclude Include="_Kimura\Kimura.h" />
     <ClInclude Include="_Onishi\EnemyAtack.h" />
     <ClInclude Include="_Onishi\EnemyMove.h" />
+    <ClInclude Include="_Onishi\Enemy_BAT.h" />
+    <ClInclude Include="_Onishi\Enemy_KOTEIHOUDAI.h" />
+    <ClInclude Include="_Onishi\Enemy_KURIBO.h" />
+    <ClInclude Include="_Onishi\Enemy_NOKONOKO.h" />
+    <ClInclude Include="_Onishi\Enemy_TERESA.h" />
     <ClInclude Include="_Onishi\Onishi.h" />
   </ItemGroup>
   <ItemGroup>
