@@ -229,6 +229,7 @@ void CGame::RenderDebug() {
 	{
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_EnemyArray[i].GetPos());
 		m_EnemyArray[i].RenderDebug(screenPos);
+		m_EnemyArray[i].RenderDebug(i);
 	}
 	//ƒAƒCƒeƒ€‚Ì•`‰æ
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
@@ -241,6 +242,7 @@ void CGame::RenderDebug() {
 	{
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].RenderDebug(screenPos);
+		m_pObjArray[i].RenderDebug(i);
 	}
 }
 

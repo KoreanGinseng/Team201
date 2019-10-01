@@ -13,13 +13,9 @@ private:
 	CTexture*				m_pTexture;
 	CSpriteMotionController	m_Motion;
 	int						m_Type;
-	/*float					m_PosX;
-	float					m_PosY;*/
 	float					m_MoveX;
 	float					m_MoveY;
-	//bool					m_bShow;
 	bool					m_bReverse;
-	/*CRectangle				m_SrcRect;*/
 	
 	int						m_HP;
 	int						m_DamageWait;
@@ -50,11 +46,6 @@ public:
 	bool GetShow(void){ return m_bShow; }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	int GetDamageWait(void){ return m_DamageWait; }
-	/*CRectangle GetRect(){
-		return CRectangle(m_PosX + ENEMY_RECTDECREASE,m_PosY + ENEMY_RECTDECREASE,m_PosX + m_SrcRect.GetWidth() - ENEMY_RECTDECREASE,m_PosY + m_SrcRect.GetHeight());
-	}*/
+	void RenderDebug(int i);
 
-	void TestSetColor(void) { m_DebugColor = MOF_COLOR_GREEN; }
-	void Debug(void);
-	
 };

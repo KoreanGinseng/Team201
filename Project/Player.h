@@ -26,6 +26,7 @@ private:
 
 	/*vector<CSubstance*>	m_SkillTarget;*/
 	
+	bool				m_bSkill;
 	bool				m_bTrigger;
 	bool				m_bJump;
 	bool				m_bPowerUp;
@@ -33,6 +34,7 @@ private:
 	int					m_Life;
 	int					m_Hp;
 	int					m_Target;
+	float				m_CoolTime;
 	float				m_Skillrang;
 	float				m_PosX;
 	float				m_PosY;

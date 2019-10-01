@@ -83,8 +83,14 @@ void CObject::RenderDebug(Vector2 sp) {
 		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
 	}
 
+
 }
 
 void CObject::Release(void) {
 	m_Motion.Release();
+}
+
+void CObject::RenderDebug(int i) {
+
+	CGraphicsUtilities::RenderString(100+i * 110, 0, "Target %d", m_bTarget);
 }

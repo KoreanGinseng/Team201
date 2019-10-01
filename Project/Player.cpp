@@ -11,6 +11,8 @@ CPlayer::CPlayer() {
 	//オブジェクト生成時の初期化
 	m_Skillrang = 0.0f;
 
+	m_CoolTime = 0.0f;
+
 	m_Target = 0;
 
 	m_PosX = 0;
@@ -28,6 +30,7 @@ CPlayer::CPlayer() {
 	m_bJump = false;
 	m_bPowerUp = false;
 	m_bTrigger = false;
+	m_bSkill = false;
 
 
 }
@@ -53,6 +56,11 @@ bool CPlayer::Load() {
 void CPlayer::Initialize() {
 	//スキルの範囲を初期化
 	m_Skillrang = 0.0f;
+	
+	m_CoolTime = 100.0f;
+
+	m_bTrigger = false;
+
 	//座標の初期化
 	m_PosX = g_pGraphics->GetTargetWidth() / 2;
 	m_PosY = 0;
@@ -456,7 +464,7 @@ void CPlayer::Skill() {
 	m_SkillCircle.r = m_Skillrang;
 
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500) {
+	if (g_pGamePad->GetPadState()->lZ > 500&&m_CoolTime>0.0f) {
 
 		m_bTrigger = true;
 
@@ -471,6 +479,8 @@ void CPlayer::Skill() {
 	if (m_bTrigger) {
 
 		m_Skillrang += 10;
+
+		m_CoolTime -= 0.1f;
 
 		if (m_Skillrang >= PLAYER_MAXSKILLRANGE) {
 
@@ -526,7 +536,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
 
 			element.push_back(&pene[i]);
-			pene[i].TestSetColor();
+	
 		}
 
 	}
@@ -638,7 +648,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 
 	if (g_pGamePad->GetPadState()->lZ < -500) {
-
+		//ファルスなって円は表示されないが流れ的にこの関数には入る
 		m_bTrigger = false;
 
 		for (int i = 0; i < element2.size(); i++) {
@@ -690,7 +700,7 @@ void CPlayer::RenderDebug() {
 	CGraphicsUtilities::RenderString(0, 60, MOF_XRGB(0, 255, 0), "ゲームパッドに接続されている状態でもエンターキーで操作をキーボードと切り替え可能");
 	CGraphicsUtilities::RenderString(0, 90, MOF_XRGB(0, 255, 0), "m_MoveX %.f m_MoveY %.f m_bPowerUp %d m_bJump %d m_Hp %d m_Life %d m_PosX %.f", m_MoveX, m_MoveY, m_bPowerUp, m_bJump, m_Hp, m_Life,m_PosX);
 	
-	CGraphicsUtilities::RenderString(0, 30, "Effectボリューム%f BGMボリューム%f", g_pSoundManager->RenderDebug(SUD_SOUNDBGM), g_pSoundManager->RenderDebug(SUD_SOUNDEFFECT));
+	/*CGraphicsUtilities::RenderString(0, 30, "Effectボリューム%f BGMボリューム%f", g_pSoundManager->RenderDebug(SUD_SOUNDBGM), g_pSoundManager->RenderDebug(SUD_SOUNDEFFECT));*/
 
 	if (g_KeyRenderDebug) {
 

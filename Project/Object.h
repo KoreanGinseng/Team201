@@ -32,6 +32,7 @@ public:
 
 	bool GetShow(void) { return m_bShow; }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
-	/*CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }*/
+	
+	void RenderDebug(int i);
 };
 

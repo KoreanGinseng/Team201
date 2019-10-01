@@ -195,9 +195,6 @@ void CEnemy::RenderDebug(Vector2 sp){
 		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
 	}
 
-
-	
-	Debug();
 }
 
 /**
@@ -278,8 +275,7 @@ void CEnemy::CollisionStage(Vector2 o){
 	}
 }
 
-void CEnemy::Debug() {
+void CEnemy::RenderDebug(int i) {
 
-	m_DebugColor = MOF_COLOR_RED;
-
+	CGraphicsUtilities::RenderString(i*110,30,"Target %d", m_bTarget);
 }
