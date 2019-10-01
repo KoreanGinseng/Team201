@@ -9,6 +9,7 @@
 //! INCLUDE
 #include	"../SceneBase.h"
 #include    <string>
+
 #define		FONT_SIZE		32.0f
 
  /*****************************************************************
@@ -23,6 +24,7 @@ private:
 	int Lenth;
 	int time;
 	int num;
+	
 	
 
 public:
