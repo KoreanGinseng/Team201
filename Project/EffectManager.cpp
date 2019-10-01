@@ -31,8 +31,6 @@ void CEffectManager::Initialize() {
 			m_Effect[i][j].Initialize(j);
 		}
 	}
-
-
 }
 
 CEffect* CEffectManager::Start(float px, float py, int type) {

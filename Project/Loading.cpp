@@ -30,6 +30,7 @@ void CLoading::Initialize(void)
 void CLoading::Run(void) 
 {
 	Load();
+	Sleep(20000);
 	Initialize();
 
 	m_bEnd = true;

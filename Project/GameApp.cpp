@@ -157,11 +157,13 @@ MofBool CGameApp::Render(void){
 	if (!gLoading.IsEnd())
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LOADING");
+		//•`‰æ‚ÌI—¹
+		g_pGraphics->RenderEnd();
 		return TRUE;
 	}
 	else
 	{
-		CGraphicsUtilities::RenderString(0, 100, "LOADEND");
+		CGraphicsUtilities::RenderString(0, 0, "LOADEND");
 	}
 
 	//ƒV[ƒ“‚Ì•`‰æ
