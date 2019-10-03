@@ -19,5 +19,6 @@ public:
 	void	SetTarget(bool target) { m_bTarget = target; }
 	void	SetSkill(void) { m_bSkill = true; }
 	CRectangle GetRect() const { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }
+	bool	IsSkill(void) { return m_bSkill; }
 
 };
