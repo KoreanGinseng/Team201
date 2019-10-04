@@ -32,6 +32,7 @@ private:
 	bool		m_bReverse;
 	bool		m_bJump;
 	bool		m_bPowUp;
+	bool		m_bTrigger;
 	int			m_HP;
 	int			m_Stock;
 	CMotionPtr  m_pMotion;
@@ -45,6 +46,8 @@ private:
 	void MoveSub(WAY w);
 	void Animation(void);
 	void Jump(void);
+	void Skill(void);
+	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);
 
 	enum tag_Animation {
 		ANIM_WAIT,
@@ -70,5 +73,6 @@ public:
 	Vector2 GetSpd(void) const { return m_Spd; }
 	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
 		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
+	bool	IsTrigger(void) { return m_bTrigger; }
 };
 

@@ -2,6 +2,7 @@
 
 #include	"Mof.h"
 #include	"GameDefine.h"
+#include	"Substance.h"
 #include	"_Onishi/EnemyMove.h"
 #include	"_Onishi/EnemyAtack.h"
 #include	"_Onishi/Enemy_BAT.h"
@@ -14,10 +15,10 @@
 //ìñÇΩÇËîªíËå∏êäïù
 #define		ENEMY_RECTDECREASE		10
 
-class CEnemy {
+class CEnemy : public CSubstance
+{
 private:
 	CTexturePtr				m_pTexture;
-	Vector2					m_Pos;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 	CEnemyMove*				m_pMove;
@@ -52,10 +53,5 @@ public:
 	
 	//Get
 	bool		GetShow(void)			const { return m_bShow; }
-	Vector2		GetPos(void)			const { return m_Pos; }
 	int			GetDamageWait(void)		const { return m_DamageWait; }
-	CRectangle	GetRect(void)			const {
-		return CRectangle(m_Pos.x + ENEMY_RECTDECREASE, m_Pos.y + ENEMY_RECTDECREASE,
-			m_Pos.x + m_SrcRect.GetWidth() - ENEMY_RECTDECREASE, m_Pos.y + m_SrcRect.GetHeight());
-	}
 };

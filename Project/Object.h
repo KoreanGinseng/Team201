@@ -1,14 +1,14 @@
 #pragma once
 #include	"Mof.h"
+#include	"Substance.h"
 #include	"GameDefine.h"
 
-class CObject
+class CObject : public CSubstance
 {
 private:
 	CTexturePtr				m_pTexture;
 	CMotionPtr				m_pMotion;
 	bool					m_bMotionEnd;
-	Vector2					m_Pos;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 
@@ -37,7 +37,5 @@ public:
 
 	//Get
 	bool		GetShow(void)	 const { return m_bShow; }
-	Vector2		GetPos(void)	 const { return m_Pos; }
-	CRectangle	GetRect(void)	 const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 };
 
