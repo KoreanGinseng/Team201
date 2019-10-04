@@ -58,7 +58,7 @@ void String(int sx, int sy, int fontsize, const char * str)
 		float Y = ((str[i] - 32) / 16);
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
-		g_pResouseManager->GetTexture(TEXTURE_FONT)->RenderScale(sx, sy, fontsize / 64.0, SRect);
+		g_pTextureManager->GetResource("sumple_imvisible.png")->RenderScale(sx, sy, fontsize / 64.0, SRect);
 		sx += fontsize;
 	}
 }

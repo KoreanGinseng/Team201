@@ -15,16 +15,16 @@ CLoading::~CLoading()
 void CLoading::Load(void)
 {
 	g_pEffectManager->Load();
-	g_pResouseManager->Load();
-	g_pResouseManager->AddTexture("sumple_imvisible.png", TEXTURE_FONT);
-	g_pSoundManager->Load();
+	g_pSoundManager->GetResource("");
+	m_pScene->Load();
 }
 
 void CLoading::Initialize(void)
 {
 	g_pEffectManager->Initialize();
-	g_pSoundManager->Initialize();
 	g_pTimeManager->Reset();
+	m_pScene->Initialize();
+	Sleep(1000);
 }
 
 void CLoading::Run(void) 

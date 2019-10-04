@@ -9,6 +9,7 @@
 
 //INCLUDE
 #include	"GameApp.h"
+#include	"GameDefine.h"
 #include	"SceneBase.h"
 #include	"Game.h"
 #include	"Title.h"
@@ -21,7 +22,6 @@
 #include	"_Onishi/Onishi.h"
 #include	"GameDefine.h"
 #include	"EffectManager.h"
-#include	"ResourceManager.h"
 #include	"SoundManager.h"
 #include	"Loading.h"
 
@@ -52,9 +52,8 @@ MofBool CGameApp::Initialize(void){
 
 	/*gLoading.SetLoad(gpScene->Load);
 	gLoading.SetInit(gpScene->Initialize);*/
+	gLoading.SetScene(gpScene);
 	gLoading.Start("Loading");
-	gpScene->Load();
-	gpScene->Initialize();
 
 	//FPSの設定
 	if (!CUtilities::SetFPS(GAMEFPS))
@@ -125,8 +124,7 @@ MofBool CGameApp::Update(void){
 		}
 		//別スレッドでやりたい。(LOADING)
 		{
-			gpScene->Load();
-			gpScene->Initialize();
+			gLoading.Start("Loading");
 		}
 	}
 
@@ -152,7 +150,7 @@ MofBool CGameApp::Render(void){
 	g_pGraphics->RenderStart();
 	//画面のクリア
 	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
-
+	g_pSoundManager->GetResource(".ogg")->Play();
 
 	if (!gLoading.IsEnd())
 	{
@@ -195,9 +193,10 @@ MofBool CGameApp::Release(void){
 	delete gpScene;
 	gpScene = NULL;
 
-	g_pResouseManager->Release();
+	//g_pResouseManager->Release();
 	g_pSoundManager->Release();
 	g_pEffectManager->Release();
-
+	g_pTextureManager->Release();
+	g_pAnimManager->Release();
 	return TRUE;
 }

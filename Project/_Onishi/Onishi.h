@@ -30,7 +30,7 @@ private:
 	float gety;
 	bool Revers;
 	int gEnemytype;
-	CEnemyMove gEnemy;
+	//CEnemyMove gEnemy;
 public:
 	/*****************************************************************
 	 * @fn

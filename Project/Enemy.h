@@ -4,6 +4,11 @@
 #include	"GameDefine.h"
 #include	"_Onishi/EnemyMove.h"
 #include	"_Onishi/EnemyAtack.h"
+#include	"_Onishi/Enemy_BAT.h"
+#include	"_Onishi/Enemy_KOTEIHOUDAI.h"
+#include	"_Onishi/Enemy_KURIBO.h"
+#include	"_Onishi/Enemy_TERESA.h"
+#include	"_Onishi/Enemy_NOKONOKO.h"
 
 
 //ìñÇΩÇËîªíËå∏êäïù
@@ -11,16 +16,12 @@
 
 class CEnemy {
 private:
-	CTexture*					m_pTexture;
-	CSpriteMotionController*	m_pMotion;
-	Vector2						m_Pos;
-	int							m_Type;
-	Vector2						m_MoveSpd;
-	bool						m_bShow;
-	bool						m_bReverse;
-	CRectangle					m_SrcRect;
-	CEnemyMove*					m_pMove;
-	CEnemyAtack*				m_pAttack;
+	CTexturePtr				m_pTexture;
+	Vector2					m_Pos;
+	bool					m_bShow;
+	CRectangle				m_SrcRect;
+	CEnemyMove*				m_pMove;
+	CEnemyAtack*			m_pAttack;
 	int						m_HP;
 	int						m_DamageWait;
 	
@@ -35,15 +36,16 @@ private:
 public:
 	CEnemy();
 	~CEnemy();
-	void Initialize(float px,float py,int type);
-	void Update(void);
+	void Initialize(float px,float py);
+	void Update(const Vector2& playerPos);
 	void Render(const Vector2& sp);
 	void RenderDebug(const Vector2& sp);
 	void Release(void);
 
 	//Set
-	void SetTexture(CTexture* pt) { m_pTexture = pt; }
-	
+	void SetTexture(CTexturePtr pt) { m_pTexture = pt; }
+	void SetMoveAttack(const int& no);
+
 	//Collision
 	void CollisionStage(Vector2 o);
 	void Damage(int dmg,bool bRev);

@@ -34,4 +34,4 @@ public:
 	}
 };
 
-#define g_pSoundManager		 CSoundManager::GetInstance()
+//#define g_pSoundManager		 CSoundManager::GetInstance()

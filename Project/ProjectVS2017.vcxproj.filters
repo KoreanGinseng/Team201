@@ -78,9 +78,6 @@
     <ClCompile Include="EffectManager.cpp">
       <Filter>ソース ファイル\MANAGER</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>ソース ファイル\MANAGER</Filter>
     </ClCompile>
@@ -123,6 +120,24 @@
     <ClCompile Include="Loading.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_BAT.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_KOTEIHOUDAI.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_KURIBO.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_NOKONOKO.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_TERESA.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Inoue\AnimationData.cpp">
+      <Filter>ソース ファイル\MANAGER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -159,9 +174,6 @@
       <Filter>ヘッダー ファイル\MANAGER</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
       <Filter>ヘッダー ファイル\MANAGER</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
@@ -211,6 +223,27 @@
     </ClInclude>
     <ClInclude Include="Loading.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_BAT.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_KOTEIHOUDAI.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_KURIBO.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_NOKONOKO.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_TERESA.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\AnimationData.h">
+      <Filter>ヘッダー ファイル\MANAGER</Filter>
+    </ClInclude>
+    <ClInclude Include="_Inoue\ResourceManager.h">
+      <Filter>ヘッダー ファイル\MANAGER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

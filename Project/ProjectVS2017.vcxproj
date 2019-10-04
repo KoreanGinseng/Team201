@@ -109,7 +109,6 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -118,10 +117,16 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
+    <ClCompile Include="_Inoue\AnimationData.cpp" />
     <ClCompile Include="_Inoue\Inoue.cpp" />
     <ClCompile Include="_Kimura\Kimura.cpp" />
     <ClCompile Include="_Onishi\EnemyAtack.cpp" />
     <ClCompile Include="_Onishi\EnemyMove.cpp" />
+    <ClCompile Include="_Onishi\Enemy_BAT.cpp" />
+    <ClCompile Include="_Onishi\Enemy_KOTEIHOUDAI.cpp" />
+    <ClCompile Include="_Onishi\Enemy_KURIBO.cpp" />
+    <ClCompile Include="_Onishi\Enemy_NOKONOKO.cpp" />
+    <ClCompile Include="_Onishi\Enemy_TERESA.cpp" />
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +146,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
@@ -149,10 +153,17 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
+    <ClInclude Include="_Inoue\AnimationData.h" />
     <ClInclude Include="_Inoue\Inoue.h" />
+    <ClInclude Include="_Inoue\ResourceManager.h" />
     <ClInclude Include="_Kimura\Kimura.h" />
     <ClInclude Include="_Onishi\EnemyAtack.h" />
     <ClInclude Include="_Onishi\EnemyMove.h" />
+    <ClInclude Include="_Onishi\Enemy_BAT.h" />
+    <ClInclude Include="_Onishi\Enemy_KOTEIHOUDAI.h" />
+    <ClInclude Include="_Onishi\Enemy_KURIBO.h" />
+    <ClInclude Include="_Onishi\Enemy_NOKONOKO.h" />
+    <ClInclude Include="_Onishi\Enemy_TERESA.h" />
     <ClInclude Include="_Onishi\Onishi.h" />
   </ItemGroup>
   <ItemGroup>

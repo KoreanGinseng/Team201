@@ -3,14 +3,15 @@
 
 class CENEMY_BAT :public CEnemyMove {
 private:
-	CSpriteMotionController m_Motion;
-	CRectangle				m_SrcRect;
-	CTexture	m_Texture;
+	enum BAT_ANIM
+	{
+		BAT_MOVE,
+		BAT_DOWN,
+		BAT_ANIMCOUNT,
+	};
 public:
 	CENEMY_BAT();
 	~CENEMY_BAT();
 	void Initialize();
 	void Update(float Xpos, float Ypos);
-	void Render(float Xpos, float Ypos);
-	void Release();
 };

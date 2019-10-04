@@ -8,9 +8,9 @@
 
 // INCLUDE
 #include "SceneBase.h"
+#include "GameDefine.h"
 #include "TimeManager.h"
 #include "EffectManager.h"
-#include "ResourceManager.h"
 #include "SoundManager.h"
 #include "Coordinate.h"
 #include "Camera2D.h"

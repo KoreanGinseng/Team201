@@ -59,7 +59,7 @@ void COnishi::Initialize() {
 	gety = 0;
 	Revers = false;
 	gEnemytype = ENEMY_TERESA;
-	gEnemy.Initialize(gEnemytype);
+	//gEnemy.Initialize(gEnemytype);
 }
 
 /*****************************************************************
@@ -139,10 +139,10 @@ void COnishi::Update() {
 			gEnemytype = ENEMY_KURIBO;
 		}
 	}
-	gEnemy.Update(Xpos, Ypos, gEnemytype);
+	//gEnemy.Update(Xpos, Ypos, gEnemytype);
 	float ox = 0, oy = 0;
-	float mx = gEnemy.GetXpos(), my = gEnemy.GetYpos();
-	if (mx < 200) {
+	//float mx = gEnemy.GetXpos(), my = gEnemy.GetYpos();
+	/*if (mx < 200) {
 		ox = 200 - mx;
 	}
 	else if (mx > 800)
@@ -153,7 +153,7 @@ void COnishi::Update() {
 	if (my > 600) {
 		oy = 600 - my;
 	}
-	gEnemy.CollisionStage(ox, oy, gEnemytype);
+	gEnemy.CollisionStage(ox, oy, gEnemytype);*/
 }
 
 /*****************************************************************
@@ -219,7 +219,7 @@ void COnishi::Render() {
 		CGraphicsUtilities::RenderFillRect(g_pGraphics->GetTargetWidth() / 4, g_pGraphics->GetTargetHeight() / 3, 700, 600, MOF_COLOR_WHITE);
 	}
 
-	gEnemy.Render(Xpos, Ypos,gEnemytype);
+	//gEnemy.Render(Xpos, Ypos,gEnemytype);
 
 	switch (gEnemytype)
 	{

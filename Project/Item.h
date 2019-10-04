@@ -13,8 +13,8 @@ enum tag_ITEMTYPE {
 
 class CItem {
 private:
-	CTexture*				m_pTexture;
-	CSpriteMotionController	m_Motion;
+	CTexturePtr				m_pTexture;
+	CMotionPtr				m_pMotion;
 	int						m_Type;
 	Vector2					m_Pos;
 	Vector2					m_Move;
@@ -30,7 +30,7 @@ public:
 	void Release(void);
 	
 	//Set
-	void SetTexture(CTexture* pt){ m_pTexture = pt; }
+	void SetTexture(CTexturePtr pt){ m_pTexture = pt; }
 	void SetShow(const bool bs) { m_bShow = bs; }
 	
 	//Collision

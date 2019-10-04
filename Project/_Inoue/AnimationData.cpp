@@ -1,19 +1,20 @@
-#include "ResourceManager.h"
+#include "AnimationData.h"
 
-CResourceManager* CResourceManager::m_pInstance = nullptr;
 
-bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMATIONDATA ra)
+
+CAnimationData::CAnimationData() :
+m_pTexture(nullptr),
+m_pMotion(nullptr)
 {
-	//既に登録されていれば解放
-	if (m_TextureResource.find(rt) != m_TextureResource.end())
-	{
-		m_TextureResource[rt].Release();
-	}
-	if (m_AnimationResource.find(ra) != m_AnimationResource.end())
-	{
-		m_AnimationResource[ra].Release();
-	}
+}
 
+
+CAnimationData::~CAnimationData()
+{
+}
+
+bool CAnimationData::Load(const char* pName) 
+{
 	//ファイルが開けなかった場合error
 	FILE* fp = fopen(pName, "rb");
 	if (fp == nullptr)
@@ -27,13 +28,19 @@ bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMA
 	char* fns = new char[fnc + 1];
 	fread(fns, sizeof(char), fnc, fp);
 	fns[fnc] = '\0';
-	m_TextureResource[rt].Load(fns);
+
+	//テクスチャの読み込み
+	m_pTexture = g_pTextureManager->GetResource(fns);
+	if (m_pTexture == nullptr)
+	{
+		return FALSE;
+	}
 
 	//アニメーション数取得
 	int c;
 	fread(&c, sizeof(int), 1, fp);
 	SpriteAnimationCreate* anim = new SpriteAnimationCreate[c];
-	
+
 	//アニメーションの数だけ繰り返す
 	for (int i = 0; i < c; ++i)
 	{
@@ -76,33 +83,21 @@ bool CResourceManager::Load(const char* pName, const TEXTUREDATA rt, const ANIMA
 	}
 	fclose(fp);
 
-	m_AnimationResource[ra].Create(anim, c);
+	//アニメーションデータ作成
+	if (m_pMotion == nullptr)
+	{
+		m_pMotion = std::make_shared<CSpriteMotionController>();
+	}
+	if (!m_pMotion->Create(anim, c))
+	{
+		return FALSE;
+	}
 
 	return TRUE;
 }
 
-bool CResourceManager::Load()
+void CAnimationData::Release(void) 
 {
-	g_pResouseManager->Load("PlayerAnim.bin", TEXTURE_PLAYER, ANIMATION_PLAYER);
-	return TRUE;
-}
-
-bool CResourceManager::AddTexture(const char* pName, const TEXTUREDATA rt)
-{
-	m_TextureResource[rt].Release();
-	return m_TextureResource[rt].Load(pName);
-}
-
-void CResourceManager::Release()
-{
-	for (auto itr = m_TextureResource.begin(); itr != m_TextureResource.end(); ++itr)
-	{
-		itr->second.Release();
-	}
-	for (auto itr = m_AnimationResource.begin(); itr != m_AnimationResource.end(); ++itr)
-	{
-		itr->second.Release();
-	}
-	delete CResourceManager::m_pInstance;
-	CResourceManager::m_pInstance = nullptr;
+	m_pTexture->Release();
+	m_pMotion->Release();
 }

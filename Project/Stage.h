@@ -15,11 +15,11 @@
 class CStage
 {
 private:
-	CTexture	m_BackTexture;
-	CTexture	m_ChipTexture;
-	CTexture*	m_pEnemyTexture;
-	CTexture*	m_pItemTexture;
-	CTexture*	m_pObjectTexture;
+	CTexturePtr	m_pBackTexture;
+	CTexturePtr	m_pChipTexture;
+	std::vector<CTexturePtr>	m_pEnemyTexture;
+	std::vector<CTexturePtr>	m_pItemTexture;
+	std::vector<CTexturePtr>	m_pObjectTexture;
 
 	float		m_ChipSize;
 	int			m_XCount;

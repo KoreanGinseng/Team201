@@ -9,7 +9,5 @@ public:
 	~CENEMY_KOTEIHOUDAI();
 	void Initialize();
 	void Update(float Xpos, float Ypos);
-	void Render(float Xpos, float Ypos);
-	void Release();
 };
 

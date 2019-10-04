@@ -8,8 +8,18 @@
 
  //INCLUDE
 #include	"Mof.h"
+#include	"_Inoue/ResourceManager.h"
+#include	"SoundManager.h"
+
+
+//USING
+using CTexturePtr = std::shared_ptr<CTexture>;
+using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
+
+#include	"_Inoue/AnimationData.h"
 
 //DEFINE
+
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
 #define		STAGE_COUNT		3		//! ゲームステージ数
@@ -24,11 +34,34 @@
 #define		PLAYER_JUMPPOW			-10.0f
 #define		PLAYER_HIGHJUMPPOW		-15.0f
 
+#define		g_pAnimManager		CResourceManager<CAnimationData>::GetInstance()
+#define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
+#define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
+
+
+constexpr	char*	FileName[] = {
+	"playerAnim.bin",
+	"",
+	"",
+	"",
+	"",
+	".png",
+	"",
+	"",
+	"",
+	".mp3",
+	"",
+};
 
 //STRUCT
 
 
 //ENUM
+typedef enum tag_WAY {
+	WAY_X,
+	WAY_Y,
+}WAY;
+
 /*****************************************************************
  * @enum tag_SCENENO
  * シーン番号の列挙
@@ -39,7 +72,6 @@ enum tag_SCENENO {
 	SCENENO_GAMECLEAR,
 	SCENENO_GAMEOVER,
 	SCENENO_RANKING,
-
 	SCENENO_FUJIWARA,
 	SCENENO_INOUE,
 	SCENENO_ONISHI,
@@ -91,7 +123,7 @@ typedef enum tag_TEXTUREDATA {
  * アニメーションファイルの列挙
  *****************************************************************/
 typedef enum tag_ANIMATIONDATA {
-	ANIMATION_PLAYER,
+	ANIMATION_PLAYER = TEXTURE_COUNT,
 	ANIMATION_ENEMY_1,
 	ANIMATION_ENEMY_2,
 	ANIMATION_ENEMY_3,
@@ -119,3 +151,21 @@ typedef enum tag_ANIMATIONDATA {
 
 	ANIMATION_COUNT,
 }ANIMATIONDATA;
+
+
+
+
+
+
+/*****************************************************************
+ * @enum tag_ENEMY
+ * 敵の列挙
+ *****************************************************************/
+enum tag_ENEMY
+{
+	ENEMY_KURIBO,
+	ENEMY_NOKONOKO,
+	ENEMY_TERESA,
+	ENEMY_BAT,
+	ENEMY_KOTEIHOUDAI,
+};

@@ -30,10 +30,10 @@ void CObject::Initialize(float px, float py) {
 			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
 		},
 	};
-	m_Motion.Create(anim, MOTION_COUNT);
+	m_pMotion->Create(anim, MOTION_COUNT);
 	if (m_bMotionEnd)
 	{
-		m_Motion.ChangeMotion(MOTION_END);
+		m_pMotion->ChangeMotion(MOTION_END);
 	}
 }
 
@@ -49,7 +49,7 @@ void CObject::Update(void) {
 		//m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	}
 
-	m_SrcRect = m_Motion.GetSrcRect();
+	m_SrcRect = m_pMotion->GetSrcRect();
 }
 
 void CObject::Render(Vector2 sp) {
@@ -74,7 +74,7 @@ void CObject::RenderDebug(Vector2 sp) {
 }
 
 void CObject::Release(void) {
-	m_Motion.Release();
+	m_pMotion->Release();
 }
 
 void CObject::CollisionStage(const Vector2& o)

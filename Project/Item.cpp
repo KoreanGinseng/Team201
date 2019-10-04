@@ -6,7 +6,7 @@
  */
 CItem::CItem() :
 m_pTexture(NULL) ,
-m_Motion() ,
+m_pMotion() ,
 m_Pos(Vector2(0,0)) ,
 m_Move(Vector2(0,0)) ,
 m_bShow(false) ,
@@ -45,7 +45,7 @@ void CItem::Initialize(float px,float py,int type){
 		32,32,
 		TRUE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}} 
 	};
-	m_Motion.Create(anim);
+	m_pMotion->Create(anim);
 }
 
 /**
@@ -68,8 +68,8 @@ void CItem::Update(void){
 	m_Pos.x += m_Move.x;
 	m_Pos.y += m_Move.y;
 	//アニメーションの更新
-	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Motion.GetSrcRect();
+	m_pMotion->AddTimer(CUtilities::GetFrameSecond());
+	m_SrcRect = m_pMotion->GetSrcRect();
 }
 
 
@@ -105,7 +105,7 @@ void CItem::RenderDebug(Vector2 sp){
  *
  */
 void CItem::Release(void){
-	m_Motion.Release();
+	m_pMotion->Release();
 }
 
 /**

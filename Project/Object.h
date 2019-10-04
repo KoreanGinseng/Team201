@@ -1,11 +1,12 @@
 #pragma once
 #include	"Mof.h"
+#include	"GameDefine.h"
 
 class CObject
 {
 private:
-	CTexture*				m_pTexture;
-	CSpriteMotionController	m_Motion;
+	CTexturePtr				m_pTexture;
+	CMotionPtr				m_pMotion;
 	bool					m_bMotionEnd;
 	Vector2					m_Pos;
 	bool					m_bShow;
@@ -30,7 +31,7 @@ public:
 	void CollisionStage(const Vector2& o);
 
 	//Set
-	void SetTexture(CTexture* pt)	  { m_pTexture = pt; }
+	void SetTexture(CTexturePtr pt)	  { m_pTexture = pt; }
 	void SetMotionEnd(const bool be)  { m_bMotionEnd = be; }
 	void SetShow(const bool bs)	      { m_bShow = bs; }
 

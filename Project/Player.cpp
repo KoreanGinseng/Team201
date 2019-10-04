@@ -29,9 +29,9 @@ CPlayer::~CPlayer(void)
 void CPlayer::Initialize(void)
 {
 	//画像データのセット
-	m_pTexture = g_pResouseManager->GetTexture(TEXTURE_PLAYER);
+	m_pTexture = g_pAnimManager->GetResource(FileName[0])->GetTexture();
 	//アニメーションデータのセット
-	m_pMotion = g_pResouseManager->GetAnimation(ANIMATION_PLAYER);
+	m_pMotion = g_pAnimManager->GetResource("playerAnim.bin")->GetMotion();
 	//座標の初期化
 	m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
 	//移動量の初期化
@@ -255,7 +255,7 @@ void CPlayer::Animation(void)
 void CPlayer::Jump(void)
 {
 	//ジャンプ効果音のテスト処理
-	g_pSoundManager->Start(SUD_SOUNDEFFECT, SOUND_EFFECT)->Update();
+	g_pSoundManager->GetResource(FileName[10])->Play();
 
 	//ジャンプフラグを立てる
 	m_bJump = true;

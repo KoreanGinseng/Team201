@@ -11,7 +11,6 @@
 #include	"GameDefine.h"
 #include	"GamePad.h"
 #include	"SoundManager.h"
-#include	"ResourceManager.h"
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
@@ -25,18 +24,18 @@ private:
 		WAY_RIGHT,
 	}WAY;
 
-	CTexture* m_pTexture;
-	Vector2	  m_Pos;
-	Vector2	  m_Move;
-	Vector2	  m_Spd;
-	bool	  m_bMove;
-	bool	  m_bReverse;
-	bool	  m_bJump;
-	bool	  m_bPowUp;
-	int		  m_HP;
-	int		  m_Stock;
-	CSpriteMotionController* m_pMotion;
-	CRectangle m_SrcRect;
+	CTexturePtr m_pTexture;
+	Vector2		m_Pos;
+	Vector2		m_Move;
+	Vector2		m_Spd;
+	bool		m_bMove;
+	bool		m_bReverse;
+	bool		m_bJump;
+	bool		m_bPowUp;
+	int			m_HP;
+	int			m_Stock;
+	CMotionPtr  m_pMotion;
+	CRectangle  m_SrcRect;
 
 	void PadOparation(void);
 	void KeyOparation(void);

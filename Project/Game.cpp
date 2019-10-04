@@ -87,7 +87,7 @@ void CGame::Update()
 		{
 			continue;
 		}
-		m_EnemyArray[i].Update();
+		m_EnemyArray[i].Update(m_Player.GetPos());
 		//“–‚½‚è”»’è
 		Vector2 eo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_EnemyArray[i].GetRect(), eo))
