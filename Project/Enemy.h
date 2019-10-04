@@ -2,6 +2,8 @@
 
 #include	"Mof.h"
 #include	"GameDefine.h"
+#include	"_Onishi/EnemyMove.h"
+#include	"_Onishi/EnemyAtack.h"
 
 
 //ìñÇΩÇËîªíËå∏êäïù
@@ -9,15 +11,16 @@
 
 class CEnemy {
 private:
-	CTexture*				m_pTexture;
-	CSpriteMotionController	m_Motion;
-	int						m_Type;
-	Vector2					m_Pos;
-	Vector2					m_Move;
-	bool					m_bShow;
-	bool					m_bReverse;
-	CRectangle				m_SrcRect;
-	
+	CTexture*					m_pTexture;
+	CSpriteMotionController*	m_pMotion;
+	Vector2						m_Pos;
+	int							m_Type;
+	Vector2						m_MoveSpd;
+	bool						m_bShow;
+	bool						m_bReverse;
+	CRectangle					m_SrcRect;
+	CEnemyMove*					m_pMove;
+	CEnemyAtack*				m_pAttack;
 	int						m_HP;
 	int						m_DamageWait;
 	

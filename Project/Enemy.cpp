@@ -5,10 +5,10 @@
  *
  */
 CEnemy::CEnemy() :
-m_pTexture(NULL) ,
-m_Motion() ,
+m_pTexture(nullptr) ,
+m_pMotion(nullptr) ,
 m_Pos(Vector2(0,0)) ,
-m_Move(Vector2(0,0)) ,
+m_MoveSpd(Vector2(0,0)) ,
 m_bShow(false) ,
 m_bReverse(false) ,
 m_SrcRect() ,
