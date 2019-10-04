@@ -11,8 +11,6 @@ private:
 	float m_fAposY;
 	float m_fTime;
 	bool m_bShow;
-
-
 public:
 	CEnemyAtack();
 	~CEnemyAtack();
