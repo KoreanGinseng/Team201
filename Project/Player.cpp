@@ -46,6 +46,12 @@ void CPlayer::Initialize(void)
 	m_bJump = false;
 	//パワーアップフラグの初期化
 	m_bPowUp = false;
+	//スキルの範囲を初期化
+	m_Skillrang = 0.0f;
+	//
+	m_CoolTime = 100.0f;
+	//
+	m_bTrigger = false;
 }
 
 //更新
@@ -63,6 +69,9 @@ void CPlayer::Update(void)
 
 	//移動
 	Move();
+
+	//スキル
+	Skill();
 
 	//アニメーション更新
 	Animation();
@@ -85,6 +94,9 @@ void CPlayer::Render(Vector2 screenPos)
 //デバッグ描画
 void CPlayer::RenderDebug(Vector2 screenPos)
 {
+	CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
+	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);
+	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
 }
@@ -131,6 +143,16 @@ void CPlayer::PadOparation(void)
 	{
 		Jump();
 	}
+
+	//LTボタンを押した場合、スキルが発動
+	if (g_pGamePad->GetPadState()->lZ > 500 && m_CoolTime > 0.0f)
+	{
+		m_bTrigger = true;
+	}
+	else if (g_pGamePad->GetPadState()->lZ < 1)
+	{
+		m_bTrigger = false;
+	}
 }
 
 //キーオペレーション
@@ -168,6 +190,16 @@ void CPlayer::KeyOparation(void)
 	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump)
 	{
 		Jump();
+	}
+
+	//スペースキーを押した場合、スキルが発動
+	if (g_pInput->IsKeyHold(MOFKEY_SPACE) && m_CoolTime > 0.0f)
+	{
+		m_bTrigger = true;
+	}
+	else if (g_pInput->IsKeyPull(MOFKEY_SPACE))
+	{
+		m_bTrigger = false;
 	}
 }
 
@@ -291,5 +323,159 @@ void CPlayer::CollisionStage(Vector2 o) {
 	if ((o.x < 0 && m_Move.x > 0) || (o.x > 0 && m_Move.x < 0))
 	{
 		m_Move.x = 0;
+	}
+}
+
+void CPlayer::Skill() {
+
+	//スキルの円に座標や半径を代入
+	m_SkillCircle.x = m_Pos.x + m_SrcRect.GetWidth() / 2;
+	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
+	m_SkillCircle.r = m_Skillrang;
+
+	//スキルが発動している場合ターゲットの範囲を広げる
+	if (m_bTrigger)
+	{
+		m_Skillrang += 10;
+		m_CoolTime -= 0.1f;
+		if (m_Skillrang >= PLAYER_MAXSKILLRANGE)
+		{
+			m_Skillrang = PLAYER_MAXSKILLRANGE;
+		}
+	}
+	else
+	{
+		if (m_Skillrang > 0.0f)
+		{
+			m_Skillrang = 0.0f;
+			m_Target = 0;
+		}
+	}
+}
+
+
+void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+	//ローカルなら行けるがメンバだとだめ
+	//表示されている要素数を探す、その数を数える
+		//要素の数をを継続条件に、格納した要素数を引いていく
+
+		//表示されている敵の要素数を順に格納
+	std::vector<CSubstance*> element2;
+	std::list<CSubstance*> element;
+	/*list<CSubstance*>::iterator itr;*/
+
+	for (int i = 0; i < eneCount; i++)
+	{
+		if (!pene[i].GetShow())
+		{
+			continue;
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle))
+		{
+			element.push_back(&pene[i]);
+		}
+
+	}
+
+	for (int i = 0; i < objCount; i++)
+	{
+		if (!pobj[i].GetShow())
+		{
+			continue;
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle))
+		{
+			element.push_back(&pobj[i]);
+		}
+	}
+
+	if (element.empty())
+	{
+		return;
+	}
+
+	//Listのポインタ
+	float stx = m_Pos.x + m_SrcRect.GetWidth() * 0.5f;
+	float sty = m_Pos.y + m_SrcRect.GetHeight();
+
+	//一つずつv と　v++を比較してソートする
+	element.sort(
+		[&](CSubstance*& v1, CSubstance*& v2) {
+
+		CRectangle rec1 = v1->GetRect();
+		CRectangle rec2 = v2->GetRect();
+
+		Vector2 cv1 = rec1.GetCenter();
+		Vector2 cv2 = rec2.GetCenter();
+
+		float dx1 = cv1.x - stx;
+		float dy1 = cv1.y - sty;
+		float d1 = (dx1*dx1 + dy1 * dy1);
+
+		float dx2 = cv2.x - stx;
+		float dy2 = cv2.y - sty;
+		float d2 = (dx2*dx2 + dy2 * dy2);
+		if (d1 > d2) {
+			return false;
+		}
+		return true;
+	}
+	);
+
+	int no = 0;
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr)
+	{
+		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
+	}
+
+
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr)
+	{
+		element2.push_back(*itr);
+	}
+
+
+	if (g_pGamePad->IsKeyPush(GAMEKEY_LB))
+	{
+		m_Target--;
+		if (m_Target < 0) 
+		{
+			m_Target = element2.size();
+		}
+	}
+	else if (g_pGamePad->IsKeyPush(GAMEKEY_RB))
+	{
+		m_Target++;
+		if (m_Target > element2.size())
+		{
+			m_Target = 0;
+		}
+	}
+
+	for (int i = 0; i < element2.size(); i++)
+	{
+		if (i == m_Target) 
+		{
+			element2[i]->SetTarget(true);
+		}
+		else 
+		{
+			element2[i]->SetTarget(false);
+		}
+	}
+
+
+	if (g_pGamePad->GetPadState()->lZ < -500) 
+	{
+		//ファルスなって円は表示されないが流れ的にこの関数には入る
+		m_bTrigger = false;
+		for (int i = 0; i < element2.size(); i++)
+		{
+			element2[i]->SetTarget(false);
+		}
 	}
 }

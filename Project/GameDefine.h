@@ -10,6 +10,7 @@
 #include	"Mof.h"
 #include	"_Inoue/ResourceManager.h"
 #include	"SoundManager.h"
+#include	"Coordinate.h"
 
 
 //USING
@@ -31,6 +32,7 @@ using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 #define		PLAYER_MAXSTOCK			3
 #define		PLAYER_MAXSPEED			8
 #define		PLAYER_SPEED			0.3f
+#define		PLAYER_MAXSKILLRANGE	512.0f
 #define		PLAYER_JUMPPOW			-10.0f
 #define		PLAYER_HIGHJUMPPOW		-15.0f
 

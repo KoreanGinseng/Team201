@@ -26,9 +26,9 @@ private:
 	CStage				m_Stage[STAGE_COUNT];
 	int					m_StageNo;
 	// 敵
-	CEnemy*				m_EnemyArray;
+	CEnemy*				m_pEnemyArray;
 	// アイテム
-	CItem*				m_ItemArray;
+	CItem*				m_pItemArray;
 	// オブジェクト
 	CObject*			m_pObjArray;
 

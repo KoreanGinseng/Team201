@@ -111,8 +111,8 @@ void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
 		Y = ((str[i] - 32)/ 16);
 		CRectangle SRect(X * 64, Y * 64,
 						 X * 64 + 64, Y * 64 + 64);
-		m_pFontTexture->RenderScale(sx, sy, fontsize/64.0, SRect);
 		sx += fontsize;
+		m_pFontTexture->RenderScale(sx, sy, fontsize/64.0, SRect);
 	}
 	
 }
@@ -121,14 +121,15 @@ void CFujiwara::String(int sx, int sy, int fontsize, const int& time)
 {
 	std::string str;
 	str = std::to_string(time);
+	size_t size = str.length() - 1;
 	for (int i = 0; str[i] != '\0'; i++)
 	{
 		X = str[i] % 16;
 		Y = ((str[i] - 32) / 16);
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
-		m_pFontTexture->RenderScale(sx, sy, fontsize / 64.0, SRect);
 		sx += fontsize;
+		m_pFontTexture->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);//(表示座標ｘ,表示座標y,拡大率,rect)
 	}
 	
 }

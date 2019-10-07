@@ -11,6 +11,8 @@
 #include	"GameDefine.h"
 #include	"GamePad.h"
 #include	"SoundManager.h"
+#include	"Enemy.h"
+#include	"Object.h"
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
@@ -37,6 +39,10 @@ private:
 	int			m_Stock;
 	CMotionPtr  m_pMotion;
 	CRectangle  m_SrcRect;
+	int			m_Target;
+	float		m_CoolTime;
+	float		m_Skillrang;
+	CCircle		m_SkillCircle;
 
 	void PadOparation(void);
 	void KeyOparation(void);
@@ -46,8 +52,6 @@ private:
 	void MoveSub(WAY w);
 	void Animation(void);
 	void Jump(void);
-	void Skill(void);
-	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);
 
 	enum tag_Animation {
 		ANIM_WAIT,
@@ -65,6 +69,10 @@ public:
 	void RenderDebug(Vector2 screenPos);
 	void Release(void);
 	
+	//Skill
+	void Skill(void);
+	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);
+
 	//Collision
 	void CollisionStage(Vector2 o);
 

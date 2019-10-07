@@ -35,9 +35,9 @@ bool CGame::Load()
 		return FALSE;
 	}
 	//敵メモリ確保
-	m_EnemyArray = new CEnemy[m_Stage[m_StageNo].GetEnemyCount()];
+	m_pEnemyArray = new CEnemy[m_Stage[m_StageNo].GetEnemyCount()];
 	//アイテムメモリ確保
-	m_ItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
+	m_pItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
 	//オブジェクトメモリ確保
 	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	return TRUE;
@@ -46,7 +46,7 @@ bool CGame::Load()
 //初期化
 void CGame::Initialize()
 {
-	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
+	m_Stage[m_StageNo].Initialize(m_pEnemyArray, m_pItemArray, m_pObjArray);
 	m_Player.Initialize();
 	g_pTimeManager->Reset();
 }
@@ -73,6 +73,12 @@ void CGame::Update()
 	//プレイヤーの更新
 	m_Player.Update();
 
+	//プレイヤーがスキル発動時の場合、
+	if (m_Player.IsTrigger())
+	{
+		m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
+	}
+
 	Vector2 o(0, 0);
 	//プレイヤーとステージの当たり判定
 	if (m_Stage[m_StageNo].Collision(m_Player.GetRect(), o))
@@ -83,31 +89,31 @@ void CGame::Update()
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		if (!m_EnemyArray[i].GetShow())
+		if (!m_pEnemyArray[i].GetShow())
 		{
 			continue;
 		}
-		m_EnemyArray[i].Update(m_Player.GetPos());
+		m_pEnemyArray[i].Update(m_Player.GetPos());
 		//当たり判定
 		Vector2 eo(0, 0);
-		if (m_Stage[m_StageNo].Collision(m_EnemyArray[i].GetRect(), eo))
+		if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i].GetRect(), eo))
 		{
-			m_EnemyArray[i].CollisionStage(eo);
+			m_pEnemyArray[i].CollisionStage(eo);
 		}
 	}
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
-		if (!m_ItemArray[i].GetShow())
+		if (!m_pItemArray[i].GetShow())
 		{
 			continue;
 		}
-		m_ItemArray[i].Update();
+		m_pItemArray[i].Update();
 		//当たり判定
 		Vector2 io(0, 0);
-		if (m_Stage[m_StageNo].Collision(m_ItemArray[i].GetRect(), io))
+		if (m_Stage[m_StageNo].Collision(m_pItemArray[i].GetRect(), io))
 		{
-			m_ItemArray[i].CollisionStage(io);
+			m_pItemArray[i].CollisionStage(io);
 		}
 	}
 	//オブジェクトの更新
@@ -135,9 +141,11 @@ void CGame::Update()
 
 
 	// Oキーでステージ変更
-	if (g_pInput->IsKeyPush(MOFKEY_O)) {
+	if (g_pInput->IsKeyPush(MOFKEY_O))
+	{
 		Release();
-		if (++m_StageNo >= STAGE_COUNT) {
+		if (++m_StageNo >= STAGE_COUNT)
+		{
 			m_StageNo = 0;
 		}
 		Load();
@@ -161,14 +169,14 @@ void CGame::Render()
 	//敵の描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_EnemyArray[i].GetPos());
-		m_EnemyArray[i].Render(screenPos);
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
+		m_pEnemyArray[i].Render(screenPos);
 	}
 	//アイテムの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_ItemArray[i].GetPos());
-		m_ItemArray[i].Render(screenPos);
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i].GetPos());
+		m_pItemArray[i].Render(screenPos);
 	}
 	//オブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
@@ -200,16 +208,16 @@ void CGame::Release()
 	m_Stage[m_StageNo].Release();
 
 	//敵の解放
-	if (m_EnemyArray)
+	if (m_pEnemyArray)
 	{
-		delete[] m_EnemyArray;
-		m_EnemyArray = NULL;
+		delete[] m_pEnemyArray;
+		m_pEnemyArray = NULL;
 	}
 	//アイテムの解放
-	if (m_ItemArray)
+	if (m_pItemArray)
 	{
-		delete[] m_ItemArray;
-		m_ItemArray = NULL;
+		delete[] m_pItemArray;
+		m_pItemArray = NULL;
 	}
 	//オブジェクトの開放
 	if (m_pObjArray)

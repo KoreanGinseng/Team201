@@ -6,7 +6,6 @@
  */
 CEnemy::CEnemy() :
 m_pTexture(nullptr) ,
-m_Pos(Vector2(0,0)) ,
 m_bShow(false) ,
 m_SrcRect() ,
 m_HP(0) ,
@@ -44,7 +43,7 @@ void CEnemy::Initialize(float px,float py) {
  * çXêV
  *
  */
-void CEnemy::Update(const Vector2& playerPos){
+void CEnemy::Update(const Vector2& playerPos) {
 	//îÒï\é¶
 	if(!m_bShow)
 	{

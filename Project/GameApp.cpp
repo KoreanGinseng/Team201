@@ -150,7 +150,6 @@ MofBool CGameApp::Render(void){
 	g_pGraphics->RenderStart();
 	//‰æ–Ê‚ÌƒNƒŠƒA
 	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
-	g_pSoundManager->GetResource(".ogg")->Play();
 
 	if (!gLoading.IsEnd())
 	{

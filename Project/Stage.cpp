@@ -91,7 +91,7 @@ bool CStage::Load(const char* pName) {
 
 	for (int i = 0; i < m_EnemyTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pEnemyTexture[i] = g_pTextureManager->GetResource(pstr);
+		m_pEnemyTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pEnemyTexture[i] == nullptr) {
 			return FALSE;
 		}
@@ -113,7 +113,7 @@ bool CStage::Load(const char* pName) {
 	m_ItemTextureCount = atoi(pstr);
 	for (int i = 0; i < m_ItemTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pItemTexture[i] = g_pTextureManager->GetResource(pstr);
+		m_pItemTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pItemTexture[i] == nullptr) {
 			return FALSE;
 		}
@@ -135,7 +135,7 @@ bool CStage::Load(const char* pName) {
 	m_ObjectTextureCount = atoi(pstr);
 	for (int i = 0; i < m_ObjectTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pObjectTexture[i] = g_pTextureManager->GetResource(pstr);
+		m_pObjectTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pObjectTexture[i] == nullptr) {
 			return FALSE;
 		}
