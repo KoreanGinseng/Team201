@@ -15,6 +15,7 @@ void CObject::Initialize(float px, float py) {
 	m_Pos.x = px;
 	m_Pos.y = py;
 	m_bShow = true;
+	m_bAnim = false;
 	//アニメーションを作成
 	SpriteAnimationCreate anim[] = {
 		{
@@ -44,9 +45,21 @@ void CObject::Update(void) {
 		return;
 	}
 
-	if (m_bMotionEnd)
+	if (m_bAnim)
 	{
-		//m_Motion.AddTimer(CUtilities::GetFrameSecond());
+		m_pMotion->AddTimer(CUtilities::GetFrameSecond());
+		if (m_pMotion->IsEndMotion())
+		{
+			m_bAnim = false;
+			if (m_pMotion->GetMotionNo() == MOTION_START)
+			{
+				m_pMotion->ChangeMotion(MOTION_END);
+			}
+			else if (m_pMotion->GetMotionNo() == MOTION_END)
+			{
+				m_pMotion->ChangeMotion(MOTION_START);
+			}
+		}
 	}
 
 	m_SrcRect = m_pMotion->GetSrcRect();
@@ -80,4 +93,9 @@ void CObject::Release(void) {
 void CObject::CollisionStage(const Vector2& o)
 {
 	m_Pos += o;
+}
+
+void CObject::Animation(void)
+{
+	m_bAnim = true;
 }

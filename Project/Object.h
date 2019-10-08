@@ -11,6 +11,7 @@ private:
 	bool					m_bMotionEnd;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
+	bool					m_bAnim;
 
 	enum tag_MOTION {
 		MOTION_START,
@@ -37,5 +38,7 @@ public:
 
 	//Get
 	bool		GetShow(void)	 const { return m_bShow; }
+
+	void Animation(void);
 };
 
