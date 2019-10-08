@@ -13,6 +13,7 @@
 #include	"SoundManager.h"
 #include	"Enemy.h"
 #include	"Object.h"
+#include	<>
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
