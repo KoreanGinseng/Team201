@@ -68,8 +68,6 @@ void CObject::Update(void) {
 	{
 		m_Motion.ChangeMotion(MOTION_START);
 	}
-	
-
 	m_SrcRect = m_Motion.GetSrcRect();
 }
 

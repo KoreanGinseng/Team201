@@ -40,4 +40,8 @@ public:
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	int GetType(void){ return m_Type; }
 	CRectangle GetRect(){ return CRectangle(m_PosX,m_PosY,m_PosX + m_SrcRect.GetWidth(),m_PosY + m_SrcRect.GetHeight()); }
+	
+
+	//アイテムがプレイヤーの後ろについてくる
+	void Tracking();
 };

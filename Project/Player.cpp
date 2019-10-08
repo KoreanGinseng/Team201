@@ -51,6 +51,8 @@ void CPlayer::Initialize() {
 	m_Life = PLAYER_MAXLIFE;
 	//ジャンプフラグの初期化
 	m_bJump = false;
+	//鍵フラグの初期化
+	KeyFlag = false;
 
 }
 
@@ -317,6 +319,7 @@ void CPlayer::Render(Vector2 scroll) {
 
 	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
 
+	MOF_PRINTLOG("%s\n", KeyFlag ? "ture" : "false");
 }
 
 void CPlayer::RenderState() {
@@ -333,6 +336,7 @@ void CPlayer::RenderDebug() {
 
 	CGraphicsUtilities::RenderString(0, 50, MOF_XRGB(255, 0, 0), "m_MoveX %.f m_MoveY %.f m_bJump %d m_Hp %d m_Life %d", m_MoveX,m_MoveY,m_bJump,m_Hp,m_Life);
 	CGraphicsUtilities::RenderString(0, 100, MOF_XRGB(255, 0, 0), "スティックで移動: Aボタンでジャンプ: Xボタンで疑似ダメージ");
+
 }
 
 void CPlayer::Release() {
@@ -363,7 +367,12 @@ void CPlayer::CollisionStage(Vector2 o) {
 	}
 }
 
-void CPlayer::CollisionObject()
+void CPlayer::KeyTrue(void)
 {
+	KeyFlag = true;
+}
 
+void CPlayer::KeyFalse(void)
+{
+	KeyFlag = false;
 }

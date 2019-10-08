@@ -147,3 +147,8 @@ void CItem::CollisionStage(Vector2 o){
 		m_MoveX = 0;
 	}
 }
+
+void CItem::Tracking()
+{
+	
+}

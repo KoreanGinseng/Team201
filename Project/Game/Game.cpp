@@ -80,18 +80,8 @@ void CGame::Update() {
 		m_Player.CollisionStage(o);
 	}
 
-	//ayarihantei
-	for(int i=0;i<m_Stage[m_StageNo].GetObjectCount();i++)
-	{ 
-		if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
-		{
-			m_pObjArray[i].Change();
-		}
-		else
-		{
-			m_pObjArray[i].ChangeEnd();
-		}
-	}
+	//オブジェクトとプレイヤーの当たり判定
+
 
 
 
@@ -108,6 +98,8 @@ void CGame::Update() {
 		{
 			m_EnemyArray[i].CollisionStage(eo);
 		}
+
+		
 	}
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
@@ -116,20 +108,46 @@ void CGame::Update() {
 		{
 			continue;
 		}
-		m_ItemArray[i].Update();
 		Vector2 io(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_ItemArray[i].GetRect(), io))
 		{
 			m_ItemArray[i].CollisionStage(io);
 		}
+
+		//アイテムとの当たり判定
+		if (m_Player.GetRect().CollisionRect(m_ItemArray[i].GetRect()))
+		{
+			m_Player.KeyTrue();
+		}
+		m_ItemArray[i].Update();
+
 	}
 	//オブジェクトの更新
+	//アイテムを持っている場合、モーションが変わるようにする
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
 		if (!m_pObjArray[i].GetShow())
 		{
 			continue;
 		}
+
+		//アイテムを持っている場合、モーションを切り替える
+
+	  //↓を消すと、オブジェクトとプレイヤーが当たったらモーションが切り替わる	
+		if (m_Player.GetKey())
+		{
+			if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
+			{
+				m_pObjArray[i].Change();
+				m_Player.KeyFalse();
+			}
+			else
+			{
+				m_pObjArray[i].ChangeEnd();
+				
+			}
+		}
+
 		m_pObjArray[i].Update();
 	}
 
