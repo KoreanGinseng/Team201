@@ -464,7 +464,7 @@ void CPlayer::Skill() {
 	m_SkillCircle.r = m_Skillrang;
 
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500&&m_CoolTime>0.0f) {
+	if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
 
 		m_bTrigger = true;
 
@@ -480,7 +480,7 @@ void CPlayer::Skill() {
 
 		m_Skillrang += 10;
 
-		m_CoolTime -= 0.1f;
+		/*m_CoolTime -= 0.1f;*/
 
 		if (m_Skillrang >= PLAYER_MAXSKILLRANGE) {
 
@@ -512,6 +512,7 @@ void CPlayer::Skill() {
 
 	}
 
+
 }
 
 
@@ -523,6 +524,12 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		//表示されている敵の要素数を順に格納
 	list<CSubstance*> element;
 
+	for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+		m_SkillTarget[i]->SetTarget(false);
+
+	}
+	m_SkillTarget.clear();
 	for (int i = 0; i < eneCount; i++) {
 
 		if (!pene[i].GetShow()) {
@@ -564,6 +571,8 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		return;
 
 	}
+
+	
 
 	//プレイヤーの位置
 	float stx = m_PosX + PLAYER_WIDTH * 0.5f;
@@ -615,7 +624,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 		if (m_Target < 0) {
 
-			m_Target = m_SkillTarget.size();
+			m_Target = m_SkillTarget.size()-1;
 
 		}
 
@@ -645,7 +654,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		}
 	}
 
-
+	
 	if (g_pGamePad->GetPadState()->lZ < -500) {
 		//ファルスなって円は表示されないが流れ的にこの関数には入る
 		m_bTrigger = false;
@@ -656,11 +665,15 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 		}
 
+		
+
 	}
+
+	
 
 	for (int i = 0; i < m_SkillTarget.size(); i++) {
 
-		MOF_PRINTLOG("%d[%f]\n", i, m_SkillTarget[i]->IsTarget());
+		MOF_PRINTLOG("%d[%d]\n", i, m_SkillTarget[i]->IsTarget());
 
 	}
 	
@@ -702,11 +715,12 @@ void CPlayer::RenderState() {
 void CPlayer::RenderDebug() {
 
 	/*CGraphicsUtilities::RenderString(0, 30, MOF_XRGB(0, 255, 0), "テスト操作方法説明の表示:キーボードの場合0キー : ゲームパッドの場合STRATボタン");*/
-	CGraphicsUtilities::RenderString(0, 60, MOF_XRGB(0, 255, 0), "ゲームパッドに接続されている状態でもエンターキーで操作をキーボードと切り替え可能");
+	/*CGraphicsUtilities::RenderString(0, 60, MOF_XRGB(0, 255, 0), "ゲームパッドに接続されている状態でもエンターキーで操作をキーボードと切り替え可能");
 	CGraphicsUtilities::RenderString(0, 90, MOF_XRGB(0, 255, 0), "m_MoveX %.f m_MoveY %.f m_bPowerUp %d m_bJump %d m_Hp %d m_Life %d m_PosX %.f", m_MoveX, m_MoveY, m_bPowerUp, m_bJump, m_Hp, m_Life,m_PosX);
-	
+	*/
 	/*CGraphicsUtilities::RenderString(0, 30, "Effectボリューム%f BGMボリューム%f", g_pSoundManager->RenderDebug(SUD_SOUNDBGM), g_pSoundManager->RenderDebug(SUD_SOUNDEFFECT));*/
 
+	CGraphicsUtilities::RenderString(0, 120, "Target%d ベクトルサイズ%d", m_Target,m_SkillTarget.size());
 	if (g_KeyRenderDebug) {
 
 		CGraphicsUtilities::RenderString(0, 120, MOF_XRGB(255, 0, 0), "1キーで疑似ダメージ: 2キーで強化: 3キーでエフェクト: 4キーでBGM再生: 5キーでBGM急停止: ");
