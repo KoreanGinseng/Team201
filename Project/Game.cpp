@@ -9,9 +9,9 @@
 #include "Game.h"
 
 char*		g_StageFileName[STAGE_COUNT] = {
+			"testMap999.txt",
 			"testMap1-1.txt",
-			"testMap1-1.txt",
-			"testMap1-1.txt",
+			"testMap114514.txt",
 };
 
 //コンストラクタ
