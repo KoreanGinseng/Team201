@@ -89,13 +89,15 @@ void CPlayer::Render(Vector2 screenPos)
 		dr.Left = tmp;
 	}
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
+
+	RenderDebug(screenPos);
 }
 
 //デバッグ描画
 void CPlayer::RenderDebug(Vector2 screenPos)
 {
-	CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
-	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);
+	/*CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
+	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);*/
 	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
@@ -145,14 +147,15 @@ void CPlayer::PadOparation(void)
 	}
 
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500 && m_CoolTime > 0.0f)
+	/*if (g_pGamePad->GetPadState()->lZ > 500 && m_CoolTime > 0.0f)
 	{
 		m_bTrigger = true;
 	}
 	else if (g_pGamePad->GetPadState()->lZ < 1)
 	{
 		m_bTrigger = false;
-	}
+	}*/
+	Skill();
 }
 
 //キーオペレーション
@@ -333,76 +336,126 @@ void CPlayer::Skill() {
 	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
 	m_SkillCircle.r = m_Skillrang;
 
+	//LTボタンを押した場合、スキルが発動
+	if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
+
+		m_bTrigger = true;
+
+	}
+	else if (g_pGamePad->GetPadState()->lZ < 1) {
+
+		m_bTrigger = false;
+
+	}
+
 	//スキルが発動している場合ターゲットの範囲を広げる
-	if (m_bTrigger)
-	{
+	if (m_bTrigger) {
+
 		m_Skillrang += 10;
-		m_CoolTime -= 0.1f;
-		if (m_Skillrang >= PLAYER_MAXSKILLRANGE)
-		{
+
+		/*m_CoolTime -= 0.1f;*/
+
+		if (m_Skillrang >= PLAYER_MAXSKILLRANGE) {
+
 			m_Skillrang = PLAYER_MAXSKILLRANGE;
+
 		}
 	}
-	else
-	{
-		if (m_Skillrang > 0.0f)
-		{
+	else {
+
+
+		if (m_Skillrang > 0.0f) {
+
 			m_Skillrang = 0.0f;
 			m_Target = 0;
+
+			if (!m_SkillTarget.empty()) {
+
+				for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+					m_SkillTarget[i]->SetTarget(false);
+
+				}
+
+				m_SkillTarget.clear();
+
+			}
+
 		}
+
 	}
+
+
 }
 
 
 void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
-	//ローカルなら行けるがメンバだとだめ
-	//表示されている要素数を探す、その数を数える
-		//要素の数をを継続条件に、格納した要素数を引いていく
 
-		//表示されている敵の要素数を順に格納
-	std::vector<CSubstance*> element2;
-	std::list<CSubstance*> element;
-	/*list<CSubstance*>::iterator itr;*/
 
-	for (int i = 0; i < eneCount; i++)
-	{
-		if (!pene[i].GetShow())
-		{
+	list<CSubstance*> element;
+	//ベクトルに入っていたSubstanceのターゲットの初期化
+	for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+		m_SkillTarget[i]->SetTarget(false);
+
+	}
+	//ベクトルの要素をクリア
+	m_SkillTarget.clear();
+
+
+	for (int i = 0; i < eneCount; i++) {
+
+		if (!pene[i].GetShow()) {
+
 			continue;
+
 		}
 
 		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
-		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle))
-		{
+		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
+
 			element.push_back(&pene[i]);
+
 		}
 
 	}
 
-	for (int i = 0; i < objCount; i++)
-	{
-		if (!pobj[i].GetShow())
-		{
+	for (int i = 0; i < objCount; i++) {
+
+		if (!pobj[i].GetShow()) {
+
 			continue;
+
 		}
 
 		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
-		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle))
-		{
+		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle)) {
+
 			element.push_back(&pobj[i]);
+
 		}
+
+
 	}
 
-	if (element.empty())
-	{
+	//Listが空の場合、処理をしない
+	if (element.empty()) {
+
 		return;
+
 	}
 
-	//Listのポインタ
-	float stx = m_Pos.x + m_SrcRect.GetWidth() * 0.5f;
+
+
+	//プレイヤーの位置
+	//float stx = m_PosX + PLAYER_WIDTH * 0.5f;
+	//float sty = m_PosY + PLAYER_HEIGHT;
+	float stx = m_Pos.x + m_SrcRect.GetWidth()*0.5f;
 	float sty = m_Pos.y + m_SrcRect.GetHeight();
 
-	//一つずつv と　v++を比較してソートする
+
+
+		//一つずつv と　v++を比較してソートする
 	element.sort(
 		[&](CSubstance*& v1, CSubstance*& v2) {
 
@@ -426,56 +479,69 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	}
 	);
 
-	int no = 0;
-	for (auto itr = element.cbegin(); itr != element.cend(); ++itr)
-	{
+	/*int no = 0;
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
 		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
+	}*/
+
+	//ソートされた敵かオブジェクトをベクトルに入れる
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
+
+		m_SkillTarget.push_back(*itr);
 	}
 
 
-	for (auto itr = element.cbegin(); itr != element.cend(); ++itr)
-	{
-		element2.push_back(*itr);
-	}
+	if (g_pGamePad->IsKeyPush(GAMEKEY_LB)) {
 
-
-	if (g_pGamePad->IsKeyPush(GAMEKEY_LB))
-	{
 		m_Target--;
-		if (m_Target < 0) 
-		{
-			m_Target = element2.size();
+
+		if (m_Target < 0) {
+
+			m_Target = m_SkillTarget.size() - 1;
+
 		}
+
 	}
-	else if (g_pGamePad->IsKeyPush(GAMEKEY_RB))
-	{
+	else if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
+
 		m_Target++;
-		if (m_Target > element2.size())
-		{
+
+		if (m_Target >= m_SkillTarget.size()) {
+
 			m_Target = 0;
+
+		}
+
+	}
+
+	for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+		if (i == m_Target) {
+
+			m_SkillTarget[i]->SetTarget(true);
+
+		}
+		else {
+
+			m_SkillTarget[i]->SetTarget(false);
+
 		}
 	}
 
-	for (int i = 0; i < element2.size(); i++)
-	{
-		if (i == m_Target) 
-		{
-			element2[i]->SetTarget(true);
-		}
-		else 
-		{
-			element2[i]->SetTarget(false);
-		}
-	}
 
-
-	if (g_pGamePad->GetPadState()->lZ < -500) 
-	{
+	if (g_pGamePad->GetPadState()->lZ < -500) {
 		//ファルスなって円は表示されないが流れ的にこの関数には入る
 		m_bTrigger = false;
-		for (int i = 0; i < element2.size(); i++)
-		{
-			element2[i]->SetTarget(false);
+
+		for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+			m_SkillTarget[i]->SetTarget(false);
+
 		}
+
+
+
 	}
+
+
 }
