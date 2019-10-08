@@ -7,7 +7,7 @@ bool	g_OperationDebug = true;
 bool	g_PadRenderDebug = false;
 bool	g_KeyRenderDebug = false;
 
-CPlayer::CPlayer() {
+CPlayer::CPlayer() : m_SkillTarget(NULL) {
 	//オブジェクト生成時の初期化
 	m_Skillrang = 0.0f;
 
@@ -490,12 +490,13 @@ void CPlayer::Skill() {
 	}
 	else {
 
+	
 		if (m_Skillrang > 0.0f) {
 
 			m_Skillrang = 0.0f;
 			m_Target = 0;
 
-			/*if (!m_SkillTarget.empty()) {
+			if (!m_SkillTarget.empty()) {
 
 				for (int i = 0; i < m_SkillTarget.size(); i++) {
 
@@ -505,7 +506,7 @@ void CPlayer::Skill() {
 
 				m_SkillTarget.clear();
 
-			}*/
+			}
 
 		}
 
@@ -520,9 +521,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		//要素の数をを継続条件に、格納した要素数を引いていく
 
 		//表示されている敵の要素数を順に格納
-	vector<CSubstance*> element2;
 	list<CSubstance*> element;
-	/*list<CSubstance*>::iterator itr;*/
 
 	for (int i = 0; i < eneCount; i++) {
 
@@ -559,14 +558,14 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	}
 
+	//Listが空の場合、処理をしない
 	if (element.empty()) {
 
 		return;
 
 	}
 
-	//Listのポインタ
-
+	//プレイヤーの位置
 	float stx = m_PosX + PLAYER_WIDTH * 0.5f;
 	float sty = m_PosY + PLAYER_HEIGHT;
 	/*float stx = m_PosX + m_Motion.GetStrRect().GetWidth()*0.5f;
@@ -598,15 +597,15 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		}
 	);
 
-	int no = 0;
+	/*int no = 0;
 	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
 		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
-	}
+	}*/
 
-	
+	//ソートされた敵かオブジェクトをベクトルに入れる
 	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
 
-		element2.push_back(*itr);
+		m_SkillTarget.push_back(*itr);
 	}
 
 	
@@ -616,7 +615,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 		if (m_Target < 0) {
 
-			m_Target = element2.size();
+			m_Target = m_SkillTarget.size();
 
 		}
 
@@ -624,7 +623,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 		m_Target++;
 
-		if (m_Target > element2.size()) {
+		if (m_Target >= m_SkillTarget.size()) {
 
 			m_Target = 0;
 
@@ -632,16 +631,16 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	}
 
-	for (int i = 0; i < element2.size(); i++) {
+	for (int i = 0; i < m_SkillTarget.size(); i++) {
 
 		if (i == m_Target) {
 
-			element2[i]->SetTarget(true);
+			m_SkillTarget[i]->SetTarget(true);
 
 		}
 		else {
 
-			element2[i]->SetTarget(false);
+			m_SkillTarget[i]->SetTarget(false);
 
 		}
 	}
@@ -651,11 +650,17 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		//ファルスなって円は表示されないが流れ的にこの関数には入る
 		m_bTrigger = false;
 
-		for (int i = 0; i < element2.size(); i++) {
+		for (int i = 0; i < m_SkillTarget.size(); i++) {
 
-			element2[i]->SetTarget(false);
+			m_SkillTarget[i]->SetTarget(false);
 
 		}
+
+	}
+
+	for (int i = 0; i < m_SkillTarget.size(); i++) {
+
+		MOF_PRINTLOG("%d[%f]\n", i, m_SkillTarget[i]->IsTarget());
 
 	}
 	

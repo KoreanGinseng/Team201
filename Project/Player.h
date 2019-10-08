@@ -24,7 +24,7 @@ private:
 	CTexture			m_HpTexture;
 	CCircle				m_SkillCircle;
 
-	/*vector<CSubstance*>	m_SkillTarget;*/
+	vector<CSubstance*>	m_SkillTarget;
 	
 	bool				m_bSkill;
 	bool				m_bTrigger;
