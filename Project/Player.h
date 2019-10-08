@@ -13,7 +13,10 @@
 #include	"SoundManager.h"
 #include	"Enemy.h"
 #include	"Object.h"
-#include	<>
+#include	"Substance.h"
+#include	<vector>
+#include	<list>
+using namespace std;
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
@@ -27,23 +30,24 @@ private:
 		WAY_RIGHT,
 	}WAY;
 
-	CTexturePtr m_pTexture;
-	Vector2		m_Pos;
-	Vector2		m_Move;
-	Vector2		m_Spd;
-	bool		m_bMove;
-	bool		m_bReverse;
-	bool		m_bJump;
-	bool		m_bPowUp;
-	bool		m_bTrigger;
-	int			m_HP;
-	int			m_Stock;
-	CMotionPtr  m_pMotion;
-	CRectangle  m_SrcRect;
-	int			m_Target;
-	float		m_CoolTime;
-	float		m_Skillrang;
-	CCircle		m_SkillCircle;
+	CTexturePtr			m_pTexture;
+	Vector2				m_Pos;
+	Vector2				m_Move;
+	Vector2				m_Spd;
+	vector<CSubstance*>	m_SkillTarget;
+	bool				m_bMove;
+	bool				m_bReverse;
+	bool				m_bJump;
+	bool				m_bPowUp;
+	bool				m_bTrigger;
+	int					m_HP;
+	int					m_Stock;
+	CMotionPtr			m_pMotion;
+	CRectangle			m_SrcRect;
+	int					m_Target;
+	float				m_CoolTime;
+	float				m_Skillrang;
+	CCircle				m_SkillCircle;
 
 	void PadOparation(void);
 	void KeyOparation(void);
