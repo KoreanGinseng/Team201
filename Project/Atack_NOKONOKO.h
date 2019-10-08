@@ -1,12 +1,11 @@
 #pragma once
 #include	"_Onishi/EnemyAtack.h"
-#include	"Mof.h"
 
-class CAtack_KURIBO :public CEnemyAtack {
+class CAtack_NOKONOKO :public CEnemyAtack {
 private:
 public:
-	CAtack_KURIBO();
-	~CAtack_KURIBO();
+	CAtack_NOKONOKO();
+	~CAtack_NOKONOKO();
 	void Initialize();
 	void Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY);
 	void Render();

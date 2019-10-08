@@ -22,66 +22,66 @@ void CEnemyMove::Initialize() {
 	m_fTimer = 0;
 	m_fEnemySpeed = EnemySpeed;
 	m_fMoveX = -1*m_fEnemySpeed;
-	m_fMoveY = m_fEnemySpeed;*/
-	//m_fAtackTimer = AtackTimer;
-	//m_fCooltime = 0;
-	//m_Texture.Load("TestEnemy.png");
-	//switch (Type)
-	//{
-	//	case ENEMY_BAT: {
-	//		SpriteAnimationCreate anim[] = {
-	//			{
-	//				"BAT_MOVE",
-	//				0,0,
-	//				48,48,
-	//				TRUE,{{5,0,1},{5,1,1},{5,2,1}}
-	//			},
-	//			{
-	//				"BAT_DOWN",
-	//				0,0,
-	//				48,48,
-	//				TRUE,{{5,0,0},{5,1,0},{5,2,0}}
-	//			},
-	//		};
-	//		m_Motion.Create(anim, BAT_ANIMCOUNT);
-	//		break;
-	//	}
-	//}
+	m_fMoveY = m_fEnemySpeed;
+	m_fAtackTimer = AtackTimer;
+	m_fCooltime = 0;
+	m_Texture.Load("TestEnemy.png");
+	switch (Type)
+	{
+		case ENEMY_BAT: {
+			SpriteAnimationCreate anim[] = {
+				{
+					"BAT_MOVE",
+					0,0,
+					48,48,
+					TRUE,{{5,0,1},{5,1,1},{5,2,1}}
+				},
+				{
+					"BAT_DOWN",
+					0,0,
+					48,48,
+					TRUE,{{5,0,0},{5,1,0},{5,2,0}}
+				},
+			};
+			m_Motion.Create(anim, BAT_ANIMCOUNT);
+			break;
+		}
+	}*/
 
 }
 
 void CEnemyMove::Update(float Xpos, float Ypos) {
-	/*if (Type!=2) {
-		m_fMoveY += GRAVITY;
-		if (m_fMoveY >= 20.0f) {
-			m_fMoveY = 20.0f;
-		}
-	}
-	if (g_pInput->IsKeyPush(MOFKEY_F1)) {
-		Initialize(Type);
-	}
+	//if (Type!=2) {
+	//	m_fMoveY += GRAVITY;
+	//	if (m_fMoveY >= 20.0f) {
+	//		m_fMoveY = 20.0f;
+	//	}
+	//}
+	//if (g_pInput->IsKeyPush(MOFKEY_F1)) {
+	//	Initialize(Type);
+	//}
 
-	switch (Type)
-	{
-	case ENEMY_KURIBO:
-		KUpdate(Xpos,Ypos);
-		break;
-	case ENEMY_NOKONOKO:
-		NUpdate();
-		break;
-	case ENEMY_TERESA:
-		TUpdate(Xpos, Ypos);
-		break;
-	case ENEMY_BAT:
-		BUpdate(Xpos, Ypos);
-		break;
-	case ENEMY_KOTEIHOUDAI:
-		KOUpdate();
-		break;
-	}
+	//switch (Type)
+	//{
+	//case ENEMY_KURIBO:
+	//	KUpdate(Xpos,Ypos);
+	//	break;
+	//case ENEMY_NOKONOKO:
+	//	NUpdate();
+	//	break;
+	//case ENEMY_TERESA:
+	//	TUpdate(Xpos, Ypos);
+	//	break;
+	//case ENEMY_BAT:
+	//	BUpdate(Xpos, Ypos);
+	//	break;
+	//case ENEMY_KOTEIHOUDAI:
+	//	KOUpdate();
+	//	break;
+	//}
 
-	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Motion.GetSrcRect();*/
+	//m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	//m_SrcRect = m_Motion.GetSrcRect();
 	
 }
 
@@ -96,13 +96,13 @@ void CEnemyMove::KUpdate(float Xpos,float Ypos) {
 	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
 		if (m_bRevers) {
 			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
+				//m_Atack->Update(m_fXpos, m_fYpos, m_bRevers);
 				return;
 			}
 		}
 		else {
 			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
+				//m_Atack->Update(m_fXpos, m_fYpos, m_bRevers);
 				return;
 			}
 		}

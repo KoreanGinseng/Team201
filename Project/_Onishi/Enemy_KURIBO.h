@@ -3,7 +3,7 @@
 
 class CEnemy_KURIBO :public CEnemyMove {
 private:
-	CEnemyAtack	m_Atack;
+	CEnemyAtack*	m_Atack;
 public:
 	CEnemy_KURIBO();
 	~CEnemy_KURIBO();

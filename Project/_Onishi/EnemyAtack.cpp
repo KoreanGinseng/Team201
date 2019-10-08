@@ -2,8 +2,8 @@
 #include "mof.h"
 
 CEnemyAtack::CEnemyAtack() :
-	m_fAposX(0.0f),
-	m_fAposY(0.0f),
+	m_fAtackPosX(0.0f),
+	m_fAtackPosY(0.0f),
 	m_bShow(false) {
 }
 
@@ -14,9 +14,7 @@ CEnemyAtack::~CEnemyAtack() {
  * @return 無し
  */
 void CEnemyAtack::Initialize() {
-	m_fAposX = 0;
-	m_fAposY = 0;
-	m_bShow = false;
+
 }
 /**
  * @brief	クリボー更新
@@ -25,32 +23,13 @@ void CEnemyAtack::Initialize() {
  * @param (ERevers) エネミーの方向
  * @return 無し
  */
-void CEnemyAtack::Update(float EposX, float EposY, bool ERevers) {
-	if (m_bShow) {
-		return;
-	}
-	if (ERevers) {
-		m_fAposX = EposX + 50;
-		m_fAposY = EposY;
-		m_bShow = true;
-
-	}
-	else
-	{
-		m_fAposX = EposX - 50;
-		m_fAposY = EposY;
-		m_bShow = true;
-
-	}
+void CEnemyAtack::Update(float EemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
+	
 }
 /**
  * @brief	描画
  * @return 無し
  */
 void CEnemyAtack::Render() {
-	if (!m_bShow) {
-		return;
-	}
-	CGraphicsUtilities::RenderFillCircle(m_fAposX, m_fAposY, 10, MOF_COLOR_RED);
-	m_bShow = false;
+
 }

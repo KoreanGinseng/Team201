@@ -14,6 +14,11 @@
 #include	"Enemy_TERESA.h"
 #include	"Enemy_BAT.h"
 #include	"Enemy_KOTEIHOUDAI.h"
+#include	"../Atack_KURIBO.h"
+#include	"../Atack_NOKONOKO.h"
+#include	"../Atack_TERESA.h"
+#include	"../Atack_BAT.h"
+#include	"../Atack_KOTEIHOUDAI.h"
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
@@ -41,6 +46,9 @@ private:
 	CENEMY_TERESA*	gTERESA;
 	CENEMY_BAT*	gBAT;
 	CENEMY_KOTEIHOUDAI*	gKOTEIHOUDAI;
+	CEnemyAtack* gAtack;
+	CAtack_KURIBO* gAtack_KURIBO;
+	
 public:
 	/*****************************************************************
 	 * @fn

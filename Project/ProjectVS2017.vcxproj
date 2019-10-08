@@ -95,6 +95,11 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Atack_BAT.cpp" />
+    <ClCompile Include="Atack_KOTEIHOUDAI.cpp" />
+    <ClCompile Include="Atack_KURIBO.cpp" />
+    <ClCompile Include="Atack_NOKONOKO.cpp" />
+    <ClCompile Include="Atack_TERESA.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -124,6 +129,11 @@
     <ClCompile Include="_Onishi\Onishi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Atack_BAT.h" />
+    <ClInclude Include="Atack_KOTEIHOUDAI.h" />
+    <ClInclude Include="Atack_KURIBO.h" />
+    <ClInclude Include="Atack_NOKONOKO.h" />
+    <ClInclude Include="Atack_TERESA.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Enemy.h" />

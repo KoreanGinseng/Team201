@@ -30,18 +30,26 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
 		if (m_bRevers) {
 			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
+				m_fMoveX = 0;
 				return;
 			}
 		}
 		else {
 			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
+				m_fMoveX = 0;
 				return;
 			}
 		}
 	}
-
+	if (m_fMoveX==0) {
+		if (m_bRevers) {
+			m_fMoveX =  m_fEnemySpeed;
+		}
+		else
+		{
+			m_fMoveX = -1 * m_fEnemySpeed;
+		}
+	}
 
 	m_fXpos += m_fMoveX;
 	m_fYpos += m_fMoveY;
@@ -51,7 +59,7 @@ void CEnemy_KURIBO::Render(float Xpos, float Ypos) {
 	if (m_bEnd) {
 		return;
 	}
-	m_Atack.Render();
+	//m_Atack->Render();
 	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
 }
 

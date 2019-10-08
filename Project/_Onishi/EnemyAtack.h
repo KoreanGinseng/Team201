@@ -1,23 +1,28 @@
 #pragma once
 #define Atacktime 3
 
+
 enum ENEMYATACK {
-	ATACK_KAMITUKI,
+	ATACK_KURIBO,
+	ATACK_NOKONOKO,
+	ATACK_TERESA,
+	ATACK_BAT,
+	ATACK_KOTEIHOUDAI,
 };
 
 class CEnemyAtack {
-private:
-	float m_fAposX;
-	float m_fAposY;
-	float m_fTime;
+protected:
+	float m_fAtackPosX;
+	float m_fAtackPosY;
 	bool m_bShow;
 
+private:
 
 public:
 	CEnemyAtack();
 	virtual ~CEnemyAtack();
 	virtual void Initialize()=0;
-	virtual void Update(float EnemyPosX,float EnemyPosY,bool EnemyRevers)=0;
+	virtual void Update(float EnemyPosX,float EnemyPosY,bool EnemyRevers, float PlayerPosX, float PlayerPosY)=0;
 	virtual void Render()=0;
 
 };

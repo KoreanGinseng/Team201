@@ -38,7 +38,7 @@ private:
 	
 	float m_fAtackTimer;
 	float m_fCooltime;
-	CEnemyAtack	m_Atack;
+	CEnemyAtack*	m_Atack;
 	//CSpriteMotionController m_Motion;
 	CRectangle				m_SrcRect;
 	//CTexture	m_Texture;
@@ -55,6 +55,7 @@ public:
 	virtual void Render(float Xpos, float Ypos, int Type) = 0;*/
 	float GetXpos(void) { return m_fXpos; };
 	float GetYpos(void) { return m_fYpos; };
+	bool getRevers(void) { return m_bRevers; }
 
 	void KUpdate(float Xpos,float Ypos);
 	void NUpdate(void);

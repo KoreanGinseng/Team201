@@ -58,11 +58,12 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_BAT;
+	gEnemytype = ENEMY_KURIBO;
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
 		gEnemy = new CEnemy_KURIBO();
+		gAtack = new CAtack_KURIBO();
 		break;
 	case ENEMY_NOKONOKO:
 		gEnemy = new CENEMY_NOKONOKO();
@@ -77,7 +78,9 @@ void COnishi::Initialize() {
 		gEnemy = new CENEMY_KOTEIHOUDAI();
 		break;
 	}
+
 	gEnemy->Initialize();
+	gAtack->Initialize();
 	//gEnemy.Initialize(gEnemytype);
 }
 
@@ -147,29 +150,35 @@ void COnishi::Update() {
 		if (gEnemytype == ENEMY_KURIBO) {
 			gEnemytype = ENEMY_NOKONOKO;
 			gEnemy = new CENEMY_NOKONOKO();
+			gAtack = new CAtack_NOKONOKO();
 		}
 		else if (gEnemytype == ENEMY_NOKONOKO) {
 			gEnemytype = ENEMY_TERESA;
 			gEnemy = new CENEMY_TERESA();
+			gAtack = new CAtack_TERESA();
 		}
 		else if (gEnemytype == ENEMY_TERESA) {
 			gEnemytype = ENEMY_BAT;
 			gEnemy = new CENEMY_BAT();
+			gAtack = new CAtack_BAT();
 		}
 		else if (gEnemytype == ENEMY_BAT) {
 			gEnemytype = ENEMY_KOTEIHOUDAI;
 			gEnemy = new CENEMY_KOTEIHOUDAI();
+			gAtack = new CAtack_KOTEIHOUDAI();
 		}
 		else
 		{
 			gEnemytype = ENEMY_KURIBO;
 			gEnemy = new CEnemy_KURIBO();
+			gAtack = new CAtack_KURIBO();
 		}
 			gEnemy->Initialize();
 	}
 
 
 	gEnemy->Update(Xpos, Ypos);
+	gAtack->Update(gEnemy->GetXpos(), gEnemy->GetYpos(), gEnemy->getRevers(), Xpos, Ypos);
 	//gEnemy.Update(Xpos, Ypos, gEnemytype);
 	float ox = 0, oy = 0;
 	float mx = gEnemy->GetXpos(), my = gEnemy->GetYpos();
@@ -251,6 +260,7 @@ void COnishi::Render() {
 	}
 
 	gEnemy->Render(Xpos,Ypos);
+	gAtack->Render();
 	//gEnemy.Render(Xpos, Ypos,gEnemytype);
 
 	switch (gEnemytype)
