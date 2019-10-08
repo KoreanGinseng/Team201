@@ -17,7 +17,8 @@ void CObject::Initialize(float px, float py) {
 	m_bShow = true;
 	m_bAnim = false;
 	//アニメーションを作成
-	SpriteAnimationCreate anim[] = {
+	m_pMotion = g_pAnimManager->GetResource("ObjAnim.bin")->GetMotion();
+	/*SpriteAnimationCreate anim[] = {
 		{
 			"オブジェクト",
 			0,0,
@@ -31,7 +32,7 @@ void CObject::Initialize(float px, float py) {
 			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
 		},
 	};
-	m_pMotion->Create(anim, MOTION_COUNT);
+	m_pMotion->Create(anim, MOTION_COUNT);*/
 	if (m_bMotionEnd)
 	{
 		m_pMotion->ChangeMotion(MOTION_END);

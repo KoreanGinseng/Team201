@@ -147,15 +147,15 @@ void CPlayer::PadOparation(void)
 	}
 
 	//LTボタンを押した場合、スキルが発動
-	/*if (g_pGamePad->GetPadState()->lZ > 500 && m_CoolTime > 0.0f)
+	if (g_pGamePad->GetPadState()->lZ > 500/* && m_CoolTime > 0.0f*/)
 	{
 		m_bTrigger = true;
 	}
 	else if (g_pGamePad->GetPadState()->lZ < 1)
 	{
 		m_bTrigger = false;
-	}*/
-	Skill();
+	}
+	//Skill();
 }
 
 //キーオペレーション
@@ -196,7 +196,7 @@ void CPlayer::KeyOparation(void)
 	}
 
 	//スペースキーを押した場合、スキルが発動
-	if (g_pInput->IsKeyHold(MOFKEY_SPACE) && m_CoolTime > 0.0f)
+	if (g_pInput->IsKeyHold(MOFKEY_SPACE) /*&& m_CoolTime > 0.0f*/)
 	{
 		m_bTrigger = true;
 	}
@@ -336,17 +336,17 @@ void CPlayer::Skill() {
 	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
 	m_SkillCircle.r = m_Skillrang;
 
-	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
+	////LTボタンを押した場合、スキルが発動
+	//if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
 
-		m_bTrigger = true;
+	//	m_bTrigger = true;
 
-	}
-	else if (g_pGamePad->GetPadState()->lZ < 1) {
+	//}
+	//else if (g_pGamePad->GetPadState()->lZ < 1) {
 
-		m_bTrigger = false;
+	//	m_bTrigger = false;
 
-	}
+	//}
 
 	//スキルが発動している場合ターゲットの範囲を広げる
 	if (m_bTrigger) {

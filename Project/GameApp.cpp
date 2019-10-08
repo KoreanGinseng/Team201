@@ -28,6 +28,7 @@
 //GLOBAL
 CSceneBase*		gpScene = nullptr;
 CLoading		gLoading;
+bool			gbLoad = false;
 
 #ifdef _DEBUG
 bool			gbDebug = false;
@@ -54,6 +55,7 @@ MofBool CGameApp::Initialize(void){
 	gLoading.SetInit(gpScene->Initialize);*/
 	gLoading.SetScene(gpScene);
 	gLoading.Start("Loading");
+	gbLoad = true;
 
 	//FPSの設定
 	if (!CUtilities::SetFPS(GAMEFPS))
@@ -73,7 +75,7 @@ MofBool CGameApp::Update(void){
 	//キーの更新
 	g_pInput->RefreshKey();
 
-	if (!gLoading.IsEnd())
+	if (!gLoading.IsEnd() || gbLoad)
 	{
 		return TRUE;
 	}
@@ -125,6 +127,7 @@ MofBool CGameApp::Update(void){
 		//別スレッドでやりたい。(LOADING)
 		{
 			gLoading.Start("Loading");
+			gbLoad = true;
 		}
 	}
 
@@ -151,7 +154,7 @@ MofBool CGameApp::Render(void){
 	//画面のクリア
 	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
 
-	if (!gLoading.IsEnd())
+	if (!gLoading.IsEnd() && gbLoad)
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LOADING");
 		//描画の終了
@@ -161,6 +164,7 @@ MofBool CGameApp::Render(void){
 	else
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LOADEND");
+		gbLoad = false;
 	}
 
 	//シーンの描画
