@@ -15,9 +15,9 @@ private:
 
 public:
 	CEnemyAtack();
-	~CEnemyAtack();
-	void Initialize();
-	void KUpdate(float EposX,float EposY,bool ERevers);
-	void Render();
+	virtual ~CEnemyAtack();
+	virtual void Initialize()=0;
+	virtual void Update(float EnemyPosX,float EnemyPosY,bool EnemyRevers)=0;
+	virtual void Render()=0;
 
 };

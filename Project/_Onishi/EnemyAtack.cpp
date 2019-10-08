@@ -4,7 +4,6 @@
 CEnemyAtack::CEnemyAtack() :
 	m_fAposX(0.0f),
 	m_fAposY(0.0f),
-	m_fTime(0),
 	m_bShow(false) {
 }
 
@@ -18,7 +17,6 @@ void CEnemyAtack::Initialize() {
 	m_fAposX = 0;
 	m_fAposY = 0;
 	m_bShow = false;
-	m_fTime = 0;
 }
 /**
  * @brief	クリボー更新
@@ -27,7 +25,7 @@ void CEnemyAtack::Initialize() {
  * @param (ERevers) エネミーの方向
  * @return 無し
  */
-void CEnemyAtack::KUpdate(float EposX, float EposY, bool ERevers) {
+void CEnemyAtack::Update(float EposX, float EposY, bool ERevers) {
 	if (m_bShow) {
 		return;
 	}

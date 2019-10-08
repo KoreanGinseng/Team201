@@ -96,13 +96,13 @@ void CEnemyMove::KUpdate(float Xpos,float Ypos) {
 	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
 		if (m_bRevers) {
 			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				m_Atack.KUpdate(m_fXpos, m_fYpos, m_bRevers);
+				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
 				return;
 			}
 		}
 		else {
 			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				m_Atack.KUpdate(m_fXpos, m_fYpos, m_bRevers);
+				m_Atack.Update(m_fXpos, m_fYpos, m_bRevers);
 				return;
 			}
 		}
