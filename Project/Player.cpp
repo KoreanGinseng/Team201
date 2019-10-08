@@ -362,15 +362,15 @@ void CPlayer::Skill() {
 		}
 	}
 	else {
-
-
+		//離したまたは押してない状態で
+		//ターゲット範囲が0より大きい場合
 		if (m_Skillrang > 0.0f) {
-
+			//スキル範囲を0にしてターゲットを先頭に戻す(初期化する)
 			m_Skillrang = 0.0f;
 			m_Target = 0;
-
+			//ベクトルに要素が入っている場合
 			if (!m_SkillTarget.empty()) {
-
+				//全てのターゲットフラグを下ろし、要素を全てクリアする
 				for (int i = 0; i < m_SkillTarget.size(); i++) {
 
 					m_SkillTarget[i]->SetTarget(false);
@@ -448,8 +448,6 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 
 	//プレイヤーの位置
-	//float stx = m_PosX + PLAYER_WIDTH * 0.5f;
-	//float sty = m_PosY + PLAYER_HEIGHT;
 	float stx = m_Pos.x + m_SrcRect.GetWidth()*0.5f;
 	float sty = m_Pos.y + m_SrcRect.GetHeight();
 
@@ -490,7 +488,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		m_SkillTarget.push_back(*itr);
 	}
 
-
+	//LBまたはRBでターゲットを変更
 	if (g_pGamePad->IsKeyPush(GAMEKEY_LB)) {
 
 		m_Target--;
@@ -514,6 +512,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	}
 
+	//ターゲット中か敵に伝える
 	for (int i = 0; i < m_SkillTarget.size(); i++) {
 
 		if (i == m_Target) {
@@ -528,10 +527,12 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		}
 	}
 
-
+	//RTトリガーを押したとき選択中の敵にスキルを使用
 	if (g_pGamePad->GetPadState()->lZ < -500) {
-		//ファルスなって円は表示されないが流れ的にこの関数には入る
+		
 		m_bTrigger = false;
+
+		m_SkillTarget[m_Target]->SetSkill();
 
 		for (int i = 0; i < m_SkillTarget.size(); i++) {
 
