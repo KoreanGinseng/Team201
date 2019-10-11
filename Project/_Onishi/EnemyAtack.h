@@ -1,4 +1,7 @@
 #pragma once
+#include	"Mof.h"
+#include	"../EnemyDefine.h"
+
 #define Atacktime 3
 
 
@@ -24,5 +27,6 @@ public:
 	virtual void Initialize()=0;
 	virtual void Update(float EnemyPosX,float EnemyPosY,bool EnemyRevers, float PlayerPosX, float PlayerPosY)=0;
 	virtual void Render()=0;
+	virtual void Release() = 0;
 
 };

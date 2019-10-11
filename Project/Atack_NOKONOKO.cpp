@@ -16,3 +16,6 @@ void CAtack_NOKONOKO::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 void CAtack_NOKONOKO::Render() {
 
 }
+void CAtack_NOKONOKO::Release() {
+
+}

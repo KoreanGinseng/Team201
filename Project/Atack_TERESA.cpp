@@ -16,3 +16,6 @@ void CAtack_TERESA::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, f
 void CAtack_TERESA::Render() {
 
 }
+void CAtack_TERESA::Release() {
+
+}

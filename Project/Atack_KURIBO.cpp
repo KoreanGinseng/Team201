@@ -57,3 +57,6 @@ void CAtack_KURIBO::Render() {
 	CGraphicsUtilities::RenderFillCircle(m_fAtackPosX, m_fAtackPosY, 10, MOF_COLOR_RED);
 	m_bShow = false;
 }
+void CAtack_KURIBO::Release() {
+
+}

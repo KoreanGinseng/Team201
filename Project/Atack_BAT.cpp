@@ -16,3 +16,7 @@ void CAtack_BAT::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, floa
 void CAtack_BAT::Render() {
 
 }
+
+void CAtack_BAT::Release() {
+
+}

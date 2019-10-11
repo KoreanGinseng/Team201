@@ -137,6 +137,7 @@
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyDefine.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameClear\GameClear.h" />
