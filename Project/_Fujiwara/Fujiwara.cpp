@@ -40,7 +40,7 @@ void CFujiwara::Load() {
 	CUtilities::SetCurrentDirectory("Resource");
 	m_pFontTexture = new CTexture();
 	m_pFontTexture->Load("sumple_imvisible.png");
-	
+	m_pHeatTexture.Load("test_heart.png");
 }
 
 /*****************************************************************
@@ -55,6 +55,10 @@ void CFujiwara::Initialize() {
 	Lenth = 0;
 	num = 0;
 	
+	Hposx = INI_X;
+	Hposy = INI_Y;
+	HP = MAX_HEART*2;
+
 }
 
 /*****************************************************************
@@ -66,6 +70,12 @@ void CFujiwara::Initialize() {
 void CFujiwara::Update() {
 	
 	num += 1;
+
+	//ダメージ処理？
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)&&HP>0)
+	{
+		HP -=1;
+	}
 
 }
 
@@ -79,7 +89,9 @@ void CFujiwara::Render() {
 	//m_pFontTexture->RenderScale(0, 0, FONT_SIZE/64);
 	
 	String(g_pGraphics->GetTargetWidth()-64, 0, FONT_SIZE,num);
-
+	RenHp(HP, Hposx, Hposy);
+	
+	CGraphicsUtilities::RenderString(10, 10, "%d",HP);
 }
 
 /*****************************************************************
@@ -89,7 +101,7 @@ void CFujiwara::Render() {
  * @return なし
  *****************************************************************/
 void CFujiwara::RenderDebug() {
-
+	
 }
 
 /*****************************************************************
@@ -100,6 +112,7 @@ void CFujiwara::RenderDebug() {
  *****************************************************************/
 void CFujiwara::Release() {
 	m_pFontTexture->Release();
+	m_pHeatTexture.Release();
 }
 
 void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
@@ -132,5 +145,35 @@ void CFujiwara::String(int sx, int sy, int fontsize, const int& time)
 		m_pFontTexture->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);//(表示座標ｘ,表示座標y,拡大率,rect)
 	}
 	
+}
+
+/*
+  int hp=現在のHP
+  int hx=HPの表示位置（x座標）
+　int hy=HPの表示位置（y座標)
+*/
+void CFujiwara::RenHp(int hp, int hx, int hy)
+{
+	int w = m_pHeatTexture.GetWidth();
+	CRectangle rec(0, 0, w/2, m_pHeatTexture.GetHeight());
+	if (hp != 1)
+	{
+		for (float i = 0; i < hp/ 2; i++)
+		{
+			if (hp % 2 == 1)
+			{
+				m_pHeatTexture.Render(hx+ hp / 2 *w, hy, rec);
+				m_pHeatTexture.Render(hx+ i * w,hy);
+			}
+			else
+			{
+				m_pHeatTexture.Render(hx + i * w, hy);
+			}
+		}
+	}
+	else
+	{
+		m_pHeatTexture.Render(hx, hy, rec);
+	}
 }
 
