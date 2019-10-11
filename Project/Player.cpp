@@ -528,7 +528,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	}
 
 	//RTトリガーを押したとき選択中の敵にスキルを使用
-	if (g_pGamePad->GetPadState()->lZ < -500) {
+	if (g_pGamePad->GetPadState()->lZ < 100.0f) {
 		
 		m_bTrigger = false;
 

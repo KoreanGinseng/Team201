@@ -3,6 +3,9 @@
 #include	"SceneBase.h"
 #include	"GameDefine.h"
 #include	"GamePad.h"
+#include	"Coordinate.h"
+#include	"_Fujiwara/Fujiwara.h"
+
 
 #define		IME_FONT_SIZE	64
 #define		FONT_LENGTH		10
@@ -25,10 +28,11 @@ private:
 	int							 m_VisibleCount;		//点滅用カウント
 	Vector2						 m_MousePos;
 	Vector2						 m_PadPos;
-	Vector2						 m_KeyPos;
+	Vector2						 m_KeyOffSet;
 	CCircle						 m_PosCircle;
 	CFont					     m_NameFont;			//ランキング登録用フォント
 	bool						 m_bInputEnable;		//入力中かの判定
+	bool						 m_bPadInputMode;
 	int							 m_CursolPointX;
 
 	bool					     m_bInit;
@@ -56,6 +60,8 @@ public:
 
 	void SendKeyBoard(int y, int x);
 	void PadOperation(void);
+
+	void KeyRender(void);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
 													g_pGraphics->GetTargetWidth() / 2 + TEXTBOX_WIDHT + TEXTBOX_MARGIN, TEXTBOX_TOP + m_NameFont.GetSize()); }	//テキストボックスの矩形

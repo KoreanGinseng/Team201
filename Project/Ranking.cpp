@@ -20,10 +20,12 @@ bool CRanking::Load() {
 
 void CRanking::Initialize() {
 	
-	m_PadPos.x = g_pGraphics->GetTargetWidth()*0.5f;
-	m_PadPos.y = g_pGraphics->GetTargetHeight()*0.5f;
-	m_KeyPos.x = (g_pGraphics->GetTargetWidth() - m_pTexture->GetWidth()) * 0.5f;
-	m_KeyPos.y = (g_pGraphics->GetTargetHeight() - m_pTexture->GetHeight()) * 0.5f;
+	m_bPadInputMode = false;
+	m_PosCircle.x = g_pGraphics->GetTargetWidth()*0.5f;
+	m_PosCircle.y = g_pGraphics->GetTargetHeight()*0.5f;
+	m_PosCircle.r = 2.0f;
+	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 64*10) * 0.5f;
+	m_KeyOffSet.y = (g_pGraphics->GetTargetHeight() - 64*4) * 0.5f;
 }
 
 void CRanking::Update() {
@@ -52,14 +54,15 @@ void CRanking::Render() {
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
 	}
+	CGraphicsUtilities::RenderString(0, 100, "%d", m_bPadInputMode);
+	KeyRender();
 
-	m_pTexture->Render(m_KeyPos.x, m_KeyPos.y);
-	RenderDebug();
 }
 
 void CRanking::RenderDebug() {
 	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
-	CGraphicsUtilities::RenderCircle(m_PadPos.x, m_PadPos.y, 20, MOF_XRGB(255, 0, 0));
+	CGraphicsUtilities::RenderCircle(m_PosCircle, MOF_XRGB(255, 0, 0));
+	
 }
 
 void CRanking::Release() {
@@ -88,7 +91,7 @@ void CRanking::ImeUpdate() {
 	if (m_VisibleCount > CUtilities::GetFPS()) {
 		m_VisibleCount = 0;
 	}
-
+	
 	//テキストボックスをクリックして入力を開始
 	if (g_pInput->IsMouseKeyPush(MOFMOUSE_LBUTTON))
 	{
@@ -156,6 +159,27 @@ void CRanking::ImeRender() {
 	}
 }
 
+void CRanking::KeyRender() {
+
+	if (!m_bPadInputMode) {
+
+		return;
+
+	}
+
+	for (int y = 0; y < 4; y++) {
+
+		for (int x = 0; x < 10; x++) {
+
+			String((m_KeyOffSet.x)+x*64, (m_KeyOffSet.y)+y*64, FONT_SIZE, KeyBoard[y][x]);
+		}
+	}
+
+	RenderDebug();
+
+	
+}
+
 void CRanking::SendKeyBoard(int y, int x) {
 	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), 0, 0);
 	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), KEYEVENTF_KEYUP, 0);
@@ -163,36 +187,44 @@ void CRanking::SendKeyBoard(int y, int x) {
 
 void CRanking::PadOperation() {
 
-	MOF_PRINTLOG("V%f H%f\n",g_pGamePad->GetStickVertical(),g_pGamePad->GetStickHorizontal());
+	
+	//MOF_PRINTLOG("V%f H%f\n", g_pGamePad->GetStickVertical(), g_pGamePad->GetStickHorizontal());
+	//MOF_PRINTLOG("%f\n", g_pGamePad->GetPadState()->lZ);
 
-	if (g_pGamePad->GetStickHorizontal() <= 0.1f&&g_pGamePad->GetStickHorizontal() >= -0.1f ||
-		g_pGamePad->GetStickVertical() <= 0.1f&&g_pGamePad->GetStickVertical() >= -0.1f) {
+	if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
+
+		g_pImeInput->SetEnable(TRUE);
+		m_bPadInputMode = true;
+	}
+
+	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
+
+		m_bPadInputMode = false;
+
+	}
+
+	if (!m_bPadInputMode) {
 
 		return;
 
 	}
 
+	if (g_pGamePad->GetStickHorizontal() <= 0.04f&&g_pGamePad->GetStickHorizontal() >= -0.04f ||
+		g_pGamePad->GetStickVertical() <= 0.04f&&g_pGamePad->GetStickVertical() >= -0.04f) {
 
-	m_PadPos.x += g_pGamePad->GetStickHorizontal()*2;
-	m_PadPos.y += g_pGamePad->GetStickVertical()*2;
-
-	/*if (g_pGamePad->GetStickVertical() > 0.8f) {
-
-		m_PadPos.y += 2;
-	}
-	if (g_pGamePad->GetStickVertical() < -0.8f) {
-
-		m_PadPos.y += -2;
-	}
-
-	if (g_pGamePad->GetStickHorizontal() > 0.8f) {
-
-		m_PadPos.x += 2;
+		return;
 
 	}
-	if (g_pGamePad->GetStickHorizontal() < -0.8f) {
 
-		m_PadPos.x += -2;
+	 
+	m_PosCircle.x += g_pGamePad->GetStickHorizontal()*2;
+	m_PosCircle.y += g_pGamePad->GetStickVertical()*2;
+
+	/*if (CollisionRectCircle()) {
+
 
 	}*/
+
+	
+	
 }
