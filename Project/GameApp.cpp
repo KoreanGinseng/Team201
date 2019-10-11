@@ -27,8 +27,7 @@
 
 //GLOBAL
 CSceneBase*		gpScene = nullptr;
-CLoading		gLoading;
-bool			gbLoad = false;
+CLoading*		gpLoading = nullptr;
 
 #ifdef _DEBUG
 bool			gbDebug = false;
@@ -48,14 +47,17 @@ MofBool CGameApp::Initialize(void){
 	gpScene = new CTitle();			//タイトルから開始
 	gpScene = new CGame();
 #ifdef _DEBUG
-	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
+	gpScene = new CRanking();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
 	/*gLoading.SetLoad(gpScene->Load);
 	gLoading.SetInit(gpScene->Initialize);*/
-	gLoading.SetScene(gpScene);
-	gLoading.Start("Loading");
-	gbLoad = true;
+	if (gpLoading == nullptr)
+	{
+		gpLoading = new CLoading();
+	}
+	gpLoading->SetScene(gpScene);
+	gpLoading->Start("Loading");
 
 	//FPSの設定
 	if (!CUtilities::SetFPS(GAMEFPS))
@@ -75,7 +77,7 @@ MofBool CGameApp::Update(void){
 	//キーの更新
 	g_pInput->RefreshKey();
 
-	if (!gLoading.IsEnd() || gbLoad)
+	if (!gpLoading->IsEnd())
 	{
 		return TRUE;
 	}
@@ -126,8 +128,10 @@ MofBool CGameApp::Update(void){
 		}
 		//別スレッドでやりたい。(LOADING)
 		{
-			gLoading.Start("Loading");
-			gbLoad = true;
+			delete gpLoading;
+			gpLoading = new CLoading();
+			gpLoading->SetScene(gpScene);
+			gpLoading->Start("Loading");
 		}
 	}
 
@@ -154,7 +158,7 @@ MofBool CGameApp::Render(void){
 	//画面のクリア
 	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
 
-	if (!gLoading.IsEnd() && gbLoad)
+	if (!gpLoading->IsEnd())
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LOADING");
 		//描画の終了
@@ -164,7 +168,6 @@ MofBool CGameApp::Render(void){
 	else
 	{
 		CGraphicsUtilities::RenderString(0, 0, "LOADEND");
-		gbLoad = false;
 	}
 
 	//シーンの描画
@@ -201,5 +204,7 @@ MofBool CGameApp::Release(void){
 	g_pEffectManager->Release();
 	g_pTextureManager->Release();
 	g_pAnimManager->Release();
+	delete gpLoading;
+	gpLoading = nullptr;
 	return TRUE;
 }

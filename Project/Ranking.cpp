@@ -8,7 +8,8 @@ unsigned short int KeyBoard[4][10] = {
 	VK_Z,VK_X,VK_C,VK_V,VK_B,VK_N,VK_M,VK_OEM_COMMA,VK_OEM_PERIOD,VK_OEM_2
 };
 
-CRanking::CRanking() {
+CRanking::CRanking() :
+m_bInit(false){
 }
 
 bool CRanking::Load() {
@@ -16,22 +17,18 @@ bool CRanking::Load() {
 }
 
 void CRanking::Initialize() {
-	//入力を受け付けない
-	g_pImeInput->SetEnable(FALSE);
-	m_bInputEnable = false;
-	//入力中文字列を初期化
-	g_pImeInput->SetInputString("");
-	//入力確定文字列を格納
-	m_String = "";
-	m_VisibleCount = 0;
-	m_InputCount = 0;
-	//フォントの生成
-	m_NameFont.Create(IME_FONT_SIZE, "ＭＳ　明朝");
+	
 }
 
 void CRanking::Update() {
 	//現在のマウス座標を取得
 	g_pInput->GetMousePos(m_MousePos);
+
+	if (!m_bInit)
+	{
+		ImeInit();
+		m_bInit = true;
+	}
 
 	//Ime関連更新
 	ImeUpdate();
@@ -52,6 +49,22 @@ void CRanking::RenderDebug() {
 
 void CRanking::Release() {
 
+}
+
+void CRanking::ImeInit()
+{
+	//入力を受け付けない
+	//g_pImeInput->SetEnable(FALSE);
+	CImeProc::GetImeInput()->SetEnable(FALSE);
+	m_bInputEnable = false;
+	//入力中文字列を初期化
+	g_pImeInput->SetInputString("");
+	//入力確定文字列を格納
+	m_String = "";
+	m_VisibleCount = 0;
+	m_InputCount = 0;
+	//フォントの生成
+	m_NameFont.Create(IME_FONT_SIZE, "ＭＳ　明朝");
 }
 
 void CRanking::ImeUpdate() {

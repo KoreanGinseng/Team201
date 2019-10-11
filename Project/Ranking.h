@@ -25,6 +25,8 @@ private:
 	bool						 m_bInputEnable;		//“ü—Í’†‚©‚Ì”»’è
 	int							 m_CursolPointX;
 
+	bool					     m_bInit;
+
 	int							 m_InputCount;
 
 	CDynamicArray<RankingEntry*> m_RankingEntryArray;	//ƒ‰ƒ“ƒLƒ“ƒO“o˜^‚ð‹L˜^‚·‚é”z—ñ
@@ -40,6 +42,7 @@ public:
 	void Release();
 
 	//------------------------------------------------------------------------------------------
+	void ImeInit();
 	void ImeUpdate();
 	void ImeRender();
 
