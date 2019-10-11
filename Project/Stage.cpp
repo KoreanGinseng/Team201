@@ -341,11 +341,38 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 			if (cr.CollisionRect(brec))
 			{
 				re = true;
-				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
-				o.y += cr.Top - brec.Bottom;
-				r.Top += cr.Top - brec.Bottom;
-				r.Bottom += cr.Top - brec.Bottom;
+				if (cn == RIGHTSLOPE)
+				{
+					float sp = (cr.Right - brec.Left) / cr.GetWidth();
+					if (sp < 0.0f)
+					{
+						sp = 0.0f;
+					}
+					else if (sp > 1.0f)
+					{
+						sp = 1.0f;
+					}
+					//斜面の上の位置を求める
+					float cTop = cr.Bottom - cr.GetHeight() * sp;
+					if (brec.Bottom < cTop)
+					{
+						continue;
+					}
+					o.y += cTop - brec.Bottom;
+					r.Top += cTop - brec.Bottom;
+					r.Bottom += cTop - brec.Bottom;
+				}
+				else
+				{
+					//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+					o.y += cr.Top - brec.Bottom;
+					r.Top += cr.Top - brec.Bottom;
+					r.Bottom += cr.Top - brec.Bottom;
+				}
 			}
+			if (cn != RIGHTSLOPE)
+			{
+
 			//当たり判定用のキャラクタ矩形
 			//左、右それぞれで範囲を限定した専用の矩形を作成する。
 			CRectangle lrec = r;
@@ -385,6 +412,7 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 				o.y += cr.Bottom - trec.Top;
 				r.Top += cr.Bottom - trec.Top;
 				r.Bottom += cr.Bottom - trec.Top;
+			}
 			}
 		}
 	}

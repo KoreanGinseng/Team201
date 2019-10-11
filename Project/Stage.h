@@ -12,6 +12,8 @@
 #include	"Item.h"
 #include	"Object.h"
 
+#define		RIGHTSLOPE		3
+
 class CStage
 {
 private:
