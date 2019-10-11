@@ -13,14 +13,25 @@ m_bInit(false){
 }
 
 bool CRanking::Load() {
+
+	m_pTexture = g_pTextureManager->GetResource("sumple_imvisible.png");
 	return TRUE;
 }
 
 void CRanking::Initialize() {
 	
+	m_PadPos.x = g_pGraphics->GetTargetWidth()*0.5f;
+	m_PadPos.y = g_pGraphics->GetTargetHeight()*0.5f;
+	m_KeyPos.x = (g_pGraphics->GetTargetWidth() - m_pTexture->GetWidth()) * 0.5f;
+	m_KeyPos.y = (g_pGraphics->GetTargetHeight() - m_pTexture->GetHeight()) * 0.5f;
 }
 
 void CRanking::Update() {
+
+	if (g_pInput->GetGamePadCount()) {
+
+		PadOperation();
+	}
 	//現在のマウス座標を取得
 	g_pInput->GetMousePos(m_MousePos);
 
@@ -41,10 +52,14 @@ void CRanking::Render() {
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
 	}
+
+	m_pTexture->Render(m_KeyPos.x, m_KeyPos.y);
+	RenderDebug();
 }
 
 void CRanking::RenderDebug() {
 	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
+	CGraphicsUtilities::RenderCircle(m_PadPos.x, m_PadPos.y, 20, MOF_XRGB(255, 0, 0));
 }
 
 void CRanking::Release() {
@@ -144,4 +159,40 @@ void CRanking::ImeRender() {
 void CRanking::SendKeyBoard(int y, int x) {
 	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), 0, 0);
 	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), KEYEVENTF_KEYUP, 0);
+}
+
+void CRanking::PadOperation() {
+
+	MOF_PRINTLOG("V%f H%f\n",g_pGamePad->GetStickVertical(),g_pGamePad->GetStickHorizontal());
+
+	if (g_pGamePad->GetStickHorizontal() <= 0.1f&&g_pGamePad->GetStickHorizontal() >= -0.1f ||
+		g_pGamePad->GetStickVertical() <= 0.1f&&g_pGamePad->GetStickVertical() >= -0.1f) {
+
+		return;
+
+	}
+
+
+	m_PadPos.x += g_pGamePad->GetStickHorizontal()*2;
+	m_PadPos.y += g_pGamePad->GetStickVertical()*2;
+
+	/*if (g_pGamePad->GetStickVertical() > 0.8f) {
+
+		m_PadPos.y += 2;
+	}
+	if (g_pGamePad->GetStickVertical() < -0.8f) {
+
+		m_PadPos.y += -2;
+	}
+
+	if (g_pGamePad->GetStickHorizontal() > 0.8f) {
+
+		m_PadPos.x += 2;
+
+	}
+	if (g_pGamePad->GetStickHorizontal() < -0.8f) {
+
+		m_PadPos.x += -2;
+
+	}*/
 }

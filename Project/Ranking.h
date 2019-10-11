@@ -1,6 +1,8 @@
 #pragma once
 #include	"Mof.h"
 #include	"SceneBase.h"
+#include	"GameDefine.h"
+#include	"GamePad.h"
 
 #define		IME_FONT_SIZE	64
 #define		FONT_LENGTH		10
@@ -18,9 +20,13 @@ typedef struct tag_RankingEntry {
 class CRanking : public CSceneBase {
 private:
 	//! Ime関連
+	CTexturePtr					 m_pTexture;
 	CString						 m_String;
 	int							 m_VisibleCount;		//点滅用カウント
 	Vector2						 m_MousePos;
+	Vector2						 m_PadPos;
+	Vector2						 m_KeyPos;
+	CCircle						 m_PosCircle;
 	CFont					     m_NameFont;			//ランキング登録用フォント
 	bool						 m_bInputEnable;		//入力中かの判定
 	int							 m_CursolPointX;
@@ -28,6 +34,8 @@ private:
 	bool					     m_bInit;
 
 	int							 m_InputCount;
+
+	
 
 	CDynamicArray<RankingEntry*> m_RankingEntryArray;	//ランキング登録を記録する配列
 
@@ -47,6 +55,7 @@ public:
 	void ImeRender();
 
 	void SendKeyBoard(int y, int x);
+	void PadOperation(void);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
 													g_pGraphics->GetTargetWidth() / 2 + TEXTBOX_WIDHT + TEXTBOX_MARGIN, TEXTBOX_TOP + m_NameFont.GetSize()); }	//テキストボックスの矩形
