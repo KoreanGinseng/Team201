@@ -1,16 +1,18 @@
 #pragma once
 #include	"_Onishi/EnemyAtack.h"
 #include	"EnemyDefine.h"
+#include	"EnemyShot.h"
 
 class CAtack_KOTEIHOUDAI :public CEnemyAtack {
 private:
-	float	m_Radian;
+	
 	float	m_fAtackTimer;
 	float	m_fCooltime;
 	float	m_PlayerPlaceX;
 	float	m_PlayerPlaceY;
-	float ddx;
-	float ddy;
+	
+
+	CEnemyShot	m_ShotArry[ENEMYSHOT_COUNT];
 public:
 	CAtack_KOTEIHOUDAI();
 	~CAtack_KOTEIHOUDAI();

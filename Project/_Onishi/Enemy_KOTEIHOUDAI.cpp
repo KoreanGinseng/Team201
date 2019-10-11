@@ -56,7 +56,7 @@ void CENEMY_KOTEIHOUDAI::Render(float Xpos, float Ypos) {
 		if (Ypos <= m_fYpos) {
 			ty = -ty;
 		}
-		CGraphicsUtilities::RenderLine(m_fXpos, m_fYpos, tx * 1000, ty * 1000, MOF_COLOR_RED);
+		CGraphicsUtilities::RenderLine(m_fXpos, m_fYpos, Xpos, Ypos, MOF_COLOR_RED);
 	}
 	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
 }

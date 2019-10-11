@@ -15,28 +15,25 @@ void CAtack_KOTEIHOUDAI::Initialize() {
 	m_fCooltime=0;
 	m_PlayerPlaceX=0;
 	m_PlayerPlaceY=0;
-	ddx=0;
-	ddy=0;
+
+	for (int i = 0; i < ENEMYSHOT_COUNT;i++) {
+		m_ShotArry[i].Initialize();
+	}
 }
 void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
 
-	float dx = PlayerPosX - EnemyPosX;
-	float dy = PlayerPosY - EnemyPosY;
-	m_Radian = atan2f(dy, dx);
-	m_Radian = MOF_ToDegree(m_Radian);
+	
 
-	float Playerdx;
-	float Playerdy;
-	float d;
+	
 	
 
 
 	if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 		m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
 
-		m_fAtackPosX += (ddx * BulletSpeed);
+		/*m_fAtackPosX += (ddx * BulletSpeed);
 
-		m_fAtackPosY += (ddy * BulletSpeed);
+		m_fAtackPosY += (ddy * BulletSpeed);*/
 
 		if (m_fAtackTimer < 0) {
 			m_fCooltime = CoolTime;
@@ -47,28 +44,32 @@ void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyReve
 		m_fCooltime -= 1 * CUtilities::GetFrameSecond();
 		if (m_fCooltime < 0) {
 			m_fAtackTimer = AtackTimer;
-			m_fAtackPosX = EnemyPosX;
-			m_fAtackPosY = EnemyPosY;
-
-			m_PlayerPlaceX = PlayerPosX;
-			m_PlayerPlaceY = PlayerPosY;
-			Playerdx = m_PlayerPlaceX - m_fAtackPosX;
-			Playerdy = m_PlayerPlaceY - m_fAtackPosY;
-			d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
-			ddx = dx / d;
-			ddy = dy / d;
+			for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+				if (m_ShotArry[i].GetShow()) {
+					continue;
+				}
+				m_ShotArry[i].Fire(EnemyPosX,EnemyPosY,BulletSpeed,BulletSpeed, PlayerPosX, PlayerPosY);
+				break;
+			}
+			
 
 			m_bShow = true;
 		}
 	}
 
+	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+		m_ShotArry[i].Update();
+	}
 }
 void CAtack_KOTEIHOUDAI::Render() {
-	CGraphicsUtilities::RenderString(200,200,"%f",m_Radian);
-	if (!m_bShow) {
+	
+	/*if (!m_bShow) {
 		return;
+	}*/
+	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+		m_ShotArry[i].Render();
 	}
-	CGraphicsUtilities::RenderFillCircle(m_fAtackPosX,m_fAtackPosY,5,MOF_COLOR_RED);
+	//CGraphicsUtilities::RenderFillCircle(m_fAtackPosX,m_fAtackPosY,5,MOF_COLOR_RED);
 }
 void CAtack_KOTEIHOUDAI::Release() {
 

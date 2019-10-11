@@ -3,8 +3,8 @@
 //EnemyMove.h
 #define EnemySpeed 2
 #define Timer 5
-#define AtackTimer 5
-#define CoolTime 5
+#define AtackTimer 0.1f
+#define CoolTime 0.1f
 #define GRAVITY 0.4f
 
 //EnemyAtack
@@ -13,6 +13,7 @@
 //Atack_KOTEIHOUDAI
 #define		PI	3.14159
 #define		BulletSpeed	5
+#define		ENEMYSHOT_COUNT	50
 
 
 
