@@ -36,6 +36,9 @@ bool CAnimationData::Load(const char* pName)
 		return FALSE;
 	}
 
+	delete fns;
+	fns = nullptr;
+
 	//アニメーション数取得
 	int c;
 	fread(&c, sizeof(int), 1, fp);
@@ -53,6 +56,8 @@ bool CAnimationData::Load(const char* pName)
 		fread(animName, sizeof(char), read, fp);
 		animName[read] = '\0';
 		anim[i].Name = animName;
+		delete[] animName;
+		animName = nullptr;
 		//OffsetX
 		fread(&read, sizeof(int), 1, fp);
 		anim[i].OffsetX = (float)read;
@@ -90,9 +95,13 @@ bool CAnimationData::Load(const char* pName)
 	}
 	if (!m_pMotion->Create(anim, c))
 	{
+		delete[] anim;
+		anim = nullptr;
 		return FALSE;
 	}
 
+	delete[] anim;
+	anim = nullptr;
 	return TRUE;
 }
 

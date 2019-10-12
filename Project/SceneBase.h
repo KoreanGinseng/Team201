@@ -23,6 +23,7 @@ public:
 	virtual void Render() = 0;
 	virtual void RenderDebug() = 0;
 	virtual void Release() = 0;
+	virtual int GetSceneName(void) = 0;
 
 	bool IsEnd() { return m_bEnd; }
 	int  GetNextSceneNo() { return m_NextSceneNo; }

@@ -8,7 +8,7 @@
 //! INCLUDE
 #include	"Inoue.h"
 
-extern char*		g_StageFileName[STAGE_COUNT];
+extern const char*		g_StageFileName[STAGE_COUNT];
 
 /*****************************************************************
  * @fn

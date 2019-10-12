@@ -8,6 +8,7 @@
 
 //! INCLUDE
 #include	"SceneBase.h"
+#include	"GameDefine.h"
 
  /*****************************************************************
   *	@brief			ゲームクリアシーンクラス
@@ -80,4 +81,6 @@ public:
 	 * @return なし
 	 *****************************************************************/
 	void Release();
+
+	int GetSceneName(void) { return SCENENO_GAMECLEAR; }
 };

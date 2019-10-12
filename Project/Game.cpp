@@ -8,7 +8,9 @@
 // INCLUDE
 #include "Game.h"
 
-char*		g_StageFileName[STAGE_COUNT] = {
+int CGame::m_StageNo = START_STAGE;
+
+const char*		g_StageFileName[STAGE_COUNT] = {
 			"testMap1-1.txt",
 			"testMap9999.txt",
 			"testMap114514.txt",
@@ -17,7 +19,6 @@ char*		g_StageFileName[STAGE_COUNT] = {
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
-m_StageNo(START_STAGE),
 m_bPoase(false)
 {
 }
@@ -138,19 +139,6 @@ void CGame::Update()
 
 	//ステージの更新
 	m_Stage[m_StageNo].Update();
-
-
-	// Oキーでステージ変更
-	if (g_pInput->IsKeyPush(MOFKEY_O))
-	{
-		Release();
-		if (++m_StageNo >= STAGE_COUNT)
-		{
-			m_StageNo = 0;
-		}
-		Load();
-		Initialize();
-	}
 
 	//ゲーム時間を加算
 	g_pTimeManager->Tick();

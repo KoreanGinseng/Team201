@@ -8,6 +8,7 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
+#include	"../GameDefine.h"
 #include    <string>
 #define		FONT_SIZE		32.0f
 
@@ -89,6 +90,8 @@ public:
 	 * @return ‚È‚µ
 	 *****************************************************************/
 	void Release();
+
+	int GetSceneName(void) { return SCENENO_FUJIWARA; }
 
 	/*****************************************************************
 	 * @fn

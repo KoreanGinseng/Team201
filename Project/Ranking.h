@@ -52,6 +52,7 @@ public:
 	void Render();
 	void RenderDebug();
 	void Release();
+	int GetSceneName(void) { return SCENENO_RANKING; }
 
 	//------------------------------------------------------------------------------------------
 	void ImeInit();

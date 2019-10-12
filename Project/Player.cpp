@@ -106,7 +106,8 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 //解放
 void CPlayer::Release(void)
 {
-
+	m_pMotion = nullptr;
+	m_pTexture = nullptr;
 }
 
 //パッドオペレーション

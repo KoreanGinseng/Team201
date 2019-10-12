@@ -95,4 +95,6 @@ public:
 	 * @return ‚È‚µ
 	 *****************************************************************/
 	void Release();
+
+	int GetSceneName(void) { return SCENENO_ONISHI; }
 };

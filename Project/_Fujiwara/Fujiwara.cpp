@@ -101,6 +101,8 @@ void CFujiwara::RenderDebug() {
  *****************************************************************/
 void CFujiwara::Release() {
 	m_pFontTexture->Release();
+	delete m_pFontTexture;
+	m_pFontTexture = nullptr;
 }
 
 void CFujiwara::String(int sx, int sy, int fontsize, const char * str)

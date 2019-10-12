@@ -24,7 +24,8 @@ private:
 	CCamera2D			m_MainCamera;
 	CPlayer				m_Player;
 	CStage				m_Stage[STAGE_COUNT];
-	int					m_StageNo;
+	static	int			m_StageNo;
+	
 	// “G
 	CEnemy*				m_pEnemyArray;
 	// ƒAƒCƒeƒ€
@@ -43,5 +44,13 @@ public:
 	void Render(void);
 	void RenderDebug(void);
 	void Release(void);
+
+	int GetSceneName(void) { return SCENENO_GAME; }
+
+	static	void	NextStage(void) {
+		if (++m_StageNo >= STAGE_COUNT) {
+			m_StageNo = 0;
+		};
+	}
 };
 
