@@ -20,4 +20,7 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 	if (m_fMoveY >= 20.0f) {
 		m_fMoveY = 20.0f;
 	}
+
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	m_SrcRect = m_Motion.GetSrcRect();
 }

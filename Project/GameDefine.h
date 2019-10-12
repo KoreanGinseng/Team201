@@ -15,7 +15,6 @@
 
 //USING
 using CTexturePtr = std::shared_ptr<CTexture>;
-using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 
 #include	"_Inoue/AnimationData.h"
 

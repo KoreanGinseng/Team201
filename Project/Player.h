@@ -42,7 +42,7 @@ private:
 	bool				m_bTrigger;
 	int					m_HP;
 	int					m_Stock;
-	CMotionPtr			m_pMotion;
+	CSpriteMotionController		m_Motion;
 	CRectangle			m_SrcRect;
 	int					m_Target;
 	float				m_CoolTime;

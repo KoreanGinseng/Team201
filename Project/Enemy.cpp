@@ -59,6 +59,7 @@ void CEnemy::Update(const Vector2& playerPos) {
 	//実際に座標を移動させる
 	m_Pos = m_pMove->GetPos();
 	m_Pos += m_pMove->GetSpd();
+	m_pMove->SetPos(m_Pos);
 	m_SrcRect = m_pMove->GetSrcRect();
 
 	//ダメージのインターバルを減らす

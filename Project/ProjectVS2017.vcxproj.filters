@@ -245,6 +245,9 @@
     <ClInclude Include="SceneBase.h">
       <Filter>ヘッダー ファイル\SCENE</Filter>
     </ClInclude>
+    <ClInclude Include="Substance.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">

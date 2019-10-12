@@ -7,7 +7,7 @@ class CObject : public CSubstance
 {
 private:
 	CTexturePtr				m_pTexture;
-	CMotionPtr				m_pMotion;
+	CSpriteMotionController				m_Motion;
 	bool					m_bMotionEnd;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;

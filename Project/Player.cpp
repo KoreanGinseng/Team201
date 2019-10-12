@@ -31,7 +31,8 @@ void CPlayer::Initialize(void)
 	//画像データのセット
 	m_pTexture = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetTexture();
 	//アニメーションデータのセット
-	m_pMotion = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetMotion();
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim(), c);
 	//座標の初期化
 	m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
 	//移動量の初期化
@@ -106,7 +107,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 //解放
 void CPlayer::Release(void)
 {
-	m_pMotion = nullptr;
+	m_Motion.Release();
 	m_pTexture = nullptr;
 }
 
@@ -271,20 +272,20 @@ void CPlayer::MoveSub(WAY w)
 void CPlayer::Animation(void)
 {
 	//移動中なら移動モーションにする
-	if(m_bMove && m_pMotion->GetMotionNo() == ANIM_WAIT)
+	if(m_bMove && m_Motion.GetMotionNo() == ANIM_WAIT)
 	{
-		m_pMotion->ChangeMotion(ANIM_MOVE);
+		m_Motion.ChangeMotion(ANIM_MOVE);
 	}
-	if(!m_bMove && m_pMotion->GetMotionNo() == ANIM_MOVE)
+	if(!m_bMove && m_Motion.GetMotionNo() == ANIM_MOVE)
 	{
-		m_pMotion->ChangeMotion(ANIM_WAIT);
+		m_Motion.ChangeMotion(ANIM_WAIT);
 	}
 
 	//アニメーション加算
-	m_pMotion->AddTimer(CUtilities::GetFrameSecond());
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 
 	//アニメーション矩形更新
-	m_SrcRect = m_pMotion->GetSrcRect();
+	m_SrcRect = m_Motion.GetSrcRect();
 }
 
 //ジャンプ処理
