@@ -19,7 +19,10 @@ const char*		g_StageFileName[STAGE_COUNT] = {
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
-m_bPoase(false)
+m_bPoase(false),
+m_pEnemyArray(nullptr),
+m_pItemArray(nullptr),
+m_pObjArray(nullptr)
 {
 }
 
@@ -196,19 +199,19 @@ void CGame::Release()
 	m_Stage[m_StageNo].Release();
 
 	//敵の解放
-	if (m_pEnemyArray)
+	if (m_pEnemyArray != nullptr)
 	{
 		delete[] m_pEnemyArray;
 		m_pEnemyArray = NULL;
 	}
 	//アイテムの解放
-	if (m_pItemArray)
+	if (m_pItemArray != nullptr)
 	{
 		delete[] m_pItemArray;
 		m_pItemArray = NULL;
 	}
 	//オブジェクトの開放
-	if (m_pObjArray)
+	if (m_pObjArray != nullptr)
 	{
 		delete[] m_pObjArray;
 		m_pObjArray = NULL;

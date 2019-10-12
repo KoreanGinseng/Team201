@@ -50,8 +50,6 @@ MofBool CGameApp::Initialize(void){
 	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
-	/*gLoading.SetLoad(gpScene->Load);
-	gLoading.SetInit(gpScene->Initialize);*/
 	if (gpLoading == nullptr)
 	{
 		gpLoading = new CLoading();
@@ -217,7 +215,6 @@ MofBool CGameApp::Release(void){
 	delete gpLoading;
 	gpLoading = nullptr;
 
-	//g_pResouseManager->Release();
 	g_pSoundManager->Release();
 	g_pEffectManager->Release();
 	g_pTextureManager->Release();

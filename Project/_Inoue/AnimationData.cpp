@@ -107,6 +107,14 @@ bool CAnimationData::Load(const char* pName)
 
 void CAnimationData::Release(void) 
 {
-	m_pTexture->Release();
-	m_pMotion->Release();
+	if (m_pTexture != nullptr)
+	{
+		m_pTexture->Release();
+		m_pTexture = nullptr;
+	}
+	if (m_pMotion != nullptr)
+	{
+		m_pMotion->Release();
+		m_pMotion = nullptr;
+	}
 }

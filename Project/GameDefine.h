@@ -42,17 +42,66 @@ using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 
 
 constexpr	char*	FileName[] = {
+	//TEXTURE
+	"player3.png",
+	"enemy01.png",
+	"enemy02.png",
+	"enemy03.png",
+	"enemy04.png",
+	"enemy05.png",
+	"enemy06.png",
+	"enemy07.png",
+	"enemy08.png",
+	"Item01.png",
+	"Item02.png",
+	"Item03.png",
+	"Item04.png",
+	"Item05.png",
+	"Item06.png",
+	"Item07.png",
+	"Item08.png",
+	"Obj01.png",
+	"Obj02.png",
+	"Obj03.png",
+	"Obj04.png",
+	"Obj05.png",
+	"Obj06.png",
+	"Obj07.png",
+	"Obj08.png",
+	"bg.png",
+	"bgChip01.png",
+	"bgChip02.png",
+	"MapChip02.png",
+	"sumple_imvisible.png",
+	//ANIMATION
 	"playerAnim.bin",
-	"",
-	"",
-	"",
-	"",
-	".png",
-	"",
-	"",
-	"",
-	".mp3",
-	"",
+	"EnemyAnim01.bin",
+	"EnemyAnim02.bin",
+	"EnemyAnim03.bin",
+	"EnemyAnim04.bin",
+	"EnemyAnim05.bin",
+	"EnemyAnim06.bin",
+	"EnemyAnim07.bin",
+	"EnemyAnim08.bin",
+	"ItemAnim01.bin",
+	"ItemAnim02.bin",
+	"ItemAnim03.bin",
+	"ItemAnim04.bin",
+	"ItemAnim05.bin",
+	"ItemAnim06.bin",
+	"ItemAnim07.bin",
+	"ItemAnim08.bin",
+	"ObjAnim01.bin",
+	"ObjAnim02.bin",
+	"ObjAnim03.bin",
+	"ObjAnim04.bin",
+	"ObjAnim05.bin",
+	"ObjAnim06.bin",
+	"ObjAnim07.bin",
+	"ObjAnim08.bin",
+	//SOUND
+	"TestJump.mp3",
+	"TestStageBGM.mp3",
 };
 
 //STRUCT
@@ -110,7 +159,6 @@ typedef enum tag_TEXTUREDATA {
 	TEXTURE_OBJ_6,
 	TEXTURE_OBJ_7,
 	TEXTURE_OBJ_8,
-	TEXTURE_ENEMY_ATTACK,
 	TEXTURE_MAP_BACK,
 	TEXTURE_MAP_BACKCHIP_1,
 	TEXTURE_MAP_BACKCHIP_2,
@@ -154,7 +202,16 @@ typedef enum tag_ANIMATIONDATA {
 	ANIMATION_COUNT,
 }ANIMATIONDATA;
 
+/*****************************************************************
+ * @enum tag_SOUNDDATA
+ * サウンドファイルの列挙
+ *****************************************************************/
+typedef enum tag_SOUNDDATA {
+	SOUND_JUMP = ANIMATION_COUNT,
+	SOUND_STAGEBGM,
 
+	SOUND_COUNT,
+}SOUNDDATA;
 
 
 
@@ -171,3 +228,13 @@ enum tag_ENEMY
 	ENEMY_BAT,
 	ENEMY_KOTEIHOUDAI,
 };
+
+#include <crtdbg.h>
+#ifdef _DEBUG
+#define   new                   new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define   malloc(s)             _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   calloc(c, s)          _calloc_dbg(c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   realloc(p, s)         _realloc_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#endif

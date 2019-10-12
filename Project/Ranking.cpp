@@ -14,7 +14,7 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
-	m_pTexture = g_pTextureManager->GetResource("sumple_imvisible.png");
+	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_FONT]);
 	return TRUE;
 }
 

@@ -37,9 +37,9 @@ CFujiwara::~CFujiwara() {
  *****************************************************************/
 bool CFujiwara::Load() {
 	//リソース配置ディレクトリの設定
-	CUtilities::SetCurrentDirectory("Resource");
-	m_pFontTexture = new CTexture();
-	m_pFontTexture->Load("sumple_imvisible.png");
+	//CUtilities::SetCurrentDirectory("Resource");
+	//m_pFontTexture = new CTexture();
+	//m_pFontTexture->Load("sumple_imvisible.png");
 	return TRUE;
 }
 
@@ -100,8 +100,8 @@ void CFujiwara::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Release() {
-	m_pFontTexture->Release();
-	delete m_pFontTexture;
+	//m_pFontTexture->Release();
+	//delete m_pFontTexture;
 	m_pFontTexture = nullptr;
 }
 

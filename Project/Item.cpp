@@ -39,14 +39,7 @@ void CItem::Initialize(float px,float py,int type){
 	m_Move.y = 0.0f;
 	m_bShow = true;
 	//アニメーションを作成
-	m_pMotion = g_pAnimManager->GetResource("ItemAnim.bin")->GetMotion();
-	/*SpriteAnimationCreate anim = {
-		"アイテム",
-		0,0,
-		32,32,
-		TRUE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}} 
-	};
-	m_pMotion->Create(anim);*/
+	m_pMotion = g_pAnimManager->GetResource(FileName[ANIMATION_ITEM_1])->GetMotion();
 }
 
 /**

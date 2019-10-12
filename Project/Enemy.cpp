@@ -115,7 +115,7 @@ void CEnemy::RenderDebug(const Vector2& sp){
  * ‰ð•ú
  *
  */
-void CEnemy::Release(void){
+void CEnemy::Release(void) {
  	delete	m_pMove;
  	m_pMove = nullptr;
  	delete	m_pAttack;
