@@ -20,7 +20,6 @@ class CEnemy : public CSubstance
 private:
 	CTexturePtr				m_pTexture;
 	bool					m_bShow;
-	CRectangle				m_SrcRect;
 	CEnemyMove*				m_pMove;
 	CEnemyAtack*			m_pAttack;
 	int						m_HP;

@@ -220,5 +220,6 @@ MofBool CGameApp::Release(void){
 	g_pTextureManager->Release();
 	g_pAnimManager->Release();
 	g_pTimeManager->Release();
+
 	return TRUE;
 }

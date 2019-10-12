@@ -7,7 +7,6 @@
 CEnemy::CEnemy() :
 m_pTexture(nullptr) ,
 m_bShow(false) ,
-m_SrcRect() ,
 m_HP(0) ,
 m_DamageWait(0) {
 }
@@ -151,15 +150,11 @@ void CEnemy::CollisionStage(Vector2 o) {
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
 	if(o.x < 0 && m_pMove->GetSpd().x > 0)
 	{
-		{
-			m_pMove->Reverse();
-		}
+		m_pMove->Reverse();
 	}
 	else if(o.x > 0 && m_pMove->GetSpd().x < 0)
 	{
-		{
-			m_pMove->Reverse();
-		}
+		m_pMove->Reverse();
 	}
 }
 

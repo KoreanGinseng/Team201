@@ -189,6 +189,13 @@ void CGame::RenderDebug()
 {
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.RenderDebug(screenPos);
+	//“G‚Ì•`‰æ
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
+		m_pEnemyArray[i].RenderDebug(screenPos);
+	}
+
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
 	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
