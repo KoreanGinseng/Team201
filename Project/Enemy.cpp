@@ -157,6 +157,7 @@ void CEnemy::CollisionStage(Vector2 o) {
 	{
 		m_pMove->Reverse();
 	}
+	m_pMove->SetPos(m_Pos);
 }
 
 
