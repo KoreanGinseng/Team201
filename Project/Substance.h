@@ -19,6 +19,6 @@ public:
 	void	SetSkill(void) { m_bSkill = true; }
 	CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 	bool	IsSkill(void) { return m_bSkill; }
-	Vector2 GetPos(void) const { return Vector2(m_Pos.x, m_Pos.y); }
+	Vector2 GetPos(void) const { return m_Pos; }
 
 };

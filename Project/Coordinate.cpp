@@ -59,7 +59,7 @@ void String(int sx, int sy, int fontsize, const char * str)
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
 		sx += fontsize;
-		g_pTextureManager->GetResource("sumple_imvisible.png")->RenderScale(sx, sy, fontsize / 64.0, SRect);
+		g_pTextureManager->GetResource(FileName[TEXTURE_FONT])->RenderScale(sx, sy, fontsize / 64.0, SRect);
 	}
 }
 
@@ -75,6 +75,6 @@ void String(int sx, int sy, int fontsize, const int& time)
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
 		sx += fontsize;
-		g_pTextureManager->GetResource("sumple_imvisible.png")->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);
+		g_pTextureManager->GetResource(FileName[TEXTURE_FONT])->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);
 	}
 }

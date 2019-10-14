@@ -8,7 +8,9 @@
 // INCLUDE
 #include "Game.h"
 
-char*		g_StageFileName[STAGE_COUNT] = {
+int CGame::m_StageNo = START_STAGE;
+
+const char*		g_StageFileName[STAGE_COUNT] = {
 			"testMap1-1.txt",
 			"testMap9999.txt",
 			"testMap114514.txt",
@@ -17,8 +19,10 @@ char*		g_StageFileName[STAGE_COUNT] = {
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
-m_StageNo(START_STAGE),
-m_bPoase(false)
+m_bPoase(false),
+m_pEnemyArray(nullptr),
+m_pItemArray(nullptr),
+m_pObjArray(nullptr)
 {
 }
 
@@ -139,19 +143,6 @@ void CGame::Update()
 	//ステージの更新
 	m_Stage[m_StageNo].Update();
 
-
-	// Oキーでステージ変更
-	if (g_pInput->IsKeyPush(MOFKEY_O))
-	{
-		Release();
-		if (++m_StageNo >= STAGE_COUNT)
-		{
-			m_StageNo = 0;
-		}
-		Load();
-		Initialize();
-	}
-
 	//ゲーム時間を加算
 	g_pTimeManager->Tick();
 }
@@ -198,6 +189,13 @@ void CGame::RenderDebug()
 {
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.RenderDebug(screenPos);
+	//敵の描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
+		m_pEnemyArray[i].RenderDebug(screenPos);
+	}
+
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
 	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
@@ -208,19 +206,19 @@ void CGame::Release()
 	m_Stage[m_StageNo].Release();
 
 	//敵の解放
-	if (m_pEnemyArray)
+	if (m_pEnemyArray != nullptr)
 	{
 		delete[] m_pEnemyArray;
 		m_pEnemyArray = NULL;
 	}
 	//アイテムの解放
-	if (m_pItemArray)
+	if (m_pItemArray != nullptr)
 	{
 		delete[] m_pItemArray;
 		m_pItemArray = NULL;
 	}
 	//オブジェクトの開放
-	if (m_pObjArray)
+	if (m_pObjArray != nullptr)
 	{
 		delete[] m_pObjArray;
 		m_pObjArray = NULL;

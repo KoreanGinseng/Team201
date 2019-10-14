@@ -143,9 +143,6 @@
     <ClInclude Include="GameApp.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="GameDefine.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -244,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="_Inoue\ResourceManager.h">
       <Filter>ヘッダー ファイル\MANAGER</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ヘッダー ファイル\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="Substance.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

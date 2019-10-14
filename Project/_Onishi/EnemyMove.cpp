@@ -7,7 +7,8 @@ CEnemyMove::CEnemyMove() :
 	m_fCooltime(0),
 	m_fMoveX(0.0f),
 	m_fMoveY(0.0f){
-	m_pMotion = g_pAnimManager->GetResource("EnemyAnim.bin")->GetMotion();
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnim(), c);
 }
 
 CEnemyMove::~CEnemyMove() {

@@ -14,7 +14,7 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
-	m_pTexture = g_pTextureManager->GetResource("sumple_imvisible.png");
+	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_FONT]);
 	return TRUE;
 }
 
@@ -123,7 +123,8 @@ void CRanking::ImeUpdate() {
 		re->IconRect = CRectangle(0, 0, 0, 0);
 		re->Score = 0;
 		m_RankingEntryArray.Add(&re);
-
+		delete re;
+		re = nullptr;
 		//’Ç‰Á‚µ‚½‚ç“ü—Í’†•¶Žš—ñƒŠƒZƒbƒg
 		g_pImeInput->ResetEnterString();
 		//“ü—Í‚ð–³Œø‚É‚·‚é

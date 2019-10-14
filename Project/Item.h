@@ -14,7 +14,7 @@ enum tag_ITEMTYPE {
 class CItem {
 private:
 	CTexturePtr				m_pTexture;
-	CMotionPtr				m_pMotion;
+	CSpriteMotionController	m_Motion;
 	int						m_Type;
 	Vector2					m_Pos;
 	Vector2					m_Move;

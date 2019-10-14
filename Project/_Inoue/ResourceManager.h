@@ -28,9 +28,8 @@ public:
 
 	//インスタンス取得用
 	static CResourceManager<T>* GetInstance(void) {
-		static CResourceManager<T> *obj = nullptr;
-		if (obj == nullptr)	obj = new CResourceManager<T>();
-		return obj;
+		static CResourceManager<T> obj = CResourceManager<T>();
+		return &obj;
 	}
 
 	//データ保有しているものすべてを解放

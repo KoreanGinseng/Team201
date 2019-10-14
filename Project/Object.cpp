@@ -17,25 +17,11 @@ void CObject::Initialize(float px, float py) {
 	m_bShow = true;
 	m_bAnim = false;
 	//アニメーションを作成
-	m_pMotion = g_pAnimManager->GetResource("ObjAnim.bin")->GetMotion();
-	/*SpriteAnimationCreate anim[] = {
-		{
-			"オブジェクト",
-			0,0,
-			64,64,
-			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
-		},
-		{
-			"オブジェクトエンド",
-			0,64,
-			64,64,
-			FALSE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}}
-		},
-	};
-	m_pMotion->Create(anim, MOTION_COUNT);*/
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnim(), c);
 	if (m_bMotionEnd)
 	{
-		m_pMotion->ChangeMotion(MOTION_END);
+		m_Motion.ChangeMotion(MOTION_END);
 	}
 }
 
@@ -48,22 +34,22 @@ void CObject::Update(void) {
 
 	if (m_bAnim)
 	{
-		m_pMotion->AddTimer(CUtilities::GetFrameSecond());
-		if (m_pMotion->IsEndMotion())
+		m_Motion.AddTimer(CUtilities::GetFrameSecond());
+		if (m_Motion.IsEndMotion())
 		{
 			m_bAnim = false;
-			if (m_pMotion->GetMotionNo() == MOTION_START)
+			if (m_Motion.GetMotionNo() == MOTION_START)
 			{
-				m_pMotion->ChangeMotion(MOTION_END);
+				m_Motion.ChangeMotion(MOTION_END);
 			}
-			else if (m_pMotion->GetMotionNo() == MOTION_END)
+			else if (m_Motion.GetMotionNo() == MOTION_END)
 			{
-				m_pMotion->ChangeMotion(MOTION_START);
+				m_Motion.ChangeMotion(MOTION_START);
 			}
 		}
 	}
 
-	m_SrcRect = m_pMotion->GetSrcRect();
+	m_SrcRect = m_Motion.GetSrcRect();
 }
 
 void CObject::Render(Vector2 sp) {
@@ -88,7 +74,7 @@ void CObject::RenderDebug(Vector2 sp) {
 }
 
 void CObject::Release(void) {
-	m_pMotion->Release();
+	m_Motion.Release();
 }
 
 void CObject::CollisionStage(const Vector2& o)

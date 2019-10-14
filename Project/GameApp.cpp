@@ -22,7 +22,7 @@
 #include	"_Onishi/Onishi.h"
 #include	"GameDefine.h"
 #include	"EffectManager.h"
-#include	"SoundManager.h"
+//#include	"SoundManager.h"
 #include	"Loading.h"
 
 //GLOBAL
@@ -44,14 +44,12 @@ bool			gbDebug = false;
 MofBool CGameApp::Initialize(void){
 	CUtilities::SetCurrentDirectory("Resource");
 	
-	gpScene = new CTitle();			//タイトルから開始
-	gpScene = new CGame();
+	//gpScene = new CTitle();			//タイトルから開始
+	//gpScene = new CGame();
 #ifdef _DEBUG
-	gpScene = new CRanking();			//ゲームシーンから開始(デバッグ用)
+	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
-	/*gLoading.SetLoad(gpScene->Load);
-	gLoading.SetInit(gpScene->Initialize);*/
 	if (gpLoading == nullptr)
 	{
 		gpLoading = new CLoading();
@@ -105,34 +103,49 @@ MofBool CGameApp::Update(void){
 			gpScene = new CGame();
 			break;
 		case SCENENO_GAMEOVER:
-			gpScene = new CTitle();
+			gpScene = new CGameOver();
 			break;
 		case SCENENO_GAMECLEAR:
-			gpScene = new CGame();
+			gpScene = new CGameClear();
 			break;
 		case SCENENO_RANKING:
-			gpScene = new CGame();
+			gpScene = new CRanking();
 			break;
 		case SCENENO_FUJIWARA:
-			gpScene = new CTitle();
+			gpScene = new CFujiwara();
 			break;
 		case SCENENO_INOUE:
-			gpScene = new CGame();
+			gpScene = new CInoue();
 			break;
 		case SCENENO_KIMURA:
-			gpScene = new CTitle();
+			gpScene = new CKimura();
 			break;
 		case SCENENO_ONISHI:
-			gpScene = new CGame();
+			gpScene = new COnishi();
 			break;
 		}
 		//別スレッドでやりたい。(LOADING)
 		{
+			gpLoading->Release();
 			delete gpLoading;
 			gpLoading = new CLoading();
 			gpLoading->SetScene(gpScene);
 			gpLoading->Start("Loading");
 		}
+	}
+
+	// Oキーでステージ変更
+	if (gpScene->GetSceneName() == SCENENO_GAME && g_pInput->IsKeyPush(MOFKEY_O))
+	{
+		gpScene->Release();
+		delete gpScene;
+		CGame::NextStage();
+		gpScene = new CGame();
+		gpLoading->Release();
+		delete gpLoading;
+		gpLoading = new CLoading();
+		gpLoading->SetScene(gpScene);
+		gpLoading->Start("Loading");
 	}
 
 #ifdef _DEBUG
@@ -198,13 +211,15 @@ MofBool CGameApp::Release(void){
 	gpScene->Release();
 	delete gpScene;
 	gpScene = NULL;
+	gpLoading->Release();
+	delete gpLoading;
+	gpLoading = nullptr;
 
-	//g_pResouseManager->Release();
 	g_pSoundManager->Release();
 	g_pEffectManager->Release();
 	g_pTextureManager->Release();
 	g_pAnimManager->Release();
-	delete gpLoading;
-	gpLoading = nullptr;
+	g_pTimeManager->Release();
+
 	return TRUE;
 }

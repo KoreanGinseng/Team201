@@ -103,5 +103,6 @@ public:
 	 *****************************************************************/
 	void Release();
 
+	int GetSceneName(void) { return SCENENO_INOUE; }
 	CRectangle	GetRect() { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + RECTSIZE, m_Pos.y + RECTSIZE); }
 };

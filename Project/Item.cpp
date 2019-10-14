@@ -6,7 +6,7 @@
  */
 CItem::CItem() :
 m_pTexture(NULL) ,
-m_pMotion() ,
+m_Motion() ,
 m_Pos(Vector2(0,0)) ,
 m_Move(Vector2(0,0)) ,
 m_bShow(false) ,
@@ -39,14 +39,8 @@ void CItem::Initialize(float px,float py,int type){
 	m_Move.y = 0.0f;
 	m_bShow = true;
 	//アニメーションを作成
-	m_pMotion = g_pAnimManager->GetResource("ItemAnim.bin")->GetMotion();
-	/*SpriteAnimationCreate anim = {
-		"アイテム",
-		0,0,
-		32,32,
-		TRUE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}} 
-	};
-	m_pMotion->Create(anim);*/
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ITEM_1])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ITEM_1])->GetAnim(), c);
 }
 
 /**
@@ -69,8 +63,8 @@ void CItem::Update(void){
 	m_Pos.x += m_Move.x;
 	m_Pos.y += m_Move.y;
 	//アニメーションの更新
-	m_pMotion->AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_pMotion->GetSrcRect();
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	m_SrcRect = m_Motion.GetSrcRect();
 }
 
 
@@ -106,7 +100,7 @@ void CItem::RenderDebug(Vector2 sp){
  *
  */
 void CItem::Release(void){
-	m_pMotion->Release();
+	m_Motion.Release();
 }
 
 /**

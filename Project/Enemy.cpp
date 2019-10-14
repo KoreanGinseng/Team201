@@ -7,7 +7,6 @@
 CEnemy::CEnemy() :
 m_pTexture(nullptr) ,
 m_bShow(false) ,
-m_SrcRect() ,
 m_HP(0) ,
 m_DamageWait(0) {
 }
@@ -60,6 +59,7 @@ void CEnemy::Update(const Vector2& playerPos) {
 	//実際に座標を移動させる
 	m_Pos = m_pMove->GetPos();
 	m_Pos += m_pMove->GetSpd();
+	m_pMove->SetPos(m_Pos);
 	m_SrcRect = m_pMove->GetSrcRect();
 
 	//ダメージのインターバルを減らす
@@ -115,7 +115,7 @@ void CEnemy::RenderDebug(const Vector2& sp){
  * 解放
  *
  */
-void CEnemy::Release(void){
+void CEnemy::Release(void) {
  	delete	m_pMove;
  	m_pMove = nullptr;
  	delete	m_pAttack;
@@ -151,16 +151,13 @@ void CEnemy::CollisionStage(Vector2 o) {
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
 	if(o.x < 0 && m_pMove->GetSpd().x > 0)
 	{
-		{
-			m_pMove->Reverse();
-		}
+		m_pMove->Reverse();
 	}
 	else if(o.x > 0 && m_pMove->GetSpd().x < 0)
 	{
-		{
-			m_pMove->Reverse();
-		}
+		m_pMove->Reverse();
 	}
+	m_pMove->SetPos(m_Pos);
 }
 
 

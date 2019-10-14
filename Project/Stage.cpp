@@ -52,11 +52,15 @@ bool CStage::Load(const char* pName) {
 	//if (!m_BackTexture.Load(pstr)) {
 	m_pBackTexture = g_pTextureManager->GetResource(pstr);
 	if (m_pBackTexture == nullptr) {
+		free(pBuffer);
+		pBuffer = nullptr;
 		return FALSE;
 	}
 	pstr = strtok(NULL, ",");
 	m_pChipTexture = g_pTextureManager->GetResource(pstr);
 	if (m_pChipTexture == nullptr) {
+		free(pBuffer);
+		pBuffer = nullptr;
 		return FALSE;
 	}
 
@@ -93,6 +97,8 @@ bool CStage::Load(const char* pName) {
 		pstr = strtok(NULL, ",");
 		m_pEnemyTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pEnemyTexture[i] == nullptr) {
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
@@ -115,6 +121,8 @@ bool CStage::Load(const char* pName) {
 		pstr = strtok(NULL, ",");
 		m_pItemTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pItemTexture[i] == nullptr) {
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
@@ -137,6 +145,8 @@ bool CStage::Load(const char* pName) {
 		pstr = strtok(NULL, ",");
 		m_pObjectTexture.push_back(g_pTextureManager->GetResource(pstr));
 		if (m_pObjectTexture[i] == nullptr) {
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
@@ -161,10 +171,11 @@ bool CStage::Load(const char* pName) {
 			}
 		}
 	}
+	free(pBuffer);
+	pBuffer = nullptr;
 
 	//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
 	fclose(fp);
-	free(pBuffer);
 	return TRUE;
 }
 
@@ -266,24 +277,23 @@ void CStage::RenderDebug(Vector2 scroll) {
 
 //‰ð•ú
 void CStage::Release() {
-
-	if (m_pChipData) {
+	if (m_pChipData != nullptr) {
 		free(m_pChipData);
 		m_pChipData = nullptr;
 	}
-	if (m_pEnemyData) {
+	if (m_pEnemyData != nullptr) {
 		free(m_pEnemyData);
 		m_pEnemyData = nullptr;
 	}
-	if (m_pItemData) {
+	if (m_pItemData != nullptr) {
 		free(m_pItemData);
 		m_pItemData = nullptr;
 	}
-	if (m_pObjectData) {
+	if (m_pObjectData != nullptr) {
 		free(m_pObjectData);
 		m_pObjectData = nullptr;
 	}
-	if (m_pObjEndData) {
+	if (m_pObjEndData != nullptr) {
 		free(m_pObjEndData);
 		m_pObjEndData = nullptr;
 	}

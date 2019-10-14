@@ -4,7 +4,7 @@
 
 CAnimationData::CAnimationData() :
 m_pTexture(nullptr),
-m_pMotion(nullptr)
+m_pAnim(nullptr)
 {
 }
 
@@ -36,13 +36,15 @@ bool CAnimationData::Load(const char* pName)
 		return FALSE;
 	}
 
+	delete fns;
+	fns = nullptr;
+
 	//アニメーション数取得
-	int c;
-	fread(&c, sizeof(int), 1, fp);
-	SpriteAnimationCreate* anim = new SpriteAnimationCreate[c];
+	fread(&m_AnimCount, sizeof(int), 1, fp);
+	m_pAnim = new SpriteAnimationCreate[m_AnimCount];
 
 	//アニメーションの数だけ繰り返す
-	for (int i = 0; i < c; ++i)
+	for (int i = 0; i < m_AnimCount; ++i)
 	{
 		//データ読み取り用
 		int read;
@@ -52,52 +54,48 @@ bool CAnimationData::Load(const char* pName)
 		char* animName = new char[read + 1];
 		fread(animName, sizeof(char), read, fp);
 		animName[read] = '\0';
-		anim[i].Name = animName;
+		m_pAnim[i].Name = animName;
+		delete[] animName;
+		animName = nullptr;
 		//OffsetX
 		fread(&read, sizeof(int), 1, fp);
-		anim[i].OffsetX = (float)read;
+		m_pAnim[i].OffsetX = (float)read;
 		//OffsetY
 		fread(&read, sizeof(int), 1, fp);
-		anim[i].OffsetY = (float)read;
+		m_pAnim[i].OffsetY = (float)read;
 		//Width
 		fread(&read, sizeof(int), 1, fp);
-		anim[i].Width = (float)read;
+		m_pAnim[i].Width = (float)read;
 		//Height
 		fread(&read, sizeof(int), 1, fp);
-		anim[i].Height = (float)read;
+		m_pAnim[i].Height = (float)read;
 
 		//1byte(ループフラグ)読み取り用
 		char tok;
 		fread(&tok, sizeof(char), 1, fp);
-		anim[i].bLoop = (bool)tok;
+		m_pAnim[i].bLoop = (bool)tok;
 		//アニメーションフレーム数取得
 		int animCount;
 		fread(&animCount, sizeof(int), 1, fp);
 		for (int j = 0; j < animCount; ++j)
 		{
 			fread(&read, sizeof(int), 1, fp);
-			anim[i].Pattern[j].Wait = (float)read;
-			fread(&anim[i].Pattern[j].No, sizeof(int), 1, fp);
-			fread(&anim[i].Pattern[j].Step, sizeof(int), 1, fp);
+			m_pAnim[i].Pattern[j].Wait = (float)read;
+			fread(&m_pAnim[i].Pattern[j].No, sizeof(int), 1, fp);
+			fread(&m_pAnim[i].Pattern[j].Step, sizeof(int), 1, fp);
 		}
 	}
 	fclose(fp);
-
-	//アニメーションデータ作成
-	if (m_pMotion == nullptr)
-	{
-		m_pMotion = std::make_shared<CSpriteMotionController>();
-	}
-	if (!m_pMotion->Create(anim, c))
-	{
-		return FALSE;
-	}
-
 	return TRUE;
 }
 
 void CAnimationData::Release(void) 
 {
-	m_pTexture->Release();
-	m_pMotion->Release();
+	if (m_pTexture != nullptr)
+	{
+		m_pTexture->Release();
+		m_pTexture = nullptr;
+	}
+	delete[] m_pAnim;
+	m_pAnim = nullptr;
 }
