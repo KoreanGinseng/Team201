@@ -23,6 +23,7 @@ typedef struct tag_RankingEntry {
 class CRanking : public CSceneBase {
 private:
 	//! Ime関連
+	CTexturePtr					 m_pTexture;
 	CString						 m_String;
 	int							 m_VisibleCount;		//点滅用カウント
 	Vector2						 m_MousePos;

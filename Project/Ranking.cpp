@@ -14,7 +14,7 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
-	
+	m_pTexture = g_pTextureManager->GetResource("sumple_imvisible.png");
 	return TRUE;
 }
 
@@ -54,7 +54,7 @@ void CRanking::Render() {
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
 	}
-
+	CGraphicsUtilities::RenderString(0, 100, "%d", m_bPadInputMode);
 	KeyRender();
 
 }
@@ -220,18 +220,10 @@ void CRanking::PadOperation() {
 	m_PosCircle.x += g_pGamePad->GetStickHorizontal()*2;
 	m_PosCircle.y += g_pGamePad->GetStickVertical()*2;
 
-	/*for (int y = 0; y < 4; y++) {
-
-		for (int x = 0; x < 10; x++) {
-
-			if (CollisionRectCircle()) {
+	/*if (CollisionRectCircle()) {
 
 
-			}
-
-		}
 	}*/
-	
 
 	
 	
