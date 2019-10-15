@@ -4,12 +4,13 @@
 class CObject
 {
 private:
+
+	
 	CTexture*				m_pTexture;
 	CSpriteMotionController	m_Motion;
 	bool					m_bMotionEnd;
 	float					m_PosX;
 	float					m_PosY;
-	float					m_a;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 	bool					bFlag;
@@ -49,6 +50,6 @@ public:
 	void ChangeEnd();
 
 	//obj
-	void Collision(CRectangle r,float ox,float oy);
+	bool Collision(CRectangle r,float ox,float oy);
 };
 

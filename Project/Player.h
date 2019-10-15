@@ -19,7 +19,6 @@ class CPlayer {
 
 
 private:
-
 	CTexture		m_Texture;
 	CTexture		m_HpTexture;
 
@@ -67,4 +66,5 @@ public:
 
 	//’Ç‰Á
 	bool GetKey() { return KeyFlag; }
+	void CollisonObject(float ox, float oy);
 };

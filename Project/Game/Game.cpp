@@ -81,7 +81,7 @@ void CGame::Update() {
 	}
 
 	//オブジェクトとプレイヤーの当たり判定
-
+	
 
 
 
@@ -149,6 +149,11 @@ void CGame::Update() {
 		}
 
 		m_pObjArray[i].Update();
+		float ox = 0,oy = 0;
+		if (m_pObjArray[i].Collision(m_Player.GetRect(), ox, oy))
+		{
+			m_Player.CollisonObject(ox, oy);
+		}
 	}
 
 	Vector2 centerPos = m_Player.GetPos()

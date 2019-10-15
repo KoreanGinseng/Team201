@@ -100,13 +100,13 @@ void CObject::ChangeEnd()
 	//もう一度通るためにフラグをoffにする
 	bFlag = false;
 }
-void CObject::Collision(CRectangle r, float ox, float oy)
+bool CObject::Collision(CRectangle r, float ox, float oy)
 {
 	int ObjNo=0;
 	int h = r.GetHeight();
 	int w = r.GetWidth();
 
-	if (m_Motion.GetMotionNo() == MOTION_START)
+	/*if (m_Motion.GetMotionNo() == MOTION_START)
 	{
 		ObjNo = 0;
 	}
@@ -114,7 +114,7 @@ void CObject::Collision(CRectangle r, float ox, float oy)
 	if (m_Motion.GetMotionNo() == MOTION_END)
 	{
 		ObjNo = 1;
-	}
+	}*/
 
 	bool re = false;
 	int lc = r.Left / w;
@@ -122,29 +122,65 @@ void CObject::Collision(CRectangle r, float ox, float oy)
 	int tc = r.Top / h;
 	int bc = r.Bottom / h;
 
-	//ステージ外にならないように
-	if (lc < 0)
-	{
-		lc = 0;
-	}
-	if (tc < 0)
-	{
-		tc = 0;
-	}
-	//ここは微妙
-	if (rc >= 0)
-	{
-		rc = 0;
-	}
-	if (bc >= 0)
-	{
-		bc = 0;
-	}
-
+	float x = m_SrcRect.GetWidth();
+	float y = m_SrcRect.GetHeight();
 	//当たり判定
+			CRectangle cr(m_PosX, m_PosY, m_PosX+x ,m_PosY +y);
+			//当たり判定用の矩形
+			//左右判定
+			//左、右それぞれで範囲を限定した専用の矩形を作成する。
+			CRectangle lrec = r;
+			lrec.Right = lrec.Left - 1;//
+			lrec.Expansion(0, -2);//
+			CRectangle rrec = r;
+			rrec.Left = rrec.Right - 1;//
+			rrec.Expansion(0, -2);//
+			//左と当たり判定
+			if (cr.CollisionRect(lrec))
+			{
+				re = true;
+				//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
+				ox += cr.Right - lrec.Left;
+				r.Left += cr.Right - lrec.Left;
+				r.Right += cr.Right - lrec.Left;
+			}
+			//右と当たり判定
+			if (cr.CollisionRect(rrec))
+			{
+				re = true;
+				//右の埋まりなのでチップの左端から
+				ox += cr.Left - rrec.Right;
+				r.Left += cr.Left - rrec.Right;
+				r.Right += cr.Left - rrec.Right;
+			}
+			CRectangle brec = r;
+			brec.Top = brec.Bottom - 1;//
+			brec.Expansion(-2, 0);//
+			//下と当たり判定
+			if (cr.CollisionRect(brec))
+			{
+				re = true;
+				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+				oy += cr.Top - brec.Bottom;
+				r.Top += cr.Top - brec.Bottom;
+				r.Bottom += cr.Top - brec.Bottom;
+			}
 
+			//上で範囲を限定した専用の矩形を作成する。
+			CRectangle trec = r;
+			trec.Bottom = trec.Top - 1;//
+			trec.Expansion(-2, 0);//
+			//上と当たり判定
+			if (cr.CollisionRect(trec))
+			{
+				re = true;
+				//上の埋まりなのでチップした端から矩形の上端を
+				oy += cr.Bottom - trec.Top;
+				r.Top += cr.Bottom - trec.Top;
+				r.Bottom += cr.Bottom - trec.Top;
+			}
 
-
+	return re;
 }
 void CObject::Change()
 {
@@ -166,9 +202,5 @@ void CObject::Change()
 	
 
 
-	MOF_PRINTLOG("%s\n", m_Motion.IsEndMotion() ? "ture" : "false");
-	
-
-
-	
+	MOF_PRINTLOG("%s\n", m_Motion.IsEndMotion() ? "ture" : "false");	
 }

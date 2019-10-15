@@ -47,4 +47,5 @@ public:
 	int	 GetItemCount()   const { return m_ItemCount; }
 	int	 GetObjectCount() const { return m_ObjectCount; }
 
+
 };
