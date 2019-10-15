@@ -42,7 +42,7 @@ bool			gbDebug = false;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-	CUtilities::SetCurrentDirectory("Resource");
+	CUtilities::SetCurrentDirectory("Resource/test");
 	
 	//gpScene = new CTitle();			//タイトルから開始
 	//gpScene = new CGame();
