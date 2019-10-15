@@ -20,6 +20,7 @@ bool CRanking::Load() {
 
 void CRanking::Initialize() {
 	
+	m_bShift = false;
 	m_KeySelectX = 0;
 	m_KeySelectY = 0;
 	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 32*10) * 0.5f;
@@ -27,8 +28,8 @@ void CRanking::Initialize() {
 }
 
 void CRanking::Update() {
-	keybd_event(VK_LSHIFT, (BYTE)MapVirtualKey(VK_LSHIFT, 0), 0, 0);
-	SendKeyBoard(VK_A);
+	
+	
 	if (g_pInput->GetGamePadCount()) {
 
 		PadOperation();
@@ -61,7 +62,7 @@ void CRanking::Render() {
 void CRanking::RenderDebug() {
 	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
 	CGraphicsUtilities::RenderRect(m_KeyOffSet.x + ((m_KeySelectX+1) * 32), m_KeyOffSet.y + ((m_KeySelectY) * 32), m_KeyOffSet.x + ((m_KeySelectX + 1) * 32) + 32, m_KeyOffSet.y + ((m_KeySelectY ) * 32) + 32, MOF_XRGB(0, 255, 0));
-	
+	CGraphicsUtilities::RenderString(0, 100, "%d", m_bShift);
 }
 
 void CRanking::Release() {
@@ -166,27 +167,56 @@ void CRanking::KeyRender() {
 		return;
 
 	}
-	
-	for (int y = 0; y < 4; y++) {
 
-		switch (y)
-		{
-		case 0:
-			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "1234567890");
-			break;
-		case 1:
-			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "QWERTYUIOP@");
-			break;
-		case 2:
-			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ASDFGHJKL+");
-			break;
-		case 3:
-			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ZXCVBNM");
-			break;
-		
+	if (m_bShift) {
+
+		for (int y = 0; y < 4; y++) {
+
+			switch (y)
+			{
+			case 0:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "!\"#$%&\'()=~|");
+				break;
+			case 1:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "QWERTYUIOP@{");
+				break;
+			case 2:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ASDFGHJKL+*}");
+				break;
+			case 3:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ZXCVBNM<>?_");
+				break;
+
+			}
+
 		}
-	
+
 	}
+	else {
+
+		for (int y = 0; y < 4; y++) {
+
+			switch (y)
+			{
+			case 0:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "1234567890-^\\");
+				break;
+			case 1:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "qwertyuiop@[");
+				break;
+			case 2:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "asdfghjkl;:]");
+				break;
+			case 3:
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "zxcvbnm,./\\");
+				break;
+
+			}
+
+		}
+	}
+	
+	
 
 	RenderDebug();
 
@@ -258,14 +288,31 @@ void CRanking::PadOperation() {
 		m_KeySelectY++;
 		if (m_KeySelectY > 3) {
 
-			m_KeySelectY = 3;
+			m_KeySelectY = 4;
 
 		}
 	}
 
+	if (m_KeySelectY == 4) {
+
+		if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
+
+			m_bShift = !m_bShift;
+
+			return;
+
+		}
+
+	}
+
+	if (m_bShift) {
+
+		keybd_event(VK_LSHIFT, (BYTE)MapVirtualKey(VK_LSHIFT, 0), 0, 0);
+
+	}
 	
 
-
+	//”ÍˆÍ‘I‘ðSHIFT+CAPSLOCK‚Å‰ðœ
 	if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
 
 		SendKeyBoard(KeyBoard[m_KeySelectY][m_KeySelectX]);
@@ -273,6 +320,7 @@ void CRanking::PadOperation() {
 
 	}
 
+	//•Û‘¶‚Æ“ü—Í•û–@
 	
 
 	//“ü—ÍŠm’è
