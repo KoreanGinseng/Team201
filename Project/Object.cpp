@@ -47,7 +47,6 @@ void CObject::Initialize(float px, float py) {
 	if (m_bMotionEnd)
 	{
 		m_Motion.ChangeMotion(MOTION_END);
-
 	}
 }
 
@@ -100,6 +99,52 @@ void CObject::ChangeEnd()
 {
 	//もう一度通るためにフラグをoffにする
 	bFlag = false;
+}
+void CObject::Collision(CRectangle r, float ox, float oy)
+{
+	int ObjNo=0;
+	int h = r.GetHeight();
+	int w = r.GetWidth();
+
+	if (m_Motion.GetMotionNo() == MOTION_START)
+	{
+		ObjNo = 0;
+	}
+
+	if (m_Motion.GetMotionNo() == MOTION_END)
+	{
+		ObjNo = 1;
+	}
+
+	bool re = false;
+	int lc = r.Left / w;
+	int rc = r.Right / w;
+	int tc = r.Top / h;
+	int bc = r.Bottom / h;
+
+	//ステージ外にならないように
+	if (lc < 0)
+	{
+		lc = 0;
+	}
+	if (tc < 0)
+	{
+		tc = 0;
+	}
+	//ここは微妙
+	if (rc >= 0)
+	{
+		rc = 0;
+	}
+	if (bc >= 0)
+	{
+		bc = 0;
+	}
+
+	//当たり判定
+
+
+
 }
 void CObject::Change()
 {

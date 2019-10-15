@@ -9,9 +9,12 @@ private:
 	bool					m_bMotionEnd;
 	float					m_PosX;
 	float					m_PosY;
+	float					m_a;
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 	bool					bFlag;
+
+
 	//現在のモーションフラグ
 	enum tag_MOTION {
 		MOTION_START,
@@ -23,6 +26,7 @@ private:
 
 		MOTION_COUNT
 	};
+
 public:
 	CObject();
 	~CObject();
@@ -43,6 +47,8 @@ public:
 	//
 	void Change();
 	void ChangeEnd();
-	
+
+	//obj
+	void Collision(CRectangle r,float ox,float oy);
 };
 
