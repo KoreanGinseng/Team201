@@ -2,6 +2,8 @@
 #include	"_Onishi/EnemyAtack.h"
 #include	"EnemyDefine.h"
 #include	"EnemyShot.h"
+#include	"AimBullet.h"
+#include	"BounceBullet.h"
 
 class CAtack_KOTEIHOUDAI :public CEnemyAtack {
 private:
@@ -11,8 +13,9 @@ private:
 	float	m_PlayerPlaceX;
 	float	m_PlayerPlaceY;
 	
-
-	CEnemyShot	m_ShotArry[ENEMYSHOT_COUNT];
+	CAimBullet* m_AimBullet;
+	CEnemyShot*	m_ShotArry[ENEMYSHOT_COUNT];
+	CBounceBullet* m_BounceBullet;
 public:
 	CAtack_KOTEIHOUDAI();
 	~CAtack_KOTEIHOUDAI();

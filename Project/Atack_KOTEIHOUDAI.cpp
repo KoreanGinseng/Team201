@@ -14,10 +14,10 @@ void CAtack_KOTEIHOUDAI::Initialize() {
 	m_fAtackTimer=0;
 	m_fCooltime=0;
 	m_PlayerPlaceX=0;
-	m_PlayerPlaceY=0;
-
+	m_PlayerPlaceY=0; 
 	for (int i = 0; i < ENEMYSHOT_COUNT;i++) {
-		m_ShotArry[i].Initialize();
+		m_ShotArry[i] = new CBounceBullet();//ƒeƒXƒg
+		m_ShotArry[i]->Initialize();
 	}
 }
 void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
@@ -45,10 +45,11 @@ void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyReve
 		if (m_fCooltime < 0) {
 			m_fAtackTimer = AtackTimer;
 			for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
-				if (m_ShotArry[i].GetShow()) {
+				if (m_ShotArry[i]->GetShow()) {
 					continue;
 				}
-				m_ShotArry[i].Fire(EnemyPosX,EnemyPosY,BulletSpeed,BulletSpeed, PlayerPosX, PlayerPosY);
+				m_ShotArry[i]->Initialize();
+				m_ShotArry[i]->Fire(EnemyPosX,EnemyPosY,BulletSpeed,BulletSpeed, PlayerPosX, PlayerPosY);
 				break;
 			}
 			
@@ -57,8 +58,10 @@ void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyReve
 		}
 	}
 
+
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
-		m_ShotArry[i].Update();
+		m_ShotArry[i]->Update();
+	
 	}
 }
 void CAtack_KOTEIHOUDAI::Render() {
@@ -67,7 +70,7 @@ void CAtack_KOTEIHOUDAI::Render() {
 		return;
 	}*/
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
-		m_ShotArry[i].Render();
+		m_ShotArry[i]->Render();
 	}
 	//CGraphicsUtilities::RenderFillCircle(m_fAtackPosX,m_fAtackPosY,5,MOF_COLOR_RED);
 }

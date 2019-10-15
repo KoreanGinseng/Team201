@@ -10,8 +10,8 @@ CENEMY_KOTEIHOUDAI::~CENEMY_KOTEIHOUDAI() {
 }
 
 void CENEMY_KOTEIHOUDAI::Initialize() {
-	m_fXpos = 500;
-	m_fYpos = 500;
+	m_fXpos = 800;
+	m_fYpos = 400;
 	m_fAtackTimer = AtackTimer;
 	m_fCooltime = 0;
 }
