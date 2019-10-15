@@ -1,7 +1,7 @@
 #include	"Ranking.h"
 #include	"VirtualKeyBoard.h"
 
-unsigned short int KeyBoard[4][10] = {
+unsigned char KeyBoard[4][10] = {
 	VK_1,VK_2,VK_3,VK_4,VK_5,VK_6,VK_7,VK_8,VK_9,VK_0,
 	VK_Q,VK_W,VK_E,VK_R,VK_T,VK_Y,VK_U,VK_I,VK_O,VK_P,
 	VK_A,VK_S,VK_D,VK_F,VK_G,VK_H,VK_J,VK_K,VK_L,VK_OEM_PLUS,
@@ -14,22 +14,21 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
-	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_FONT]);
+	
 	return TRUE;
 }
 
 void CRanking::Initialize() {
 	
-	m_bPadInputMode = false;
-	m_PosCircle.x = g_pGraphics->GetTargetWidth()*0.5f;
-	m_PosCircle.y = g_pGraphics->GetTargetHeight()*0.5f;
-	m_PosCircle.r = 2.0f;
-	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 64*10) * 0.5f;
-	m_KeyOffSet.y = (g_pGraphics->GetTargetHeight() - 64*4) * 0.5f;
+	m_KeySelectX = 0;
+	m_KeySelectY = 0;
+	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 32*10) * 0.5f;
+	m_KeyOffSet.y = (g_pGraphics->GetTargetHeight() - 32*4) * 0.5f;
 }
 
 void CRanking::Update() {
-
+	keybd_event(VK_LSHIFT, (BYTE)MapVirtualKey(VK_LSHIFT, 0), 0, 0);
+	SendKeyBoard(VK_A);
 	if (g_pInput->GetGamePadCount()) {
 
 		PadOperation();
@@ -52,16 +51,16 @@ void CRanking::Render() {
 	ImeRender();
 	
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
-		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
+		//CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
 	}
-	CGraphicsUtilities::RenderString(0, 100, "%d", m_bPadInputMode);
+
 	KeyRender();
 
 }
 
 void CRanking::RenderDebug() {
 	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
-	CGraphicsUtilities::RenderCircle(m_PosCircle, MOF_XRGB(255, 0, 0));
+	CGraphicsUtilities::RenderRect(m_KeyOffSet.x + ((m_KeySelectX+1) * 32), m_KeyOffSet.y + ((m_KeySelectY) * 32), m_KeyOffSet.x + ((m_KeySelectX + 1) * 32) + 32, m_KeyOffSet.y + ((m_KeySelectY ) * 32) + 32, MOF_XRGB(0, 255, 0));
 	
 }
 
@@ -102,14 +101,14 @@ void CRanking::ImeUpdate() {
 		}
 
 		//入力確定文字列を入力中に変換
-		g_pImeInput->SetInputString(m_String);
+		g_pImeInput->SetInputString(m_String); //ここ
 		m_String = "";
 
 	}
 	
 
 	//エンターキーを押した時に入力中文字があれば
-	if (g_pImeInput->GetEnterString()->GetLength() > 0)
+	if (g_pImeInput->GetEnterString()->GetLength() > 0) //ここ
 	{
 		//登録する名前はこれでよろしか
 		//
@@ -162,18 +161,31 @@ void CRanking::ImeRender() {
 
 void CRanking::KeyRender() {
 
-	if (!m_bPadInputMode) {
+	if (!m_bInputEnable) {
 
 		return;
 
 	}
-
+	
 	for (int y = 0; y < 4; y++) {
 
-		for (int x = 0; x < 10; x++) {
-
-			String((m_KeyOffSet.x)+x*64, (m_KeyOffSet.y)+y*64, FONT_SIZE, KeyBoard[y][x]);
+		switch (y)
+		{
+		case 0:
+			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "1234567890");
+			break;
+		case 1:
+			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "QWERTYUIOP@");
+			break;
+		case 2:
+			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ASDFGHJKL+");
+			break;
+		case 3:
+			String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ZXCVBNM");
+			break;
+		
 		}
+	
 	}
 
 	RenderDebug();
@@ -181,50 +193,120 @@ void CRanking::KeyRender() {
 	
 }
 
-void CRanking::SendKeyBoard(int y, int x) {
-	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), 0, 0);
-	keybd_event(KeyBoard[y][x], (BYTE)MapVirtualKey(KeyBoard[y][x], 0), KEYEVENTF_KEYUP, 0);
+void CRanking::SendKeyBoard(unsigned char VK) {
+	keybd_event(VK, (BYTE)MapVirtualKey(VK, 0), 0, 0);
+	keybd_event(VK, (BYTE)MapVirtualKey(VK, 0), KEYEVENTF_KEYUP, 0);//入力したものは保存されているか
 }
 
 void CRanking::PadOperation() {
 
-	
-	//MOF_PRINTLOG("V%f H%f\n", g_pGamePad->GetStickVertical(), g_pGamePad->GetStickHorizontal());
-	//MOF_PRINTLOG("%f\n", g_pGamePad->GetPadState()->lZ);
-
+	//シフトボタンを押すと固定でもう一度押すと解除
 	if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
-
+		//編集可能
 		g_pImeInput->SetEnable(TRUE);
-		m_bPadInputMode = true;
+		m_bInputEnable = true;
+	
+		
 	}
 
+	if (!m_bInputEnable) {
+
+		return;
+
+	}
+	
+	if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
+
+		m_KeySelectX--;
+		if (m_KeySelectY >= 1&&m_KeySelectX<0) {
+
+			m_KeySelectX = 9;
+			m_KeySelectY--;
+
+		}
+		else if (m_KeySelectY == 0 && m_KeySelectX < 0) {
+
+			m_KeySelectX = 0;
+		}
+		
+
+	}else if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
+
+		m_KeySelectX++;
+
+		if (m_KeySelectY < 3 && m_KeySelectX>9) {
+
+			m_KeySelectX = 0;
+			m_KeySelectY++;
+
+		}
+		else if (m_KeySelectY == 3 && m_KeySelectX > 9) {
+
+			m_KeySelectX = 9;
+		}
+
+	}else if (g_pGamePad->IsKeyPush(GAMEKEY_Y)) {
+
+		m_KeySelectY--;
+		if (m_KeySelectY < 0) {
+
+			m_KeySelectY = 0;
+		}
+
+	}else if (g_pGamePad->IsKeyPush(GAMEKEY_A)) {
+
+		m_KeySelectY++;
+		if (m_KeySelectY > 3) {
+
+			m_KeySelectY = 3;
+
+		}
+	}
+
+	
+
+
+	if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
+
+		SendKeyBoard(KeyBoard[m_KeySelectY][m_KeySelectX]);
+		
+
+	}
+
+	
+
+	//入力確定
 	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
 
-		m_bPadInputMode = false;
+		m_bInputEnable = false;
+
+		//入力確定文字列として追加
+		m_String += g_pImeInput->GetEnterString()->GetString();
+
+		//入力された値を保存
+		RankingEntry* re = new RankingEntry;
+		re->Name = m_String;
+		re->IconRect = CRectangle(0, 0, 0, 0);
+		re->Score = 0;
+		m_RankingEntryArray.Add(&re);
+		delete re;
+		re = nullptr;
+		//追加したら入力中文字列リセット
+		g_pImeInput->ResetEnterString();
+		//入力を無効にする
+		g_pImeInput->SetEnable(FALSE);
+
+		m_KeySelectX = 0;
+		m_KeySelectY = 0;
+		
 
 	}
 
-	if (!m_bPadInputMode) {
-
-		return;
-
-	}
-
-	if (g_pGamePad->GetStickHorizontal() <= 0.04f&&g_pGamePad->GetStickHorizontal() >= -0.04f ||
-		g_pGamePad->GetStickVertical() <= 0.04f&&g_pGamePad->GetStickVertical() >= -0.04f) {
-
-		return;
-
-	}
-
-	 
-	m_PosCircle.x += g_pGamePad->GetStickHorizontal()*2;
-	m_PosCircle.y += g_pGamePad->GetStickVertical()*2;
-
-	/*if (CollisionRectCircle()) {
+	
 
 
-	}*/
+
+	
 
 	
 	

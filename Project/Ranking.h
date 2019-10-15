@@ -23,23 +23,26 @@ typedef struct tag_RankingEntry {
 class CRanking : public CSceneBase {
 private:
 	//! Ime関連
-	CTexturePtr					 m_pTexture;
+
 	CString						 m_String;
 	int							 m_VisibleCount;		//点滅用カウント
 	Vector2						 m_MousePos;
 	Vector2						 m_PadPos;
 	Vector2						 m_KeyOffSet;
-	CCircle						 m_PosCircle;
 	CFont					     m_NameFont;			//ランキング登録用フォント
 	bool						 m_bInputEnable;		//入力中かの判定
-	bool						 m_bPadInputMode;
+	bool						 m_bShift;
+	
 	int							 m_CursolPointX;
+
+	int							 m_KeySelectX;
+	int							 m_KeySelectY;
 
 	bool					     m_bInit;
 
 	int							 m_InputCount;
 
-	
+
 
 	CDynamicArray<RankingEntry*> m_RankingEntryArray;	//ランキング登録を記録する配列
 
@@ -53,13 +56,14 @@ public:
 	void RenderDebug();
 	void Release();
 	int GetSceneName(void) { return SCENENO_RANKING; }
+	void Colision(/*CRectangle r,CCircle c*/);
 
 	//------------------------------------------------------------------------------------------
 	void ImeInit();
 	void ImeUpdate();
 	void ImeRender();
 
-	void SendKeyBoard(int y, int x);
+	void SendKeyBoard(unsigned char VK);
 	void PadOperation(void);
 
 	void KeyRender(void);

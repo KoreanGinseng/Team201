@@ -544,7 +544,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 
 
-	}
+	}//シフトキーと保存
 
 
 }
