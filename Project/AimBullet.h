@@ -1,5 +1,6 @@
 #pragma once
 #include "EnemyShot.h"
+#include "EnemyDefine.h"
 
 class CAimBullet :public CEnemyShot {
 private:

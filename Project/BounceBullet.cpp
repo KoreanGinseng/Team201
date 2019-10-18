@@ -1,7 +1,8 @@
 #include	"BounceBullet.h"
 CBounceBullet::CBounceBullet():
 	CEnemyShot(),
-	m_BounceTimes(0)
+	m_BounceTimes(0),
+	m_ExplosionTime(0)
 {
 
 }
@@ -11,10 +12,11 @@ CBounceBullet::~CBounceBullet(){
 void CBounceBullet::Initialize() {
 	m_PosX = 0;
 	m_PosY = 0;
-	m_SpdX = -BulletSpeed;
-	m_SpdY = 0;
+	m_SpdX = -BosBulletSpeed;
+	m_SpdY = -5;
 	m_bShow = false;
 	m_BounceTimes = Bounce_Times;
+	m_ExplosionTime = ExplosionTime;
 }
 void CBounceBullet::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
@@ -73,7 +75,7 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 			m_BounceTimes--;
 		}
 		else if (m_BounceTimes == 1) {
-			m_SpdY = Jumping_Power;
+			m_SpdY = Jumping_Power * 0.8;
 			m_BounceTimes--;
 
 		}
@@ -81,6 +83,10 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 		{
 			m_SpdY = 0;
 			m_SpdX = 0;
+			m_ExplosionTime -= CUtilities::GetFrameSecond();
+			if (m_ExplosionTime<=0) {
+				m_bShow = false;
+			}			
 		}
 	}
 	else if (oy > 0 && m_PosY < 0) {
@@ -89,7 +95,7 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 			m_BounceTimes--;
 		}
 		else if (m_BounceTimes == 1) {
-			m_SpdY = Jumping_Power;
+			m_SpdY = Jumping_Power * 0.8;
 			m_BounceTimes--;
 
 		}
@@ -97,6 +103,10 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 		{
 			m_SpdY = 0;
 			m_SpdX = 0;
+			m_ExplosionTime -= CUtilities::GetFrameSecond();
+			if (m_ExplosionTime<=0) {
+				m_bShow = false;
+			}
 
 		}
 	}

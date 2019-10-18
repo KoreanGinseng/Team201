@@ -37,8 +37,8 @@ void CAimBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
 	ddx = dx / d;
 	ddy = dy / d;
-	m_SpdX = ddx;
-	m_SpdY = ddy;
+	m_SpdX = ddx* BulletSpeed;
+	m_SpdY = ddy* BulletSpeed;
 }
 void CAimBullet::Update() {
 	if (!m_bShow) {

@@ -5,21 +5,7 @@
 
 
 
-enum ENEMY
-{
-	ENEMY_KURIBO,
-	ENEMY_NOKONOKO,
-	ENEMY_TERESA,
-	ENEMY_BAT,
-	ENEMY_KOTEIHOUDAI,
-};
 
-enum BAT_ANIM
-{
-	BAT_MOVE,
-	BAT_DOWN,
-	BAT_ANIMCOUNT,
-};
 
 class CEnemyMove {
 protected:

@@ -16,25 +16,14 @@ void CAtack_KOTEIHOUDAI::Initialize() {
 	m_PlayerPlaceX=0;
 	m_PlayerPlaceY=0; 
 	for (int i = 0; i < ENEMYSHOT_COUNT;i++) {
-		m_ShotArry[i] = new CBounceBullet();//ƒeƒXƒg
+		m_ShotArry[i] = new CAimBullet();
 		m_ShotArry[i]->Initialize();
 	}
 }
 void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
 
-	
-
-	
-	
-
-
 	if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 		m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
-
-		/*m_fAtackPosX += (ddx * BulletSpeed);
-
-		m_fAtackPosY += (ddy * BulletSpeed);*/
-
 		if (m_fAtackTimer < 0) {
 			m_fCooltime = CoolTime;
 			m_bShow = false;

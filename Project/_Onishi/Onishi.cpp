@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_KOTEIHOUDAI;//デバック
+	gEnemytype = ENEMY_TESTBOS;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
@@ -80,6 +80,14 @@ void COnishi::Initialize() {
 	case ENEMY_KOTEIHOUDAI:
 		gEnemy = new CENEMY_KOTEIHOUDAI();
 		gAtack = new CAtack_KOTEIHOUDAI();
+		break;
+	case ENEMY_TESTBOS:
+		gEnemy = new CEnemy_TESTBOS();
+		gAtack = new CAtack_TESTBOS();
+		break;
+	case ENEMY_FLOATING:
+		gEnemy = new CENEMY_FLOATING();
+		gAtack = new CAtack_TERESA();
 		break;
 	}
 
@@ -151,6 +159,16 @@ void COnishi::Update() {
 			gEnemytype = ENEMY_KOTEIHOUDAI;
 			gEnemy = new CENEMY_KOTEIHOUDAI();
 			gAtack = new CAtack_KOTEIHOUDAI();
+		}
+		else if (gEnemytype == ENEMY_KOTEIHOUDAI) {
+			gEnemytype = ENEMY_TESTBOS;
+			gEnemy = new CEnemy_TESTBOS();
+			gAtack = new CAtack_TESTBOS();
+		}
+		else if (gEnemytype == ENEMY_TESTBOS) {
+			gEnemytype = ENEMY_FLOATING;
+			gEnemy = new CENEMY_FLOATING();
+			gAtack = new CAtack_TERESA();
 		}
 		else
 		{

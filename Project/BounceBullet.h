@@ -5,6 +5,7 @@
 class CBounceBullet :public CEnemyShot {
 private:
 	int m_BounceTimes;
+	float m_ExplosionTime;
 public:
 	CBounceBullet();
 	~CBounceBullet();

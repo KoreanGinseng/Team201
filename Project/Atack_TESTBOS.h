@@ -1,24 +1,18 @@
 #pragma once
 #include	"_Onishi/EnemyAtack.h"
-#include	"EnemyDefine.h"
 #include	"EnemyShot.h"
 #include	"AimBullet.h"
-//#include	"BounceBullet.h"
+#include	"BounceBullet.h"
 
-class CAtack_KOTEIHOUDAI :public CEnemyAtack {
+class CAtack_TESTBOS :public CEnemyAtack {
 private:
-	
 	float	m_fAtackTimer;
 	float	m_fCooltime;
-	float	m_PlayerPlaceX;
-	float	m_PlayerPlaceY;
-	
-	CAimBullet* m_AimBullet;
-	CEnemyShot*	m_ShotArry[ENEMYSHOT_COUNT];
-	//CBounceBullet* m_BounceBullet;
+	CEnemyShot* m_ShotAimArry[ENEMYSHOT_COUNT];
+	CEnemyShot*	m_ShotBounceArry;
 public:
-	CAtack_KOTEIHOUDAI();
-	~CAtack_KOTEIHOUDAI();
+	CAtack_TESTBOS();
+	~CAtack_TESTBOS();
 	void Initialize();
 	void Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY);
 	void Render();
