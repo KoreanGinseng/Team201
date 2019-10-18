@@ -146,6 +146,10 @@ void CInoue::Update()
 //描画
 void CInoue::Render()
 {
+
+	//goriosi
+	g_pTextureManager->GetResource("空.png")->Render(0, 0);
+
 	//ステージの描画
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 

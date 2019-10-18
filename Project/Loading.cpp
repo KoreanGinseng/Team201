@@ -14,6 +14,7 @@ CLoading::~CLoading()
 
 void CLoading::Load(void)
 {
+	CUtilities::SetCurrentDirectory("test");
 	g_pEffectManager->Load();
 	for (int i = TEXTURE_PLAYER; i < TEXTURE_COUNT; i++)
 	{
@@ -27,6 +28,7 @@ void CLoading::Load(void)
 	{
 		g_pSoundManager->GetResource(FileName[i]);
 	}
+	CUtilities::SetCurrentDirectory("../");
 	m_pScene->Load();
 }
 

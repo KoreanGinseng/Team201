@@ -11,9 +11,9 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"testMap1-1.txt",
-			"testMap9999.txt",
-			"testMap114514.txt",
+			"testaaa.txt",
+			"testaaa.txt",
+			"testaaa.txt",
 };
 
 //コンストラクタ
