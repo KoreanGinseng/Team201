@@ -73,6 +73,4 @@ public:
 	 * @return ‚È‚µ
 	 *****************************************************************/
 	~CInoue();
-
-	int GetSceneName(void) { return SCENENO_INOUE; }
 };
