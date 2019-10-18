@@ -12,7 +12,7 @@ unsigned char KeyBoard[KEYSIZE_Y][KEYSIZE_X] = {
 	VK_NUMPAD1,VK_NUMPAD2,VK_NUMPAD3,VK_NUMPAD4,VK_NUMPAD5,VK_NUMPAD6,VK_NUMPAD7,VK_NUMPAD8,VK_NUMPAD9,VK_NUMPAD0,VK_OEM_MINUS,VK_OEM_7,VK_BACK,0,//13-1
 	VK_TAB,VK_Q,VK_W,VK_E,VK_R,VK_T,VK_Y,VK_U,VK_I,VK_O,VK_P,VK_OEM_3,VK_OEM_4,0,//13-1
 	VK_A,VK_S,VK_D,VK_F,VK_G,VK_H,VK_J,VK_K,VK_L,VK_OEM_PLUS,VK_OEM_1,VK_OEM_6,0,0,//12-1
-	VK_Z,VK_X,VK_C,VK_V,VK_B,VK_N,VK_M,VK_OEM_COMMA,VK_OEM_PERIOD,VK_OEM_2,VK_OEM_102,0,0,//12-1
+	VK_Z,VK_X,VK_C,VK_V,VK_B,VK_N,VK_M,VK_OEM_COMMA,VK_OEM_PERIOD,VK_OEM_2,VK_OEM_102,0,0,0,//12-1
 	VK_SPACE,VK_SHIFT,0,0,0,0,0,0,0,0,0,0,0,0,//1-1
 };
 
@@ -72,7 +72,7 @@ void CRanking::Render() {
 void CRanking::RenderDebug() {
 	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
 	CGraphicsUtilities::RenderRect(m_KeyOffSet.x + ((m_KeySelectX+1) * 32), m_KeyOffSet.y + ((m_KeySelectY) * 32), m_KeyOffSet.x + ((m_KeySelectX + 1) * 32) + 32, m_KeyOffSet.y + ((m_KeySelectY ) * 32) + 32, MOF_XRGB(0, 255, 0));
-	CGraphicsUtilities::RenderString(0, 100, "%d", m_KeyMaxSize);
+	CGraphicsUtilities::RenderString(0, 100, "KeyMaxSize %d KeySelectX %d KeySelectY %d", m_KeyMaxSize,m_KeySelectX,m_KeySelectY);
 }
 
 void CRanking::Release() {
@@ -192,7 +192,7 @@ void CRanking::KeyRender() {
 				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "!\"#$%&\'()=~B");
 				break;
 			case 1:
-				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "TQWERTYUIOP@{");
+				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "TQWERTYUIOP`{");
 				break;
 			case 2:
 				String(m_KeyOffSet.x, m_KeyOffSet.y + y * 32, FONT_SIZE, "ASDFGHJKL+*}");
@@ -246,7 +246,7 @@ void CRanking::KeyRender() {
 
 void CRanking::SendKeyBoard(unsigned char VK) {
 	keybd_event(VK, (BYTE)MapVirtualKey(VK, 0), 0, 0);
-	keybd_event(VK, (BYTE)MapVirtualKey(VK, 0), KEYEVENTF_KEYUP, 0);//入力したものは保存されているか
+	keybd_event(VK, (BYTE)MapVirtualKey(VK, 0), KEYEVENTF_KEYUP, 0);
 }
 
 void CRanking::PadOperation() {
@@ -269,7 +269,7 @@ void CRanking::PadOperation() {
 	//VKの操作
 	VKOperation();
 
-	//保存と入力方法
+	//保存
 	RankingSave();
 
 }
@@ -346,7 +346,8 @@ void CRanking::VKOperation() {
 
 	}
 
-	if (m_KeySelectY == KEYSIZE_Y-1&&m_KeySelectX==m_KeyMaxSize) {
+	//shftキーに入らん
+	if (KeyBoard[m_KeySelectY][m_KeySelectY] == VK_SHIFT) {
 
 		if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
 
@@ -355,14 +356,6 @@ void CRanking::VKOperation() {
 			return;
 
 		}
-
-	}
-
-
-	if (g_pGamePad->IsKeyPush(GAMEKEY_BACK)) {
-
-		keybd_event(VK_BACK, (BYTE)MapVirtualKey(VK_LSHIFT, 0), 0, 0);
-		keybd_event(VK_BACK, (BYTE)MapVirtualKey(VK_LSHIFT, 0), KEYEVENTF_KEYUP, 0);
 	}
 
 
@@ -385,6 +378,18 @@ void CRanking::VKOperation() {
 
 
 	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RIGHT)) {
+
+		SendKeyBoard(VK_RIGHT);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_LEFT)) {
+
+		SendKeyBoard(VK_LEFT);
+
+	}
+	
 
 }
 void CRanking::RankingSave() {
@@ -426,6 +431,10 @@ void CRanking::MaxKeyLook() {
 	//keyselectYの最大入っている要素端っこ
 	for (m_KeyMaxSize = 0; KeyBoard[m_KeySelectY][m_KeyMaxSize + 1] != 0; m_KeyMaxSize++) {
 
+		if (m_KeySelectY == KEYSIZE_Y - 1) {
+
+			int i = 0;
+		}
 	}
 
 

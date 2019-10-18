@@ -74,5 +74,5 @@ public:
 	 *****************************************************************/
 	~CInoue();
 
-	int GetSceneName(void) { return SCENENO_INOUE; }
+	
 };
