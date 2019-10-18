@@ -1,7 +1,11 @@
 #include	"Atack_KOTEIHOUDAI.h"
 
 CAtack_KOTEIHOUDAI::CAtack_KOTEIHOUDAI():
-CEnemyAtack(){
+CEnemyAtack(),
+m_fAtackTimer(0),
+m_fCooltime(0),
+m_PlayerPlaceX(0),
+m_PlayerPlaceY(0) {
 
 }
 CAtack_KOTEIHOUDAI::~CAtack_KOTEIHOUDAI() {

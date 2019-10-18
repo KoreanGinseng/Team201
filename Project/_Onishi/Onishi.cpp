@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_TESTBOS;//デバック
+	gEnemytype = ENEMY_KOTEIHOUDAI;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
@@ -177,6 +177,7 @@ void COnishi::Update() {
 			gAtack = new CAtack_KURIBO();
 		}
 			gEnemy->Initialize();
+			gAtack->Initialize();
 	}
 
 
