@@ -2,7 +2,7 @@
 
 int WINAPI _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow )
 {
-	_CrtSetBreakAlloc(1314);
+	//_CrtSetBreakAlloc(1314);
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
 	Mof::LPFramework pFrame = new Mof::CDX11GameFramework(); 
