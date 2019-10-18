@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_KOTEIHOUDAI;//デバック
+	gEnemytype = ENEMY_TESTBOS;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
@@ -139,7 +139,7 @@ void COnishi::Update() {
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
 
 		gEnemy->Release();
-
+		gAtack->Release();
 		if (gEnemytype == ENEMY_KURIBO) {
 			gEnemytype = ENEMY_NOKONOKO;
 			gEnemy = new CENEMY_NOKONOKO();
