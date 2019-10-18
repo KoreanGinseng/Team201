@@ -66,5 +66,5 @@ public:
 
 	//’Ç‰Á
 	bool GetKey() { return KeyFlag; }
-	void CollisonObject(float ox, float oy);
+	
 };

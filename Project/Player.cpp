@@ -376,32 +376,3 @@ void CPlayer::KeyFalse(void)
 {
 	KeyFlag = false;
 }
-
-void CPlayer::CollisonObject(float ox, float oy)
-{
-	m_PosX += ox;
-	m_PosY += oy;
-	//落下中の下埋まりの場合は移動を初期化する
-	if (oy < 0 && m_MoveY>0)
-	{
-		m_MoveY = 0;
-		if (m_bJump)
-		{
-			//jumpendアニメーション
-		}
-	}
-	else if (oy > 0 && m_MoveY < 0)
-	{
-		m_MoveY = 0;
-	}
-	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化
-	if (ox < 0 && m_MoveX>0)
-	{
-		m_MoveX = 0;
-	}
-	else if (ox > 0 && m_MoveX < 0)
-	{
-		m_MoveX = 0;
-	}
-
-}

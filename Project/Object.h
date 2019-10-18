@@ -14,7 +14,7 @@ private:
 	bool					m_bShow;
 	CRectangle				m_SrcRect;
 	bool					bFlag;
-
+	int ObjNo = 0;
 
 	//現在のモーションフラグ
 	enum tag_MOTION {
@@ -50,6 +50,6 @@ public:
 	void ChangeEnd();
 
 	//obj
-	bool Collision(CRectangle r,float ox,float oy);
+	bool Collision(CRectangle r,float& ox,float& oy);
 };
 

@@ -80,11 +80,6 @@ void CGame::Update() {
 		m_Player.CollisionStage(o);
 	}
 
-	//オブジェクトとプレイヤーの当たり判定
-	
-
-
-
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
@@ -144,17 +139,18 @@ void CGame::Update() {
 			else
 			{
 				m_pObjArray[i].ChangeEnd();
-				
 			}
 		}
 
-		m_pObjArray[i].Update();
 		float ox = 0,oy = 0;
 		if (m_pObjArray[i].Collision(m_Player.GetRect(), ox, oy))
 		{
-			m_Player.CollisonObject(ox, oy);
+			m_Player.CollisionStage(Vector2(ox, oy));
 		}
+		m_pObjArray[i].Update();
 	}
+
+
 
 	Vector2 centerPos = m_Player.GetPos()
 		- Vector2(g_pGraphics->GetTargetWidth() / 2,
