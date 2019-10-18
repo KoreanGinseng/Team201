@@ -71,7 +71,7 @@ void CItem::Update(void){
 /**
  * •`‰æ
  */
-void CItem::Render(Vector2 sp){
+void CItem::Render(Vector2 sp) {
 	//”ñ•\Ž¦
 	if(!m_bShow)
 	{
