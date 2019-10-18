@@ -31,7 +31,7 @@ enum BAT_ANIM
 
 //Atack_KOTEIHOUDAI
 	#define		PI	3.14159
-	#define		BulletSpeed	10
+	#define		BulletSpeed	8
 	#define		ENEMYSHOT_COUNT	50
 
 //BounceBullet
@@ -42,6 +42,7 @@ enum BAT_ANIM
 
 //Atack_TESTBOS.cpp
 #define BosBulletSpeed 5
+#define BosAtackRange	600
 
 //ENEMY_FLOATING.cpp
 #define	CrawlRange	100
