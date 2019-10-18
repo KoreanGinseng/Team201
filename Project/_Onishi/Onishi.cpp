@@ -242,6 +242,12 @@ void COnishi::Render() {
 	case ENEMY_KOTEIHOUDAI:
 		CGraphicsUtilities::RenderString(100, 0, "ŒÅ’è–C‘ä");
 		break;
+	case ENEMY_TESTBOS:
+		CGraphicsUtilities::RenderString(100, 0, "‘Œ´‚Ìƒ{ƒX");
+		break;
+	case ENEMY_FLOATING:
+		CGraphicsUtilities::RenderString(100, 0, "•Y‚¤“G");
+		break;
 	}
 	CGraphicsUtilities::RenderLine(0, 600, g_pGraphics->GetTargetWidth(), 600, MOF_COLOR_WHITE);
 	CGraphicsUtilities::RenderLine(200, 0, 200, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);

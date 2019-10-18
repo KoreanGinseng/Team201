@@ -117,3 +117,7 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 		m_SpdX = 0;
 	}
 }
+
+void CBounceBullet::Release() {
+
+}

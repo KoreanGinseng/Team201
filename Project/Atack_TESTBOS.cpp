@@ -79,5 +79,18 @@ void CAtack_TESTBOS::Render() {
 	m_ShotBounceArry->Render();
 }
 void CAtack_TESTBOS::Release() {
+	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+		if (m_ShotAimArry[i]) {
+			m_ShotAimArry[i]->Release();
+			delete m_ShotAimArry[i];
+			m_ShotAimArry[i] = NULL;
+		}
+	}
+	if (m_ShotBounceArry) {
+		m_ShotBounceArry->Release();
+		delete 	m_ShotBounceArry;
+		m_ShotBounceArry = NULL;
+
+	}
 
 }

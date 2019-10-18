@@ -68,5 +68,11 @@ void CAtack_KOTEIHOUDAI::Render() {
 	//CGraphicsUtilities::RenderFillCircle(m_fAtackPosX,m_fAtackPosY,5,MOF_COLOR_RED);
 }
 void CAtack_KOTEIHOUDAI::Release() {
-
+	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+		if (m_ShotArry[i]) {
+			m_ShotArry[i]->Release();
+			delete m_ShotArry[i];
+			m_ShotArry[i] = NULL;
+		}
+	}
 }

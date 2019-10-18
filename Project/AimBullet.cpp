@@ -57,3 +57,6 @@ void CAimBullet::Render() {
 	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, 5, MOF_COLOR_RED);
 }
 
+void CAimBullet::Release() {
+
+}

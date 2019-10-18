@@ -20,6 +20,7 @@ public:
 	virtual void Fire(float px,float py,float sx,float sy,float pPosx,float pPosy)=0;
 	virtual void Update()=0;
 	virtual void Render()=0;
+	virtual void Release()=0;
 	//void SetTexture(CTexture* pt) { m_pTexture = pt; }
 	bool GetShow() { return m_bShow; }
 	bool SetShow(bool bs) { m_bShow = bs; }
