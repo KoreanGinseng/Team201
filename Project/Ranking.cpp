@@ -9,7 +9,7 @@
 //};
 
 unsigned char KeyBoard[KEYSIZE_Y][KEYSIZE_X] = {
-	VK_NUMPAD1,VK_NUMPAD2,VK_NUMPAD3,VK_NUMPAD4,VK_NUMPAD5,VK_NUMPAD6,VK_NUMPAD7,VK_NUMPAD8,VK_NUMPAD9,VK_NUMPAD0,VK_OEM_MINUS,VK_OEM_7,VK_BACK,0,//13-1
+	VK_1,VK_2,VK_3,VK_4,VK_5,VK_6,VK_7,VK_8,VK_9,VK_0,VK_OEM_MINUS,VK_OEM_7,VK_BACK,0,//13-1
 	VK_TAB,VK_Q,VK_W,VK_E,VK_R,VK_T,VK_Y,VK_U,VK_I,VK_O,VK_P,VK_OEM_3,VK_OEM_4,0,//13-1
 	VK_A,VK_S,VK_D,VK_F,VK_G,VK_H,VK_J,VK_K,VK_L,VK_OEM_PLUS,VK_OEM_1,VK_OEM_6,0,0,//12-1
 	VK_Z,VK_X,VK_C,VK_V,VK_B,VK_N,VK_M,VK_OEM_COMMA,VK_OEM_PERIOD,VK_OEM_2,VK_OEM_102,0,0,0,//12-1
@@ -62,7 +62,7 @@ void CRanking::Render() {
 	ImeRender();
 	
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
-		//CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i]->Name.GetString());
+		CGraphicsUtilities::RenderString(10, 100 + i * 50, "%s", m_RankingEntryArray[i].Name.GetString());
 	}
 
 	KeyRender();
@@ -122,7 +122,7 @@ void CRanking::ImeUpdate() {
 	}
 	
 
-	////エンターキーを押した時に入力中文字があれば
+	//エンターキーを押した時に入力中文字があれば
 	//if (g_pImeInput->GetEnterString()->GetLength() > 0) //ここ
 	//{
 	//	//登録する名前はこれでよろしか
@@ -346,8 +346,8 @@ void CRanking::VKOperation() {
 
 	}
 
-	//shftキーに入らん
-	if (KeyBoard[m_KeySelectY][m_KeySelectY] == VK_SHIFT) {
+	
+	if (KeyBoard[m_KeySelectY][m_KeySelectX] == VK_SHIFT) {
 
 		if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
 
@@ -431,10 +431,7 @@ void CRanking::MaxKeyLook() {
 	//keyselectYの最大入っている要素端っこ
 	for (m_KeyMaxSize = 0; KeyBoard[m_KeySelectY][m_KeyMaxSize + 1] != 0; m_KeyMaxSize++) {
 
-		if (m_KeySelectY == KEYSIZE_Y - 1) {
-
-			int i = 0;
-		}
+		
 	}
 
 
