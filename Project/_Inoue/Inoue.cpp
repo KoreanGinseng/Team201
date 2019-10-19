@@ -70,14 +70,14 @@ void CInoue::Update()
 		return;
 	}
 
-	//プレイヤーの更新
-	m_Player.Update();
 
 	//プレイヤーがスキル発動時の場合、
 	if (m_Player.IsTrigger())
 	{
 		m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 	}
+	//プレイヤーの更新
+	m_Player.Update();
 
 	Vector2 o(0, 0);
 	//プレイヤーとステージの当たり判定
