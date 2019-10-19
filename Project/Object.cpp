@@ -60,6 +60,7 @@ void CObject::Render(Vector2 sp) {
 	}
 	//テクスチャの描画
 	m_pTexture->Render(sp.x, sp.y, m_SrcRect);
+	RenderDebug(sp);
 }
 
 void CObject::RenderDebug(Vector2 sp) {
@@ -70,7 +71,13 @@ void CObject::RenderDebug(Vector2 sp) {
 	}
 	//当たり判定の表示
 	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
-	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
+	if (m_bTarget) {
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(0, 255, 0));
+	}
+	else {
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
+
+	}
 }
 
 void CObject::Release(void) {

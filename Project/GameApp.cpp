@@ -45,9 +45,9 @@ MofBool CGameApp::Initialize(void){
 	CUtilities::SetCurrentDirectory("Resource/test");
 	
 	//gpScene = new CTitle();			//タイトルから開始
-	//gpScene = new CGame();
+	gpScene = new CGame();
 #ifdef _DEBUG
-	gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
+	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
 	if (gpLoading == nullptr)

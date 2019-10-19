@@ -95,6 +95,8 @@ void CEnemy::Render(const Vector2& sp){
 	}
 	//テクスチャの描画
 	m_pTexture->Render(sp.x, sp.y, dr);
+
+	RenderDebug(sp);
 }
 
 /**
@@ -108,7 +110,14 @@ void CEnemy::RenderDebug(const Vector2& sp){
 	}
 	//当たり判定の表示
 	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
-	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
+	if (m_bTarget) {
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(0, 255, 0));
+	}
+	else {
+		CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
+
+	}
+
 }
 
 /**

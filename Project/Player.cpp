@@ -49,6 +49,8 @@ void CPlayer::Initialize(void)
 	m_bPowUp = false;
 	//スキルの範囲を初期化
 	m_Skillrang = 0.0f;
+	//ターゲット選択の初期化
+	m_Target = 0;
 	//
 	m_CoolTime = 100.0f;
 	//
@@ -99,6 +101,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 {
 	/*CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
 	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);*/
+	CGraphicsUtilities::RenderString(0, 100, "%d", m_SkillTarget.size());
 	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
@@ -149,15 +152,15 @@ void CPlayer::PadOparation(void)
 	}
 
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500/* && m_CoolTime > 0.0f*/)
-	{
-		m_bTrigger = true;
-	}
-	else if (g_pGamePad->GetPadState()->lZ < 1)
-	{
-		m_bTrigger = false;
-	}
-	//Skill();
+	//if (g_pGamePad->GetPadState()->lZ > 500/* && m_CoolTime > 0.0f*/)
+	//{
+	//	m_bTrigger = true;
+	//}
+	//else if (g_pGamePad->GetPadState()->lZ < 1)
+	//{
+	//	m_bTrigger = false;
+	//}
+	Skill();
 }
 
 //キーオペレーション
@@ -338,17 +341,17 @@ void CPlayer::Skill() {
 	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
 	m_SkillCircle.r = m_Skillrang;
 
-	////LTボタンを押した場合、スキルが発動
-	//if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
+	//LTボタンを押した場合、スキルが発動
+	if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
 
-	//	m_bTrigger = true;
+		m_bTrigger = true;
 
-	//}
-	//else if (g_pGamePad->GetPadState()->lZ < 1) {
+	}
+	else if (g_pGamePad->GetPadState()->lZ < 1) {
 
-	//	m_bTrigger = false;
+		m_bTrigger = false;
 
-	//}
+	}
 
 	//スキルが発動している場合ターゲットの範囲を広げる
 	if (m_bTrigger) {
@@ -479,10 +482,10 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	}
 	);
 
-	/*int no = 0;
+	int no = 0;
 	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
 		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
-	}*/
+	}
 
 	//ソートされた敵かオブジェクトをベクトルに入れる
 	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
