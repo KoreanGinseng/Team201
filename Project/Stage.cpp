@@ -228,7 +228,7 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			}
 			pObj[n].SetTexture(m_pObjectTexture[on]);
 			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
 		}
 	}
 }

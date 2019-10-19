@@ -11,13 +11,13 @@ CObject::~CObject()
 {
 }
 
-void CObject::Initialize(float px, float py) {
+void CObject::Initialize(float px, float py, const int& cn) {
 	m_Pos.x = px;
 	m_Pos.y = py;
 	m_bShow = true;
 	//アニメーションを作成
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnim(), c);
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnim(), c);
 	if (m_bMotionEnd)
 	{
 		m_Motion.ChangeMotion(MOTION_END);

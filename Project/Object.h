@@ -6,11 +6,11 @@
 class CObject : public CSubstance
 {
 private:
-	CTexturePtr				m_pTexture;
+	CTexturePtr							m_pTexture;
 	CSpriteMotionController				m_Motion;
-	bool					m_bMotionEnd;
-	bool					m_bShow;
-	CRectangle				m_SrcRect;
+	bool								m_bMotionEnd;
+	bool								m_bShow;
+	CRectangle							m_SrcRect;
 
 	enum tag_MOTION {
 		MOTION_START,
@@ -21,7 +21,7 @@ private:
 public:
 	CObject();
 	~CObject();
-	void Initialize(float px, float py);
+	void Initialize(float px, float py, const int& cn);
 	void Update(void);
 	void Render(Vector2 sp);
 	void RenderDebug(Vector2 sp);

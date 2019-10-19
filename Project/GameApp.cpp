@@ -136,11 +136,11 @@ MofBool CGameApp::Update(void){
 	}
 
 	// Oキーでステージ変更
-	if (gpScene->GetSceneName() == SCENENO_GAME && g_pInput->IsKeyPush(MOFKEY_O))
+	if (gpScene->GetSceneName() == SCENENO_INOUE && g_pInput->IsKeyPush(MOFKEY_O))
 	{
 		gpScene->Release();
 		delete gpScene;
-		CGame::NextStage();
+		CInoue::NextStage();
 		gpScene = new CInoue();
 		gpLoading->Release();
 		delete gpLoading;
