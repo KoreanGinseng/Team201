@@ -42,12 +42,11 @@ bool			gbDebug = false;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-	CUtilities::SetCurrentDirectory("Resource/test");
+	CUtilities::SetCurrentDirectory("Resource");
 	
 	//gpScene = new CTitle();			//タイトルから開始
 	//gpScene = new CGame();
 #ifdef _DEBUG
-	CUtilities::SetCurrentDirectory("../");
 	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
 	gpScene = new CInoue()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
@@ -142,7 +141,7 @@ MofBool CGameApp::Update(void){
 		gpScene->Release();
 		delete gpScene;
 		CGame::NextStage();
-		gpScene = new CGame();
+		gpScene = new CInoue();
 		gpLoading->Release();
 		delete gpLoading;
 		gpLoading = new CLoading();

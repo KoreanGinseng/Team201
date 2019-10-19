@@ -16,7 +16,6 @@
 #include	"Substance.h"
 #include	<vector>
 #include	<list>
-using namespace std;
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
@@ -34,7 +33,7 @@ private:
 	Vector2				m_Pos;
 	Vector2				m_Move;
 	Vector2				m_Spd;
-	vector<CSubstance*>	m_SkillTarget;
+	std::vector<CSubstance*>	m_SkillTarget;
 	bool				m_bMove;
 	bool				m_bReverse;
 	bool				m_bJump;

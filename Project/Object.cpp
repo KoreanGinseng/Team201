@@ -15,7 +15,6 @@ void CObject::Initialize(float px, float py) {
 	m_Pos.x = px;
 	m_Pos.y = py;
 	m_bShow = true;
-	m_bAnim = false;
 	//アニメーションを作成
 	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnimCount();
 	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1])->GetAnim(), c);
@@ -32,12 +31,12 @@ void CObject::Update(void) {
 		return;
 	}
 
-	if (m_bAnim)
+	if (m_bSkill)
 	{
 		m_Motion.AddTimer(CUtilities::GetFrameSecond());
 		if (m_Motion.IsEndMotion())
 		{
-			m_bAnim = false;
+			m_bSkill = false;
 			if (m_Motion.GetMotionNo() == MOTION_START)
 			{
 				m_Motion.ChangeMotion(MOTION_END);
@@ -80,9 +79,4 @@ void CObject::Release(void) {
 void CObject::CollisionStage(const Vector2& o)
 {
 	m_Pos += o;
-}
-
-void CObject::Animation(void)
-{
-	m_bAnim = true;
 }

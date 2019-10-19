@@ -34,7 +34,8 @@ void CPlayer::Initialize(void)
 	int c = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnimCount();
 	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim(), c);
 	//座標の初期化
-	m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
+	//m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
+	m_Pos = Vector2(960, 768);
 	//移動量の初期化
 	m_Move = Vector2(0, 0);
 	//移動速度の初期化
@@ -92,6 +93,7 @@ void CPlayer::Render(Vector2 screenPos)
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 
 	RenderDebug(screenPos);
+	MOF_PRINTLOG("%.1f,%.1f\n", m_Pos.x, m_Pos.y);
 }
 
 //デバッグ描画
@@ -152,12 +154,40 @@ void CPlayer::PadOparation(void)
 	if (g_pGamePad->GetPadState()->lZ > 500/* && m_CoolTime > 0.0f*/)
 	{
 		m_bTrigger = true;
+		if (!m_SkillTarget.empty())
+		{
+			//LBまたはRBでターゲットを変更
+			if (g_pGamePad->IsKeyPush(GAMEKEY_LB))
+			{
+				if (--m_Target < 0)
+				{
+					m_Target = m_SkillTarget.size() - 1;
+				}
+			}
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_RB))
+			{
+				if (++m_Target >= m_SkillTarget.size())
+				{
+					m_Target = 0;
+				}
+			}
+			//RTトリガーを押したとき選択中の敵にスキルを使用
+			if (g_pGamePad->GetPadState()->lZ < 100.0f)
+			{
+				m_bTrigger = false;
+				m_SkillTarget[m_Target]->SetSkill();
+				for (int i = 0; i < m_SkillTarget.size(); i++)
+				{
+					m_SkillTarget[i]->SetTarget(false);
+				}
+			}//シフトキーと保存
+		}
 	}
 	else if (g_pGamePad->GetPadState()->lZ < 1)
 	{
 		m_bTrigger = false;
 	}
-	//Skill();
+
 }
 
 //キーオペレーション
@@ -201,6 +231,35 @@ void CPlayer::KeyOparation(void)
 	if (g_pInput->IsKeyHold(MOFKEY_SPACE) /*&& m_CoolTime > 0.0f*/)
 	{
 		m_bTrigger = true;
+		//Listが空の場合、処理をしない
+		if (!m_SkillTarget.empty())
+		{
+			//ZまたはXでターゲットを変更
+			if (g_pInput->IsKeyPush(MOFKEY_Z))
+			{
+				if (--m_Target < 0)
+				{
+					m_Target = m_SkillTarget.size() - 1;
+				}
+			}
+			else if (g_pInput->IsKeyPush(MOFKEY_X))
+			{
+				if (++m_Target >= m_SkillTarget.size())
+				{
+					m_Target = 0;
+				}
+			}
+			//Cを押したとき選択中の敵にスキルを使用
+			if (g_pInput->IsKeyPush(MOFKEY_C))
+			{
+				m_bTrigger = false;
+				m_SkillTarget[m_Target]->SetSkill();
+				for (int i = 0; i < m_SkillTarget.size(); i++)
+				{
+					m_SkillTarget[i]->SetTarget(false);
+				}
+			}//シフトキーと保存
+		}
 	}
 	else if (g_pInput->IsKeyPull(MOFKEY_SPACE))
 	{
@@ -292,7 +351,7 @@ void CPlayer::Animation(void)
 void CPlayer::Jump(void)
 {
 	//ジャンプ効果音のテスト処理
-	g_pSoundManager->GetResource(FileName[SOUND_JUMP])->Play();
+	//g_pSoundManager->GetResource(FileName[SOUND_JUMP])->Play();
 
 	//ジャンプフラグを立てる
 	m_bJump = true;
@@ -338,18 +397,6 @@ void CPlayer::Skill() {
 	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
 	m_SkillCircle.r = m_Skillrang;
 
-	////LTボタンを押した場合、スキルが発動
-	//if (g_pGamePad->GetPadState()->lZ > 500/*&&m_CoolTime>0.0f*/) {
-
-	//	m_bTrigger = true;
-
-	//}
-	//else if (g_pGamePad->GetPadState()->lZ < 1) {
-
-	//	m_bTrigger = false;
-
-	//}
-
 	//スキルが発動している場合ターゲットの範囲を広げる
 	if (m_bTrigger) {
 
@@ -394,7 +441,7 @@ void CPlayer::Skill() {
 void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
 
 
-	list<CSubstance*> element;
+	std::list<CSubstance*> element;
 	//ベクトルに入っていたSubstanceのターゲットの初期化
 	for (int i = 0; i < m_SkillTarget.size(); i++) {
 
@@ -441,10 +488,9 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	}
 
 	//Listが空の場合、処理をしない
-	if (element.empty()) {
-
+	if (element.empty())
+	{
 		return;
-
 	}
 
 
@@ -490,30 +536,6 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		m_SkillTarget.push_back(*itr);
 	}
 
-	//LBまたはRBでターゲットを変更
-	if (g_pGamePad->IsKeyPush(GAMEKEY_LB)) {
-
-		m_Target--;
-
-		if (m_Target < 0) {
-
-			m_Target = m_SkillTarget.size() - 1;
-
-		}
-
-	}
-	else if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
-
-		m_Target++;
-
-		if (m_Target >= m_SkillTarget.size()) {
-
-			m_Target = 0;
-
-		}
-
-	}
-
 	//ターゲット中か敵に伝える
 	for (int i = 0; i < m_SkillTarget.size(); i++) {
 
@@ -528,23 +550,4 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 		}
 	}
-
-	//RTトリガーを押したとき選択中の敵にスキルを使用
-	if (g_pGamePad->GetPadState()->lZ < 100.0f) {
-		
-		m_bTrigger = false;
-
-		m_SkillTarget[m_Target]->SetSkill();
-
-		for (int i = 0; i < m_SkillTarget.size(); i++) {
-
-			m_SkillTarget[i]->SetTarget(false);
-
-		}
-
-
-
-	}//シフトキーと保存
-
-
 }
