@@ -128,8 +128,22 @@ void CInoue::Update()
 		Vector2 oo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))
 		{
-			m_pObjArray[i].CollisionStage(oo);
+			//m_pObjArray[i].CollisionStage(oo);
 		}
+		//プレイヤーとの当たり判定
+		bool clime = false;
+		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
+		{
+			if (m_pObjArray[i].GetType() == OBJECT_ROPE)
+			{
+				clime = true;
+			}
+			else
+			{
+				m_Player.CollisionStage(oo);
+			}
+		}
+		m_Player.SetClime(clime);
 	}
 
 	//カメラの更新

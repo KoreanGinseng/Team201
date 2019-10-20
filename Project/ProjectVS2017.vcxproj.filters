@@ -60,9 +60,6 @@
     <ClCompile Include="Stage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -148,7 +145,10 @@
       <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>
     <ClCompile Include="Empty.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,9 +174,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="EffectManager.h">
@@ -264,7 +261,10 @@
       <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
     <ClInclude Include="Empty.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

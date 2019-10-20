@@ -4,6 +4,7 @@
 #include	"GameDefine.h"
 #include	"Empty.h"
 #include	"Rope.h"
+#include	"ObjTree.h"
 
 class CObject : public CSubstance
 {
@@ -32,8 +33,10 @@ public:
 
 	//Collision
 	void CollisionStage(const Vector2& o);
+	bool Collision(CRectangle rect, Vector2& o);
 
 	//Set
+	void SetObject(const int& Type);
 	void SetTexture(CTexturePtr pt)    { m_pTexture = pt; }
 	void SetMotionEnd(const bool& be)  { m_bMotionEnd = be; }
 	void SetShow(const bool& bs)       { m_bShow = bs; }
@@ -42,6 +45,6 @@ public:
 	bool		GetShow(void)	 const { return m_bShow; }
 	//virtual CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
-	void SetObject(const int& Type);
+	int	 GetType(void) { return m_pObjEmp->GetType(); }
 };
 

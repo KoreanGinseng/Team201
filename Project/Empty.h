@@ -11,5 +11,6 @@ public:
 		CRectangle rect(pos.x, pos.y, pos.x + src.GetWidth(), pos.y + src.GetHeight());
 		return rect;
 	}*/
+	virtual int GetType(void) const = 0;
 };
 

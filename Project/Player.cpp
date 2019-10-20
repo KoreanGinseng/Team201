@@ -15,6 +15,7 @@ m_Pos(Vector2(0,0)),
 m_Move(Vector2(0,0)),
 m_Spd(Vector2(0,0)),
 m_bJump(false),
+m_bClime(false),
 m_HP(10),
 m_Stock(3)
 {
@@ -48,6 +49,8 @@ void CPlayer::Initialize(void)
 	m_bJump = false;
 	//パワーアップフラグの初期化
 	m_bPowUp = false;
+	//
+	m_bClime = false;
 	//スキルの範囲を初期化
 	m_Skillrang = 0.0f;
 	//
@@ -104,6 +107,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
+	CGraphicsUtilities::RenderString(0, 130, "%.1f,%.1f", GetRect().Left, GetRect().Top);
 }
 
 //解放
@@ -271,7 +275,10 @@ void CPlayer::KeyOparation(void)
 void CPlayer::Move(void)
 {
 	//移動量に重力をかける
-	m_Move.y += GRAVITY;
+	if (!m_bClime)
+	{
+		m_Move.y += GRAVITY;
+	}
 	m_Pos += m_Move;
 }
 
@@ -368,7 +375,8 @@ void CPlayer::Jump(void)
 }
 
 //当たり判定
-void CPlayer::CollisionStage(Vector2 o) {
+void CPlayer::CollisionStage(Vector2 o)
+{
 	m_Pos += o;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化
 	if (o.y < 0 && m_Move.y > 0)
@@ -390,101 +398,84 @@ void CPlayer::CollisionStage(Vector2 o) {
 	}
 }
 
-void CPlayer::Skill() {
-
+void CPlayer::Skill()
+{
 	//スキルの円に座標や半径を代入
 	m_SkillCircle.x = m_Pos.x + m_SrcRect.GetWidth() / 2;
 	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
 	m_SkillCircle.r = m_Skillrang;
 
 	//スキルが発動している場合ターゲットの範囲を広げる
-	if (m_bTrigger) {
-
+	if (m_bTrigger)
+	{
 		m_Skillrang += 10;
-
 		/*m_CoolTime -= 0.1f;*/
-
-		if (m_Skillrang >= PLAYER_MAXSKILLRANGE) {
-
+		if (m_Skillrang >= PLAYER_MAXSKILLRANGE)
+		{
 			m_Skillrang = PLAYER_MAXSKILLRANGE;
-
 		}
 	}
-	else {
+	else 
+	{
 		//離したまたは押してない状態で
 		//ターゲット範囲が0より大きい場合
-		if (m_Skillrang > 0.0f) {
+		if (m_Skillrang > 0.0f)
+		{
 			//スキル範囲を0にしてターゲットを先頭に戻す(初期化する)
 			m_Skillrang = 0.0f;
 			m_Target = 0;
 			//ベクトルに要素が入っている場合
 			if (!m_SkillTarget.empty()) {
 				//全てのターゲットフラグを下ろし、要素を全てクリアする
-				for (int i = 0; i < m_SkillTarget.size(); i++) {
-
+				for (int i = 0; i < m_SkillTarget.size(); i++)
+				{
 					m_SkillTarget[i]->SetTarget(false);
-
 				}
-
 				m_SkillTarget.clear();
-
 			}
-
 		}
-
 	}
-
-
 }
 
 
 void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
 
-
 	std::list<CSubstance*> element;
 	//ベクトルに入っていたSubstanceのターゲットの初期化
-	for (int i = 0; i < m_SkillTarget.size(); i++) {
-
+	for (int i = 0; i < m_SkillTarget.size(); i++)
+	{
 		m_SkillTarget[i]->SetTarget(false);
-
 	}
 	//ベクトルの要素をクリア
 	m_SkillTarget.clear();
 
 
-	for (int i = 0; i < eneCount; i++) {
-
-		if (!pene[i].GetShow()) {
-
+	for (int i = 0; i < eneCount; i++) 
+	{
+		if (!pene[i].GetShow())
+		{
 			continue;
-
 		}
 
 		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
-		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle)) {
-
+		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle))
+		{
 			element.push_back(&pene[i]);
-
 		}
-
 	}
 
-	for (int i = 0; i < objCount; i++) {
-
-		if (!pobj[i].GetShow()) {
-
+	for (int i = 0; i < objCount; i++)
+	{
+		if (!pobj[i].GetShow())
+		{
 			continue;
-
 		}
 
 		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
-		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle)) {
-
+		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle))
+		{
 			element.push_back(&pobj[i]);
-
 		}
-
-
 	}
 
 	//Listが空の場合、処理をしない
@@ -493,61 +484,50 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 		return;
 	}
 
-
-
 	//プレイヤーの位置
 	float stx = m_Pos.x + m_SrcRect.GetWidth()*0.5f;
 	float sty = m_Pos.y + m_SrcRect.GetHeight();
 
-
-
-		//一つずつv と　v++を比較してソートする
+	//一つずつv と　v++を比較してソートする
 	element.sort(
-		[&](CSubstance*& v1, CSubstance*& v2) {
+		[&](CSubstance*& v1, CSubstance*& v2)
+		{
+			CRectangle rec1 = v1->GetRect();
+			CRectangle rec2 = v2->GetRect();
 
-		CRectangle rec1 = v1->GetRect();
-		CRectangle rec2 = v2->GetRect();
+			Vector2 cv1 = rec1.GetCenter();
+			Vector2 cv2 = rec2.GetCenter();
 
-		Vector2 cv1 = rec1.GetCenter();
-		Vector2 cv2 = rec2.GetCenter();
+			float dx1 = cv1.x - stx;
+			float dy1 = cv1.y - sty;
+			float d1 = (dx1*dx1 + dy1 * dy1);
 
-		float dx1 = cv1.x - stx;
-		float dy1 = cv1.y - sty;
-		float d1 = (dx1*dx1 + dy1 * dy1);
-
-		float dx2 = cv2.x - stx;
-		float dy2 = cv2.y - sty;
-		float d2 = (dx2*dx2 + dy2 * dy2);
-		if (d1 > d2) {
-			return false;
+			float dx2 = cv2.x - stx;
+			float dy2 = cv2.y - sty;
+			float d2 = (dx2*dx2 + dy2 * dy2);
+			if (d1 > d2) {
+				return false;
+			}
+			return true;
 		}
-		return true;
-	}
 	);
 
-	/*int no = 0;
-	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
-		MOF_PRINTLOG("%d[%f/%f]\n", no++, (*itr)->GetRect().GetCenter().x, (*itr)->GetRect().GetCenter().y);
-	}*/
-
 	//ソートされた敵かオブジェクトをベクトルに入れる
-	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) {
-
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) 
+	{
 		m_SkillTarget.push_back(*itr);
 	}
 
 	//ターゲット中か敵に伝える
-	for (int i = 0; i < m_SkillTarget.size(); i++) {
-
-		if (i == m_Target) {
-
+	for (int i = 0; i < m_SkillTarget.size(); i++)
+	{
+		if (i == m_Target)
+		{
 			m_SkillTarget[i]->SetTarget(true);
-
 		}
-		else {
-
+		else
+		{
 			m_SkillTarget[i]->SetTarget(false);
-
 		}
 	}
 }
