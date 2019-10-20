@@ -43,7 +43,7 @@ bool CGame::Load()
 	//アイテムメモリ確保
 	m_pItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
 	//オブジェクトメモリ確保
-	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
+	//m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	return TRUE;
 }
 

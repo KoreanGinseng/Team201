@@ -53,4 +53,5 @@ public:
 	//Get
 	bool		GetShow(void)			const { return m_bShow; }
 	int			GetDamageWait(void)		const { return m_DamageWait; }
+	CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 };

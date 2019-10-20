@@ -195,7 +195,12 @@ void CInoue::RenderDebug()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
 		m_pEnemyArray[i].RenderDebug(screenPos);
 	}
-
+	//オブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
+		m_pObjArray[i].RenderDebug(screenPos);
+	}
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
 	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }

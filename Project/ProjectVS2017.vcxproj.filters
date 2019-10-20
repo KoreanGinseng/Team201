@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\ENEMY">
       <UniqueIdentifier>{95b1efd5-3143-4e87-88be-130e8c088a29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\OBJECT">
+      <UniqueIdentifier>{d45dd998-a0f6-4632-84fa-a35b490e6c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OBJECT">
+      <UniqueIdentifier>{c2fef4bf-2b7d-4820-a8c9-2655c958d76d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -137,6 +143,12 @@
     </ClCompile>
     <ClCompile Include="_Inoue\AnimationData.cpp">
       <Filter>ソース ファイル\MANAGER</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Empty.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +258,12 @@
       <Filter>ヘッダー ファイル\SCENE</Filter>
     </ClInclude>
     <ClInclude Include="Substance.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>ヘッダー ファイル\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Empty.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,19 +1,15 @@
 #include "Object.h"
+#include	"Rope.h"
 
 
-
-CObject::CObject()
-{
-}
-
-
-CObject::~CObject()
+CObject::CObject() :
+CSubstance()
 {
 }
 
 void CObject::Initialize(float px, float py, const int& cn) {
 	m_Pos.x = px;
-	m_Pos.y = py;
+	m_Pos.y = py - 32;
 	m_bShow = true;
 	//アニメーションを作成
 	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnimCount();
@@ -31,6 +27,8 @@ void CObject::Update(void) {
 		return;
 	}
 
+	m_pObjEmp->Update(m_bMotionEnd);
+
 	if (m_bSkill)
 	{
 		m_Motion.AddTimer(CUtilities::GetFrameSecond());
@@ -39,10 +37,12 @@ void CObject::Update(void) {
 			m_bSkill = false;
 			if (m_Motion.GetMotionNo() == MOTION_START)
 			{
+				m_bMotionEnd = true;
 				m_Motion.ChangeMotion(MOTION_END);
 			}
 			else if (m_Motion.GetMotionNo() == MOTION_END)
 			{
+				m_bMotionEnd = false;
 				m_Motion.ChangeMotion(MOTION_START);
 			}
 		}
@@ -68,15 +68,34 @@ void CObject::RenderDebug(Vector2 sp) {
 		return;
 	}
 	//当たり判定の表示
-	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
+	CRectangle hr(sp.x - m_Pos.x + GetRect().Left, sp.y - m_Pos.y + GetRect().Top, sp.x + GetRect().GetWidth(), sp.y + GetRect().GetHeight());
 	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
 }
 
 void CObject::Release(void) {
+	delete m_pObjEmp;
 	m_Motion.Release();
 }
 
 void CObject::CollisionStage(const Vector2& o)
 {
-	m_Pos += o;
+	//m_Pos += o;
+}
+
+void CObject::SetObject(const int& Type)
+{
+	switch (Type)
+	{
+	case 0:
+		m_pObjEmp = new CRope();
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	default:
+		break;
+	}
 }
