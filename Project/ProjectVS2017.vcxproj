@@ -108,6 +108,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjTree.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Rope.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Loading.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjTree.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="Rope.h" />

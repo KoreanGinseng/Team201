@@ -305,6 +305,9 @@ void CStage::Release() {
 		free(m_pObjEndData);
 		m_pObjEndData = nullptr;
 	}
+	m_pEnemyTexture.clear();
+	m_pItemTexture.clear();
+	m_pObjectTexture.clear();
 }
 
 //“–‚½‚è”»’è

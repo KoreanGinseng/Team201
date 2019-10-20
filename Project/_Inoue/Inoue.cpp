@@ -132,6 +132,7 @@ void CInoue::Update()
 		}
 		//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
 		bool clime = false;
+		oo = Vector2(0, 0);
 		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
 		{
 			if (m_pObjArray[i].GetType() == OBJECT_ROPE)

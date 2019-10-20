@@ -53,6 +53,7 @@ void CPlayer::Initialize(void)
 	m_bClime = false;
 	//ƒXƒLƒ‹‚Ì”ÍˆÍ‚ğ‰Šú‰»
 	m_Skillrang = 0.0f;
+	m_Target = 0;
 	//
 	m_CoolTime = 100.0f;
 	//
@@ -114,6 +115,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 void CPlayer::Release(void)
 {
 	m_Motion.Release();
+	m_SkillTarget.clear();
 	m_pTexture = nullptr;
 }
 

@@ -150,6 +150,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>
+    <ClCompile Include="ObjTree.cpp">
+      <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -264,6 +267,9 @@
       <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>ヘッダー ファイル\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTree.h">
       <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
   </ItemGroup>

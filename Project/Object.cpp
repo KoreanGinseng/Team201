@@ -94,10 +94,10 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 	//左、右それぞれで範囲を限定した専用の矩形を作成する。
 	CRectangle lrec = rect;
 	lrec.Right = lrec.Left + 1;
-	lrec.Expansion(0, -3);
+	lrec.Expansion(0, -6);
 	CRectangle rrec = rect;
 	rrec.Left = rrec.Right - 1;
-	rrec.Expansion(0, -3);
+	rrec.Expansion(0, -6);
 	//オブジェクトが壊れていなければ
 	if (!m_bMotionEnd)
 	{
@@ -121,7 +121,7 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 		}
 		CRectangle brec = rect;
 		brec.Top = brec.Bottom - 1;//
-		brec.Expansion(-2, 0);//
+		brec.Expansion(-6, 0);//
 		//下と当たり判定
 		if (cr.CollisionRect(brec))
 		{
@@ -135,7 +135,7 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 		//上で範囲を限定した専用の矩形を作成する。
 		CRectangle trec = rect;
 		trec.Bottom = trec.Top - 1;//
-		trec.Expansion(-2, 0);//
+		trec.Expansion(-6, 0);//
 		//上と当たり判定
 		if (cr.CollisionRect(trec))
 		{
