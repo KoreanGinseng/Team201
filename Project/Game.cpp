@@ -11,7 +11,7 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"testaaa.txt",
+			"testaaa4.txt",
 			"testaaa2.txt",
 			"testaaa3.txt",
 };
@@ -43,7 +43,7 @@ bool CGame::Load()
 	//アイテムメモリ確保
 	m_pItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
 	//オブジェクトメモリ確保
-	//m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
+	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
 	return TRUE;
 }
 

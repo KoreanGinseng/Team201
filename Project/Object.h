@@ -5,6 +5,7 @@
 #include	"Empty.h"
 #include	"Rope.h"
 #include	"ObjTree.h"
+#include	"Bridge.h"
 
 class CObject : public CSubstance
 {
