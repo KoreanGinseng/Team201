@@ -30,7 +30,7 @@ CSceneBase*		gpScene = nullptr;
 CLoading*		gpLoading = nullptr;
 
 #ifdef _DEBUG
-bool			gbDebug = false;
+bool			gbDebug = true;
 #endif // _DEBUG
 
 
