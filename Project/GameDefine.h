@@ -22,7 +22,7 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
-#define		STAGE_COUNT		3		//! ゲームステージ数
+#define		STAGE_COUNT		4		//! ゲームステージ数
 #define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 #define		GRAVITY			0.3f	//! ゲーム内重力
@@ -43,9 +43,9 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 constexpr	char*	FileName[] = {
 	//TEXTURE
 	"player3.png",
-	"enemy01.png",
-	"enemy02.png",
-	"enemy03.png",
+	"EnemyKinoko.png",
+	"EnemyDoku.png",
+	"EnemyBat.png",
 	"enemy04.png",
 	"enemy05.png",
 	"enemy06.png",
@@ -74,9 +74,9 @@ constexpr	char*	FileName[] = {
 	"sumple_imvisible.png",
 	//ANIMATION
 	"playerAnim.bin",
-	"EnemyAnim01.bin",
-	"EnemyAnim02.bin",
-	"EnemyAnim03.bin",
+	"EnemyKinokoAnim.bin",
+	"EnemyDokuAnim.bin",
+	"EnemyBatAnim.bin",
 	"EnemyAnim04.bin",
 	"EnemyAnim05.bin",
 	"EnemyAnim06.bin",
@@ -223,8 +223,8 @@ enum tag_ENEMY
 {
 	ENEMY_KURIBO,
 	ENEMY_NOKONOKO,
-	ENEMY_TERESA,
 	ENEMY_BAT,
+	ENEMY_TERESA,
 	ENEMY_KOTEIHOUDAI,
 };
 

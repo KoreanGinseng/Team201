@@ -11,9 +11,10 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"testaaa4.txt",
 			"testaaa2.txt",
 			"testaaa3.txt",
+			"testaaa4.txt",
+			"testaaa5.txt",
 };
 
 //コンストラクタ
@@ -59,18 +60,20 @@ void CGame::Initialize()
 void CGame::Update()
 {
 	//F4キーでポーズ
-	if (g_pInput->IsKeyPush(MOFKEY_F4)) {
+	if (g_pInput->IsKeyPush(MOFKEY_F4))
+	{
 		m_bPoase = !m_bPoase;
 	}
 
 	// ESCAPEキーで終了
-	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE))
+	{
 		PostQuitMessage(0);
 	}
 
 	//ポーズ中ならポーズ画面の更新のみする
-	if (m_bPoase) {
-
+	if (m_bPoase)
+	{
 		return;
 	}
 

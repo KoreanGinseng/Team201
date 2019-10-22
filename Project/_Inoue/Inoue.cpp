@@ -55,18 +55,20 @@ void CInoue::Initialize()
 void CInoue::Update()
 {
 	//F4キーでポーズ
-	if (g_pInput->IsKeyPush(MOFKEY_F4)) {
+	if (g_pInput->IsKeyPush(MOFKEY_F4))
+	{
 		m_bPoase = !m_bPoase;
 	}
 
 	// ESCAPEキーで終了
-	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE))
+	{
 		PostQuitMessage(0);
 	}
 
 	//ポーズ中ならポーズ画面の更新のみする
-	if (m_bPoase) {
-
+	if (m_bPoase)
+	{
 		return;
 	}
 
@@ -99,6 +101,10 @@ void CInoue::Update()
 		if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i].GetRect(), eo))
 		{
 			m_pEnemyArray[i].CollisionStage(eo);
+		}
+		if (m_pEnemyArray[i].Collision(m_Player.GetRect(), o))
+		{
+			m_Player.CollisionStage(o);
 		}
 	}
 	//アイテムの更新
@@ -145,6 +151,21 @@ void CInoue::Update()
 			}
 		}
 		m_Player.SetClime(clime);
+		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
+		{
+			oo = Vector2(0, 0);
+			if (m_pObjArray[i].Collision(m_pEnemyArray[j].GetRect(), oo))
+			{
+				if (m_pObjArray[i].GetType() == OBJECT_ROPE)
+				{
+					continue;
+				}
+				else
+				{
+					m_pEnemyArray[j].CollisionStage(oo);
+				}
+			}
+		}
 	}
 
 	//カメラの更新

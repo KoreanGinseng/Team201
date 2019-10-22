@@ -8,6 +8,8 @@ CENEMY_TERESA::~CENEMY_TERESA() {
 }
 
 void CENEMY_TERESA::Initialize() {
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnim(), c);
 	m_fEnemySpeed = 2;
 	m_fMoveX =  m_fEnemySpeed;
 	m_fMoveY = m_fEnemySpeed;

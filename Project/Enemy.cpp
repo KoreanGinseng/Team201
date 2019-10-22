@@ -30,9 +30,9 @@ CEnemy::~CEnemy(){
  * [in]			type				敵タイプ
  */
 void CEnemy::Initialize(float px,float py) {
-	m_pMove->Initialize();
 	m_pMove->SetPos(Vector2(px, py));
-	m_pMove->SetReverse(true);
+	m_pMove->Initialize();
+	m_pMove->SetReverse(false);
 	m_bShow = true;
 	m_HP = 10;
 	m_DamageWait = 0;
@@ -43,13 +43,24 @@ void CEnemy::Initialize(float px,float py) {
  *
  */
 void CEnemy::Update(const Vector2& playerPos) {
+
+	if (m_bSkill)
+	{
+		if (--m_StopWait < 0)
+		{
+			m_StopWait = m_StopWaitOffset;
+			m_bSkill = false;
+		}
+	}
+
 	//非表示
-	if(!m_bShow)
+	if(!m_bShow || m_bSkill)
 	{
 		return;
 	}
-	
+
 	m_pMove->Update(playerPos.x, playerPos.y);
+	m_pMove->Animation();
 
 	if (m_pMove->GetAttack())
 	{
@@ -107,7 +118,7 @@ void CEnemy::RenderDebug(const Vector2& sp){
 		return;
 	}
 	//当たり判定の表示
-	CRectangle hr(sp.x, sp.y, sp.x + m_SrcRect.GetWidth(), sp.y + m_SrcRect.GetHeight());
+	CRectangle hr(sp.x - m_Pos.x + GetRect().Left, sp.y - m_Pos.y + GetRect().Top, sp.x + GetRect().GetWidth(), sp.y + GetRect().GetHeight());
 	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
 }
 
@@ -160,6 +171,68 @@ void CEnemy::CollisionStage(Vector2 o) {
 	m_pMove->SetPos(m_Pos);
 }
 
+bool CEnemy::Collision(CRectangle rect, Vector2 & o)
+{
+	bool re = false;
+	//当たり判定
+	CRectangle cr = GetRect();
+	//止まっていれば
+	if (m_bSkill)
+	{
+		CRectangle brec = rect;
+		brec.Top = brec.Bottom - 1;//
+		brec.Expansion(-6, 0);//
+		//下と当たり判定
+		if (cr.CollisionRect(brec))
+		{
+			re = true;
+			//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+			o.y += cr.Top - brec.Bottom;
+			rect.Top += cr.Top - brec.Bottom;
+			rect.Bottom += cr.Top - brec.Bottom;
+		}
+		//左、右それぞれで範囲を限定した専用の矩形を作成する。
+		CRectangle lrec = rect;
+		lrec.Right = lrec.Left + 1;
+		lrec.Expansion(0, -6);
+		//引数のレクトの左と当たり判定
+		if (cr.CollisionRect(lrec))
+		{
+			re = true;
+			//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
+			o.x += cr.Right - lrec.Left;
+			rect.Left += cr.Right - lrec.Left;
+			rect.Right += cr.Right - lrec.Left;
+		}
+		//右と当たり判定
+		CRectangle rrec = rect;
+		rrec.Left = rrec.Right - 1;
+		rrec.Expansion(0, -6);
+		if (cr.CollisionRect(rrec))
+		{
+			re = true;
+			//右の埋まりなのでチップの左端から
+			o.x += cr.Left - rrec.Right;
+			rect.Left += cr.Left - rrec.Right;
+			rect.Right += cr.Left - rrec.Right;
+		}
+		//上で範囲を限定した専用の矩形を作成する。
+		CRectangle trec = rect;
+		trec.Bottom = trec.Top - 1;//
+		trec.Expansion(-6, 0);//
+		//上と当たり判定
+		if (cr.CollisionRect(trec))
+		{
+			re = true;
+			//上の埋まりなのでチップした端から矩形の上端を
+			o.y += cr.Bottom - trec.Top;
+			rect.Top += cr.Bottom - trec.Top;
+			rect.Bottom += cr.Bottom - trec.Top;
+		}
+	}
+	return re;
+}
+
 
 void CEnemy::SetMoveAttack(const int& no)
 {
@@ -167,16 +240,15 @@ void CEnemy::SetMoveAttack(const int& no)
 	{
 	case ENEMY_KURIBO:
 		m_pMove = new CEnemy_KURIBO();
-		m_pAttack = new CEnemyAtack();
 		break;
 	case ENEMY_NOKONOKO:
 		m_pMove = new CENEMY_NOKONOKO();
 		break;
-	case ENEMY_TERESA:
-		m_pMove = new CENEMY_TERESA();
-		break;
 	case ENEMY_BAT:
 		m_pMove = new CENEMY_BAT();
+		break;
+	case ENEMY_TERESA:
+		m_pMove = new CENEMY_TERESA();
 		break;
 	case ENEMY_KOTEIHOUDAI:
 		m_pMove = new CENEMY_KOTEIHOUDAI();
@@ -184,4 +256,8 @@ void CEnemy::SetMoveAttack(const int& no)
 	default:
 		break;
 	}
+	m_pAttack = new CEnemyAtack();
+	m_StopWaitOffset = 300;
+	m_StopWait = m_StopWaitOffset;
+	m_Type = no;
 }
