@@ -2,7 +2,7 @@
 #include	"Mof.h"
 #include	"SceneBase.h"
 #include	"GameDefine.h"
-#include	"GamePad.h"
+#include	"GamePadDefine.h"
 #include	"Coordinate.h"
 #include	"_Fujiwara/Fujiwara.h"
 

@@ -8,6 +8,7 @@
 //INCLUDE
 #include "Player.h"
 
+CXGamePad xgpad;
 //コンストラクタ
 CPlayer::CPlayer(void) :
 m_pTexture(nullptr),
@@ -29,6 +30,8 @@ CPlayer::~CPlayer(void)
 //初期化
 void CPlayer::Initialize(void)
 {
+	XGAMEPADCREATEINFO xc;
+	xgpad.Create(&xc);
 	//画像データのセット
 	m_pTexture = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetTexture();
 	//アニメーションデータのセット
@@ -63,6 +66,7 @@ void CPlayer::Initialize(void)
 //更新
 void CPlayer::Update(void)
 {
+	xgpad.RefreshKey();
 	//コントローラーが接続されているか
 	if (g_pInput->GetGamePadCount())
 	{
@@ -123,11 +127,11 @@ void CPlayer::Release(void)
 void CPlayer::PadOparation(void)
 {
 	//スティックを右か左に倒した場合、倒した方向に移動
-	if (g_pGamePad->GetStickHorizontal() > 0.8f)
+	if (xgpad.GetStickHorizontal() > 0.8f)
 	{
 		MoveAdd(WAY_RIGHT);
 	}
-	else if (g_pGamePad->GetStickHorizontal() < -0.8f)
+	else if (xgpad.GetStickHorizontal() < -0.8f)
 	{
 		MoveAdd(WAY_LEFT);
 	}
@@ -157,7 +161,7 @@ void CPlayer::PadOparation(void)
 	}
 
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->GetPadState()->lZ > 500/* && m_CoolTime > 0.0f*/)
+	if (xgpad.IsKeyHold(XINPUT_L_TRIGGER)/* && m_CoolTime > 0.0f*/)
 	{
 		m_bTrigger = true;
 		if (!m_SkillTarget.empty())
@@ -180,7 +184,7 @@ void CPlayer::PadOparation(void)
 		}
 	}
 	//RTトリガーを押したとき選択中の敵にスキルを使用
-	if (g_pGamePad->GetPadState()->lZ < 100.0f && m_bTrigger)
+	if (xgpad.IsKeyPush(XINPUT_R_TRIGGER) && m_bTrigger)
 	{
 		if (!m_SkillTarget.empty())
 		{
