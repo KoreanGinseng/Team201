@@ -9,7 +9,7 @@
 //INCLUDE
 #include	"Mof.h"
 #include	"GameDefine.h"
-#include	"GamePad.h"
+#include	"GamePadDefine.h"
 #include	"SoundManager.h"
 #include	"Enemy.h"
 #include	"Object.h"
@@ -48,6 +48,7 @@ private:
 	float						m_CoolTime;
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
+
 
 	void PadOparation(void);
 	void KeyOparation(void);

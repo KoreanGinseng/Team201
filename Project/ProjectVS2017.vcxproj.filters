@@ -167,9 +167,6 @@
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GamePad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -277,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="Bridge.h">
       <Filter>ヘッダー ファイル\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePadDefine.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

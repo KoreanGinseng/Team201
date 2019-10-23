@@ -146,7 +146,7 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameOver.h" />
-    <ClInclude Include="GamePad.h" />
+    <ClInclude Include="GamePadDefine.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Loading.h" />
     <ClInclude Include="Object.h" />
