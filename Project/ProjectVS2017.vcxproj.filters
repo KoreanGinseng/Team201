@@ -138,6 +138,9 @@
     <ClCompile Include="_Inoue\AnimationData.cpp">
       <Filter>ソース ファイル\MANAGER</Filter>
     </ClCompile>
+    <ClCompile Include="GameKey.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -246,6 +249,9 @@
       <Filter>ヘッダー ファイル\SCENE</Filter>
     </ClInclude>
     <ClInclude Include="Substance.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameKey.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
