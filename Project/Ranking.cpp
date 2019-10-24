@@ -280,7 +280,7 @@ void CRanking::VKOperation() {
 
 	/*テスト*/
 	//Xキーで選択を左にする
-	if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
+	if (g_pGameKey->KeyLeft()) {
 		
 		m_KeySelectX--;
 		if (m_KeySelectY >= 1 && m_KeySelectX < 0) {
@@ -301,7 +301,7 @@ void CRanking::VKOperation() {
 
 
 	}
-	else if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
+	else if (g_pGameKey->KeyRigth()) {
 	
 		m_KeySelectX++;
 
@@ -319,7 +319,7 @@ void CRanking::VKOperation() {
 		
 
 	}
-	else if (g_pGamePad->IsKeyPush(GAMEKEY_Y)) {
+	else if (g_pGameKey->KeyUp()) {
 
 		m_KeySelectY--;
 		if (m_KeySelectY < 0) {
@@ -328,7 +328,7 @@ void CRanking::VKOperation() {
 		}
 
 	}
-	else if (g_pGamePad->IsKeyPush(GAMEKEY_A)) {
+	else if (g_pGameKey->KeyDown()) {
 
 		m_KeySelectY++;
 		if (m_KeySelectY >= KEYSIZE_Y-1) {
@@ -372,7 +372,7 @@ void CRanking::VKOperation() {
 	}
 
 
-	if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
+	if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
 		SendKeyBoard(KeyBoard[m_KeySelectY][m_KeySelectX]);
 
