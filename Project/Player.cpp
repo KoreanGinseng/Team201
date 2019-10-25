@@ -181,21 +181,21 @@ void CPlayer::PadOparation(void)
 					m_Target = 0;
 				}
 			}
+			//RTトリガーを押したとき選択中の敵にスキルを使用
+			if (xgpad.IsKeyPush(XINPUT_R_TRIGGER))
+			{
+				if (!m_SkillTarget.empty())
+				{
+					m_bTrigger = false;
+					m_SkillTarget[m_Target]->SetSkill();
+					for (int i = 0; i < m_SkillTarget.size(); i++)
+					{
+						m_SkillTarget[i]->SetTarget(false);
+					}
+				}
+			}//シフトキーと保存
 		}
 	}
-	//RTトリガーを押したとき選択中の敵にスキルを使用
-	if (xgpad.IsKeyPush(XINPUT_R_TRIGGER) && m_bTrigger)
-	{
-		if (!m_SkillTarget.empty())
-		{
-			m_bTrigger = false;
-			m_SkillTarget[m_Target]->SetSkill();
-			for (int i = 0; i < m_SkillTarget.size(); i++)
-			{
-				m_SkillTarget[i]->SetTarget(false);
-			}
-		}
-	}//シフトキーと保存
 	else if (g_pGamePad->GetPadState()->lZ < 1)
 	{
 		m_bTrigger = false;
