@@ -39,7 +39,9 @@ private:
 
 	//Œ®‚ğ‚Á‚Ä‚¢‚é‚©‚¢‚È‚¢‚©‚ğ”»’è‚·‚éƒtƒ‰ƒO
 	bool			KeyFlag;
+	bool			MoveCh;
 
+	float GRa_;
 
 public:
 			CPlayer();
@@ -56,9 +58,10 @@ public:
 	void	KeyOperation(void);
 	void	LifeDecrease(void);
 
-	void	   CollisionStage(Vector2 o);
+	void	CollisionStage(Vector2 o);
 	void	KeyTrue(void);
 	void	KeyFalse(void);
+
 	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
 	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
 	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
@@ -66,5 +69,10 @@ public:
 
 	//’Ç‰Á
 	bool GetKey() { return KeyFlag; }
+
+	void Gra_Set();
+	void Gra_zero();
+	
+	void Pmove();
 	
 };

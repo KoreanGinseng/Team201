@@ -16,7 +16,7 @@ CPlayer::CPlayer() {
 	m_Life = PLAYER_MAXLIFE;
 
 	m_bJump = false;
-
+	GRa_ = 0;
 
 }
 
@@ -172,7 +172,7 @@ void CPlayer::PadOperation() {
 		m_MoveY = -7.0f;
 	}
 
-	m_MoveY += PLAYER_GRAVITY;
+	m_MoveY += GRa_;
 
 	m_PosY += m_MoveY;
 
@@ -283,7 +283,7 @@ void CPlayer::KeyOperation() {
 		m_MoveY = -10.0f;
 	}
 
-	m_MoveY += PLAYER_GRAVITY;
+	m_MoveY += GRa_;
 
 	m_PosY += m_MoveY;
 
@@ -319,7 +319,7 @@ void CPlayer::Render(Vector2 scroll) {
 
 	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
 
-	MOF_PRINTLOG("%s\n", KeyFlag ? "ture" : "false");
+	//MOF_PRINTLOG("%s\n", KeyFlag ? "ture" : "false");
 }
 
 void CPlayer::RenderState() {
@@ -375,4 +375,33 @@ void CPlayer::KeyTrue(void)
 void CPlayer::KeyFalse(void)
 {
 	KeyFlag = false;
+}
+
+void CPlayer::Gra_Set()
+{
+	GRa_ = PLAYER_GRAVITY;
+}
+
+void CPlayer::Gra_zero()
+{
+	GRa_ = 0;
+}
+
+void CPlayer::Pmove()
+{
+	
+	if (g_pInput->IsKeyHold(MOFKEY_UP))
+	{
+		m_MoveY = -2.0f;
+	}
+	else if (g_pInput->IsKeyHold(MOFKEY_DOWN))
+	{
+		m_MoveY = 2.0f;
+	}
+	else
+	{
+		m_MoveY = 0;
+	}
+	m_PosY += m_MoveY;
+	
 }

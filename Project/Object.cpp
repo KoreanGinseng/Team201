@@ -78,6 +78,7 @@ void CObject::Render(Vector2 sp) {
 	}
 	//テクスチャの描画
 	m_pTexture->Render(sp.x, sp.y, m_SrcRect);
+	
 }
 
 void CObject::RenderDebug(Vector2 sp) {
@@ -105,15 +106,19 @@ bool CObject::Collision(CRectangle r, float& ox, float& oy)
 	int h = r.GetHeight();
 	int w = r.GetWidth();
 	
-	//壊れている
+	//壊れている(赤色)
 	if (m_Motion.GetMotionNo() == MOTION_START)
 	{
 		ObjNo = 0;
 	}
-	//壊れていない
-	else 
+	//壊れていない（青色）
+	else if(m_Motion.GetMotionNo() == MOTION_END)
 	{
 		ObjNo = 1;
+	}
+	else 
+	{
+		ObjNo = 2;
 	}
 	bool re = false;
 	
@@ -178,6 +183,16 @@ bool CObject::Collision(CRectangle r, float& ox, float& oy)
 					r.Bottom += cr.Bottom - trec.Top;
 				}
 			}
+			else if(ObjNo==0)
+			{
+				hoge = true;
+			}
+			else
+			{
+				hoge = false;
+			}
+			
+				
 	return re;
 }
 void CObject::Change()

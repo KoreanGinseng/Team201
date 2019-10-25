@@ -15,6 +15,7 @@ private:
 	CRectangle				m_SrcRect;
 	bool					bFlag;
 	int ObjNo = 0;
+	bool 					hoge;
 
 	//現在のモーションフラグ
 	enum tag_MOTION {
@@ -51,5 +52,7 @@ public:
 
 	//obj
 	bool Collision(CRectangle r,float& ox,float& oy);
+	bool GetHoge() { return hoge; }
+	int GetObjNo() { return ObjNo; }
 };
 
