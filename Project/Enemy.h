@@ -5,11 +5,6 @@
 #include	"Substance.h"
 #include	"_Onishi/EnemyMove.h"
 #include	"_Onishi/EnemyAtack.h"
-#include	"_Onishi/Enemy_BAT.h"
-#include	"_Onishi/Enemy_KOTEIHOUDAI.h"
-#include	"_Onishi/Enemy_KURIBO.h"
-#include	"_Onishi/Enemy_TERESA.h"
-#include	"_Onishi/Enemy_NOKONOKO.h"
 
 
 //“–‚½‚è”»’èŒ¸Š•

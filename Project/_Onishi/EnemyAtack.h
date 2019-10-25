@@ -4,10 +4,6 @@
 
 #define Atacktime 3
 
-enum ENEMYATACK {
-	ATACK_KAMITUKI,
-};
-
 class CEnemyAtack {
 protected:
 	float m_fAtackPosX;
@@ -17,8 +13,14 @@ protected:
 public:
 	CEnemyAtack();
 	~CEnemyAtack();
-	void Initialize();
-	void KUpdate(float EposX,float EposY,bool ERevers);
-	void Render();
-
+	virtual void Initialize(void) = 0;
+	virtual void Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) = 0;
+	virtual void Render(void) = 0;
 };
+
+#include	"Atack_BAT.h"
+#include	"Atack_KOTEIHOUDAI.h"
+#include	"Atack_KURIBO.h"
+#include	"Atack_NOKONOKO.h"
+#include	"Atack_TERESA.h"
+#include	"Atack_TESTBOS.h"

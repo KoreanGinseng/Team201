@@ -226,6 +226,8 @@ enum tag_ENEMY
 	ENEMY_BAT,
 	ENEMY_TERESA,
 	ENEMY_KOTEIHOUDAI,
+	ENEMY_TESTBOS,
+	ENEMY_FLOATING,
 };
 
 /*****************************************************************

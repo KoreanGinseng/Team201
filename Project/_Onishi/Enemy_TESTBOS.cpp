@@ -15,14 +15,14 @@ void CEnemy_TESTBOS::Initialize() {
 }
 void CEnemy_TESTBOS::Update(float Xpos, float Ypos) {
 	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-		m_bEnd = !m_bEnd;
+		m_bDead = !m_bDead;
 	}
 	if (m_HP==0) {
-		m_bEnd = true;
+		m_bDead = true;
 	}
 }
 void CEnemy_TESTBOS::Render(float Xpos, float Ypos) {
-	if (m_bEnd) {
+	if (m_bDead) {
 		return;
 	}
 	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);

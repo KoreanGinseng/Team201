@@ -42,7 +42,6 @@ void CEnemyAtack::KUpdate(float EposX, float EposY, bool ERevers) {
 		m_fAtackPosX = EposX - 50;
 		m_fAtackPosY = EposY;
 		m_bShow = true;
-
 	}
 }
 /**

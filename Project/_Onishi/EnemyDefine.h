@@ -1,16 +1,7 @@
 #pragma once
+#include	"../GameDefine.h"
 
 //EnemyMove.h
-enum ENEMY
-{
-	ENEMY_KURIBO,
-	ENEMY_NOKONOKO,
-	ENEMY_TERESA,
-	ENEMY_BAT,
-	ENEMY_KOTEIHOUDAI,
-	ENEMY_TESTBOS,
-	ENEMY_FLOATING,
-};
 
 enum tag_ATTACK {
 	EATTACK_BYTE,
@@ -24,7 +15,7 @@ enum tag_ATTACK {
 	#define Timer 5
 	#define AtackTimer 1
 	#define CoolTime 1
-	#define GRAVITY 0.4f
+	//#define GRAVITY 0.4f
 
 //EnemyAtack
 	#define Atacktime 3

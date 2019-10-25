@@ -3,10 +3,6 @@
 #include	"../GameDefine.h"
 #include	"EnemyAtack.h"
 
-#define Timer 5
-#define AtackTimer 5
-#define CoolTime 5
-
 class CEnemyMove {
 protected:
 	float		m_fXpos;
@@ -15,6 +11,7 @@ protected:
 	float		m_fMoveY;
 	float		m_fEnemySpeed;
 	bool		m_bAttack;
+	bool		m_bDead;
 	bool		m_bReverse;
 	CRectangle	m_SrcRect;
 	CSpriteMotionController	m_Motion;
@@ -41,10 +38,10 @@ public:
 	void Release(void) { m_Motion.Release(); }
 };
 
-
-
-
-
-
-
-
+#include	"Enemy_BAT.h"
+#include	"Enemy_KOTEIHOUDAI.h"
+#include	"Enemy_KURIBO.h"
+#include	"Enemy_TERESA.h"
+#include	"Enemy_NOKONOKO.h"
+#include	"ENEMY_FLOATING.h"
+#include	"Enemy_TESTBOS.h"
