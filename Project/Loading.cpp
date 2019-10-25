@@ -14,6 +14,10 @@ CLoading::~CLoading()
 
 void CLoading::Load(void)
 {
+	auto c = CUtilities::GetCurrentDirectory();
+	CTexture a;
+	a.Load("player3.png");
+	int b = a.GetHeight();
 	g_pEffectManager->Load();
 	for (int i = TEXTURE_PLAYER; i < TEXTURE_COUNT; i++)
 	{
@@ -41,9 +45,10 @@ void CLoading::Initialize(void)
 void CLoading::Run(void) 
 {
 	m_bEnd = false;
-
+	MOF_PRINTLOG("thred Start\n");
 	Load();
 	Initialize();
 
 	m_bEnd = true;
+	MOF_PRINTLOG("thred End\n");
 }
