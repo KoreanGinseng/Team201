@@ -60,4 +60,7 @@ void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const C
 	{
 		m_Pos.y = 0;
 	}
+
+	m_Pos.x = (int)m_Pos.x;
+	m_Pos.y = (int)m_Pos.y;
 }

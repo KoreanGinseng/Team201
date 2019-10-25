@@ -43,6 +43,18 @@
     <Filter Include="ヘッダー ファイル\OBJECT">
       <UniqueIdentifier>{c2fef4bf-2b7d-4820-a8c9-2655c958d76d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\ATTACK">
+      <UniqueIdentifier>{36f02b1f-00fa-4215-a187-ab1e84b14ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ATTACK">
+      <UniqueIdentifier>{91b86816-8243-4aba-886f-adbc2c1c9089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SHOT">
+      <UniqueIdentifier>{439ba543-e616-4f14-86f5-0f2598e15817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SHOT">
+      <UniqueIdentifier>{455efa3a-1b45-40b2-97fe-0fdd1843fa8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -108,9 +120,6 @@
     <ClCompile Include="_Onishi\Onishi.cpp">
       <Filter>ソース ファイル\ACTOR</Filter>
     </ClCompile>
-    <ClCompile Include="_Onishi\EnemyAtack.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
     <ClCompile Include="_Onishi\EnemyMove.cpp">
       <Filter>ソース ファイル\ENEMY</Filter>
     </ClCompile>
@@ -155,6 +164,42 @@
     </ClCompile>
     <ClCompile Include="Bridge.cpp">
       <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\EnemyAtack.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_BAT.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_KOTEIHOUDAI.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_KURIBO.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_NOKONOKO.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_TERESA.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_TESTBOS.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\AimBullet.cpp">
+      <Filter>ソース ファイル\SHOT</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\BounceBullet.cpp">
+      <Filter>ソース ファイル\SHOT</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\EnemyShot.cpp">
+      <Filter>ソース ファイル\SHOT</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\ENEMY_FLOATING.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_TESTBOS.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +263,6 @@
     <ClInclude Include="_Onishi\Onishi.h">
       <Filter>ヘッダー ファイル\ACTOR</Filter>
     </ClInclude>
-    <ClInclude Include="_Onishi\EnemyAtack.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
     <ClInclude Include="_Onishi\EnemyMove.h">
       <Filter>ヘッダー ファイル\ENEMY</Filter>
     </ClInclude>
@@ -277,6 +319,45 @@
     </ClInclude>
     <ClInclude Include="GamePadDefine.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyAtack.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_BAT.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_KOTEIHOUDAI.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_KURIBO.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_NOKONOKO.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_TERESA.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_TESTBOS.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\AimBullet.h">
+      <Filter>ヘッダー ファイル\SHOT</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\BounceBullet.h">
+      <Filter>ヘッダー ファイル\SHOT</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyShot.h">
+      <Filter>ヘッダー ファイル\SHOT</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\EnemyDefine.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\ENEMY_FLOATING.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_TESTBOS.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

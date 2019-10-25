@@ -1,4 +1,7 @@
 #pragma once
+#include	"../GameDefine.h"
+#include	"EnemyDefine.h"
+
 #define Atacktime 3
 
 enum ENEMYATACK {
@@ -6,9 +9,9 @@ enum ENEMYATACK {
 };
 
 class CEnemyAtack {
-private:
-	float m_fAposX;
-	float m_fAposY;
+protected:
+	float m_fAtackPosX;
+	float m_fAtackPosY;
 	float m_fTime;
 	bool m_bShow;
 public:
