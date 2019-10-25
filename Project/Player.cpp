@@ -184,6 +184,7 @@ void CPlayer::PadOparation(void)
 			//RTトリガーを押したとき選択中の敵にスキルを使用
 			if (xgpad.IsKeyPush(XINPUT_R_TRIGGER))
 			{
+			
 				if (!m_SkillTarget.empty())
 				{
 					m_bTrigger = false;
@@ -526,6 +527,16 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	{
 		m_SkillTarget.push_back(*itr);
 	}
+
+	
+	if (m_Target > m_SkillTarget.size()-1) {
+
+		m_Target = m_SkillTarget.size() - 1;
+
+	}
+	
+	
+	
 
 	//ターゲット中か敵に伝える
 	for (int i = 0; i < m_SkillTarget.size(); i++)

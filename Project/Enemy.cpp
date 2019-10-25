@@ -64,7 +64,7 @@ void CEnemy::Update(const Vector2& playerPos) {
 
 	if (m_pMove->GetAttack())
 	{
-		m_pAttack->KUpdate(m_pMove->GetPos().x, m_pMove->GetPos().y, m_pMove->GetReverce());
+		m_pAttack->Update(m_pMove->GetPos().x, m_pMove->GetPos().y, m_pMove->GetReverce(), playerPos.x, playerPos.y);
 	}
 
 	//ÀÛ‚ÉÀ•W‚ğˆÚ“®‚³‚¹‚é
@@ -256,7 +256,7 @@ void CEnemy::SetMoveAttack(const int& no)
 	default:
 		break;
 	}
-	m_pAttack = new CEnemyAtack();
+	m_pAttack = new CAtack_BAT();
 	m_StopWaitOffset = 300;
 	m_StopWait = m_StopWaitOffset;
 	m_Type = no;

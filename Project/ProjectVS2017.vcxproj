@@ -105,6 +105,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameKey.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameDefine.h" />
+    <ClInclude Include="GameKey.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GamePadDefine.h" />
     <ClInclude Include="Item.h" />
