@@ -2,8 +2,8 @@
 #include "mof.h"
 
 CEnemyAtack::CEnemyAtack() :
-	m_fAposX(0.0f),
-	m_fAposY(0.0f),
+	m_fAtackPosX(0.0f),
+	m_fAtackPosY(0.0f),
 	m_fTime(0),
 	m_bShow(false) {
 }
@@ -15,8 +15,8 @@ CEnemyAtack::~CEnemyAtack() {
  * @return –³‚µ
  */
 void CEnemyAtack::Initialize() {
-	m_fAposX = 0;
-	m_fAposY = 0;
+	m_fAtackPosX = 0;
+	m_fAtackPosY = 0;
 	m_bShow = false;
 	m_fTime = 0;
 }
@@ -32,17 +32,16 @@ void CEnemyAtack::KUpdate(float EposX, float EposY, bool ERevers) {
 		return;
 	}
 	if (ERevers) {
-		m_fAposX = EposX + 50;
-		m_fAposY = EposY;
+		m_fAtackPosX = EposX + 50;
+		m_fAtackPosY = EposY;
 		m_bShow = true;
 
 	}
 	else
 	{
-		m_fAposX = EposX - 50;
-		m_fAposY = EposY;
+		m_fAtackPosX = EposX - 50;
+		m_fAtackPosY = EposY;
 		m_bShow = true;
-
 	}
 }
 /**
@@ -53,6 +52,6 @@ void CEnemyAtack::Render() {
 	if (!m_bShow) {
 		return;
 	}
-	CGraphicsUtilities::RenderFillCircle(m_fAposX, m_fAposY, 10, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderFillCircle(m_fAtackPosX, m_fAtackPosY, 10, MOF_COLOR_RED);
 	m_bShow = false;
 }
