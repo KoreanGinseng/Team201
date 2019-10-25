@@ -70,7 +70,7 @@ void CObject::RenderDebug(Vector2 sp) {
 	//“–‚½‚è”»’è‚Ì•\Ž¦
 	CRectangle hr(sp.x + GetRect().Left - m_Pos.x, sp.y + GetRect().Top - m_Pos.y,
 		sp.x + GetRect().Right - m_Pos.x, sp.y + GetRect().Bottom - m_Pos.y);
-	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255, 0, 0));
+	CGraphicsUtilities::RenderRect(hr, m_bTarget ? MOF_COLOR_GREEN : MOF_COLOR_RED);
 	CGraphicsUtilities::RenderString(0, 100, "%.1f, %.1f", GetRect().Left, GetRect().Top);
 }
 

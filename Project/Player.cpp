@@ -433,7 +433,8 @@ void CPlayer::Skill()
 			m_Skillrang = 0.0f;
 			m_Target = 0;
 			//ベクトルに要素が入っている場合
-			if (!m_SkillTarget.empty()) {
+			if (!m_SkillTarget.empty()) 
+			{
 				//全てのターゲットフラグを下ろし、要素を全てクリアする
 				for (int i = 0; i < m_SkillTarget.size(); i++)
 				{

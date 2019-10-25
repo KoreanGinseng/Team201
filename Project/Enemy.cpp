@@ -119,7 +119,7 @@ void CEnemy::RenderDebug(const Vector2& sp){
 	}
 	//“–‚½‚è”»’è‚Ì•\Ž¦
 	CRectangle hr(sp.x - m_Pos.x + GetRect().Left, sp.y - m_Pos.y + GetRect().Top, sp.x + GetRect().GetWidth(), sp.y + GetRect().GetHeight());
-	CGraphicsUtilities::RenderRect(hr, MOF_XRGB(255,0,0));
+	CGraphicsUtilities::RenderRect(hr, m_bTarget ? MOF_COLOR_GREEN : MOF_COLOR_RED);
 }
 
 /**
