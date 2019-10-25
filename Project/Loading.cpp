@@ -40,6 +40,8 @@ void CLoading::Initialize(void)
 
 void CLoading::Run(void) 
 {
+	m_bEnd = false;
+
 	Load();
 	Initialize();
 
