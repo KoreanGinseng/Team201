@@ -186,7 +186,7 @@ MofBool CGameApp::Render(void){
 
 	//シーンの描画
 	gpScene->Render();
-
+	
 #ifdef _DEBUG
 	//デバッグの描画
 	if (gbDebug)

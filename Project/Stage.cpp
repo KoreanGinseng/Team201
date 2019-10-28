@@ -269,13 +269,6 @@ void CStage::Render(Vector2 scroll) {
 			m_pChipTexture->Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
-	CTexturePtr ui1 = g_pTextureManager->GetResource("UI01.png");
-	int y = g_pGraphics->GetTargetHeight() - ui1->GetHeight();
-	ui1->Render(0, y - 64);
-	CTexturePtr ui2 = g_pTextureManager->GetResource("UI02.png");
-	int y2 = g_pGraphics->GetTargetHeight() - ui2->GetHeight();
-	int x2 = g_pGraphics->GetTargetWidth() - ui2->GetWidth();
-	ui2->Render(x2, y2 - 64);
 }
 
 //デバッグ描画

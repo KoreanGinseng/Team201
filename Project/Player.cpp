@@ -101,7 +101,6 @@ void CPlayer::Render(Vector2 screenPos)
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 
 	RenderDebug(screenPos);
-	MOF_PRINTLOG("%.1f,%.1f\n", m_Pos.x, m_Pos.y);
 }
 
 //デバッグ描画
@@ -112,7 +111,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
-	CGraphicsUtilities::RenderString(0, 130, "%.1f,%.1f", GetRect().Left, GetRect().Top);
+	//CGraphicsUtilities::RenderString(0, 130, "%.1f,%.1f", GetRect().Left, GetRect().Top);
 }
 
 //解放

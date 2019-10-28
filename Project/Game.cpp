@@ -217,6 +217,16 @@ void CGame::Render()
 		m_pObjArray[i].Render(screenPos);
 	}
 
+	//UIごり押し
+	CTexturePtr ui1 = g_pTextureManager->GetResource("UI01.png");
+	int y = g_pGraphics->GetTargetHeight() - ui1->GetHeight();
+	ui1->Render(0, y - 64);
+	CTexturePtr ui2 = g_pTextureManager->GetResource("UI02.png");
+	int y2 = g_pGraphics->GetTargetHeight() - ui2->GetHeight();
+	int x2 = g_pGraphics->GetTargetWidth() - ui2->GetWidth();
+	ui2->Render(x2, y2 - 64);
+
+
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)
 	{
@@ -243,7 +253,7 @@ void CGame::RenderDebug()
 		m_pObjArray[i].RenderDebug(screenPos);
 	}
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
-	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
+	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 //解放
