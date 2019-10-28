@@ -28,7 +28,7 @@
 //GLOBAL
 CSceneBase*		gpScene = nullptr;
 CLoading*		gpLoading = nullptr;
-
+extern CXGamePad xgpad;
 #ifdef _DEBUG
 bool			gbDebug = true;
 #endif // _DEBUG
@@ -136,7 +136,7 @@ MofBool CGameApp::Update(void){
 	}
 
 	// Oキーでステージ変更
-	if (gpScene->GetSceneName() == SCENENO_GAME && g_pInput->IsKeyPush(MOFKEY_O))
+	if (gpScene->GetSceneName() == SCENENO_GAME && (g_pInput->IsKeyPush(MOFKEY_O) || xgpad.IsKeyPush(XINPUT_RS_PUSH)))
 	{
 		gpScene->Release();
 		delete gpScene;
