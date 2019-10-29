@@ -1,3 +1,11 @@
+
+/**
+ * @file Enemy_TESTBOS.cpp
+ * @brief テストボス
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_TESTBOS.h"
 
 CEnemy_TESTBOS::CEnemy_TESTBOS():

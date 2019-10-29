@@ -1,3 +1,10 @@
+/**
+ * @file Atack_TESTBOS.cpp
+ * @brief テストボスの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Atack_TESTBOS.h"
 
 
@@ -82,7 +89,7 @@ void CAtack_TESTBOS::Release() {
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
 		if (m_ShotAimArry[i]) {
 			m_ShotAimArry[i]->Release();
-			delete m_ShotAimArry[i];
+			delete[] m_ShotAimArry[i];
 			m_ShotAimArry[i] = NULL;
 		}
 	}

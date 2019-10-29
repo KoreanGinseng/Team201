@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_KURIBIO.h
+ * @brief クリボー
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyMove.h"
 

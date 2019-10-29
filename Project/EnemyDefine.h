@@ -1,3 +1,10 @@
+/**
+ * @file EnemyDefine.h
+ * @brief 敵のまとめ
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 
 //EnemyMove.h

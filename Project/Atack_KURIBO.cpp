@@ -1,3 +1,10 @@
+/*
+ * @file Atack_KURIBO.cpp
+ * @brief クリボーの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Atack_KURIBO.h"
 
 CAtack_KURIBO::CAtack_KURIBO():

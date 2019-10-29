@@ -1,9 +1,16 @@
-#include "ENEMY_FLOATING.h"
+/**
+ * @file Enemy_FLOATING.cpp
+ * @brief ’µ’e
+ * @author ‘å¼‰i‰“
+ * @date XV“úi10/29j
+ */
 
-CENEMY_FLOATING::CENEMY_FLOATING():
-CEnemyMove(),
-m_CrawlRange(0),
-m_CrawlRangeCount(0){
+#include "Enemy_FLOATING.h"
+
+CENEMY_FLOATING::CENEMY_FLOATING() :
+	CEnemyMove(),
+	m_CrawlRange(0),
+	m_CrawlRangeCount(0) {
 
 }
 CENEMY_FLOATING::~CENEMY_FLOATING() {
@@ -18,11 +25,11 @@ void CENEMY_FLOATING::Initialize() {
 	m_CrawlRangeCount = -1;
 }
 void CENEMY_FLOATING::Update(float Xpos, float Ypos) {
-	if (m_CrawlRange>=CrawlRange) {
+	if (m_CrawlRange >= CrawlRange) {
 		m_fMoveX = -m_fEnemySpeed;
 		m_CrawlRangeCount = -m_CrawlRangeCount;
 	}
-	else if(m_CrawlRange<=0)
+	else if (m_CrawlRange <= 0)
 	{
 		m_fMoveX = m_fEnemySpeed;
 		m_CrawlRangeCount = -m_CrawlRangeCount;

@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_KOTEIHOUDAI.cpp
+ * @brief 固定砲台
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_KOTEIHOUDAI.h"
 
 CENEMY_KOTEIHOUDAI::CENEMY_KOTEIHOUDAI():

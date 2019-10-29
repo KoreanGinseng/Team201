@@ -165,7 +165,7 @@
     <ClCompile Include="Atack_TESTBOS.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ENEMY_FLOATING.cpp">
+    <ClCompile Include="Enemy_FLOATING.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -290,7 +290,7 @@
     <ClInclude Include="Atack_TESTBOS.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ENEMY_FLOATING.h">
+    <ClInclude Include="Enemy_FLOATING.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

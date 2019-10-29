@@ -1,3 +1,9 @@
+/**
+ * @file EnemyMove.h
+ * @brief 敵の動き
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
 #pragma once
 #include	"Mof.h"
 #include	"EnemyAtack.h"

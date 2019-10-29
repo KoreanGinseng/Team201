@@ -15,7 +15,7 @@
 #include	"Enemy_BAT.h"
 #include	"Enemy_KOTEIHOUDAI.h"
 #include	"../Enemy_TESTBOS.h"
-#include	"../ENEMY_FLOATING.h"
+#include	"../Enemy_FLOATING.h"
 #include	"../Atack_KURIBO.h"
 #include	"../Atack_NOKONOKO.h"
 #include	"../Atack_TERESA.h"

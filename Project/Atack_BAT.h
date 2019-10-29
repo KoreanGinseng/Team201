@@ -1,3 +1,10 @@
+/**
+ * @file Atack_BAT.h
+ * @brief 蝙蝠の攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"_Onishi/EnemyAtack.h"
 

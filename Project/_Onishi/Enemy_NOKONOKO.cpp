@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_NOKONOKO.cpp
+ * @brief ノコノコ
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_NOKONOKO.h"
 
 CENEMY_NOKONOKO::CENEMY_NOKONOKO():

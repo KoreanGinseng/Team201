@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_BAT.cpp
+ * @brief 蝙蝠の動き
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_BAT.h"
 
 CENEMY_BAT::CENEMY_BAT():

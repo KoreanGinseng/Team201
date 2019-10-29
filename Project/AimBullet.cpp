@@ -1,3 +1,10 @@
+/**
+ * @file AimBullet.cpp
+ * @brief 狙撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include "AimBullet.h"
 
 CAimBullet::CAimBullet():

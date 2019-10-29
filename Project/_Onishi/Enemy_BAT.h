@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_BAT.h
+ * @brief 蝙蝠の動き
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyMove.h"
 

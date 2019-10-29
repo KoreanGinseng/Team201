@@ -1,3 +1,10 @@
+/**
+ * @file BounceBllet.h
+ * @brief 跳弾
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyShot.h"
 #include	"EnemyDefine.h"

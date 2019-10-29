@@ -1,3 +1,10 @@
+/**
+ * @file Atack_NOKONOKO.cpp
+ * @brief ノコノコの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Atack_NOKONOKO.h"
 
 CAtack_NOKONOKO::CAtack_NOKONOKO():

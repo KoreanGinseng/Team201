@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_KURIBIO.cpp
+ * @brief クリボー
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_KURIBO.h"
 
 CEnemy_KURIBO::CEnemy_KURIBO():

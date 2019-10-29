@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_Atack.cpp
+ * @brief エネミーの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include "EnemyAtack.h"
 #include "mof.h"
 

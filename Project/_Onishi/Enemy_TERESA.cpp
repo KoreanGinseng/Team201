@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_TERESA.cpp
+ * @brief テレサ
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_TERESA.h"
 
 CENEMY_TERESA::CENEMY_TERESA():

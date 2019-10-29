@@ -107,7 +107,7 @@
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyShot.cpp" />
-    <ClCompile Include="ENEMY_FLOATING.cpp" />
+    <ClCompile Include="Enemy_FLOATING.cpp" />
     <ClCompile Include="Enemy_TESTBOS.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
@@ -148,7 +148,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyDefine.h" />
     <ClInclude Include="EnemyShot.h" />
-    <ClInclude Include="ENEMY_FLOATING.h" />
+    <ClInclude Include="Enemy_FLOATING.h" />
     <ClInclude Include="Enemy_TESTBOS.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
