@@ -9,18 +9,13 @@ CENEMY_BAT::~CENEMY_BAT() {
 }
 
 void CENEMY_BAT::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnim(), c);
-	m_fEnemySpeed = 6;
-	m_bReverse = false;
+	m_fEnemySpeed = 2;
 	m_fMoveX = -m_fEnemySpeed;
-	m_fMoveY = 0;
-	m_TurnLeft = m_fXpos - 320;
-	m_TurnRight = m_fXpos + m_SrcRect.GetWidth() + 320;
+	m_fMoveY = m_fEnemySpeed;
 }
 
 void CENEMY_BAT::Update(float Xpos, float Ypos){
-	/*if (m_fYpos <= Ypos) {
+	if (m_fYpos <= Ypos) {
 
 		if (m_bReverse) {
 
@@ -45,18 +40,8 @@ void CENEMY_BAT::Update(float Xpos, float Ypos){
 	}
 	if (m_Motion.GetMotionNo() == BAT_DOWN) {
 		m_Motion.ChangeMotion(BAT_MOVE);
-	}*/
-	
-	if (m_fXpos < m_TurnLeft)
-	{
-		m_fXpos = m_TurnLeft;
-		m_fMoveX *= -1;
-		m_bReverse = true;
 	}
-	else if (m_fXpos > m_TurnRight)
-	{
-		m_fXpos = m_TurnRight - m_SrcRect.GetWidth();
-		m_fMoveX *= -1;
-		m_bReverse = false;
-	}
+	m_fXpos += m_fMoveX;
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	m_SrcRect = m_Motion.GetSrcRect();
 }

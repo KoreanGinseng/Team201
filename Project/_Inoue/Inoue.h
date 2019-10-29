@@ -50,7 +50,7 @@ public:
 	void RenderDebug(void);
 	void Release(void);
 
-	int GetSceneName(void) { return SCENENO_INOUE; }
+	int GetSceneName(void) { return SCENENO_GAME; }
 
 	static	void	NextStage(void) {
 		if (++m_StageNo >= STAGE_COUNT) {

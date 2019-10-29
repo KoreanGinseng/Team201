@@ -6,12 +6,12 @@ CCamera2D::CCamera2D() :
 
 void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const CRectangle& srec)
 {
-	CRectangle rect = GetRect();
 	if (centerPos != m_Pos)
 	{
 		Vector2 d = centerPos - m_Pos;
 		Vector2 pPos = Vector2(prec.Left, prec.Top);
 		Vector2 screenPos = ScreenTransration(m_Pos, pPos);
+		CRectangle rect = GetRect();
 		if ((rect.Right < srec.Right && screenPos.x > g_pGraphics->GetTargetWidth() / 2) ||
 			(srec.Left < rect.Left && screenPos.x < g_pGraphics->GetTargetWidth() / 2))
 		{
@@ -50,17 +50,7 @@ void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const C
 			m_Pos.y = 0;
 			d.y = 0;
 		}
+
 		m_Pos += d;
 	}
-	if (m_Pos.x < 0)
-	{
-		m_Pos.x = 0;
-	}
-	if (m_Pos.y < 0)
-	{
-		m_Pos.y = 0;
-	}
-
-	m_Pos.x = (int)m_Pos.x;
-	m_Pos.y = (int)m_Pos.y;
 }

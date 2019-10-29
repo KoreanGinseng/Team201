@@ -22,7 +22,7 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
-#define		STAGE_COUNT		4		//! ゲームステージ数
+#define		STAGE_COUNT		3		//! ゲームステージ数
 #define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 #define		GRAVITY			0.3f	//! ゲーム内重力
@@ -43,9 +43,9 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 constexpr	char*	FileName[] = {
 	//TEXTURE
 	"player3.png",
-	"EnemyKinoko.png",
-	"EnemyDoku.png",
-	"EnemyBat.png",
+	"enemy01.png",
+	"enemy02.png",
+	"enemy03.png",
 	"enemy04.png",
 	"enemy05.png",
 	"enemy06.png",
@@ -59,7 +59,7 @@ constexpr	char*	FileName[] = {
 	"Item06.png",
 	"Item07.png",
 	"Item08.png",
-	"obj_rope03.png",
+	"Obj01.png",
 	"Obj02.png",
 	"Obj03.png",
 	"Obj04.png",
@@ -74,9 +74,9 @@ constexpr	char*	FileName[] = {
 	"sumple_imvisible.png",
 	//ANIMATION
 	"playerAnim.bin",
-	"EnemyKinokoAnim.bin",
-	"EnemyDokuAnim.bin",
-	"EnemyBatAnim.bin",
+	"EnemyAnim01.bin",
+	"EnemyAnim02.bin",
+	"EnemyAnim03.bin",
 	"EnemyAnim04.bin",
 	"EnemyAnim05.bin",
 	"EnemyAnim06.bin",
@@ -90,9 +90,9 @@ constexpr	char*	FileName[] = {
 	"ItemAnim06.bin",
 	"ItemAnim07.bin",
 	"ItemAnim08.bin",
-	"RopeAnim.bin",
-	"Tree01Anim.bin",
-	"BridgeAnim.bin",
+	"ObjAnim01.bin",
+	"ObjAnim02.bin",
+	"ObjAnim03.bin",
 	"ObjAnim04.bin",
 	"ObjAnim05.bin",
 	"ObjAnim06.bin",
@@ -223,22 +223,9 @@ enum tag_ENEMY
 {
 	ENEMY_KURIBO,
 	ENEMY_NOKONOKO,
-	ENEMY_BAT,
 	ENEMY_TERESA,
+	ENEMY_BAT,
 	ENEMY_KOTEIHOUDAI,
-	ENEMY_TESTBOS,
-	ENEMY_FLOATING,
-};
-
-/*****************************************************************
- * @enum tag_OBJECT
- * オブジェクトの列挙
- *****************************************************************/
-enum tag_OBJECT
-{
-	OBJECT_ROPE,
-	OBJECT_BRIDGE,
-	OBJECT_TREE01,
 };
 
 #include <crtdbg.h>

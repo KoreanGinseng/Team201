@@ -55,31 +55,29 @@ void CInoue::Initialize()
 void CInoue::Update()
 {
 	//F4キーでポーズ
-	if (g_pInput->IsKeyPush(MOFKEY_F4))
-	{
+	if (g_pInput->IsKeyPush(MOFKEY_F4)) {
 		m_bPoase = !m_bPoase;
 	}
 
 	// ESCAPEキーで終了
-	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE))
-	{
+	if (g_pInput->IsKeyPush(MOFKEY_ESCAPE)) {
 		PostQuitMessage(0);
 	}
 
 	//ポーズ中ならポーズ画面の更新のみする
-	if (m_bPoase)
-	{
+	if (m_bPoase) {
+
 		return;
 	}
 
+	//プレイヤーの更新
+	m_Player.Update();
 
 	//プレイヤーがスキル発動時の場合、
 	if (m_Player.IsTrigger())
 	{
 		m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 	}
-	//プレイヤーの更新
-	m_Player.Update();
 
 	Vector2 o(0, 0);
 	//プレイヤーとステージの当たり判定
@@ -101,10 +99,6 @@ void CInoue::Update()
 		if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i].GetRect(), eo))
 		{
 			m_pEnemyArray[i].CollisionStage(eo);
-		}
-		if (m_pEnemyArray[i].Collision(m_Player.GetRect(), o))
-		{
-			m_Player.CollisionStage(o);
 		}
 	}
 	//アイテムの更新
@@ -134,37 +128,7 @@ void CInoue::Update()
 		Vector2 oo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))
 		{
-			//m_pObjArray[i].CollisionStage(oo);
-		}
-		//プレイヤーとの当たり判定
-		bool clime = false;
-		oo = Vector2(0, 0);
-		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
-		{
-			if (m_pObjArray[i].GetType() == OBJECT_ROPE)
-			{
-				clime = true;
-			}
-			else
-			{
-				m_Player.CollisionStage(oo);
-			}
-		}
-		m_Player.SetClime(clime);
-		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
-		{
-			oo = Vector2(0, 0);
-			if (m_pObjArray[i].Collision(m_pEnemyArray[j].GetRect(), oo))
-			{
-				if (m_pObjArray[i].GetType() == OBJECT_ROPE)
-				{
-					continue;
-				}
-				else
-				{
-					m_pEnemyArray[j].CollisionStage(oo);
-				}
-			}
+			m_pObjArray[i].CollisionStage(oo);
 		}
 	}
 
@@ -182,10 +146,6 @@ void CInoue::Update()
 //描画
 void CInoue::Render()
 {
-
-	//goriosi
-	g_pTextureManager->GetResource("空.png")->Render(0, 0);
-
 	//ステージの描画
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
 
@@ -231,12 +191,7 @@ void CInoue::RenderDebug()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
 		m_pEnemyArray[i].RenderDebug(screenPos);
 	}
-	//オブジェクトの描画
-	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
-	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
-		m_pObjArray[i].RenderDebug(screenPos);
-	}
+
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
 	CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }

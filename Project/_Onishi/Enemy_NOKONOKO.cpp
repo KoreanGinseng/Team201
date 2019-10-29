@@ -8,19 +8,14 @@ CENEMY_NOKONOKO::~CENEMY_NOKONOKO() {
 }
 
 void CENEMY_NOKONOKO::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_2])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_2])->GetAnim(), c);
 	m_fTimer = 0;
 	m_fEnemySpeed = 2;
-	m_fMoveX = -m_fEnemySpeed;
-	m_fMoveY = GRAVITY;
+	m_fMoveX = -1 * m_fEnemySpeed;
+	m_fMoveY = m_fEnemySpeed;
 }
 
 void CENEMY_NOKONOKO::Update(float Xpos, float Ypos) {
 	
-	m_fMoveY += GRAVITY;
-	if (m_fMoveY > 20.0f)
-	{
-		m_fMoveY = 20.0f;
-	}
+	m_fXpos += m_fMoveX;
+	m_fYpos += m_fMoveY;
 }

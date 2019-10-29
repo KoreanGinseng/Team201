@@ -5,6 +5,11 @@
 #include	"Substance.h"
 #include	"_Onishi/EnemyMove.h"
 #include	"_Onishi/EnemyAtack.h"
+#include	"_Onishi/Enemy_BAT.h"
+#include	"_Onishi/Enemy_KOTEIHOUDAI.h"
+#include	"_Onishi/Enemy_KURIBO.h"
+#include	"_Onishi/Enemy_TERESA.h"
+#include	"_Onishi/Enemy_NOKONOKO.h"
 
 
 //“–‚½‚è”»’èŒ¸Š•
@@ -18,11 +23,8 @@ private:
 	CEnemyMove*				m_pMove;
 	CEnemyAtack*			m_pAttack;
 	int						m_HP;
-	int						m_StopWait;
-	int						m_StopWaitOffset;
 	int						m_DamageWait;
-	int						m_Type;
-
+	
 	//ƒ‚[ƒVƒ‡ƒ“Ží—Þ’è‹`
 	enum tag_MOTION {
 		MOTION_MOVE,
@@ -46,13 +48,9 @@ public:
 
 	//Collision
 	void CollisionStage(Vector2 o);
-	bool Collision(CRectangle r, Vector2& o);
 	void Damage(int dmg,bool bRev);
 	
 	//Get
 	bool		GetShow(void)			const { return m_bShow; }
 	int			GetDamageWait(void)		const { return m_DamageWait; }
-	//CRectangle  GetRect(void)			const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
-	CRectangle  GetRect(void)			const { return m_pMove->GetRect(); }
-	int			GetType(void)			const { return m_Type; }
 };

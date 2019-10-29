@@ -11,8 +11,8 @@ int WINAPI _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 	Info.WindowCreateInfo.pProc = pp;
 	Info.WindowCreateInfo.Width = 1920;
 	Info.WindowCreateInfo.Height = 1080;
-	Info.GraphicsCreateInfo.bWindowed = FALSE;
-	//Info.GraphicsCreateInfo.bWindowed = TRUE;
+	//Info.GraphicsCreateInfo.bWindowed = FALSE;
+	Info.GraphicsCreateInfo.bWindowed = TRUE;
 	Info.GraphicsCreateInfo.bMSAA = FALSE;
 	Info.pApplication = new CGameApp();
 	if ( pFrame->Initialize(&Info) )

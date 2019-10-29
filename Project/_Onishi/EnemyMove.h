@@ -3,6 +3,10 @@
 #include	"../GameDefine.h"
 #include	"EnemyAtack.h"
 
+#define Timer 5
+#define AtackTimer 5
+#define CoolTime 5
+
 class CEnemyMove {
 protected:
 	float		m_fXpos;
@@ -11,7 +15,6 @@ protected:
 	float		m_fMoveY;
 	float		m_fEnemySpeed;
 	bool		m_bAttack;
-	bool		m_bDead;
 	bool		m_bReverse;
 	CRectangle	m_SrcRect;
 	CSpriteMotionController	m_Motion;
@@ -24,12 +27,10 @@ public:
 	virtual	~CEnemyMove();
 	virtual void Initialize() = 0;
 	virtual void Update(float Xpos, float Ypos) = 0;
-	void	Animation(void);
 	Vector2	GetSpd(void) const { return Vector2(m_fMoveX, m_fMoveY); }
 	Vector2	GetPos(void) const { return Vector2(m_fXpos, m_fYpos); }
 	void	SetPos(const Vector2& pos) { m_fXpos = pos.x; m_fYpos = pos.y; }
 	CRectangle	GetSrcRect(void) const { return m_SrcRect; }
-	virtual CRectangle	GetRect(void) const = 0;
 	void ResetSpd(const WAY& w) { ((w == WAY_X) ? m_fMoveX : m_fMoveY) = 0; }
 	void Reverse(void) { m_fMoveX *= -1; m_bReverse = !m_bReverse; }
 	void SetReverse(bool flag) { m_bReverse = flag; }
@@ -38,10 +39,10 @@ public:
 	void Release(void) { m_Motion.Release(); }
 };
 
-#include	"Enemy_BAT.h"
-#include	"Enemy_KOTEIHOUDAI.h"
-#include	"Enemy_KURIBO.h"
-#include	"Enemy_TERESA.h"
-#include	"Enemy_NOKONOKO.h"
-#include	"ENEMY_FLOATING.h"
-#include	"Enemy_TESTBOS.h"
+
+
+
+
+
+
+
