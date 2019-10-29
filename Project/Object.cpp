@@ -193,7 +193,7 @@ void CObject::SetObject(const int& Type)
 		break;
 	case 1:
 		m_pObjEmp = new CObjTree();
-		m_Pos.y -= 32;
+		m_Pos.y += 32;
 		break;
 	case 2:
 		m_pObjEmp = new CBridge();
