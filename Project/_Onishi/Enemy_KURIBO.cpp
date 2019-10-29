@@ -8,9 +8,11 @@ CEnemy_KURIBO::~CEnemy_KURIBO() {
 
 }
 void CEnemy_KURIBO::Initialize() {
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnim(), c);
 	m_fEnemySpeed = 2;
-	m_fMoveX = -1 * m_fEnemySpeed;
-	m_fMoveY = m_fEnemySpeed;
+	m_fMoveX = -m_fEnemySpeed;
+	m_fMoveY = 0;
 }
 
 void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
@@ -20,7 +22,4 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 	if (m_fMoveY >= 20.0f) {
 		m_fMoveY = 20.0f;
 	}
-
-	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Motion.GetSrcRect();
 }
