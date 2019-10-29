@@ -228,7 +228,8 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			}
 			pObj[n].SetTexture(m_pObjectTexture[on]);
 			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+			pObj[n++].SetObject(on);
 		}
 	}
 }
@@ -297,6 +298,9 @@ void CStage::Release() {
 		free(m_pObjEndData);
 		m_pObjEndData = nullptr;
 	}
+	m_pEnemyTexture.clear();
+	m_pItemTexture.clear();
+	m_pObjectTexture.clear();
 }
 
 //“–‚½‚è”»’è

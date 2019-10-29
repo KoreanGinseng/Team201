@@ -28,9 +28,9 @@
 //GLOBAL
 CSceneBase*		gpScene = nullptr;
 CLoading*		gpLoading = nullptr;
-
+extern CXGamePad xgpad;
 #ifdef _DEBUG
-bool			gbDebug = false;
+bool			gbDebug = true;
 #endif // _DEBUG
 
 
@@ -42,12 +42,13 @@ bool			gbDebug = false;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-	CUtilities::SetCurrentDirectory("Resource/test");
+	CUtilities::SetCurrentDirectory("Resource");
 	
 	//gpScene = new CTitle();			//タイトルから開始
 	//gpScene = new CGame();
 #ifdef _DEBUG
-	gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
+	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
+	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
 	if (gpLoading == nullptr)
@@ -135,7 +136,7 @@ MofBool CGameApp::Update(void){
 	}
 
 	// Oキーでステージ変更
-	if (gpScene->GetSceneName() == SCENENO_GAME && g_pInput->IsKeyPush(MOFKEY_O))
+	if (gpScene->GetSceneName() == SCENENO_GAME && (g_pInput->IsKeyPush(MOFKEY_O) || xgpad.IsKeyPush(XINPUT_RS_PUSH)))
 	{
 		gpScene->Release();
 		delete gpScene;
@@ -185,7 +186,7 @@ MofBool CGameApp::Render(void){
 
 	//シーンの描画
 	gpScene->Render();
-
+	
 #ifdef _DEBUG
 	//デバッグの描画
 	if (gbDebug)
