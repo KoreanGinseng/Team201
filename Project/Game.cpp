@@ -253,10 +253,9 @@ void CGame::UpdateDebug() {
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
 
 		m_bEnd = true;
-		/*delete m_pEffect;
-		m_pEffect = new CEffectFade();*/
 		m_pEffect->Out(10);
 		m_SceneNo = SCENENO_GAMEOVER;
+
 
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {

@@ -1,5 +1,6 @@
 #pragma once
 #include	"Mof.h"
+#include	"TimeManager.h"
 #include	"SceneBase.h"
 #include	"GameDefine.h"
 #include	"GameKey.h"
@@ -56,10 +57,10 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
+	void UpdateDebug();
 	void RenderDebug();
 	void Release();
 	int GetSceneName(void) { return SCENENO_RANKING; }
-	
 
 	//------------------------------------------------------------------------------------------
 	void ImeInit();
@@ -69,6 +70,7 @@ public:
 	void SendKeyBoard(unsigned char VK);
 	void PadOperation(void);
 	void RankingSave(void);
+
 	void VKOperation(void);
 	void KeyRender(void);
 

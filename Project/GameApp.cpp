@@ -63,6 +63,10 @@ MofBool CGameApp::Initialize(void){
 	{
 		return FALSE;
 	}
+
+#ifdef _DEBUG
+	g_pGraphics->ChangeScreenMode();
+#endif // _DEBUG
 	return TRUE;
 }
 /*************************************************************************//*!
