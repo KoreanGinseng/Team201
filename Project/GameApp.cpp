@@ -44,6 +44,7 @@ bool			gbDebug = true;
 MofBool CGameApp::Initialize(void){
 	CUtilities::SetCurrentDirectory("Resource");
 	
+
 	//gpScene = new CTitle();			//タイトルから開始
 	//gpScene = new CGame();
 #ifdef _DEBUG

@@ -244,7 +244,7 @@ void CStage::Render(Vector2 scroll) {
 	//‰“Œi‚Ì•`‰æ
 	int scw = g_pGraphics->GetTargetWidth();
 	int sch = g_pGraphics->GetTargetHeight();
-	int wn = m_pBackTexture->GetWidth();
+  	int wn = m_pBackTexture->GetWidth();
 	int hn = m_pBackTexture->GetHeight();
 	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {

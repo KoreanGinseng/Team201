@@ -73,10 +73,11 @@ void CPlayer::Update(void)
 		//コントローラー入力での移動量更新
 		PadOparation();
 	}
-
-	//キーボード入力での移動量更新
-	KeyOparation();
-
+	else
+	{		
+		//キーボード入力での移動量更新		
+		KeyOparation();
+	}
 	//移動
 	Move();
 
@@ -85,6 +86,7 @@ void CPlayer::Update(void)
 
 	//アニメーション更新
 	Animation();
+
 }
 
 //描画
@@ -135,6 +137,14 @@ void CPlayer::PadOparation(void)
 	{
 		MoveAdd(WAY_LEFT);
 	}
+	else if (xgpad.GetStickVertical() > 0.8f)
+	{
+		MoveAdd(WAY_UP);
+	}
+	else if (xgpad.GetStickVertical() < -0.8f)
+	{
+		MoveAdd(WAY_DOWN);
+	}
 	//スティックを離した場合（移動の操作をしていない場合）
 	else
 	{
@@ -153,13 +163,26 @@ void CPlayer::PadOparation(void)
 			m_bMove = false;
 		}
 	}
-
-	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (g_pGamePad->IsKeyPush(GAMEKEY_A) && !m_bJump)
-	{
-		Jump();
+	if (!m_bClime)
+	{//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
+		if (g_pGamePad->IsKeyPush(GAMEKEY_A) && !m_bJump)
+		{
+			Jump();
+		}
 	}
+	else
+	{
+		m_Move.y = 0;
+		if (g_pGamePad->GetStickVertical()<-0.8f)
+		{
+			m_Move.y = -5;
+		}
 
+		else if (g_pGamePad->GetStickVertical() > 0.8f)
+		{
+			m_Move.y = 5;
+		}
+	}
 	//LTボタンを押した場合、スキルが発動
 	if (xgpad.IsKeyHold(XINPUT_L_TRIGGER)/* && m_CoolTime > 0.0f*/)
 	{
@@ -231,14 +254,42 @@ void CPlayer::KeyOparation(void)
 		{
 			m_bMove = false;
 		}
+		if (m_bClime)
+		{
+			if (g_pInput->IsKeyHold(MOFKEY_UP))
+			{
+				MoveAdd(WAY_UP);
+			}
+			else if (g_pInput->IsKeyHold(MOFKEY_DOWN))
+			{
+				MoveAdd(WAY_DOWN);
+			}
+		}
 	}
-
-	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump)
+	if (!m_bClime)
 	{
-		Jump();
-	}
 
+		//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
+		if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump)
+		{
+			Jump();
+		}
+
+	}
+	//ロープ中の処理
+	else
+	{
+		m_Move.y = 0;
+		if (g_pInput->IsKeyHold(MOFKEY_UP))
+		{
+			m_Move.y -= 5;
+		}
+		
+		else if (g_pInput->IsKeyHold(MOFKEY_DOWN))
+		{
+			m_Move.y += 5;
+		}
+	}
 	//スペースキーを押した場合、スキルが発動
 	if (g_pInput->IsKeyHold(MOFKEY_SPACE) /*&& m_CoolTime > 0.0f*/)
 	{
@@ -287,13 +338,13 @@ void CPlayer::Move(void)
 	{
 		m_Move.y += GRAVITY;
 	}
-	m_Pos += m_Move;
+		m_Pos += m_Move;
 }
 
 //加速処理
 void CPlayer::MoveAdd(WAY w)
 {
-	switch(w)
+	switch (w)
 	{
 	case WAY_RIGHT:
 		m_bReverse = false;
@@ -337,6 +388,21 @@ void CPlayer::MoveSub(WAY w)
 		if (m_Move.x > 0)
 		{
 			m_Move.x = 0;
+		}
+		break;
+	case WAY_UP:
+		m_Move.y -= m_Spd.y - 0.1f;
+		//ゼロ以下にならないようにする
+		if (m_Move.y < 0)
+		{
+			m_Move.y = 0;
+		}
+		break;
+	case WAY_DOWN:
+		m_Move.y += m_Spd.y - 0.1f;
+		if (m_Move.y > 0)
+		{
+			m_Move.y = 0;
 		}
 		break;
 	}
@@ -404,6 +470,11 @@ void CPlayer::CollisionStage(Vector2 o)
 	{
 		m_Move.x = 0;
 	}
+}
+
+void CPlayer::PMoveTest()
+{
+	
 }
 
 void CPlayer::Skill()

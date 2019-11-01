@@ -14,10 +14,6 @@ CLoading::~CLoading()
 
 void CLoading::Load(void)
 {
-	auto c = CUtilities::GetCurrentDirectory();
-	CTexture a;
-	a.Load("player3.png");
-	int b = a.GetHeight();
 	g_pEffectManager->Load();
 	for (int i = TEXTURE_PLAYER; i < TEXTURE_COUNT; i++)
 	{

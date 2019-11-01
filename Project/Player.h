@@ -27,6 +27,8 @@ private:
 	typedef enum tag_WAY {
 		WAY_LEFT,
 		WAY_RIGHT,
+		WAY_UP,
+		WAY_DOWN,
 	}WAY;
 
 	CTexturePtr					m_pTexture;
@@ -58,7 +60,7 @@ private:
 	void MoveSub(WAY w);
 	void Animation(void);
 	void Jump(void);
-
+	
 	enum tag_Animation {
 		ANIM_WAIT,
 		ANIM_MOVE,
@@ -91,5 +93,8 @@ public:
 
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
+
+	void   PMoveTest();
+
 };
 
