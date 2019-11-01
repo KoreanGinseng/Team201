@@ -100,6 +100,8 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="EffectFade.cpp" />
+    <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Empty.cpp" />
@@ -152,6 +154,7 @@
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectFade.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Empty.h" />
     <ClInclude Include="Enemy.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />

@@ -35,6 +35,10 @@ CGame::~CGame()
 //読み込み
 bool CGame::Load()
 {
+	//シーンエフェクトスタート
+	m_pEffect = new CEffectFade();
+	m_pEffect->In(10);
+
 	if (!m_Stage[m_StageNo].Load(g_StageFileName[m_StageNo]))
 	{
 		return FALSE;
@@ -244,19 +248,22 @@ void CGame::Render()
 
 void CGame::UpdateDebug() {
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
 
 		m_bEnd = true;
-		m_NextSceneNo = SCENENO_GAMECLEAR;
+		delete m_pEffect;
+		m_pEffect = new CEffectFade();
+		m_pEffect->Out(10);
 
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 
 		m_bEnd = true;
-		m_NextSceneNo = SCENENO_GAMEOVER;
 
 	}
-
+	if (m_pEffect->IsEnd() && m_bEnd) {
+		m_NextSceneNo = SCENENO_GAME;
+	}
 }
 //デバッグ描画
 void CGame::RenderDebug()
@@ -282,6 +289,7 @@ void CGame::RenderDebug()
 //解放
 void CGame::Release()
 {
+	delete m_pEffect;
 	m_Stage[m_StageNo].Release();
 
 	//敵の解放

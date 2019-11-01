@@ -82,10 +82,11 @@ MofBool CGameApp::Update(void){
 	}
 
 	//シーンの更新
+	gpScene->EffectFrame();
 	gpScene->Update();
 
 	//シーン切り替え
-	if (gpScene->IsEnd())
+	if (gpScene->IsEnd() && gpScene->IsSceneEnd())
 	{
 		//次のシーン番号取得
 		int nextScene = gpScene->GetNextSceneNo();
@@ -186,7 +187,8 @@ MofBool CGameApp::Render(void){
 
 	//シーンの描画
 	gpScene->Render();
-	
+	gpScene->EffectRender();
+
 #ifdef _DEBUG
 	//デバッグの描画
 	if (gbDebug)
