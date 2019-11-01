@@ -34,6 +34,7 @@ void CEnemyMove::Update(float Xpos, float Ypos) {
 
 void CEnemyMove::KUpdate(float Xpos,float Ypos) {
 	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
 		m_bEnd = !m_bEnd;
 	}
 	if (m_bEnd) {

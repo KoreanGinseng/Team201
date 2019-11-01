@@ -17,6 +17,7 @@ enum ENEMY
 	ENEMY_KOTEIHOUDAI,
 	ENEMY_TESTBOS,
 	ENEMY_FLOATING,
+	ENEMY_POISONKURIBO,
 };
 
 enum BAT_ANIM
@@ -54,3 +55,10 @@ enum BAT_ANIM
 //ENEMY_FLOATING.cpp
 #define	CrawlRange	100
 #define CrawlRangeCenter 50
+
+//Atack_POISONKURIBO
+#define AtackRangeX	200
+#define AtackRangeY	100
+#define PoisonTime 0.5f
+#define PoisonBulletSpeedX 10
+#define PoisonBulletSpeedY 0

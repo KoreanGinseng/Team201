@@ -100,6 +100,7 @@
     <ClCompile Include="Atack_KOTEIHOUDAI.cpp" />
     <ClCompile Include="Atack_KURIBO.cpp" />
     <ClCompile Include="Atack_NOKONOKO.cpp" />
+    <ClCompile Include="Atack_POISONKURIBO.cpp" />
     <ClCompile Include="Atack_TERESA.cpp" />
     <ClCompile Include="Atack_TESTBOS.cpp" />
     <ClCompile Include="BounceBullet.cpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="Enemy_FLOATING.cpp" />
+    <ClCompile Include="Enemy_POISONKURIBO.cpp" />
     <ClCompile Include="Enemy_TESTBOS.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear\GameClear.cpp" />
@@ -116,6 +118,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PoisonBullet.cpp" />
     <ClCompile Include="Ranking\Ranking.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -140,6 +143,7 @@
     <ClInclude Include="Atack_KOTEIHOUDAI.h" />
     <ClInclude Include="Atack_KURIBO.h" />
     <ClInclude Include="Atack_NOKONOKO.h" />
+    <ClInclude Include="Atack_POISONKURIBO.h" />
     <ClInclude Include="Atack_TERESA.h" />
     <ClInclude Include="Atack_TESTBOS.h" />
     <ClInclude Include="BounceBullet.h" />
@@ -149,6 +153,7 @@
     <ClInclude Include="EnemyDefine.h" />
     <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="Enemy_FLOATING.h" />
+    <ClInclude Include="Enemy_POISONKURIBO.h" />
     <ClInclude Include="Enemy_TESTBOS.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameDefine.h" />
@@ -159,6 +164,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PoisonBullet.h" />
     <ClInclude Include="Ranking\Ranking.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Stage.h" />

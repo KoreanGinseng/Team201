@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_BAT;//デバック
+	gEnemytype = ENEMY_POISONKURIBO;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
@@ -88,6 +88,10 @@ void COnishi::Initialize() {
 	case ENEMY_FLOATING:
 		gEnemy = new CENEMY_FLOATING();
 		gAtack = new CAtack_TERESA();
+		break;
+	case ENEMY_POISONKURIBO:
+		gEnemy = new CEnemy_POISONKURIBO();
+		gAtack = new CAtack_POISONKURIBO();
 		break;
 	}
 
@@ -139,7 +143,9 @@ void COnishi::Update() {
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
 
 		gEnemy->Release();
+		delete gEnemy;
 		gAtack->Release();
+		delete gAtack;
 		if (gEnemytype == ENEMY_KURIBO) {
 			gEnemytype = ENEMY_NOKONOKO;
 			gEnemy = new CENEMY_NOKONOKO();
@@ -170,6 +176,11 @@ void COnishi::Update() {
 			gEnemy = new CENEMY_FLOATING();
 			gAtack = new CAtack_TERESA();
 		}
+		else if (gEnemytype == ENEMY_FLOATING) {
+			gEnemytype = ENEMY_POISONKURIBO;
+			gEnemy = new CEnemy_POISONKURIBO();
+			gAtack = new CAtack_POISONKURIBO();
+		}
 		else
 		{
 			gEnemytype = ENEMY_KURIBO;
@@ -182,7 +193,10 @@ void COnishi::Update() {
 
 
 	gEnemy->Update(Xpos, Ypos);
+	if (!gEnemy->GetDead()) {
 	gAtack->Update(gEnemy->GetXpos(), gEnemy->GetYpos(), gEnemy->getRevers(), Xpos, Ypos);
+
+	}
 	float ox = 0, oy = 0;
 	float mx = gEnemy->GetXpos(), my = gEnemy->GetYpos();
 	if (mx < 200) {
@@ -248,7 +262,11 @@ void COnishi::Render() {
 	case ENEMY_FLOATING:
 		CGraphicsUtilities::RenderString(100, 0, "漂う敵");
 		break;
+	case ENEMY_POISONKURIBO:
+		CGraphicsUtilities::RenderString(100, 0, "毒クリボー");
+		break;
 	}
+
 	CGraphicsUtilities::RenderLine(0, 600, g_pGraphics->GetTargetWidth(), 600, MOF_COLOR_WHITE);
 	CGraphicsUtilities::RenderLine(200, 0, 200, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
 	CGraphicsUtilities::RenderLine(800, 0, 800, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);

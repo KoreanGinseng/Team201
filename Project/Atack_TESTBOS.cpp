@@ -29,6 +29,7 @@ void CAtack_TESTBOS::Initialize() {
 }
 
 void CAtack_TESTBOS::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
+
 	if (EnemyPosX - BosAtackRange < PlayerPosX&&EnemyPosX + 10 > PlayerPosX) {
 		if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 			m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
