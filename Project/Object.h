@@ -1,48 +1,51 @@
 #pragma once
 #include	"Mof.h"
+#include	"Substance.h"
+#include	"GameDefine.h"
+#include	"Empty.h"
+#include	"Rope.h"
+#include	"ObjTree.h"
+#include	"Bridge.h"
 
-class CObject
+class CObject : public CSubstance
 {
-private:
-	CTexture*				m_pTexture;
-	CSpriteMotionController	m_Motion;
-	bool					m_bMotionEnd;
-	float					m_PosX;
-	float					m_PosY;
-	bool					m_bShow;
-	CRectangle				m_SrcRect;
-	bool					bFlag;
-	//現在のモーションフラグ
+protected:
+	CTexturePtr							m_pTexture;
+	CSpriteMotionController				m_Motion;
+	bool								m_bMotionEnd;
+	bool								m_bShow;
+	CRectangle							m_SrcRect;
+	CEmpty*								m_pObjEmp;
+
 	enum tag_MOTION {
 		MOTION_START,
 		MOTION_END,
-		//青
-		MOTION_CHANGE1,
-		//赤
-		MOTION_CHANGE2,
 
 		MOTION_COUNT
 	};
 public:
 	CObject();
-	~CObject();
-	void Initialize(float px, float py);
+	~CObject() { Release(); }
+	void Initialize(float px, float py, const int& cn);
 	void Update(void);
 	void Render(Vector2 sp);
 	void RenderDebug(Vector2 sp);
 	void Release(void);
 
-	void SetTexture(CTexture* pt) { m_pTexture = pt; }
-	void SetShow(bool bs) { m_bShow = bs; }
-	void SetMotionEnd(bool bme) { m_bMotionEnd = bme; }
+	//Collision
+	void CollisionStage(const Vector2& o);
+	bool Collision(CRectangle rect, Vector2& o);
 
-	bool GetShow(void) { return m_bShow; }
-	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
-	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + m_SrcRect.GetWidth(), m_PosY + m_SrcRect.GetHeight()); }
+	//Set
+	void SetObject(const int& Type);
+	void SetTexture(CTexturePtr pt)    { m_pTexture = pt; }
+	void SetMotionEnd(const bool& be)  { m_bMotionEnd = be; }
+	void SetShow(const bool& bs)       { m_bShow = bs; }
 
-	//
-	void Change();
-	void ChangeEnd();
-	
+	//Get
+	bool		GetShow(void)	 const { return m_bShow; }
+	//virtual CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
+	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
+	int	 GetType(void) { return m_pObjEmp->GetType(); }
 };
 
