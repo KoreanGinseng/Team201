@@ -46,6 +46,11 @@ bool CGameOver::Load() {
  *****************************************************************/
 void CGameOver::Initialize() {
 
+	//終了フラグの初期化
+	m_bEnd = false;
+	//遷移先の初期化
+	m_NextSceneNo = SCENENO_TITLE;
+
 }
 
 /*****************************************************************
@@ -56,6 +61,12 @@ void CGameOver::Initialize() {
  *****************************************************************/
 void CGameOver::Update() {
 
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+
+	}
 }
 
 /*****************************************************************
@@ -66,6 +77,7 @@ void CGameOver::Update() {
  *****************************************************************/
 void CGameOver::Render() {
 
+	RenderDebug();
 }
 
 /*****************************************************************
@@ -75,6 +87,8 @@ void CGameOver::Render() {
  * @return なし
  *****************************************************************/
 void CGameOver::RenderDebug() {
+
+	CGraphicsUtilities::RenderString(0, 100, "ゲームオーバー");
 
 }
 

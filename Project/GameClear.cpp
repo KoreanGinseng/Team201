@@ -46,6 +46,12 @@ bool CGameClear::Load() {
  *****************************************************************/
 void CGameClear::Initialize() {
 
+	//終了フラグの初期化
+	m_bEnd = false;
+	//遷移先の初期化
+	m_NextSceneNo = SCENENO_TITLE;
+
+
 }
 
 /*****************************************************************
@@ -55,6 +61,13 @@ void CGameClear::Initialize() {
  * @return なし
  *****************************************************************/
 void CGameClear::Update() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+
+	}
 
 }
 
@@ -66,6 +79,8 @@ void CGameClear::Update() {
  *****************************************************************/
 void CGameClear::Render() {
 
+	RenderDebug();
+
 }
 
 /*****************************************************************
@@ -76,6 +91,7 @@ void CGameClear::Render() {
  *****************************************************************/
 void CGameClear::RenderDebug() {
 
+	CGraphicsUtilities::RenderString(0, 100, "ゲームクリア");
 }
 
 /*****************************************************************

@@ -43,6 +43,7 @@ public:
 	void Update(void);
 	void Render(void);
 	void RenderDebug(void);
+	void UpdateDebug(void);
 	void Release(void);
 
 	int GetSceneName(void) { return SCENENO_GAME; }

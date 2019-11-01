@@ -51,6 +51,10 @@ bool CGame::Load()
 //初期化
 void CGame::Initialize()
 {
+	//終了フラグの初期化
+	m_bEnd = false;
+	//遷移先の初期化
+	m_NextSceneNo = SCENENO_GAME;
 	m_Stage[m_StageNo].Initialize(m_pEnemyArray, m_pItemArray, m_pObjArray);
 	m_Player.Initialize();
 	g_pTimeManager->Reset();
@@ -59,6 +63,9 @@ void CGame::Initialize()
 //更新
 void CGame::Update()
 {
+
+	UpdateDebug();
+
 	//F4キーでポーズ
 	if (g_pInput->IsKeyPush(MOFKEY_F4))
 	{
@@ -235,6 +242,22 @@ void CGame::Render()
 	}
 }
 
+void CGame::UpdateDebug() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAMECLEAR;
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAMEOVER;
+
+	}
+
+}
 //デバッグ描画
 void CGame::RenderDebug()
 {
