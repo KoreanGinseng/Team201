@@ -15,6 +15,7 @@ class CSceneBase
 protected:
 	bool m_bEnd;
 	int  m_NextSceneNo;
+	int	 m_SceneNo;
 	CSceneEffectBase* m_pEffect;
 public:
 	CSceneBase();

@@ -35,6 +35,12 @@ CGameClear::~CGameClear() {
  * @return なし
  *****************************************************************/
 bool CGameClear::Load() {
+
+	//シーンエフェクトスタート
+	m_pEffect = new CEffectFade();
+	m_pEffect->In(10);
+
+
 	return TRUE;
 }
 
@@ -49,7 +55,7 @@ void CGameClear::Initialize() {
 	//終了フラグの初期化
 	m_bEnd = false;
 	//遷移先の初期化
-	m_NextSceneNo = SCENENO_TITLE;
+	m_NextSceneNo = SCENENO_GAMECLEAR;
 
 
 }
@@ -62,15 +68,41 @@ void CGameClear::Initialize() {
  *****************************************************************/
 void CGameClear::Update() {
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
-
-		m_bEnd = true;
-		m_NextSceneNo = SCENENO_GAME;
-
-	}
+	UpdateDebug();
 
 }
 
+/*****************************************************************
+* @fn
+* デバッグ更新
+* @param なし
+* @return なし
+*****************************************************************/
+void CGameClear::UpdateDebug() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
+
+		m_bEnd = true;
+		/*delete m_pEffect;
+		m_pEffect = new CEffectFade();*/
+		m_pEffect->Out(10);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
+		m_bEnd = true;
+
+	}
+	if (m_pEffect->IsEnd() && m_bEnd) {
+		m_NextSceneNo = SCENENO_TITLE;
+	}
+}
 /*****************************************************************
  * @fn
  * 描画
@@ -101,5 +133,11 @@ void CGameClear::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CGameClear::Release() {
+	if (m_pEffect) {
+
+		delete m_pEffect;
+
+		m_pEffect = nullptr;
+	}
 
 }

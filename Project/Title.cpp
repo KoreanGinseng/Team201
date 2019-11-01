@@ -23,6 +23,11 @@ CTitle::~CTitle()
 //読み込み
 bool CTitle::Load()
 {
+
+	//シーンエフェクトスタート
+	m_pEffect = new CEffectFade();
+	m_pEffect->In(10);
+
 	return TRUE;
 }
 
@@ -41,12 +46,7 @@ void CTitle::Initialize()
 void CTitle::Update()
 {
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
-
-		m_bEnd = true;
-		m_NextSceneNo = SCENENO_GAME;
-
-	}
+	UpdateDebug();
 	
 }
 
@@ -55,6 +55,28 @@ void CTitle::Render()
 {
 
 	RenderDebug();
+
+}
+
+void CTitle::UpdateDebug() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
+
+		m_bEnd = true;
+		m_pEffect->Out(10);
+
+	}
+
+	if (m_pEffect->IsEnd() && m_bEnd) {
+
+		m_NextSceneNo = SCENENO_GAME;
+	}
 
 }
 
@@ -69,5 +91,12 @@ void CTitle::RenderDebug()
 //解放
 void CTitle::Release()
 {
+	if (m_pEffect) {
+
+		delete m_pEffect;
+
+		m_pEffect = nullptr;
+
+	}
 
 }

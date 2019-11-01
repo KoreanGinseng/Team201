@@ -248,21 +248,30 @@ void CGame::Render()
 
 void CGame::UpdateDebug() {
 
+	
+
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
 
 		m_bEnd = true;
-		delete m_pEffect;
-		m_pEffect = new CEffectFade();
+		/*delete m_pEffect;
+		m_pEffect = new CEffectFade();*/
 		m_pEffect->Out(10);
+		m_SceneNo = SCENENO_GAMEOVER;
 
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 
 		m_bEnd = true;
 
+		m_pEffect->Out(10);
+
+		m_SceneNo = SCENENO_GAMECLEAR;
+
 	}
-	if (m_pEffect->IsEnd() && m_bEnd) {
-		m_NextSceneNo = SCENENO_GAME;
+	if (m_pEffect->IsEnd() && m_bEnd&&m_SceneNo!=-1) {
+
+		m_NextSceneNo = m_SceneNo;
+
 	}
 }
 //ƒfƒoƒbƒO•`‰æ
@@ -289,7 +298,12 @@ void CGame::RenderDebug()
 //‰ð•ú
 void CGame::Release()
 {
-	delete m_pEffect;
+	if (m_pEffect) {
+
+		delete m_pEffect;
+
+		m_pEffect = nullptr;
+	}
 	m_Stage[m_StageNo].Release();
 
 	//“G‚Ì‰ð•ú
