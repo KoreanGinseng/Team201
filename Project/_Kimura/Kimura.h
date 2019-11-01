@@ -11,7 +11,6 @@
 #include	"../SceneBase.h"
 //#include	"../GameDefine.h"
 #include	"../Player.h"
-#include	"../SoundManager.h"
 
  /*****************************************************************
   *	@brief			キムラシーンクラス
@@ -44,7 +43,7 @@ public:
 	 * @param なし
 	 * @return なし
 	 *****************************************************************/
-	bool Load();
+	void Load();
 
 	/*****************************************************************
 	 * @fn
@@ -85,6 +84,4 @@ public:
 	 * @return なし
 	 *****************************************************************/
 	void Release();
-	int GetSceneName(void) { return SCENENO_KIMURA; }
-
 };

@@ -62,7 +62,6 @@ void CGame::Load() {
 void CGame::Initialize() {
 	m_Stage[m_StageNo].Initialize(m_EnemyArray, m_ItemArray, m_pObjArray);
 	m_Player.Initialize();
-	baka = false;
 }
 
 /*****************************************************************
@@ -72,22 +71,19 @@ void CGame::Initialize() {
  * @return なし
  *****************************************************************/
 void CGame::Update() {
-	
-	if (!baka)
-	{
-		m_Player.Gra_Set();
-	}
-	else
-	{
-		m_Player.Gra_zero();
-		m_Player.Pmove();
-	}
+
 	m_Player.Update();
+
 	Vector2 o(0, 0);
 	if (m_Stage[m_StageNo].Collision(m_Player.GetRect(), o))
 	{
 		m_Player.CollisionStage(o);
 	}
+
+	//オブジェクトとプレイヤーの当たり判定
+
+
+
 
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -135,41 +131,24 @@ void CGame::Update() {
 			continue;
 		}
 
-
 		//アイテムを持っている場合、モーションを切り替える
 
-		//↓を消すと、オブジェクトとプレイヤーが当たったらモーションが切り替わる
-		
-		if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
+	  //↓を消すと、オブジェクトとプレイヤーが当たったらモーションが切り替わる	
+		if (m_Player.GetKey())
 		{
-			if (m_pObjArray[i].GetObjNo()==1)
-			{
-				baka = true;
-			}
-			//扉の処理
-			if (m_Player.GetKey())
+			if (m_Player.GetRect().CollisionRect(m_pObjArray[i].GetRect()))
 			{
 				m_pObjArray[i].Change();
 				m_Player.KeyFalse();
 			}
+			else
+			{
+				m_pObjArray[i].ChangeEnd();
+				
+			}
 		}
-		else
-		{
-			m_pObjArray[i].ChangeEnd();
-			//baka = false;
-		}		
-		
-		float ox = 0,oy = 0;
-		if (m_pObjArray[i].Collision(m_Player.GetRect(), ox, oy))
-		{
-			m_Player.CollisionStage(Vector2(ox, oy));
-		}
-		m_pObjArray[i].Update();
-	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
-	{
-		baka = false;
+		m_pObjArray[i].Update();
 	}
 
 	Vector2 centerPos = m_Player.GetPos()
@@ -214,7 +193,7 @@ void CGame::Update() {
  *****************************************************************/
 void CGame::Render() {
 	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
-
+	
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.Render(screenPos);
 
@@ -236,8 +215,9 @@ void CGame::Render() {
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].Render(screenPos);
 	}
-	MOF_PRINTLOG("%s\n", baka ? "ture" : "false");
+	
 }
+
 /*****************************************************************
  * @fn
  * デバッグ描画

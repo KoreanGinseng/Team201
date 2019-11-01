@@ -7,20 +7,17 @@
 #pragma once
 
 //! INCLUDE
-#include "../SceneBase.h"
-#include "../GameDefine.h"
-#include "../TimeManager.h"
-#include "../EffectManager.h"
-#include "../SoundManager.h"
-#include "../Coordinate.h"
-#include "../Camera2D.h"
-#include "../Player.h"
-#include "../Stage.h"
+#include	"../SceneBase.h"
+#include	"../Camera2D.h"
+#include	"../Coordinate.h"
+#include	"../Stage.h"
 
 //! SCENE ADD
-#include	"../Ranking.h"
+#include	"../Ranking/Ranking.h"
 
 //! DEFINE
+#define		RECTSIZE	10
+#define		MOVESPEED	10
 
  /*****************************************************************
   *	@brief			イノウエシーンクラス
@@ -28,35 +25,19 @@
   *****************************************************************/
 class CInoue : public CSceneBase {
 private:
-	CCamera2D			m_MainCamera;
-	CPlayer				m_Player;
-	CStage				m_Stage[STAGE_COUNT];
-	static	int			m_StageNo;
+	CCamera2D	m_MainCamera;
+	Vector2		m_Pos;
+	CStage		m_Stage[STAGE_COUNT];
 
-	// 敵
-	CEnemy*				m_pEnemyArray;
-	// アイテム
-	CItem*				m_pItemArray;
-	// オブジェクト
-	CObject*			m_pObjArray;
+	Vector2		m_MousePos;
 
-	bool				m_bPoase;
+	int			m_StageNo;
 
-public:
-	bool Load(void);
-	void Initialize(void);
-	void Update(void);
-	void Render(void);
-	void RenderDebug(void);
-	void Release(void);
+	//test code add
 
-	int GetSceneName(void) { return SCENENO_INOUE; }
+	CTexture	m_Player1;
+	CTexture	m_Player2;
 
-	static	void	NextStage(void) {
-		if (++m_StageNo >= STAGE_COUNT) {
-			m_StageNo = 0;
-		};
-	}
 public:
 	/*****************************************************************
 	 * @fn
@@ -73,4 +54,54 @@ public:
 	 * @return なし
 	 *****************************************************************/
 	~CInoue();
+
+	/*****************************************************************
+	 * @fn
+	 * 必要な素材の読み込み
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void Load();
+
+	/*****************************************************************
+	 * @fn
+	 * 初期化
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void Initialize();
+
+	/*****************************************************************
+	 * @fn
+	 * 更新
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void Update();
+
+	/*****************************************************************
+	 * @fn
+	 * 描画
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void Render();
+
+	/*****************************************************************
+	 * @fn
+	 * デバッグ描画
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void RenderDebug();
+
+	/*****************************************************************
+	 * @fn
+	 * 解放
+	 * @param なし
+	 * @return なし
+	 *****************************************************************/
+	void Release();
+
+	CRectangle	GetRect() { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + RECTSIZE, m_Pos.y + RECTSIZE); }
 };

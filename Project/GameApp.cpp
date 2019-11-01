@@ -7,33 +7,36 @@
 															@date	2014.05.14
 *//**************************************************************************/
 
-//INCLUDE
+//! INCLUDE
 #include	"GameApp.h"
-#include	"GameDefine.h"
-#include	"SceneBase.h"
-#include	"Game.h"
-#include	"Title.h"
-#include	"GameClear.h"
-#include	"GameOver.h"
-#include	"Ranking.h"
-#include	"_Fujiwara/Fujiwara.h"
+
+//! SCENE
+#include	"Game/Game.h"
+#include	"GameClear/GameClear.h"
+#include	"GameOver/GameOver.h"
+#include	"Title/Title.h"
 #include	"_Inoue/Inoue.h"
+#include	"_Fujiwara/Fujiwara.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
-#include	"GameDefine.h"
-#include	"EffectManager.h"
-//#include	"SoundManager.h"
-#include	"Loading.h"
+#include	"Ranking/Ranking.h"
 
-//GLOBAL
-CSceneBase*		gpScene = nullptr;
-CLoading*		gpLoading = nullptr;
-
-#ifdef _DEBUG
-bool			gbDebug = true;
-#endif // _DEBUG
+//! GLOBAL
+bool				g_bDebug = true;	//! デバッグ表示フラグ
+CSceneBase*			g_pScene = nullptr;	//! シーン格納ポインタ
 
 
+class CLoading : public CThread {
+public:
+	bool bEnd = false;
+	void Run(void)
+	{
+		Sleep(10000);
+		bEnd = true;
+		return;
+	}
+};
+CLoading a;
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
@@ -42,28 +45,25 @@ bool			gbDebug = true;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-	CUtilities::SetCurrentDirectory("Resource");
-	
+	//開始シーン
+	//	g_pScene = new CGame();
+	g_pScene=new CFujiwara();			//ゲームシーンからスタート(デバック用)
+	//g_pScene = new CTitle();		//タイトルシーンからスタート
 
-	//gpScene = new CTitle();			//タイトルから開始
-	//gpScene = new CGame();
-#ifdef _DEBUG
-	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
-	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
-#endif // _DEBUG
+	//読み込みカレントディレクトリの設定
+	CUtilities::SetCurrentDirectoryA("Resource");
 
-	if (gpLoading == nullptr)
-	{
-		gpLoading = new CLoading();
-	}
-	gpLoading->SetScene(gpScene);
-	gpLoading->Start("Loading");
+	//シーンの読み込み
+	g_pScene->Load();
+	//シーンの初期化
+	g_pScene->Initialize();
 
 	//FPSの設定
-	if (!CUtilities::SetFPS(GAMEFPS))
+	if (!CUtilities::SetFPS(GAMEFPS)) 
 	{
 		return FALSE;
 	}
+	a.Start("Loading");
 	return TRUE;
 }
 /*************************************************************************//*!
@@ -77,86 +77,57 @@ MofBool CGameApp::Update(void){
 	//キーの更新
 	g_pInput->RefreshKey();
 
-	if (!gpLoading->IsEnd())
-	{
-		return TRUE;
-	}
-
 	//シーンの更新
-	gpScene->Update();
+	g_pScene->Update();
 
-	//シーン切り替え
-	if (gpScene->IsEnd())
+	//次のシーンに行くとき
+	if (g_pScene->IsEnd()) 
 	{
-		//次のシーン番号取得
-		int nextScene = gpScene->GetNextSceneNo();
-		
-		//古いシーンを解放
-		gpScene->Release();
-		delete gpScene;
-		
-		//次のシーンを生成
-		switch (nextScene)
+		//次のシーンを取得
+		int change = g_pScene->GetNextScene();
+		//古いシーンを削除
+		delete g_pScene;
+		//新しいシーンを取得
+		switch (change) 
 		{
 		case SCENENO_TITLE:
-			gpScene = new CTitle();
+			g_pScene = new CTitle();
 			break;
 		case SCENENO_GAME:
-			gpScene = new CGame();
-			break;
-		case SCENENO_GAMEOVER:
-			gpScene = new CGameOver();
+			g_pScene = new CGame();
 			break;
 		case SCENENO_GAMECLEAR:
-			gpScene = new CGameClear();
+			g_pScene = new CGameClear();
+			break;
+		case SCENENO_GAMEOVER:
+			g_pScene = new CGameOver();
 			break;
 		case SCENENO_RANKING:
-			gpScene = new CRanking();
+			g_pScene = new CRanking();
 			break;
 		case SCENENO_FUJIWARA:
-			gpScene = new CFujiwara();
+			g_pScene = new CFujiwara();
 			break;
 		case SCENENO_INOUE:
-			gpScene = new CInoue();
+			g_pScene = new CInoue();
 			break;
 		case SCENENO_KIMURA:
-			gpScene = new CKimura();
+			g_pScene = new CKimura();
 			break;
 		case SCENENO_ONISHI:
-			gpScene = new COnishi();
+			g_pScene = new COnishi();
 			break;
 		}
-		//別スレッドでやりたい。(LOADING)
-		{
-			gpLoading->Release();
-			delete gpLoading;
-			gpLoading = new CLoading();
-			gpLoading->SetScene(gpScene);
-			gpLoading->Start("Loading");
-		}
+		//新しいシーンの読み込みと初期化
+		g_pScene->Load();
+		g_pScene->Initialize();
 	}
 
-	// Oキーでステージ変更
-	if (gpScene->GetSceneName() == SCENENO_GAME && g_pInput->IsKeyPush(MOFKEY_O))
+	//F1キーでデバッグフラグの切り替え
+	if (g_pInput->IsKeyPush(MOFKEY_F1)) 
 	{
-		gpScene->Release();
-		delete gpScene;
-		CGame::NextStage();
-		gpScene = new CGame();
-		gpLoading->Release();
-		delete gpLoading;
-		gpLoading = new CLoading();
-		gpLoading->SetScene(gpScene);
-		gpLoading->Start("Loading");
+		g_bDebug = !g_bDebug;
 	}
-
-#ifdef _DEBUG
-	//F1キーでデバッグ表示の切り替え
-	if (g_pInput->IsKeyPush(MOFKEY_F1))
-	{
-		gbDebug = !gbDebug;
-	}
-#endif // _DEBUG
 
 	return TRUE;
 }
@@ -171,31 +142,27 @@ MofBool CGameApp::Render(void){
 	//描画開始
 	g_pGraphics->RenderStart();
 	//画面のクリア
-	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
+	g_pGraphics->ClearTarget(0.0f,0.0f,1.0f,0.0f,1.0f,0);
 
-	if (!gpLoading->IsEnd())
+	//シーンの描画
+	g_pScene->Render();
+
+	/*if (a.bEnd)
 	{
-		CGraphicsUtilities::RenderString(0, 0, "LOADING");
-		//描画の終了
-		g_pGraphics->RenderEnd();
-		return TRUE;
+		CGraphicsUtilities::RenderString(0, 0, "LoadEnd");
 	}
 	else
 	{
-		CGraphicsUtilities::RenderString(0, 0, "LOADEND");
-	}
-
-	//シーンの描画
-	gpScene->Render();
-
-#ifdef _DEBUG
-	//デバッグの描画
-	if (gbDebug)
+		CGraphicsUtilities::RenderString(0, 0, "Load...");
+	}*/
+	//デバッグ表示
+	if (g_bDebug) 
 	{
-		gpScene->RenderDebug();
+		//シーンのデバッグ描画
+		g_pScene->RenderDebug();
+		//FPSの表示
+		CGraphicsUtilities::RenderString(DEBUGPOSX_FPS, DEBUGPOSY_FPS, "%d", CUtilities::GetFPS());
 	}
-#endif // _DEBUG
-
 	//描画の終了
 	g_pGraphics->RenderEnd();
 	return TRUE;
@@ -208,20 +175,16 @@ MofBool CGameApp::Render(void){
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Release(void){
-	
 	//シーンの解放
-	gpScene->Release();
-	delete gpScene;
-	gpScene = NULL;
-	gpLoading->Release();
-	delete gpLoading;
-	gpLoading = nullptr;
+	g_pScene->Release();
 
-	g_pSoundManager->Release();
-	g_pEffectManager->Release();
-	g_pTextureManager->Release();
-	g_pAnimManager->Release();
-	g_pTimeManager->Release();
+	//シーンの削除
+	if (g_pScene) 
+	{
+		delete g_pScene;
+		//削除したポインタには0を入れる
+		g_pScene = NULL;
+	}
 
 	return TRUE;
 }

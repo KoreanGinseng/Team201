@@ -1,100 +1,70 @@
-/*****************************************************************
- *	@file			Player.h
- *	@brief			プレイヤークラス
- *	@author			井上颯騎
- *	@date			2019/09/29
- *****************************************************************/
 #pragma once
 
-//INCLUDE
-#include	"Mof.h"
-#include	"GameDefine.h"
-#include	"GamePadDefine.h"
-#include	"SoundManager.h"
-#include	"Enemy.h"
-#include	"Object.h"
-#include	"Substance.h"
-#include	<vector>
-#include	<list>
+#include		"Mof.h"
+#include		"GamePad.h"
 
-//DEFINE
-#define		PLAYER_RECTDIS		40
+//#define		PLAYER_WIDTH	60
+//#define		PLAYER_HEIGHT	64
+//
+//#define		PLAYER_MAXHP	100
+//
+//#define		PLAYER_MAXLIFE	3
+//
+//#define		PLAYER_MAXSPEED	8
+//
+//#define		PLAYER_GRAVITY	0.3f
 
-class CPlayer
-{
+class CPlayer {
+
+
+
 private:
 
-	typedef enum tag_WAY {
-		WAY_LEFT,
-		WAY_RIGHT,
-		WAY_UP,
-		WAY_DOWN,
-	}WAY;
-
-	CTexturePtr					m_pTexture;
-	Vector2						m_Pos;
-	Vector2						m_Move;
-	Vector2						m_Spd;
-	std::vector<CSubstance*>	m_SkillTarget;
-	bool						m_bMove;
-	bool						m_bReverse;
-	bool						m_bJump;
-	bool						m_bPowUp;
-	bool						m_bTrigger;
-	bool						m_bClime;
-	int							m_HP;
-	int							m_Stock;
-	CSpriteMotionController		m_Motion;
-	CRectangle					m_SrcRect;
-	int							m_Target;
-	float						m_CoolTime;
-	float						m_Skillrang;
-	CCircle						m_SkillCircle;
+	CTexture		m_Texture;
+	CTexture		m_HpTexture;
 
 
-	void PadOparation(void);
-	void KeyOparation(void);
+	bool			m_bJump;
 
-	void Move(void);
-	void MoveAdd(WAY w);
-	void MoveSub(WAY w);
-	void Animation(void);
-	void Jump(void);
-	
-	enum tag_Animation {
-		ANIM_WAIT,
-		ANIM_MOVE,
+	int				m_Life;
+	int				m_Hp;
 
-		ANIM_COUNT,
-	};
+	float			m_PosX;
+	float			m_PosY;
+
+	float			m_MoveX;
+	float			m_MoveY;
+
+	float			m_MoveX2;
+	float			m_MoveY2;
+
+	//鍵を持っているかいないかを判定するフラグ
+	bool			KeyFlag;
+
 
 public:
-	CPlayer(void);
-	~CPlayer(void);
-	void Initialize(void);
-	void Update(void);
-	void Render(Vector2 screenPos);
-	void RenderDebug(Vector2 screenPos);
-	void Release(void);
-	
-	//Skill
-	void Skill(void);
-	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);
+			CPlayer();
+			~CPlayer();
+	bool	Load(void);
+	void	Initialize(void);
+	void	Update(void);
+	void	Render(Vector2 scroll);
+	void	Release(void);
 
-	//Collision
-	void CollisionStage(Vector2 o);
+	void	RenderDebug(void);
+	void	RenderState(void);
+	void	PadOperation(void);
+	void	KeyOperation(void);
+	void	LifeDecrease(void);
 
-	//Get
-	Vector2 GetPos(void) const { return m_Pos; }
-	Vector2 GetSpd(void) const { return m_Spd; }
-	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
-		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
-	bool	IsTrigger(void) { return m_bTrigger; }
+	void	   CollisionStage(Vector2 o);
+	void	KeyTrue(void);
+	void	KeyFalse(void);
+	CRectangle GetRect() { return CRectangle(m_PosX, m_PosY, m_PosX + 60, m_PosY + 64); }
+	Vector2 GetPos() { return Vector2(m_PosX, m_PosY); }
+	Vector2 GetMove() { return Vector2(m_MoveX, m_MoveY); }
+	Vector2 GetMove2() { return Vector2(m_MoveX2, m_MoveY2); }
 
-	//Set
-	void   SetClime(const bool& b) { m_bClime = b; }
-
-	void   PMoveTest();
-
+	//追加
+	bool GetKey() { return KeyFlag; }
 };
-

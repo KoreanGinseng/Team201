@@ -1,36 +1,30 @@
-/*****************************************************************
- *	@file			Stage.cpp
- *	@brief			ステージクラス
- *	@author			井上颯騎
- *	@date			2019/09/29
- *****************************************************************/
-
-//INCLUDE
 #include	"Stage.h"
 
-//コンストラクタ
+
 CStage::CStage() :
-	m_pBackTexture(nullptr),
-	m_pChipTexture(nullptr),
-	m_ChipSize(0),
-	m_XCount(0),
-	m_YCount(0),
-	m_pChipData(nullptr),
-	m_pEnemyData(nullptr),
-	m_pItemData(nullptr),
-	m_pObjectData(nullptr),
-	m_pObjEndData(nullptr),
-	m_EnemyTextureCount(0),
-	m_ItemTextureCount(0),
-	m_ObjectTextureCount(0),
-	m_EnemyCount(0),
-	m_ItemCount(0),
-	m_ObjectCount(0)
+m_BackTexture(),
+m_ChipTexture(),
+m_pEnemyTexture(nullptr),
+m_pItemTexture(nullptr),
+m_pObjectTexture(nullptr),
+m_ChipSize(0),
+m_XCount(0),
+m_YCount(0),
+m_pChipData(nullptr),
+m_pEnemyData(nullptr),
+m_pItemData(nullptr),
+m_pObjectData(nullptr),
+m_pObjEndData(nullptr),
+m_EnemyTextureCount(0),
+m_ItemTextureCount(0),
+m_ObjectTextureCount(0),
+m_EnemyCount(0),
+m_ItemCount(0),
+m_ObjectCount(0)
 {
 }
 
-//読み込み
-bool CStage::Load(const char* pName) {
+bool CStage::Load(char* pName) {
 	//テキストファイルを開く
 	FILE* fp = fopen(pName, "rt");
 	if (fp == NULL) {
@@ -49,21 +43,14 @@ bool CStage::Load(const char* pName) {
 
 	//テクスチャの読み込み
 	pstr = strtok(pBuffer, ",");
-	//if (!m_BackTexture.Load(pstr)) {
-	m_pBackTexture = g_pTextureManager->GetResource(pstr);
-	if (m_pBackTexture == nullptr) {
-		free(pBuffer);
-		pBuffer = nullptr;
+	if (!m_BackTexture.Load(pstr)) {
 		return FALSE;
 	}
 	pstr = strtok(NULL, ",");
-	m_pChipTexture = g_pTextureManager->GetResource(pstr);
-	if (m_pChipTexture == nullptr) {
-		free(pBuffer);
-		pBuffer = nullptr;
+	if (!m_ChipTexture.Load(pstr)) {
 		return FALSE;
 	}
-
+	
 	//チップサイズ
 	pstr = strtok(NULL, ",");
 	m_ChipSize = atof(pstr);
@@ -92,13 +79,10 @@ bool CStage::Load(const char* pName) {
 	//敵テクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_EnemyTextureCount = atoi(pstr);
-
+	m_pEnemyTexture = new CTexture[m_EnemyTextureCount];
 	for (int i = 0; i < m_EnemyTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pEnemyTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pEnemyTexture[i] == nullptr) {
-			free(pBuffer);
-			pBuffer = nullptr;
+		if (!m_pEnemyTexture[i].Load(pstr)) {
 			return FALSE;
 		}
 	}
@@ -117,12 +101,10 @@ bool CStage::Load(const char* pName) {
 	//アイテムテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_ItemTextureCount = atoi(pstr);
+	m_pItemTexture = new CTexture[m_ItemTextureCount];
 	for (int i = 0; i < m_ItemTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pItemTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pItemTexture[i] == nullptr) {
-			free(pBuffer);
-			pBuffer = nullptr;
+		if (!m_pItemTexture[i].Load(pstr)) {
 			return FALSE;
 		}
 	}
@@ -141,12 +123,10 @@ bool CStage::Load(const char* pName) {
 	//オブジェクトテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_ObjectTextureCount = atoi(pstr);
+	m_pObjectTexture = new CTexture[m_ObjectTextureCount];
 	for (int i = 0; i < m_ObjectTextureCount; i++) {
 		pstr = strtok(NULL, ",");
-		m_pObjectTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pObjectTexture[i] == nullptr) {
-			free(pBuffer);
-			pBuffer = nullptr;
+		if (!m_pObjectTexture[i].Load(pstr)) {
 			return FALSE;
 		}
 	}
@@ -171,15 +151,13 @@ bool CStage::Load(const char* pName) {
 			}
 		}
 	}
-	free(pBuffer);
-	pBuffer = nullptr;
 
 	//ファイルを閉じる
 	fclose(fp);
+	free(pBuffer);
 	return TRUE;
 }
 
-//初期化
 void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 	int n = 0;
 	for (int y = 0; y < m_YCount; y++)
@@ -193,9 +171,8 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pEne[n].SetTexture(m_pEnemyTexture[on]);
-			pEne[n].SetMoveAttack(on);
-			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			pEne[n].SetTexture(&m_pEnemyTexture[on]);
+			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
 		}
 	}
 	n = 0;
@@ -210,12 +187,12 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pItem[n].SetTexture(m_pItemTexture[on]);
+			pItem[n].SetTexture(&m_pItemTexture[on]);
 			pItem[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
 		}
 	}
 	n = 0;
-	for (int y = 0; y < m_YCount; y++)
+	for(int y = 0; y < m_YCount; y++)
 	{
 		for (int x = 0; x < m_XCount; x++)
 		{
@@ -226,34 +203,31 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pObj[n].SetTexture(m_pObjectTexture[on]);
+			pObj[n].SetTexture(&m_pObjectTexture[on]);
 			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, on);
-			pObj[n++].SetObject(on);
+			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
 		}
 	}
 }
 
-//更新
 void CStage::Update() {
 
 }
 
-//描画
 void CStage::Render(Vector2 scroll) {
 	//遠景の描画
 	int scw = g_pGraphics->GetTargetWidth();
 	int sch = g_pGraphics->GetTargetHeight();
-  	int wn = m_pBackTexture->GetWidth();
-	int hn = m_pBackTexture->GetHeight();
+	int wn = m_BackTexture.GetWidth();
+	int hn = m_BackTexture.GetHeight();
 	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
-			m_pBackTexture->Render(x, y);
+			m_BackTexture.Render(x, y);
 		}
 	}
 
 	//テクスチャの横幅からマップチップの縦オフセットを求める
-	int tcx = m_pChipTexture->GetWidth() / m_ChipSize;
+	int tcx = m_ChipTexture.GetWidth() / m_ChipSize;
 	//マップチップの描画
 	for (int y = 0; y < m_YCount; y++) {
 		for (int x = 0; x < m_XCount; x++) {
@@ -266,51 +240,57 @@ void CStage::Render(Vector2 scroll) {
 			//マップチップの矩形
 			CRectangle cr(m_ChipSize * (cn % tcx), m_ChipSize*(cn / tcx), m_ChipSize * (cn % tcx + 1), m_ChipSize * (cn / tcx + 1));
 			//マップチップの描画
-			m_pChipTexture->Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
+			m_ChipTexture.Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
-	CTexturePtr ui1 = g_pTextureManager->GetResource("UI01.png");
-	int y = g_pGraphics->GetTargetHeight() - ui1->GetHeight();
-	ui1->Render(0, y - 64);
-	CTexturePtr ui2 = g_pTextureManager->GetResource("UI02.png");
-	int y2 = g_pGraphics->GetTargetHeight() - ui2->GetHeight();
-	int x2 = g_pGraphics->GetTargetWidth() - ui2->GetWidth();
-	ui2->Render(x2, y2 - 64);
 }
 
-//デバッグ描画
 void CStage::RenderDebug(Vector2 scroll) {
 
 }
 
-//解放
 void CStage::Release() {
-	if (m_pChipData != nullptr) {
+	m_BackTexture.Release();
+	m_ChipTexture.Release();
+
+	if (m_pChipData) {
 		free(m_pChipData);
-		m_pChipData = nullptr;
+		m_pChipData = NULL;
 	}
-	if (m_pEnemyData != nullptr) {
+	if (m_pEnemyData) {
 		free(m_pEnemyData);
-		m_pEnemyData = nullptr;
+		m_pEnemyData = NULL;
 	}
-	if (m_pItemData != nullptr) {
+	if (m_pItemData) {
 		free(m_pItemData);
-		m_pItemData = nullptr;
+		m_pItemData = NULL;
 	}
-	if (m_pObjectData != nullptr) {
+	if (m_pObjectData) {
 		free(m_pObjectData);
-		m_pObjectData = nullptr;
+		m_pObjectData = NULL;
 	}
-	if (m_pObjEndData != nullptr) {
+	if (m_pObjEndData) {
 		free(m_pObjEndData);
-		m_pObjEndData = nullptr;
+		m_pObjEndData = NULL;
 	}
-	m_pEnemyTexture.clear();
-	m_pItemTexture.clear();
-	m_pObjectTexture.clear();
+
+	if (m_pEnemyTexture)
+	{
+		delete[] m_pEnemyTexture;
+		m_pEnemyTexture = NULL;
+	}
+	if (m_pItemTexture)
+	{
+		delete[] m_pItemTexture;
+		m_pItemTexture = NULL;
+	}
+	if (m_pObjectTexture)
+	{
+		delete[] m_pObjectTexture;
+		m_pObjectTexture = NULL;
+	}
 }
 
-//当たり判定
 bool CStage::Collision(CRectangle r, Vector2& o) {
 	bool re = false;
 
@@ -319,7 +299,7 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 	int rc = r.Right / m_ChipSize;
 	int tc = r.Top / m_ChipSize;
 	int bc = r.Bottom / m_ChipSize;
-
+	
 	//ステージの範囲外にはならないようにする
 	if (lc < 0)
 	{
@@ -362,38 +342,11 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 			if (cr.CollisionRect(brec))
 			{
 				re = true;
-				if (cn == RIGHTSLOPE)
-				{
-					float sp = (cr.Right - brec.Left) / cr.GetWidth();
-					if (sp < 0.0f)
-					{
-						sp = 0.0f;
-					}
-					else if (sp > 1.0f)
-					{
-						sp = 1.0f;
-					}
-					//斜面の上の位置を求める
-					float cTop = cr.Bottom - cr.GetHeight() * sp;
-					if (brec.Bottom < cTop)
-					{
-						continue;
-					}
-					o.y += cTop - brec.Bottom;
-					r.Top += cTop - brec.Bottom;
-					r.Bottom += cTop - brec.Bottom;
-				}
-				else
-				{
-					//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
-					o.y += cr.Top - brec.Bottom;
-					r.Top += cr.Top - brec.Bottom;
-					r.Bottom += cr.Top - brec.Bottom;
-				}
+				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+				o.y += cr.Top - brec.Bottom;
+				r.Top += cr.Top - brec.Bottom;
+				r.Bottom += cr.Top - brec.Bottom;
 			}
-			if (cn != RIGHTSLOPE)
-			{
-
 			//当たり判定用のキャラクタ矩形
 			//左、右それぞれで範囲を限定した専用の矩形を作成する。
 			CRectangle lrec = r;
@@ -433,7 +386,6 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 				o.y += cr.Bottom - trec.Top;
 				r.Top += cr.Bottom - trec.Top;
 				r.Bottom += cr.Bottom - trec.Top;
-			}
 			}
 		}
 	}

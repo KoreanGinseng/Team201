@@ -8,10 +8,13 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
-#include	"../GameDefine.h"
 #include    <string>
-#define		FONT_SIZE		32.0f
 
+#define		FONT_SIZE		32.0f
+//追加
+#define		INI_X	100
+#define		INI_Y	600
+#define		MAX_HEART		3
  /*****************************************************************
   *	@brief			フジワラシーンクラス
   *	@author			井上颯騎
@@ -25,6 +28,12 @@ private:
 	int time;
 	int num;
 	
+	//ハート表示
+	CTexture m_pHeatTexture;
+	int Hposx;
+	int Hposy;
+	int HP;
+
 
 public:
 	/*****************************************************************
@@ -49,7 +58,7 @@ public:
 	 * @param なし
 	 * @return なし
 	 *****************************************************************/
-	bool Load();
+	void Load();
 
 	/*****************************************************************
 	 * @fn
@@ -91,8 +100,6 @@ public:
 	 *****************************************************************/
 	void Release();
 
-	int GetSceneName(void) { return SCENENO_FUJIWARA; }
-
 	/*****************************************************************
 	 * @fn
 	 * 解放
@@ -101,5 +108,8 @@ public:
 	 *****************************************************************/
 	void String(int sx, int sy, int fontsize, const char* str);
 	void String(int sx, int sy, int fontsize, const int& time);
+	void RenHp(int hp,int hx,int hy);
+
+
 	
 };

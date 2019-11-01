@@ -35,12 +35,12 @@ CFujiwara::~CFujiwara() {
  * @param なし
  * @return なし
  *****************************************************************/
-bool CFujiwara::Load() {
+void CFujiwara::Load() {
 	//リソース配置ディレクトリの設定
-	//CUtilities::SetCurrentDirectory("Resource");
-	//m_pFontTexture = new CTexture();
-	//m_pFontTexture->Load("sumple_imvisible.png");
-	return TRUE;
+	CUtilities::SetCurrentDirectory("Resource");
+	m_pFontTexture = new CTexture();
+	m_pFontTexture->Load("sumple_imvisible.png");
+	m_pHeatTexture.Load("test_heart.png");
 }
 
 /*****************************************************************
@@ -55,6 +55,10 @@ void CFujiwara::Initialize() {
 	Lenth = 0;
 	num = 0;
 	
+	Hposx = INI_X;
+	Hposy = INI_Y;
+	HP = MAX_HEART*2;
+
 }
 
 /*****************************************************************
@@ -67,6 +71,12 @@ void CFujiwara::Update() {
 	
 	num += 1;
 
+	//ダメージ処理？
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN)&&HP>0)
+	{
+		HP -=1;
+	}
+
 }
 
 /*****************************************************************
@@ -78,9 +88,10 @@ void CFujiwara::Update() {
 void CFujiwara::Render() {
 	//m_pFontTexture->RenderScale(0, 0, FONT_SIZE/64);
 	
-	String(0, 0, FONT_SIZE,num );
+	String(g_pGraphics->GetTargetWidth()-64, 0, FONT_SIZE,num);
+	RenHp(HP, Hposx, Hposy);
 	
-
+	CGraphicsUtilities::RenderString(10, 10, "%d",HP);
 }
 
 /*****************************************************************
@@ -90,7 +101,7 @@ void CFujiwara::Render() {
  * @return なし
  *****************************************************************/
 void CFujiwara::RenderDebug() {
-
+	
 }
 
 /*****************************************************************
@@ -100,9 +111,8 @@ void CFujiwara::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CFujiwara::Release() {
-	//m_pFontTexture->Release();
-	//delete m_pFontTexture;
-	m_pFontTexture = nullptr;
+	m_pFontTexture->Release();
+	m_pHeatTexture.Release();
 }
 
 void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
@@ -122,7 +132,8 @@ void CFujiwara::String(int sx, int sy, int fontsize, const char * str)
 void CFujiwara::String(int sx, int sy, int fontsize, const int& time)
 {
 	std::string str;
-	str = std::to_string(time);
+    str = std::to_string(time);
+	
 	size_t size = str.length() - 1;
 	for (int i = 0; str[i] != '\0'; i++)
 	{
@@ -134,5 +145,35 @@ void CFujiwara::String(int sx, int sy, int fontsize, const int& time)
 		m_pFontTexture->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);//(表示座標ｘ,表示座標y,拡大率,rect)
 	}
 	
+}
+
+/*
+  int hp=現在のHP
+  int hx=HPの表示位置（x座標）
+　int hy=HPの表示位置（y座標)
+*/
+void CFujiwara::RenHp(int hp, int hx, int hy)
+{
+	int w = m_pHeatTexture.GetWidth();
+	CRectangle rec(0, 0, w/2, m_pHeatTexture.GetHeight());
+	if (hp != 1)
+	{
+		for (float i = 0; i < hp/ 2; i++)
+		{
+			if (hp % 2 == 1)
+			{
+				m_pHeatTexture.Render(hx+ hp / 2 *w, hy, rec);
+				m_pHeatTexture.Render(hx+ i * w,hy);
+			}
+			else
+			{
+				m_pHeatTexture.Render(hx + i * w, hy);
+			}
+		}
+	}
+	else
+	{
+		m_pHeatTexture.Render(hx, hy, rec);
+	}
 }
 

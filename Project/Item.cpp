@@ -7,8 +7,10 @@
 CItem::CItem() :
 m_pTexture(NULL) ,
 m_Motion() ,
-m_Pos(Vector2(0,0)) ,
-m_Move(Vector2(0,0)) ,
+m_PosX(0.0f) ,
+m_PosY(0.0f) ,
+m_MoveX(0.0f) ,
+m_MoveY(0.0f) ,
 m_bShow(false) ,
 m_SrcRect() {
 }
@@ -33,14 +35,19 @@ CItem::~CItem(){
  */
 void CItem::Initialize(float px,float py,int type){
 	m_Type = type;
-	m_Pos.x = px;
-	m_Pos.y = py;
-	m_Move.x = 0.0f;
-	m_Move.y = 0.0f;
+	m_PosX = px;
+	m_PosY = py;
+	m_MoveX = 0.0f;
+	m_MoveY = 0.0f;
 	m_bShow = true;
 	//アニメーションを作成
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ITEM_1])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ITEM_1])->GetAnim(), c);
+	SpriteAnimationCreate anim = {
+		"アイテム",
+		0,0,
+		32,32,
+		TRUE,{{5,0,0},{5,1,0},{5,2,0},{5,3,0}} 
+	};
+	m_Motion.Create(anim);
 }
 
 /**
@@ -54,14 +61,14 @@ void CItem::Update(void){
 		return;
 	}
 	//重力により下に少しずつ下がる
-	m_Move.y += GRAVITY;
-	if(m_Move.y >= 20.0f)
+	m_MoveY += GRAVITY;
+	if(m_MoveY >= 20.0f)
 	{
-		m_Move.y = 20.0f;
+		m_MoveY = 20.0f;
 	}
 	//実際に座標を移動させる
-	m_Pos.x += m_Move.x;
-	m_Pos.y += m_Move.y;
+	m_PosX += m_MoveX;
+	m_PosY += m_MoveY;
 	//アニメーションの更新
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	m_SrcRect = m_Motion.GetSrcRect();
@@ -70,8 +77,12 @@ void CItem::Update(void){
 
 /**
  * 描画
+ *
+ * 引数
+ * [in]			wx					ワールドの変化
+ * [in]			wy					ワールドの変化
  */
-void CItem::Render(Vector2 sp) {
+void CItem::Render(Vector2 sp){
 	//非表示
 	if(!m_bShow)
 	{
@@ -83,6 +94,10 @@ void CItem::Render(Vector2 sp) {
 
 /**
  * デバッグ描画
+ *
+ * 引数
+ * [in]			wx					ワールドの変化
+ * [in]			wy					ワールドの変化
  */
 void CItem::RenderDebug(Vector2 sp){
 	//非表示
@@ -111,24 +126,29 @@ void CItem::Release(void){
  * [in]			oy					Y埋まり量
  */
 void CItem::CollisionStage(Vector2 o){
-	m_Pos.x += o.x;
-	m_Pos.y += o.y;
+	m_PosX += o.x;
+	m_PosY += o.y;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化する。
-	if(o.y < 0 && m_Move.y > 0)
+	if(o.y < 0 && m_MoveY > 0)
 	{
-		m_Move.y = 0;
+		m_MoveY = 0;
 	}
-	else if(o.y > 0 && m_Move.y < 0)
+	else if(o.y > 0 && m_MoveY < 0)
 	{
-		m_Move.y = 0;
+		m_MoveY = 0;
 	}
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する。
-	if(o.x < 0 && m_Move.x > 0)
+	if(o.x < 0 && m_MoveX > 0)
 	{
-		m_Move.x = 0;
+		m_MoveX = 0;
 	}
-	else if(o.x > 0 && m_Move.x < 0)
+	else if(o.x > 0 && m_MoveX < 0)
 	{
-		m_Move.x = 0;
+		m_MoveX = 0;
 	}
+}
+
+void CItem::Tracking()
+{
+	
 }

@@ -31,8 +31,7 @@ private:
 	CObject*	m_pObjArray;
 
 	//オブジェクトの当たりフラグ
-	bool baka;
-
+	bool hitFlag = false;
 public:
 	/*****************************************************************
 	 * @fn
