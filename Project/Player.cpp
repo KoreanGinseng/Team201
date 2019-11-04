@@ -17,7 +17,7 @@ m_Move(Vector2(0,0)),
 m_Spd(Vector2(0,0)),
 m_bJump(false),
 m_bClime(false),
-m_HP(10),
+m_HP(6),
 m_Stock(3)
 {
 }
@@ -61,6 +61,8 @@ void CPlayer::Initialize(void)
 	m_CoolTime = 100.0f;
 	//
 	m_bTrigger = false;
+	//体力
+	m_HP = PLAYER_MAXHP;
 }
 
 //更新
@@ -87,6 +89,12 @@ void CPlayer::Update(void)
 	//アニメーション更新
 	Animation();
 
+
+	//HPテスト
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	{
+		dmg();
+	}
 }
 
 //描画
@@ -103,7 +111,8 @@ void CPlayer::Render(Vector2 screenPos)
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 
 	RenderDebug(screenPos);
-	MOF_PRINTLOG("%.1f,%.1f\n", m_Pos.x, m_Pos.y);
+	//MOF_PRINTLOG("%.1f,%.1f\n", m_Pos.x, m_Pos.y);
+	MOF_PRINTLOG("%d", m_HP);
 }
 
 //デバッグ描画
@@ -472,9 +481,12 @@ void CPlayer::CollisionStage(Vector2 o)
 	}
 }
 
-void CPlayer::PMoveTest()
+void CPlayer::dmg()
 {
-	
+	if (m_HP > 0)
+	{
+		m_HP--;
+	}
 }
 
 void CPlayer::Skill()

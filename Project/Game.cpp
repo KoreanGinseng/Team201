@@ -216,6 +216,8 @@ void CGame::Render()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].Render(screenPos);
 	}
+	//UIの描画
+	m_UI.Render(m_Player.GetHp());
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)

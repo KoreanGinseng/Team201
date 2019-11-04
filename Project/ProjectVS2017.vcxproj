@@ -120,6 +120,7 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="_Fujiwara\Fujiwara.cpp" />
     <ClCompile Include="_Inoue\AnimationData.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Substance.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="_Fujiwara\Fujiwara.h" />
     <ClInclude Include="_Inoue\AnimationData.h" />
     <ClInclude Include="_Inoue\Inoue.h" />

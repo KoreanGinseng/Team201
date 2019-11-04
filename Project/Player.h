@@ -52,6 +52,7 @@ private:
 	CCircle						m_SkillCircle;
 
 
+
 	void PadOparation(void);
 	void KeyOparation(void);
 
@@ -89,12 +90,15 @@ public:
 	Vector2 GetSpd(void) const { return m_Spd; }
 	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
 		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
+	int GetHp() { return m_HP; }
+
+
 	bool	IsTrigger(void) { return m_bTrigger; }
 
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
 
-	void   PMoveTest();
+	void   dmg();
 
 };
 

@@ -16,6 +16,7 @@
 #include "Camera2D.h"
 #include "Player.h"
 #include "Stage.h"
+#include "UI.h"
 
 class CGame :
 	public CSceneBase
@@ -32,6 +33,8 @@ private:
 	CItem*				m_pItemArray;
 	// オブジェクト
 	CObject*			m_pObjArray;
+	//UI
+	UI					m_UI;
 
 	bool				m_bPoase;
 
