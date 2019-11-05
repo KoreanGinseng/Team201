@@ -17,6 +17,7 @@
 #include	"../Enemy_TESTBOS.h"
 #include	"../Enemy_FLOATING.h"
 #include	"../Enemy_POISONKURIBO.h"
+#include	"../Enemy_TESTBOS2.h"
 #include	"../Atack_KURIBO.h"
 #include	"../Atack_NOKONOKO.h"
 #include	"../Atack_TERESA.h"
@@ -24,6 +25,7 @@
 #include	"../Atack_KOTEIHOUDAI.h"
 #include	"../Atack_TESTBOS.h"
 #include	"../Atack_POISONKURIBO.h"
+#include	"../Atack_TESTBOS2.h"
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
@@ -54,9 +56,11 @@ private:
 	CEnemy_TESTBOS* gTESTBOS;
 	CENEMY_FLOATING* gFLOATING;
 	CEnemy_POISONKURIBO* gPOISONKURIBO;
+	CEnemy_TESTBOS* gTESTBOS2;
 	CEnemyAtack* gAtack;
 	CAtack_KURIBO* gAtack_KURIBO;
 	CAtack_TESTBOS* gAtack_TESTBOS;
+	CAtack_TESTBOS* gAtack_TESTBOS2;
 	
 public:
 	/*****************************************************************

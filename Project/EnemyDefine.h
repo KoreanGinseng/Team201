@@ -2,7 +2,7 @@
  * @file EnemyDefine.h
  * @brief 敵のまとめ
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/5）
  */
 
 #pragma once
@@ -18,6 +18,7 @@ enum ENEMY
 	ENEMY_TESTBOS,
 	ENEMY_FLOATING,
 	ENEMY_POISONKURIBO,
+	ENEMY_TESTBOS2,
 };
 
 enum BAT_ANIM

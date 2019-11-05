@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_POISONKURIBO;//デバック
+	gEnemytype = ENEMY_TESTBOS2;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:
@@ -92,6 +92,10 @@ void COnishi::Initialize() {
 	case ENEMY_POISONKURIBO:
 		gEnemy = new CEnemy_POISONKURIBO();
 		gAtack = new CAtack_POISONKURIBO();
+		break;
+	case ENEMY_TESTBOS2:
+		gEnemy = new CEnemy_TESTBOS2();
+		gAtack = new CAtack_TESTBOS2();
 		break;
 	}
 
@@ -181,6 +185,11 @@ void COnishi::Update() {
 			gEnemy = new CEnemy_POISONKURIBO();
 			gAtack = new CAtack_POISONKURIBO();
 		}
+		else if (gEnemytype == ENEMY_POISONKURIBO) {
+			gEnemytype = ENEMY_TESTBOS2;
+			gEnemy = new CEnemy_TESTBOS2();
+			gAtack = new CAtack_TESTBOS2();
+		}
 		else
 		{
 			gEnemytype = ENEMY_KURIBO;
@@ -264,6 +273,9 @@ void COnishi::Render() {
 		break;
 	case ENEMY_POISONKURIBO:
 		CGraphicsUtilities::RenderString(100, 0, "毒クリボー");
+		break;
+	case ENEMY_TESTBOS2:
+		CGraphicsUtilities::RenderString(100, 0, "街中のボス");
 		break;
 	}
 
