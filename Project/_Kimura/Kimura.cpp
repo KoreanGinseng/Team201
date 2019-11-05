@@ -35,10 +35,10 @@ CKimura::~CKimura() {
  * @param ‚È‚µ
  * @return ‚È‚µ
  *****************************************************************/
-void CKimura::Load() {
-
-	m_BackTexture.Load("TestKimura.png");
-
+bool CKimura::Load() {
+	
+	//m_BackTexture.Load("TestKimura.png");
+	return TRUE;
 }
 
 /*****************************************************************
@@ -52,14 +52,11 @@ void CKimura::Initialize() {
 
 	Load();
 
-	m_bEnd = false;
+	m_NextSceneNo = SCENENO_GAME;
 
-	m_NowScene = /*SCENENO_GAME*/6;
-	m_NextScene = /*SCENENO_GAME*/6;
+	//m_Effect = { 255,0,0 };
 
-	m_Effect = { 255,0,0 };
-
-	m_Player.Load();
+	//m_Player.Load();
 
 	m_Player.Initialize();
 
@@ -73,13 +70,13 @@ void CKimura::Initialize() {
  *****************************************************************/
 void CKimura::Update() {
 
-	EffectUpdate(EFFECTNO_1);
+	//EffectUpdate(EFFECTNO_1);
 
 	if (g_pInput->GetGamePadCount()) {
 
 		if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
-			m_NowScene = 8;
+			m_NextSceneNo = SCENENO_GAMECLEAR;
 
 		}
 	}
@@ -96,13 +93,12 @@ void CKimura::Update() {
  *****************************************************************/
 void CKimura::Render() {
 
-	m_BackTexture.Render(0, 0, MOF_ARGB(m_Effect.Alpha, 255, 255, 255));
+	//m_BackTexture.Render(0, 0, MOF_ARGB(m_Effect.Alpha, 255, 255, 255));
 
-	EffectRender(EFFECTNO_1);
+	//EffectRender(EFFECTNO_1);
 
 	//m_Player.Render();
 
-	RenderDebug();
 }
 
 /*****************************************************************

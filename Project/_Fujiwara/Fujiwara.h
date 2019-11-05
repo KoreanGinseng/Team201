@@ -8,6 +8,8 @@
 
 //! INCLUDE
 #include	"../SceneBase.h"
+#include	"../GameDefine.h"
+#include    <string>
 #define		FONT_SIZE		32.0f
 
  /*****************************************************************
@@ -20,6 +22,10 @@ private:
 	int Y;
 	CTexture* m_pFontTexture;
 	int Lenth;
+	int time;
+	int num;
+	
+
 public:
 	/*****************************************************************
 	 * @fn
@@ -43,7 +49,7 @@ public:
 	 * @param ‚È‚µ
 	 * @return ‚È‚µ
 	 *****************************************************************/
-	void Load();
+	bool Load();
 
 	/*****************************************************************
 	 * @fn
@@ -85,6 +91,8 @@ public:
 	 *****************************************************************/
 	void Release();
 
+	int GetSceneName(void) { return SCENENO_FUJIWARA; }
+
 	/*****************************************************************
 	 * @fn
 	 * ‰ð•ú
@@ -92,5 +100,6 @@ public:
 	 * @return ‚È‚µ
 	 *****************************************************************/
 	void String(int sx, int sy, int fontsize, const char* str);
-
+	void String(int sx, int sy, int fontsize, const int& time);
+	
 };

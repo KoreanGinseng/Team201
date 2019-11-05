@@ -1,17 +1,27 @@
+/*****************************************************************
+ *	@file			Stage.h
+ *	@brief			ステージクラス
+ *	@author			井上颯騎
+ *	@date			2019/09/29
+ *****************************************************************/
 #pragma once
+
+//INCLUDE
 #include	"Mof.h"
 #include	"Enemy.h"
 #include	"Item.h"
 #include	"Object.h"
 
+#define		RIGHTSLOPE		3
 
-class CStage {
+class CStage
+{
 private:
-	CTexture	m_BackTexture;
-	CTexture	m_ChipTexture;
-	CTexture*	m_pEnemyTexture;
-	CTexture*	m_pItemTexture;
-	CTexture*	m_pObjectTexture;
+	CTexturePtr	m_pBackTexture;
+	CTexturePtr	m_pChipTexture;
+	std::vector<CTexturePtr>	m_pEnemyTexture;
+	std::vector<CTexturePtr>	m_pItemTexture;
+	std::vector<CTexturePtr>	m_pObjectTexture;
 
 	float		m_ChipSize;
 	int			m_XCount;
@@ -32,21 +42,23 @@ private:
 	int			m_ObjectCount;
 
 public:
-	CStage();
-	~CStage() {}
-	bool Load(char* pName);
+	CStage(void);
+	~CStage(void) {}
+	bool Load(const char* pName);
 	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
-	void Update();
+	void Update(void);
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
-	void Release();
+	void Release(void);
 
+	//Collision
 	bool Collision(CRectangle r, Vector2& o);
 
-	int	 GetEnemyCount()  const { return m_EnemyCount; }
-	int	 GetItemCount()   const { return m_ItemCount; }
-	int	 GetObjectCount() const { return m_ObjectCount; }
-
-	Vector2 GetStageSize() const { return Vector2(m_XCount, m_YCount); }
-	CRectangle GetStageRect() const { return CRectangle(0, 0, m_XCount * m_ChipSize, m_YCount * m_ChipSize); }
+	//Get
+	int			GetEnemyCount()  const { return m_EnemyCount; }
+	int			GetItemCount()   const { return m_ItemCount; }
+	int			GetObjectCount() const { return m_ObjectCount; }
+	Vector2		GetStageSize()	 const { return Vector2(m_XCount, m_YCount); }
+	CRectangle  GetStageRect()	 const { return CRectangle(0, 0, m_XCount * m_ChipSize, m_YCount * m_ChipSize); }
 };
+

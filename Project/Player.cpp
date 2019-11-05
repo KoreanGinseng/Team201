@@ -1,400 +1,552 @@
-#include		"Player.h"
-#include		"GameDefine.h"
+/*****************************************************************
+ *	@file			Player.cpp
+ *	@brief			プレイヤークラス
+ *	@author			井上颯騎
+ *	@date			2019/09/29
+ *****************************************************************/
 
+//INCLUDE
+#include "Player.h"
 
-bool	bDebug = true;
-
-CPlayer::CPlayer() {
-	//オブジェクト生成時の初期化
-	m_PosX = 0;
-	m_PosY = 0;
-
-	m_MoveX = 0;
-	m_MoveY = 0;
-
-	m_MoveX2 = 0;
-	m_MoveY2 = 0;
-
-	m_Hp = PLAYER_MAXHP;
-	m_Life = PLAYER_MAXLIFE;
-
-	m_bJump = false;
-
-
+CXGamePad xgpad;
+//コンストラクタ
+CPlayer::CPlayer(void) :
+m_pTexture(nullptr),
+m_Pos(Vector2(0,0)),
+m_Move(Vector2(0,0)),
+m_Spd(Vector2(0,0)),
+m_bJump(false),
+m_bClime(false),
+m_HP(10),
+m_Stock(3)
+{
 }
 
-CPlayer::~CPlayer() {
-
-
+//デストラクタ
+CPlayer::~CPlayer(void)
+{
 }
 
-bool CPlayer::Load() {
-	//HPテクスチャーの読み込み
-	if (!m_HpTexture.Load("Hp.png")) {
-
-		return false;
-
-	}
-
-	return true;
-
-}
-void CPlayer::Initialize() {
+//初期化
+void CPlayer::Initialize(void)
+{
+	XGAMEPADCREATEINFO xc;
+	xgpad.Create(&xc);
+	//画像データのセット
+	m_pTexture = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetTexture();
+	//アニメーションデータのセット
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim(), c);
 	//座標の初期化
-	//m_PosX = 0;
-	m_PosX = 256.0f;
-	//m_PosY = 0;
-	m_PosY = 1344.0f;
+	//m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
+	m_Pos = Vector2(960, 768);
 	//移動量の初期化
-	m_MoveX = 0;
-	m_MoveY = 0;
+	m_Move = Vector2(0, 0);
+	//移動速度の初期化
+	m_Spd = Vector2(PLAYER_SPEED, PLAYER_JUMPPOW);
 	//HPの初期化
-	m_Hp = PLAYER_MAXHP;
+	m_HP = PLAYER_MAXHP;
 	//残機の初期化
-	m_Life = PLAYER_MAXLIFE;
+	m_Stock = PLAYER_MAXSTOCK;
 	//ジャンプフラグの初期化
 	m_bJump = false;
-
+	//パワーアップフラグの初期化
+	m_bPowUp = false;
+	//
+	m_bClime = false;
+	//スキルの範囲を初期化
+	m_Skillrang = 0.0f;
+	m_Target = 0;
+	//
+	m_CoolTime = 100.0f;
+	//
+	m_bTrigger = false;
 }
 
-void CPlayer::Update() {
-
-	if (g_pInput->IsKeyPush(MOFKEY_F4))
+//更新
+void CPlayer::Update(void)
+{
+	xgpad.RefreshKey();
+	//コントローラーが接続されているか
+	if (g_pInput->GetGamePadCount())
 	{
-		bDebug = !bDebug;
+		//コントローラー入力での移動量更新
+		PadOparation();
 	}
 
-	if (bDebug)
-	{
-		Debug();
-	}
+	//キーボード入力での移動量更新
+	KeyOparation();
 
-	//コントローラーがPCに接続されている場合操作できる
-	else if (g_pInput->GetGamePadCount()) {
+	//移動
+	Move();
 
-		PadOperation();
-		//ダメージのテスト処理
-		if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
+	//スキル
+	Skill();
 
-			m_Hp -= 5;
-
-		}
-
-	}
-	//キーボード操作
-	else {
-		KeyOperation();
-	}
-	//残機処理の更新
-	LifeDecrease();
-
-	
+	//アニメーション更新
+	Animation();
 }
 
-void CPlayer::PadOperation() {
+//描画
+void CPlayer::Render(Vector2 screenPos)
+{
+	CRectangle dr = m_SrcRect;
+	//反転フラグが立っているとき描画矩形を反転
+	if (m_bReverse)
+	{
+		float tmp = dr.Right;
+		dr.Right = dr.Left;
+		dr.Left = tmp;
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 
+	RenderDebug(screenPos);
+}
+
+//デバッグ描画
+void CPlayer::RenderDebug(Vector2 screenPos)
+{
+	/*CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
+	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);*/
+	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
+		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
+	//CGraphicsUtilities::RenderString(0, 130, "%.1f,%.1f", GetRect().Left, GetRect().Top);
+}
+
+//解放
+void CPlayer::Release(void)
+{
+	m_Motion.Release();
+	m_SkillTarget.clear();
+	m_pTexture = nullptr;
+}
+
+//パッドオペレーション
+void CPlayer::PadOparation(void)
+{
 	//スティックを右か左に倒した場合、倒した方向に移動
-	if (g_pGamePad->GetStickHorizontal() > 0.8f) {
-
-		m_MoveX += 0.3f;
-		m_MoveX2 += 2.5f;
-		if (m_MoveX > PLAYER_MAXSPEED) {
-
-			m_MoveX = PLAYER_MAXSPEED;
-
-		}
-		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
-
-			m_MoveX2 = PLAYER_MAXSPEED * 2;
-
-		}
+	if (xgpad.GetStickHorizontal() > 0.8f)
+	{
+		MoveAdd(WAY_RIGHT);
 	}
-	else if (g_pGamePad->GetStickHorizontal() < -0.8f) {
-
-		m_MoveX -= 0.3f;
-		m_MoveX2 -= 2.5f;
-		if (m_MoveX < -PLAYER_MAXSPEED) {
-
-			m_MoveX = -PLAYER_MAXSPEED;
-
-		}
-		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
-
-			m_MoveX2 = -PLAYER_MAXSPEED * 2;
-
-		}
-	}//スティックを離した場合（移動の操作をしていない場合）
-	else {
-
+	else if (xgpad.GetStickHorizontal() < -0.8f)
+	{
+		MoveAdd(WAY_LEFT);
+	}
+	//スティックを離した場合（移動の操作をしていない場合）
+	else
+	{
 		//移動量が0なら処理に入らない
 		//移動量が存在する場合、徐々に移動量を0にする
-		if (m_MoveX > 0) {
-
-			m_MoveX -= 0.2f;
-
-			if (m_MoveX < 0) {
-
-				m_MoveX = 0;
-			}
-
+		if (m_Move.x > 0)
+		{
+			MoveSub(WAY_RIGHT);
 		}
-		else if(m_MoveX<0){
-
-			m_MoveX += 0.2f;
-
-			if (m_MoveX > 0) {
-
-				m_MoveX = 0;
-			}
-
+		else if (m_Move.x < 0)
+		{
+			MoveSub(WAY_LEFT);
 		}
-		//移動量が0なら処理に入らない
-		//移動量が存在する場合、徐々に移動量を0にする
-		if (m_MoveX2 > 0) {
-
-			m_MoveX2 -= 2.5f;
-
-			if (m_MoveX2 < 0) {
-
-				m_MoveX2 = 0;
-			}
-
-		}
-		else if (m_MoveX2 < 0) {
-
-			m_MoveX2 += 2.5f;
-
-			if (m_MoveX2 > 0) {
-
-				m_MoveX2 = 0;
-			}
-
+		else
+		{
+			m_bMove = false;
 		}
 	}
-
-	//移動量を座標に加算
-	m_PosX += m_MoveX;
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (g_pGamePad->IsKeyPush(GAMEKEY_A)&&!m_bJump) {
-
-		m_bJump = true;
-
-		m_MoveY = -10.0f;
+	if (g_pGamePad->IsKeyPush(GAMEKEY_A) && !m_bJump)
+	{
+		Jump();
 	}
 
-	m_MoveY += PLAYER_GRAVITY;
-
-	m_PosY += m_MoveY;
-
-	////とりあえず縦座標が300の位置をステージに
-	//if (m_PosY > 300) {
-	//	m_PosY = 300;
-	//	m_MoveY = 0;
-	//	if (m_bJump) {
-	//		m_bJump = false;
-	//	}
-	//}
-
+	//LTボタンを押した場合、スキルが発動
+	if (xgpad.IsKeyHold(XINPUT_L_TRIGGER)/* && m_CoolTime > 0.0f*/)
+	{
+		m_bTrigger = true;
+		if (!m_SkillTarget.empty())
+		{
+			//LBまたはRBでターゲットを変更
+			if (g_pGamePad->IsKeyPush(GAMEKEY_LB))
+			{
+				if (--m_Target < 0)
+				{
+					m_Target = m_SkillTarget.size() - 1;
+				}
+			}
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_RB))
+			{
+				if (++m_Target >= m_SkillTarget.size())
+				{
+					m_Target = 0;
+				}
+			}
+			//RTトリガーを押したとき選択中の敵にスキルを使用
+			if (xgpad.IsKeyPush(XINPUT_R_TRIGGER))
+			{
+			
+				if (!m_SkillTarget.empty())
+				{
+					m_bTrigger = false;
+					m_SkillTarget[m_Target]->SetSkill();
+					for (int i = 0; i < m_SkillTarget.size(); i++)
+					{
+						m_SkillTarget[i]->SetTarget(false);
+					}
+				}
+			}//シフトキーと保存
+		}
+	}
+	else if (g_pGamePad->GetPadState()->lZ < 1)
+	{
+		m_bTrigger = false;
+	}
 }
 
-void CPlayer::KeyOperation() {
-
+//キーオペレーション
+void CPlayer::KeyOparation(void)
+{
 	//スティックを右か左に倒した場合、倒した方向に移動
-	if (g_pInput->IsKeyHold(MOFKEY_RIGHT)) {
-
-		m_MoveX += 0.2f;
-		m_MoveX2 += 2.5f;
-		if (m_MoveX > PLAYER_MAXSPEED) {
-
-			m_MoveX = PLAYER_MAXSPEED;
-
-		}
-		if (m_MoveX2 > PLAYER_MAXSPEED * 2) {
-
-			m_MoveX2 = PLAYER_MAXSPEED * 2;
-
-		}
-
+	if (g_pInput->IsKeyHold(MOFKEY_RIGHT))
+	{
+		MoveAdd(WAY_RIGHT);
 	}
-	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) {
-
-		m_MoveX -= 0.2f;
-		m_MoveX2 -= 2.5f;
-
-		if (m_MoveX < -PLAYER_MAXSPEED) {
-
-			m_MoveX = -PLAYER_MAXSPEED;
-
-		}
-		if (m_MoveX2 < -PLAYER_MAXSPEED * 2) {
-
-			m_MoveX2 = -PLAYER_MAXSPEED * 2;
-
-		}
-
-	}//スティックを離した場合（移動の操作をしていない場合）
-	else {
-
+	else if (g_pInput->IsKeyHold(MOFKEY_LEFT)) 
+	{
+		MoveAdd(WAY_LEFT);
+	}
+	//スティックを離した場合（移動の操作をしていない場合）
+	else
+	{
 		//移動量が0なら処理に入らない
 		//移動量が存在する場合、徐々に移動量を0にする
-		if (m_MoveX > 0) {
-
-			m_MoveX -= 0.3f;
-
-			if (m_MoveX < 0) {
-
-				m_MoveX = 0;
-			}
-
+		if (m_Move.x > 0)
+		{
+			MoveSub(WAY_RIGHT);
 		}
-		else if (m_MoveX < 0) {
-
-			m_MoveX += 0.3f;
-
-			if (m_MoveX > 0) {
-
-				m_MoveX = 0;
-			}
-
+		else if (m_Move.x < 0) 
+		{
+			MoveSub(WAY_LEFT);
 		}
-
-		//移動量が0なら処理に入らない
-		//移動量が存在する場合、徐々に移動量を0にする
-		if (m_MoveX2 > 0) {
-
-			m_MoveX2 -= 2.5f;
-
-			if (m_MoveX2 < 0) {
-
-				m_MoveX2 = 0;
-			}
-
-		}
-		else if (m_MoveX2 < 0) {
-
-			m_MoveX2 += 2.5f;
-
-			if (m_MoveX2 > 0) {
-
-				m_MoveX2 = 0;
-			}
-
+		else
+		{
+			m_bMove = false;
 		}
 	}
-
-	//移動量を座標に加算
-	m_PosX += m_MoveX;
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump) {
-
-		m_bJump = true;
-
-		m_MoveY = -10.0f;
+	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump)
+	{
+		Jump();
 	}
 
-	m_MoveY += PLAYER_GRAVITY;
-
-	m_PosY += m_MoveY;
-
-	////とりあえず縦座標が300の位置をステージに
-	//if (m_PosY > 100) {
-	//	m_PosY = 100;
-	//	m_MoveY = 0;
-	//	if (m_bJump) {
-	//		m_bJump = false;
-	//	}
-	//}
-}
-
-void CPlayer::LifeDecrease() {
-	//HPが0以下になった場合残機を減らしHPを初期値に戻す
-	if (m_Hp <= 0) {
-
-		m_Life--;
-
-		m_Hp = PLAYER_MAXHP;
+	//スペースキーを押した場合、スキルが発動
+	if (g_pInput->IsKeyHold(MOFKEY_SPACE) /*&& m_CoolTime > 0.0f*/)
+	{
+		m_bTrigger = true;
+		//Listが空の場合、処理をしない
+		if (!m_SkillTarget.empty())
+		{
+			//ZまたはXでターゲットを変更
+			if (g_pInput->IsKeyPush(MOFKEY_Z))
+			{
+				if (--m_Target < 0)
+				{
+					m_Target = m_SkillTarget.size() - 1;
+				}
+			}
+			else if (g_pInput->IsKeyPush(MOFKEY_X))
+			{
+				if (++m_Target >= m_SkillTarget.size())
+				{
+					m_Target = 0;
+				}
+			}
+			//Cを押したとき選択中の敵にスキルを使用
+			if (g_pInput->IsKeyPush(MOFKEY_C))
+			{
+				m_bTrigger = false;
+				m_SkillTarget[m_Target]->SetSkill();
+				for (int i = 0; i < m_SkillTarget.size(); i++)
+				{
+					m_SkillTarget[i]->SetTarget(false);
+				}
+			}//シフトキーと保存
+		}
+	}
+	else if (g_pInput->IsKeyPull(MOFKEY_SPACE))
+	{
+		m_bTrigger = false;
 	}
 }
 
-void CPlayer::Render(Vector2 scroll) {
-
-	//プレイヤー(仮)の描画
-	//CGraphicsUtilities::RenderRect(m_PosX, m_PosY, m_PosX + PLAYER_WIDTH, m_PosY + PLAYER_HEIGHT, MOF_XRGB(255, 0, 0));
-	CGraphicsUtilities::RenderRect(scroll.x, scroll.y, scroll.x + PLAYER_WIDTH, scroll.y + PLAYER_HEIGHT, MOF_XRGB(255, 0, 0));
-	//プレイヤーのHPの描画
-	RenderState();
-
-	RenderDebug();
-
-	CGraphicsUtilities::RenderCircle(scroll.x + PLAYER_WIDTH / 2, scroll.y + PLAYER_HEIGHT / 2, 512, MOF_COLOR_RED);
-
+//移動
+void CPlayer::Move(void)
+{
+	//移動量に重力をかける
+	if (!m_bClime)
+	{
+		m_Move.y += GRAVITY;
+	}
+	m_Pos += m_Move;
 }
 
-void CPlayer::RenderState() {
-	//HPの値によってケージの長さを変化
-	CRectangle rec(0, 0, 532 * (m_Hp*0.01f), 64);
+//加速処理
+void CPlayer::MoveAdd(WAY w)
+{
+	switch(w)
+	{
+	case WAY_RIGHT:
+		m_bReverse = false;
+		m_Move.x += m_Spd.x;
+		//最大速度を超えないようにする
+		if (m_Move.x > PLAYER_MAXSPEED)
+		{
+			m_Move.x = PLAYER_MAXSPEED;
+		}
+		break;
 
-	m_HpTexture.Render(248, 150, rec);
-
-
-	
+	case WAY_LEFT:
+		m_bReverse = true;
+		m_Move.x -= m_Spd.x;
+		//最大速度を超えないようにする
+		if (m_Move.x < -PLAYER_MAXSPEED)
+		{
+			m_Move.x = -PLAYER_MAXSPEED;
+		}
+		break;
+	}
+	m_bMove = true;
 }
 
-void CPlayer::RenderDebug() {
-
-	CGraphicsUtilities::RenderString(0, 50, MOF_XRGB(255, 0, 0), "m_MoveX %.f m_MoveY %.f m_bJump %d m_Hp %d m_Life %d", m_MoveX,m_MoveY,m_bJump,m_Hp,m_Life);
-	CGraphicsUtilities::RenderString(0, 100, MOF_XRGB(255, 0, 0), "スティックで移動: Aボタンでジャンプ: Xボタンで疑似ダメージ");
+//減速処理
+void CPlayer::MoveSub(WAY w)
+{
+	switch (w)
+	{
+	case WAY_RIGHT:
+		m_Move.x -= m_Spd.x - 0.1f;
+		//ゼロ以下にならないようにする
+		if (m_Move.x < 0)
+		{
+			m_Move.x = 0;
+		}
+		break;
+	case WAY_LEFT:
+		m_Move.x += m_Spd.x - 0.1f;
+		//ゼロ以上にならないようにする
+		if (m_Move.x > 0)
+		{
+			m_Move.x = 0;
+		}
+		break;
+	}
 }
 
-void CPlayer::Release() {
-	//HPテクスチャー(仮)の解放
-	m_HpTexture.Release();
+//アニメーション処理
+void CPlayer::Animation(void)
+{
+	//移動中なら移動モーションにする
+	if(m_bMove && m_Motion.GetMotionNo() == ANIM_WAIT)
+	{
+		m_Motion.ChangeMotion(ANIM_MOVE);
+	}
+	if(!m_bMove && m_Motion.GetMotionNo() == ANIM_MOVE)
+	{
+		m_Motion.ChangeMotion(ANIM_WAIT);
+	}
+
+	//アニメーション加算
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+
+	//アニメーション矩形更新
+	m_SrcRect = m_Motion.GetSrcRect();
 }
 
-void CPlayer::CollisionStage(Vector2 o) {
-	m_PosX += o.x;
-	m_PosY += o.y;
+//ジャンプ処理
+void CPlayer::Jump(void)
+{
+	//ジャンプ効果音のテスト処理
+	//g_pSoundManager->GetResource(FileName[SOUND_JUMP])->Play();
+
+	//ジャンプフラグを立てる
+	m_bJump = true;
+
+	//パワーアップフラグが立っている場合、ジャンプ力上昇
+	if (m_bPowUp)
+	{
+		m_Move.y = PLAYER_HIGHJUMPPOW;
+	}
+	else
+	{
+		m_Move.y = PLAYER_JUMPPOW;
+	}
+}
+
+//当たり判定
+void CPlayer::CollisionStage(Vector2 o)
+{
+	m_Pos += o;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化
-	if (o.y < 0 && m_MoveY > 0)
+	if (o.y < 0 && m_Move.y > 0)
 	{
-		m_MoveY = 0;
+		m_Move.y = 0;
 		if (m_bJump)
 		{
 			m_bJump = false;
 		}
 	}
-	else if (o.y > 0 && m_MoveY < 0)
+	else if (o.y > 0 && m_Move.y < 0)
 	{
-		m_MoveY = 0;
+		m_Move.y = 0;
 	}
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する
-	if ((o.x < 0 && m_MoveX>0) || (o.x > 0 && m_MoveX < 0))
+	if ((o.x < 0 && m_Move.x > 0) || (o.x > 0 && m_Move.x < 0))
 	{
-		m_MoveX = 0;
+		m_Move.x = 0;
 	}
 }
 
-#ifdef _DEBUG
-void CPlayer::Debug()
+void CPlayer::Skill()
 {
-	int s = 5;
-	if (g_pInput->IsKeyHold(MOFKEY_LEFT))
+	//スキルの円に座標や半径を代入
+	m_SkillCircle.x = m_Pos.x + m_SrcRect.GetWidth() / 2;
+	m_SkillCircle.y = m_Pos.y + m_SrcRect.GetHeight() / 2;
+	m_SkillCircle.r = m_Skillrang;
+
+	//スキルが発動している場合ターゲットの範囲を広げる
+	if (m_bTrigger)
 	{
-		m_PosX -= s;
+		m_Skillrang += 10;
+		/*m_CoolTime -= 0.1f;*/
+		if (m_Skillrang >= PLAYER_MAXSKILLRANGE)
+		{
+			m_Skillrang = PLAYER_MAXSKILLRANGE;
+		}
 	}
-	if (g_pInput->IsKeyHold(MOFKEY_RIGHT))
+	else 
 	{
-		m_PosX += s;
-	}
-	if (g_pInput->IsKeyHold(MOFKEY_UP))
-	{
-		m_PosY -= s;
-	}
-	if (g_pInput->IsKeyHold(MOFKEY_DOWN))
-	{
-		m_PosY += s;
+		//離したまたは押してない状態で
+		//ターゲット範囲が0より大きい場合
+		if (m_Skillrang > 0.0f)
+		{
+			//スキル範囲を0にしてターゲットを先頭に戻す(初期化する)
+			m_Skillrang = 0.0f;
+			m_Target = 0;
+			//ベクトルに要素が入っている場合
+			if (!m_SkillTarget.empty()) 
+			{
+				//全てのターゲットフラグを下ろし、要素を全てクリアする
+				for (int i = 0; i < m_SkillTarget.size(); i++)
+				{
+					m_SkillTarget[i]->SetTarget(false);
+				}
+				m_SkillTarget.clear();
+			}
+		}
 	}
 }
-#endif	//_DEBUG
+
+
+void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+
+	std::list<CSubstance*> element;
+	//ベクトルに入っていたSubstanceのターゲットの初期化
+	for (int i = 0; i < m_SkillTarget.size(); i++)
+	{
+		m_SkillTarget[i]->SetTarget(false);
+	}
+	//ベクトルの要素をクリア
+	m_SkillTarget.clear();
+
+
+	for (int i = 0; i < eneCount; i++) 
+	{
+		if (!pene[i].GetShow())
+		{
+			continue;
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pene[i].GetRect(), m_SkillCircle))
+		{
+			element.push_back(&pene[i]);
+		}
+	}
+
+	for (int i = 0; i < objCount; i++)
+	{
+		if (!pobj[i].GetShow())
+		{
+			continue;
+		}
+
+		//表示されていてスキルの円に敵が当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(pobj[i].GetRect(), m_SkillCircle))
+		{
+			element.push_back(&pobj[i]);
+		}
+	}
+
+	//Listが空の場合、処理をしない
+	if (element.empty())
+	{
+		return;
+	}
+
+	//プレイヤーの位置
+	float stx = m_Pos.x + m_SrcRect.GetWidth()*0.5f;
+	float sty = m_Pos.y + m_SrcRect.GetHeight();
+
+	//一つずつv と　v++を比較してソートする
+	element.sort(
+		[&](CSubstance*& v1, CSubstance*& v2)
+		{
+			CRectangle rec1 = v1->GetRect();
+			CRectangle rec2 = v2->GetRect();
+
+			Vector2 cv1 = rec1.GetCenter();
+			Vector2 cv2 = rec2.GetCenter();
+
+			float dx1 = cv1.x - stx;
+			float dy1 = cv1.y - sty;
+			float d1 = (dx1*dx1 + dy1 * dy1);
+
+			float dx2 = cv2.x - stx;
+			float dy2 = cv2.y - sty;
+			float d2 = (dx2*dx2 + dy2 * dy2);
+			if (d1 > d2) {
+				return false;
+			}
+			return true;
+		}
+	);
+
+	//ソートされた敵かオブジェクトをベクトルに入れる
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) 
+	{
+		m_SkillTarget.push_back(*itr);
+	}
+
+	
+	if (m_Target > m_SkillTarget.size()-1) {
+
+		m_Target = m_SkillTarget.size() - 1;
+
+	}
+	
+	
+	
+
+	//ターゲット中か敵に伝える
+	for (int i = 0; i < m_SkillTarget.size(); i++)
+	{
+		if (i == m_Target)
+		{
+			m_SkillTarget[i]->SetTarget(true);
+		}
+		else
+		{
+			m_SkillTarget[i]->SetTarget(false);
+		}
+	}
+}

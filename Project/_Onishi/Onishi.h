@@ -6,9 +6,9 @@
  *****************************************************************/
 #pragma once
 
-//! INCLUDE
+ //! INCLUDE
 #include	"../SceneBase.h"
-
+#include	"EnemyMove.h"
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
@@ -28,7 +28,9 @@ private:
 	float getypos;
 	float getx;
 	float gety;
-
+	bool Revers;
+	int gEnemytype;
+	//CEnemyMove gEnemy;
 public:
 	/*****************************************************************
 	 * @fn
@@ -52,7 +54,7 @@ public:
 	 * @param なし
 	 * @return なし
 	 *****************************************************************/
-	void Load();
+	bool Load();
 
 	/*****************************************************************
 	 * @fn
@@ -93,4 +95,6 @@ public:
 	 * @return なし
 	 *****************************************************************/
 	void Release();
+
+	int GetSceneName(void) { return SCENENO_ONISHI; }
 };
