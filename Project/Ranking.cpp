@@ -44,6 +44,8 @@ bool CRanking::Load() {
 	
 	FILE* fp = fopen("Ranking.dat", "rb");
 
+	std::vector<RankingEntry> r_array;
+
 	if (fp) {
 		for (int i = 0; i < ne; i++) {
 
@@ -56,10 +58,8 @@ bool CRanking::Load() {
 			fread(str, sizeof(char), s, fp);
 			r.Name.SetString(str);
 			fread(&r.Score, sizeof(int), 1, fp);
-		
-			//fread(&r, sizeof(RankingEntry), 1, fp);
 
-			m_RankingEntryArray.Add(&r);
+			r_array.push_back(r);
 
 			delete[] str;
 
@@ -71,6 +71,8 @@ bool CRanking::Load() {
 		
 
 	}
+
+	RankingSort(r_array);
 
 
 
@@ -84,7 +86,7 @@ void CRanking::Initialize() {
 	m_KeySelectY = 0;
 	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 32*KEYSIZE_X) * 0.5f;
 	m_KeyOffSet.y = (g_pGraphics->GetTargetHeight() - 32*KEYSIZE_Y) * 0.5f;
-	RankingSort();
+	
 }
 
 void CRanking::Update() {
@@ -250,39 +252,28 @@ void CRanking::ImeRender() {
 	}
 }
 
-void CRanking::RankingSort() {
+void CRanking::RankingSort(std::vector<RankingEntry> r_array) {
 
-	std::list<RankingEntry> r;
+	/*std::vector<RankingEntry> r_array;
 
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 
-		r.push_back(m_RankingEntryArray[i]);
+		r_array.push_back(m_RankingEntryArray[i]);
+
+	}*/
+
+	std::sort(r_array.begin(),
+		r_array.end(),
+		[](const RankingEntry& a, const RankingEntry& b)
+	{return (a.Score == b.Score) ? (a.Name.GetLength() < b.Name.GetLength()) : (a.Score < b.Score); });
+
+	for (int i = 0; i < r_array.size(); i++) {
+
+		m_RankingEntryArray.Add(&r_array[i]);
 	}
+	
 
-	m_RankingEntryArray.Release();
-
-	r.sort(
-		[&](RankingEntry& v1, RankingEntry& v2)
-	{
-		int score1 = v1.Score;
-		int score2 = v2.Score;
-
-		if (score1 > score2) {
-
-			return false;
-
-		}
-
-		return true;
-	});
-
-	//for (i)
-	//{
-	//	m_RankingEntryArray.Add(r.);
-	//}
-
-	//
-
+	
 }
 
 

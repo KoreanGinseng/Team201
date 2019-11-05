@@ -74,7 +74,7 @@ public:
 
 	void VKOperation(void);
 	void KeyRender(void);
-	void RankingSort(void);
+	void RankingSort(std::vector<RankingEntry> r_array);
 	void MaxKeyLook(void);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
