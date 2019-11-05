@@ -95,6 +95,21 @@ void CPlayer::Update(void)
 	{
 		dmg();
 	}
+
+	if (m_HP<=0)
+	{
+			ReNum::GetInstance().SubReNumber();
+		if (ReNum::GetInstance().GetReNumber() < 0)
+		{
+			m_HP = 0;
+		}
+		else
+		{
+			m_HP = PLAYER_MAXHP;
+		}
+	}
+
+	
 }
 
 //•`‰æ
@@ -112,7 +127,8 @@ void CPlayer::Render(Vector2 screenPos)
 
 	RenderDebug(screenPos);
 	//MOF_PRINTLOG("%.1f,%.1f\n", m_Pos.x, m_Pos.y);
-	MOF_PRINTLOG("%d", m_HP);
+	MOF_PRINTLOG("%d",ReNum::GetInstance().GetReNumber());
+
 }
 
 //ƒfƒoƒbƒO•`‰æ

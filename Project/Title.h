@@ -9,7 +9,7 @@
  // INCLUDE
 #include "SceneBase.h"
 #include	"GameDefine.h"
-
+#include "ReNum.h"
 class CTitle :
 	public CSceneBase
 {

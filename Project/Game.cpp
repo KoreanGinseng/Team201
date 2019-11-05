@@ -10,6 +10,7 @@
 
 int CGame::m_StageNo = START_STAGE;
 
+
 const char*		g_StageFileName[STAGE_COUNT] = {
 			"testaaa3.txt",
 			"testaaa2.txt",
@@ -59,6 +60,9 @@ void CGame::Initialize()
 //更新
 void CGame::Update()
 {
+	ReNum::GetInstance().GetReNumber();
+	
+
 	//F4キーでポーズ
 	if (g_pInput->IsKeyPush(MOFKEY_F4))
 	{
@@ -218,6 +222,8 @@ void CGame::Render()
 	}
 	//UIの描画
 	m_UI.Render(m_Player.GetHp());
+
+	
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)

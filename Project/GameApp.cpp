@@ -50,7 +50,7 @@ MofBool CGameApp::Initialize(void){
 #ifdef _DEBUG
 	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
 
-	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
+	gpScene = new CTitle();			//ゲームシーンから開始(デバッグ用)
 #endif // _DEBUG
 
 	if (gpLoading == nullptr)

@@ -35,13 +35,18 @@ void CTitle::Initialize()
 //更新
 void CTitle::Update()
 {
-
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	{
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+		ReNum::GetInstance().SetReNum();
+	}
 }
 
 //描画
 void CTitle::Render()
 {
-
+	
 }
 
 //デバッグ描画

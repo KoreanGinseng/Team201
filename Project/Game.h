@@ -16,6 +16,7 @@
 #include "Camera2D.h"
 #include "Player.h"
 #include "Stage.h"
+#include "ReNum.h"
 #include "UI.h"
 
 class CGame :

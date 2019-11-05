@@ -167,6 +167,7 @@
     <ClInclude Include="ObjTree.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
+    <ClInclude Include="ReNum.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Sound.h" />

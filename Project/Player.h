@@ -14,6 +14,7 @@
 #include	"Enemy.h"
 #include	"Object.h"
 #include	"Substance.h"
+#include	"ReNum.h"
 #include	<vector>
 #include	<list>
 
