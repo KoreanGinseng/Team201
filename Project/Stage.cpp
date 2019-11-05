@@ -255,6 +255,7 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			}
 			pEne[n].SetTexture(m_pEnemyTexture[on]);
 			pEne[n].SetMoveAttack(on);
+			pEne[n].MotionCreate(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1 + on]));
 			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
 		}
 	}

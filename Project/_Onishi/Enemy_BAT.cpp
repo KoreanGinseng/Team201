@@ -9,8 +9,8 @@ CENEMY_BAT::~CENEMY_BAT() {
 }
 
 void CENEMY_BAT::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnim(), c);
+	/*int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnimCount();
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_3])->GetAnim(), c);*/
 	m_fEnemySpeed = 6;
 	m_bReverse = false;
 	m_fMoveX = -m_fEnemySpeed;

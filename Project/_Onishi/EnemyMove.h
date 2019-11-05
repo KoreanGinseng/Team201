@@ -32,6 +32,7 @@ public:
 	virtual CRectangle	GetRect(void) const = 0;
 	void ResetSpd(const WAY& w) { ((w == WAY_X) ? m_fMoveX : m_fMoveY) = 0; }
 	void Reverse(void) { m_fMoveX *= -1; m_bReverse = !m_bReverse; }
+	void MotionCreate(std::shared_ptr<CAnimationData> m);
 	void SetReverse(bool flag) { m_bReverse = flag; }
 	bool GetAttack(void) const { return m_bAttack; }
 	bool GetReverce(void) const { return m_bReverse; }

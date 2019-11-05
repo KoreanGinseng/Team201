@@ -40,6 +40,8 @@ public:
 	void RenderDebug(const Vector2& sp);
 	void Release(void);
 
+	void MotionCreate(std::shared_ptr<CAnimationData> m) { m_pMove->MotionCreate(m); }
+
 	//Set
 	void SetTexture(CTexturePtr pt) { m_pTexture = pt; }
 	void SetMoveAttack(const int& no);

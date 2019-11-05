@@ -17,3 +17,9 @@ void CEnemyMove::Animation(void)
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	m_SrcRect = m_Motion.GetSrcRect();
 }
+
+void CEnemyMove::MotionCreate(std::shared_ptr<CAnimationData> m)
+{
+	int c =m->GetAnimCount();
+	m_Motion.Create(m->GetAnim(), c);
+}
