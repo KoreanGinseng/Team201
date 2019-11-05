@@ -39,6 +39,8 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 #define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
 #define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
 
+constexpr	char			picture[] = "picture";
+constexpr	char			anim[] = "anim";
 
 constexpr	char*	FileName[] = {
 	//TEXTURE

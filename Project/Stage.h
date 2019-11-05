@@ -19,6 +19,8 @@ class CStage
 private:
 	CTexturePtr	m_pBackTexture;
 	CTexturePtr	m_pChipTexture;
+	std::vector<CTexturePtr>	m_pMapObjTexture;
+	std::vector<CTexturePtr>	m_pBackChipTexture;
 	std::vector<CTexturePtr>	m_pEnemyTexture;
 	std::vector<CTexturePtr>	m_pItemTexture;
 	std::vector<CTexturePtr>	m_pObjectTexture;
@@ -28,19 +30,28 @@ private:
 	int			m_YCount;
 
 	char*		m_pChipData;
+	char*		m_pMapObjData;
+	char*		m_pBackChipData;
 	char*		m_pEnemyData;
 	char*		m_pItemData;
 	char*		m_pObjectData;
 	char*		m_pObjEndData;
 
+	int			m_MapObjTextureCount;
+	int			m_BackChipTextureCount;
 	int			m_EnemyTextureCount;
 	int			m_ItemTextureCount;
 	int			m_ObjectTextureCount;
 
+	int			m_MapObjCount;
+	int			m_BackChipCount;
 	int			m_EnemyCount;
 	int			m_ItemCount;
 	int			m_ObjectCount;
 
+	std::string IsExt(const char* pName);
+	CTexturePtr TextureLoad(char* pName);
+	int			ChipDataLoad(char* str, char* pData);
 public:
 	CStage(void);
 	~CStage(void) {}
