@@ -23,6 +23,7 @@ public:
 	}
 	void SubReNumber()
 	{
+		if(Zanki>=0)
 		Zanki--;
 	}
 

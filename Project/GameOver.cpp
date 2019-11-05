@@ -56,6 +56,13 @@ void CGameOver::Initialize() {
  *****************************************************************/
 void CGameOver::Update() {
 
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	{
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+		ReNum::GetInstance().SetReNum();
+	}
+
 }
 
 /*****************************************************************

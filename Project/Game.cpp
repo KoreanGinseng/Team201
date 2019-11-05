@@ -60,8 +60,11 @@ void CGame::Initialize()
 //更新
 void CGame::Update()
 {
-	ReNum::GetInstance().GetReNumber();
-	
+	if (ReNum::GetInstance().GetReNumber()<0)
+	{
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAMEOVER;
+	}
 
 	//F4キーでポーズ
 	if (g_pInput->IsKeyPush(MOFKEY_F4))

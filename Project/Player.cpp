@@ -101,7 +101,7 @@ void CPlayer::Update(void)
 			ReNum::GetInstance().SubReNumber();
 		if (ReNum::GetInstance().GetReNumber() < 0)
 		{
-			m_HP = 0;
+			
 		}
 		else
 		{
