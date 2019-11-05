@@ -11,7 +11,7 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"testaaa3.txt",
+			"Stage1-1.txt",
 			"testaaa2.txt",
 			"testaaa5.txt",
 			"testaaa4.txt",
@@ -139,6 +139,7 @@ void CGame::Update()
 		}
 	}
 	//オブジェクトの更新
+	bool clime = false;
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
 		if (!m_pObjArray[i].GetShow())
@@ -153,20 +154,20 @@ void CGame::Update()
 			//m_pObjArray[i].CollisionStage(oo);
 		}
 		//プレイヤーとの当たり判定
-		bool clime = false;
 		oo = Vector2(0, 0);
 		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
 		{
 			if (m_pObjArray[i].GetType() == OBJECT_ROPE)
 			{
 				clime = true;
+				break;
 			}
 			else
 			{
+				clime = false;
 				m_Player.CollisionStage(oo);
 			}
 		}
-		m_Player.SetClime(clime);
 		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
 		{
 			oo = Vector2(0, 0);
@@ -183,6 +184,7 @@ void CGame::Update()
 			}
 		}
 	}
+	m_Player.SetClime(clime);
 
 	//カメラの更新
 	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
@@ -258,7 +260,7 @@ void CGame::UpdateDebug() {
 
 
 	}
-	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+	else if (g_pInput->IsKeyPush(MOFKEY_L)) {
 
 		m_bEnd = true;
 

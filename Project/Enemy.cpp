@@ -251,7 +251,7 @@ void CEnemy::SetMoveAttack(const int& no)
 		m_pMove = new CENEMY_TERESA();
 		break;
 	case ENEMY_KOTEIHOUDAI:
-		m_pMove = new CENEMY_KOTEIHOUDAI();
+		m_pMove = new CENEMY_TERESA();
 		break;
 	default:
 		break;

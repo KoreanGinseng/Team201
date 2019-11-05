@@ -343,6 +343,14 @@ void CStage::Release() {
 		free(m_pChipData);
 		m_pChipData = nullptr;
 	}
+	if (m_pMapObjData != nullptr) {
+		free(m_pMapObjData);
+		m_pMapObjData = nullptr;
+	}
+	if (m_pBackChipData != nullptr) {
+		free(m_pBackChipData);
+		m_pBackChipData = nullptr;
+	}
 	if (m_pEnemyData != nullptr) {
 		free(m_pEnemyData);
 		m_pEnemyData = nullptr;

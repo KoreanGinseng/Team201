@@ -8,8 +8,6 @@ CEnemy_KURIBO::~CEnemy_KURIBO() {
 
 }
 void CEnemy_KURIBO::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnim(), c);
 	m_fEnemySpeed = 2;
 	m_fMoveX = -m_fEnemySpeed;
 	m_fMoveY = 0;
