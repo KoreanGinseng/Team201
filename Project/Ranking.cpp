@@ -27,7 +27,7 @@ bool CRanking::Load() {
 	m_pEffect = new CEffectFade();
 	m_pEffect->In(10);
 
-	/*FILE* fpNE = fopen("RankingNE.dat", "rb");
+	FILE* fpNE = fopen("RankingNE.dat", "rb");
 
 	if (!fpNE) {
 
@@ -40,84 +40,42 @@ bool CRanking::Load() {
 
 	fclose(fpNE);
 
+	m_RankingEntryArray.Release();
+	
 	FILE* fp = fopen("Ranking.dat", "rb");
 
-	
+	if (fp) {
+		for (int i = 0; i < ne; i++) {
 
-	for (int i = 0; i < ne; i++) {
+			RankingEntry r;
+			fread(&r.IconRect, sizeof(CRectangle), 1, fp);
+			int s;
+			fread(&s, sizeof(int), 1, fp);
+			char* str = new char[s + 1];
+			str[s] = '\0';
+			fread(str, sizeof(char), s, fp);
+			r.Name.SetString(str);
+			fread(&r.Score, sizeof(int), 1, fp);
+		
+			//fread(&r, sizeof(RankingEntry), 1, fp);
 
-		RankingEntry r;
+			m_RankingEntryArray.Add(&r);
 
-		fread(&r, sizeof(RankingEntry), ne, fp);
+			delete[] str;
 
-		RankingEntry* r2 = new RankingEntry;
-		r2->IconRect = r.IconRect;
-		r2->Name = r.Name;
-		r2->Score = r.Score;
+			str = nullptr;
+		}
 
-		m_RankingEntryArray.Add(r2);
+		fclose(fp);
 
-	}*/
+		
+
+	}
+
 
 
 	return TRUE;
 }
-
-//void CRanking::Save(RankingEntry* re,int ne) {
-//
-//	/*FILE* fpNE = fopen("RankingNE.dat", "wb");
-//
-//	if (fpNE) {
-//
-//		fwrite(&ne, sizeof(int), 1, fpNE);
-//
-//	}
-//
-//	fclose(fpNE);
-//
-//
-//	FILE* fp = fopen("Ranking.dat", "wb");
-//
-//
-//	for (int i = 0; i < ne; i++) {
-//
-//		fwrite(&re[i], sizeof(re[i]), ne, fp);
-//
-//	}
-//
-//	fclose(fp);*/
-//
-//}
-//
-//void CRanking::Load(CDynamicArray<RankingEntry>* re) {
-//
-//	/*FILE* fpNE = fopen("RankingNE.dat", "rb");
-//
-//	if (!fpNE) {
-//
-//		return;
-//	}
-//
-//	int ne;
-//
-//	fread(&ne, sizeof(int), 1, fpNE);
-//
-//	fclose(fpNE);
-//
-//	FILE* fp = fopen("Ranking.dat", "rb");
-//
-//	for (int i = 0; i < ne; i++) {
-//
-//		RankingEntry r;
-//
-//		fread(&r, sizeof(r), ne, fp);
-//
-//		re->Add(r);
-//
-//	}*/
-//
-//
-//}
 
 void CRanking::Initialize() {
 	m_KeyMaxSize = 0;
@@ -126,6 +84,7 @@ void CRanking::Initialize() {
 	m_KeySelectY = 0;
 	m_KeyOffSet .x = (g_pGraphics->GetTargetWidth() - 32*KEYSIZE_X) * 0.5f;
 	m_KeyOffSet.y = (g_pGraphics->GetTargetHeight() - 32*KEYSIZE_Y) * 0.5f;
+	RankingSort();
 }
 
 void CRanking::Update() {
@@ -156,6 +115,7 @@ void CRanking::Render() {
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 		CGraphicsUtilities::RenderString(10, 100 + i * 50, "–¼‘O:%s ƒ^ƒCƒ€:%d", m_RankingEntryArray[i].Name.GetString(),m_RankingEntryArray[i].Score);
 	}
+	CGraphicsUtilities::RenderString(0, 200, "%d", (int)g_pTimeManager->GetNowTime());
 
 	KeyRender();
 
@@ -289,6 +249,42 @@ void CRanking::ImeRender() {
 		CGraphicsUtilities::RenderLine(ir.Right + 2, ir.Top + 2, ir.Right + 2, ir.Bottom, MOF_COLOR_BLACK);
 	}
 }
+
+void CRanking::RankingSort() {
+
+	std::list<RankingEntry> r;
+
+	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
+
+		r.push_back(m_RankingEntryArray[i]);
+	}
+
+	m_RankingEntryArray.Release();
+
+	r.sort(
+		[&](RankingEntry& v1, RankingEntry& v2)
+	{
+		int score1 = v1.Score;
+		int score2 = v2.Score;
+
+		if (score1 > score2) {
+
+			return false;
+
+		}
+
+		return true;
+	});
+
+	//for (i)
+	//{
+	//	m_RankingEntryArray.Add(r.);
+	//}
+
+	//
+
+}
+
 
 void CRanking::KeyRender() {
 
@@ -537,7 +533,7 @@ void CRanking::RankingSave() {
 		m_KeySelectX = 0;
 		m_KeySelectY = 0;
 
-		/*FILE* fpNE = fopen("RankingNE.dat", "wb");
+		FILE* fpNE = fopen("RankingNE.dat", "wb");
 
 		int ne = m_RankingEntryArray.GetArrayCount();
 
@@ -555,12 +551,16 @@ void CRanking::RankingSave() {
 
 
 		for (int i = 0; i < ne; i++) {
-
-			fwrite(&m_RankingEntryArray.GetData(i), sizeof(m_RankingEntryArray.GetData(i)), ne, fp);
-
+			RankingEntry r = m_RankingEntryArray.GetData(i);
+			fwrite(&r.IconRect, sizeof(CRectangle), 1, fp);
+			int a = r.Name.GetLength();
+			fwrite(&a, sizeof(int), 1, fp);
+			fwrite(r.Name.GetString(), sizeof(char), a, fp);
+			fwrite(&r.Score, sizeof(int), 1, fp);
+			
 		}
-
-		fclose(fp);*/
+		
+		fclose(fp);
 
 		
 

@@ -21,6 +21,7 @@ typedef struct tag_RankingEntry {
 	CRectangle	IconRect;
 	CString		Name;
 	int			Score;
+
 } RankingEntry;
 
 class CRanking : public CSceneBase {
@@ -73,7 +74,7 @@ public:
 
 	void VKOperation(void);
 	void KeyRender(void);
-
+	void RankingSort(void);
 	void MaxKeyLook(void);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,

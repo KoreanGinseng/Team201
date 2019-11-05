@@ -33,7 +33,6 @@ void CLoading::Load(void)
 void CLoading::Initialize(void)
 {
 	g_pEffectManager->Initialize();
-	g_pTimeManager->Reset();
 	m_pScene->Initialize();
 	//Sleep(1000);
 }
