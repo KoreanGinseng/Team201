@@ -44,7 +44,6 @@ public:
 
 	//Get
 	bool		GetShow(void)	 const { return m_bShow; }
-	//virtual CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
 	int	 GetType(void) { return m_pObjEmp->GetType(); }
 };
