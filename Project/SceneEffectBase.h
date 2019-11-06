@@ -19,5 +19,3 @@ public:
 	virtual bool Out(const int& spd) = 0;
 	virtual bool Render(void) = 0;
 };
-
-#include	"EffectFade.h"

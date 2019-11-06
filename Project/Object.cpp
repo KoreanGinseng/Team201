@@ -49,6 +49,8 @@ void CObject::Update(void) {
 	}
 
 	m_SrcRect = m_Motion.GetSrcRect();
+	m_pObjEmp->SetRect(GetRect());
+
 }
 
 void CObject::Render(Vector2 sp) {
@@ -193,7 +195,6 @@ void CObject::SetObject(const int& Type)
 		break;
 	case 1:
 		m_pObjEmp = new CObjTree();
-		m_Pos.y += 0;
 		break;
 	case 2:
 		m_pObjEmp = new CBridge();

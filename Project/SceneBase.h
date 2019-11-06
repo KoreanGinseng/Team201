@@ -8,7 +8,7 @@
 
 // INCLUDE
 #include	"Mof.h"
-#include	"SceneEffectBase.h"
+#include	"EffectFade.h"
 
 class CSceneBase
 {

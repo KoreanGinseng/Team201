@@ -10,7 +10,6 @@
 #include	"Mof.h"
 #include	"GameDefine.h"
 #include	"GamePadDefine.h"
-#include	"SoundManager.h"
 #include	"Enemy.h"
 #include	"Object.h"
 #include	"Substance.h"

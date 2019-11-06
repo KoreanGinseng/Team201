@@ -6,6 +6,8 @@ class CBridge :
 public:
 	CBridge();
 	~CBridge();
+	void Initialize(void);
+	bool Load(void);
 	void Update(const bool& me);
 	CRectangle GetRect(const Vector2& pos, const CRectangle& src) const {
 		CRectangle rect(pos.x, pos.y, pos.x + src.GetWidth(), pos.y + src.GetHeight());

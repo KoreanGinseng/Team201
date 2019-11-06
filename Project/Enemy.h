@@ -1,6 +1,5 @@
 #pragma once
 
-#include	"Mof.h"
 #include	"GameDefine.h"
 #include	"Substance.h"
 #include	"_Onishi/EnemyMove.h"
@@ -54,7 +53,6 @@ public:
 	//Get
 	bool		GetShow(void)			const { return m_bShow; }
 	int			GetDamageWait(void)		const { return m_DamageWait; }
-	//CRectangle  GetRect(void)			const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRect.GetWidth(), m_Pos.y + m_SrcRect.GetHeight()); }
 	CRectangle  GetRect(void)			const { return m_pMove->GetRect(); }
 	int			GetType(void)			const { return m_Type; }
 };
