@@ -20,9 +20,7 @@
 #include	"_Inoue/Inoue.h"
 #include	"_Kimura/Kimura.h"
 #include	"_Onishi/Onishi.h"
-#include	"GameDefine.h"
 #include	"EffectManager.h"
-//#include	"SoundManager.h"
 #include	"Loading.h"
 
 //GLOBAL

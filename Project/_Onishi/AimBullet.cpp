@@ -1,3 +1,10 @@
+/**
+ * @file AimBullet.cpp
+ * @brief 狙撃
+ * @author 大西永遠
+ * @date 更新日（11/5）
+ */
+
 #include "AimBullet.h"
 
 CAimBullet::CAimBullet():
@@ -33,7 +40,7 @@ void CAimBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	/*m_PlayerPlaceX = PlayerPosX;
 	m_PlayerPlaceY = PlayerPosY;*/
 	Playerdx = pPosx - px;
-	Playerdy = pPosy - px;
+	Playerdy = pPosy - py;
 	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
 	ddx = dx / d;
 	ddy = dy / d;

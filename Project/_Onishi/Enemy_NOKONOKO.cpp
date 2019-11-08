@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_NOKONOKO.cpp
+ * @brief ƒmƒRƒmƒR
+ * @author ‘å¼‰i‰“
+ * @date XV“úi10/29j
+ */
+
 #include	"Enemy_NOKONOKO.h"
 
 CENEMY_NOKONOKO::CENEMY_NOKONOKO():
@@ -8,8 +15,6 @@ CENEMY_NOKONOKO::~CENEMY_NOKONOKO() {
 }
 
 void CENEMY_NOKONOKO::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_2])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_2])->GetAnim(), c);
 	m_fTimer = 0;
 	m_fEnemySpeed = 2;
 	m_fMoveX = -m_fEnemySpeed;

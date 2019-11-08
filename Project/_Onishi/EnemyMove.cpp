@@ -1,3 +1,10 @@
+/**
+ * @file EnemyMove.cpp
+ * @brief 敵の動き
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include "EnemyMove.h"
 
 
@@ -16,4 +23,10 @@ void CEnemyMove::Animation(void)
 {
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 	m_SrcRect = m_Motion.GetSrcRect();
+}
+
+void CEnemyMove::MotionCreate(std::shared_ptr<CAnimationData> m)
+{
+	int c =m->GetAnimCount();
+	m_Motion.Create(m->GetAnim(), c);
 }

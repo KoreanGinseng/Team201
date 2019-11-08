@@ -1,7 +1,15 @@
+/**
+ * @file Atack_KOTEIHOUDAI.h
+ * @brief 固定砲台の攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyAtack.h"
 #include	"EnemyDefine.h"
 #include	"EnemyShot.h"
+#include	"AimBullet.h"
 
 class CAtack_KOTEIHOUDAI :public CEnemyAtack {
 private:

@@ -11,8 +11,6 @@
 #include "GameDefine.h"
 #include "TimeManager.h"
 #include "EffectManager.h"
-#include "SoundManager.h"
-#include "Coordinate.h"
 #include "Camera2D.h"
 #include "Player.h"
 #include "Stage.h"

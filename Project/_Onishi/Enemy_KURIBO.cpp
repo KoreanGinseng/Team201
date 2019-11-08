@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_KURIBIO.cpp
+ * @brief クリボー
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Enemy_KURIBO.h"
 
 CEnemy_KURIBO::CEnemy_KURIBO():
@@ -8,8 +15,6 @@ CEnemy_KURIBO::~CEnemy_KURIBO() {
 
 }
 void CEnemy_KURIBO::Initialize() {
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1])->GetAnim(), c);
 	m_fEnemySpeed = 2;
 	m_fMoveX = -m_fEnemySpeed;
 	m_fMoveY = 0;

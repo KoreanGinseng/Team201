@@ -1,7 +1,26 @@
+/**
+ * @file EnemyDefine.h
+ * @brief 敵のまとめ
+ * @author 大西永遠
+ * @date 更新日（11/5）
+ */
+
 #pragma once
 #include	"../GameDefine.h"
 
 //EnemyMove.h
+//enum ENEMY
+//{
+//	ENEMY_KURIBO,
+//	ENEMY_NOKONOKO,
+//	ENEMY_TERESA,
+//	ENEMY_BAT,
+//	ENEMY_KOTEIHOUDAI,
+//	ENEMY_TESTBOS,
+//	ENEMY_FLOATING,
+//	ENEMY_POISONKURIBO,
+//	ENEMY_TESTBOS2,
+//};
 
 enum tag_ATTACK {
 	EATTACK_BYTE,
@@ -38,3 +57,10 @@ enum tag_ATTACK {
 //ENEMY_FLOATING.cpp
 #define	CrawlRange	100
 #define CrawlRangeCenter 50
+
+//Atack_POISONKURIBO
+#define AtackRangeX	200
+#define AtackRangeY	100
+#define PoisonTime 0.5f
+#define PoisonBulletSpeedX 10
+#define PoisonBulletSpeedY 0

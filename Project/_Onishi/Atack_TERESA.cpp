@@ -1,3 +1,10 @@
+/**
+ * @file Atack_TERESA.cpp
+ * @brief テレサの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Atack_TERESA.h"
 
 CAtack_TERESA::CAtack_TERESA() :

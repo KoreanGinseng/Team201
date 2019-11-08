@@ -1,3 +1,10 @@
+/**
+ * @file EnemyShot.cpp
+ * @brief エネミーの弾
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include "EnemyShot.h"
 
 CEnemyShot::CEnemyShot() :

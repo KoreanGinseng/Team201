@@ -210,6 +210,24 @@
     <ClCompile Include="EffectFade.cpp">
       <Filter>ソース ファイル\SCENE</Filter>
     </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_POISONKURIBO.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Enemy_TESTBOS2.cpp">
+      <Filter>ソース ファイル\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_POISONKURIBO.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\Atack_TESTBOS2.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\PoisonBullet.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
+    <ClCompile Include="_Onishi\ReflectBullet.cpp">
+      <Filter>ソース ファイル\ATTACK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -376,6 +394,24 @@
     </ClInclude>
     <ClInclude Include="EffectFade.h">
       <Filter>ヘッダー ファイル\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_POISONKURIBO.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Atack_TESTBOS2.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_POISONKURIBO.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\Enemy_TESTBOS2.h">
+      <Filter>ヘッダー ファイル\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\PoisonBullet.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
+    </ClInclude>
+    <ClInclude Include="_Onishi\ReflectBullet.h">
+      <Filter>ヘッダー ファイル\ATTACK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

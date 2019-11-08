@@ -1,3 +1,10 @@
+/**
+ * @file BounceBllet.cpp
+ * @brief 跳弾
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"BounceBullet.h"
 CBounceBullet::CBounceBullet():
 	CEnemyShot(),

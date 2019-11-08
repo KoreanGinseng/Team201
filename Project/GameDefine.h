@@ -39,6 +39,8 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 #define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
 #define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
 
+constexpr	char			picture[] = "picture";
+constexpr	char			anim[] = "anim";
 
 constexpr	char*	FileName[] = {
 	//TEXTURE
@@ -77,8 +79,8 @@ constexpr	char*	FileName[] = {
 	"EnemyKinokoAnim.bin",
 	"EnemyDokuAnim.bin",
 	"EnemyBatAnim.bin",
-	"EnemyAnim04.bin",
-	"EnemyAnim05.bin",
+	"EnemyAnim01.bin",
+	"OctAnim.bin",
 	"EnemyAnim06.bin",
 	"EnemyAnim07.bin",
 	"EnemyAnim08.bin",
@@ -228,6 +230,8 @@ enum tag_ENEMY
 	ENEMY_KOTEIHOUDAI,
 	ENEMY_TESTBOS,
 	ENEMY_FLOATING,
+	ENEMY_POISONKURIBO,
+	ENEMY_TESTBOS2,
 };
 
 /*****************************************************************

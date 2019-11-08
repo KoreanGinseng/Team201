@@ -1,8 +1,24 @@
+/**
+ * @file Enemy_Atack.cpp
+ * @brief エネミーの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"../GameDefine.h"
 #include	"EnemyDefine.h"
 
 #define Atacktime 3
+
+
+enum ENEMYATACK {
+	ATACK_KURIBO,
+	ATACK_NOKONOKO,
+	ATACK_TERESA,
+	ATACK_BAT,
+	ATACK_KOTEIHOUDAI,
+};
 
 class CEnemyAtack {
 protected:
@@ -12,10 +28,12 @@ protected:
 	bool m_bShow;
 public:
 	CEnemyAtack();
-	~CEnemyAtack();
+	virtual ~CEnemyAtack();
 	virtual void Initialize(void) = 0;
 	virtual void Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) = 0;
 	virtual void Render(void) = 0;
+	virtual void Release() = 0;
+
 };
 
 #include	"Atack_BAT.h"

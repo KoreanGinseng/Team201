@@ -1,5 +1,13 @@
+/**
+ * @file EnemyShot.h
+ * @brief エネミーの弾
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"Mof.h"
+
 
 class  CEnemyShot
 {

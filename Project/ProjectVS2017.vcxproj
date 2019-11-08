@@ -135,8 +135,10 @@
     <ClCompile Include="_Onishi\Atack_KOTEIHOUDAI.cpp" />
     <ClCompile Include="_Onishi\Atack_KURIBO.cpp" />
     <ClCompile Include="_Onishi\Atack_NOKONOKO.cpp" />
+    <ClCompile Include="_Onishi\Atack_POISONKURIBO.cpp" />
     <ClCompile Include="_Onishi\Atack_TERESA.cpp" />
     <ClCompile Include="_Onishi\Atack_TESTBOS.cpp" />
+    <ClCompile Include="_Onishi\Atack_TESTBOS2.cpp" />
     <ClCompile Include="_Onishi\BounceBullet.cpp" />
     <ClCompile Include="_Onishi\EnemyAtack.cpp" />
     <ClCompile Include="_Onishi\EnemyMove.cpp" />
@@ -146,9 +148,13 @@
     <ClCompile Include="_Onishi\Enemy_KOTEIHOUDAI.cpp" />
     <ClCompile Include="_Onishi\Enemy_KURIBO.cpp" />
     <ClCompile Include="_Onishi\Enemy_NOKONOKO.cpp" />
+    <ClCompile Include="_Onishi\Enemy_POISONKURIBO.cpp" />
     <ClCompile Include="_Onishi\Enemy_TERESA.cpp" />
     <ClCompile Include="_Onishi\Enemy_TESTBOS.cpp" />
+    <ClCompile Include="_Onishi\Enemy_TESTBOS2.cpp" />
     <ClCompile Include="_Onishi\Onishi.cpp" />
+    <ClCompile Include="_Onishi\PoisonBullet.cpp" />
+    <ClCompile Include="_Onishi\ReflectBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bridge.h" />
@@ -191,8 +197,10 @@
     <ClInclude Include="_Onishi\Atack_KOTEIHOUDAI.h" />
     <ClInclude Include="_Onishi\Atack_KURIBO.h" />
     <ClInclude Include="_Onishi\Atack_NOKONOKO.h" />
+    <ClInclude Include="_Onishi\Atack_POISONKURIBO.h" />
     <ClInclude Include="_Onishi\Atack_TERESA.h" />
     <ClInclude Include="_Onishi\Atack_TESTBOS.h" />
+    <ClInclude Include="_Onishi\Atack_TESTBOS2.h" />
     <ClInclude Include="_Onishi\BounceBullet.h" />
     <ClInclude Include="_Onishi\EnemyAtack.h" />
     <ClInclude Include="_Onishi\EnemyDefine.h" />
@@ -203,9 +211,13 @@
     <ClInclude Include="_Onishi\Enemy_KOTEIHOUDAI.h" />
     <ClInclude Include="_Onishi\Enemy_KURIBO.h" />
     <ClInclude Include="_Onishi\Enemy_NOKONOKO.h" />
+    <ClInclude Include="_Onishi\Enemy_POISONKURIBO.h" />
     <ClInclude Include="_Onishi\Enemy_TERESA.h" />
     <ClInclude Include="_Onishi\Enemy_TESTBOS.h" />
+    <ClInclude Include="_Onishi\Enemy_TESTBOS2.h" />
     <ClInclude Include="_Onishi\Onishi.h" />
+    <ClInclude Include="_Onishi\PoisonBullet.h" />
+    <ClInclude Include="_Onishi\ReflectBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc" />

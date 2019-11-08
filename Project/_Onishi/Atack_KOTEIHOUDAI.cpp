@@ -1,3 +1,10 @@
+/**
+ * @file Atack_KOTEIHOUDAI.cpp
+ * @brief 固定砲台の攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #include	"Atack_KOTEIHOUDAI.h"
 
 CAtack_KOTEIHOUDAI::CAtack_KOTEIHOUDAI():
@@ -71,7 +78,7 @@ void CAtack_KOTEIHOUDAI::Release() {
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
 		if (m_ShotArry[i]) {
 			m_ShotArry[i]->Release();
-			delete m_ShotArry[i];
+			delete[] m_ShotArry[i];
 			m_ShotArry[i] = NULL;
 		}
 	}

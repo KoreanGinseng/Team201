@@ -1,6 +1,15 @@
+/**
+ * @file Atack_TESTBOS.h
+ * @brief テストボスの攻撃
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyAtack.h"
 #include	"EnemyShot.h"
+#include	"AimBullet.h"
+#include	"BounceBullet.h"
 
 class CAtack_TESTBOS :public CEnemyAtack {
 private:
