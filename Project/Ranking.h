@@ -24,6 +24,12 @@ typedef struct tag_RankingEntry {
 
 } RankingEntry;
 
+enum tag_Ranking {
+
+	KEY,GAMEPAD,
+
+};
+
 class CRanking : public CSceneBase {
 private:
 	//! ImeŠÖ˜A
@@ -70,7 +76,7 @@ public:
 
 	void SendKeyBoard(unsigned char VK);
 	void PadOperation(void);
-	void RankingSave(void);
+	void RankingSave(const int type);
 
 	void VKOperation(void);
 	void KeyRender(void);

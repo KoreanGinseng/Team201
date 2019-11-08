@@ -131,7 +131,7 @@ void CRanking::UpdateDebug() {
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && g_pInput->IsKeyHold(MOFKEY_LCONTROL) && !m_bEnd) {
 
 		m_bEnd = true;
 		m_pEffect->Out(10);
@@ -208,6 +208,11 @@ void CRanking::ImeUpdate() {
 
 	}
 	
+	if (g_pImeInput->GetEnterString()->GetLength() > 0) {
+
+		RankingSave(KEY);
+
+	}
 
 	//エンターキーを押した時に入力中文字があれば
 	//if (g_pImeInput->GetEnterString()->GetLength() > 0) //ここ
@@ -381,8 +386,13 @@ void CRanking::PadOperation() {
 	//VKの操作
 	VKOperation();
 
-	//保存
-	RankingSave();
+	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
+		//保存
+		SendKeyBoard(VK_RETURN);
+	
+		RankingSave(GAMEPAD);
+
+	}
 
 }
 
@@ -505,68 +515,78 @@ void CRanking::VKOperation() {
 
 }
 
-void CRanking::RankingSave() {
+void CRanking::RankingSave(const int type) {
 
 	//入力確定
-	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
-
-		m_bInputEnable = false;
-
-		//入力確定文字列として追加
-		//m_String += g_pImeInput->GetEnterString()->GetString();
-		CString it;
+	
+	m_bInputEnable = false;
+	CString it;
+	switch (type)
+	{
+	case KEY:
+		it.SetString(g_pImeInput->GetEnterString()->GetString());
+		break;
+	case GAMEPAD:
 		g_pImeInput->GetInputImeString(it);
-
-		//入力された値を保存
-		RankingEntry* re = new RankingEntry;
-		re->Name = it;
-		re->IconRect = CRectangle(0, 0, 0, 0);
-		re->Score = (int)g_pTimeManager->GetNowTime();
-		m_RankingEntryArray.Add(re);
-		delete re;
-		re = nullptr;
-		//追加したら入力中文字列リセット
-		g_pImeInput->ResetEnterString();
-		//入力を無効にする
-		g_pImeInput->SetEnable(FALSE);
-
-		m_KeySelectX = 0;
-		m_KeySelectY = 0;
-
-		FILE* fpNE = fopen("RankingNE.dat", "wb");
-
-		int ne = m_RankingEntryArray.GetArrayCount();
-
-		if (fpNE) {
-
-			
-			fwrite(&ne, sizeof(int), 1, fpNE);
-
-		}
-
-		fclose(fpNE);
-
-
-		FILE* fp = fopen("Ranking.dat", "wb");
-
-
-		for (int i = 0; i < ne; i++) {
-			RankingEntry r = m_RankingEntryArray.GetData(i);
-			fwrite(&r.IconRect, sizeof(CRectangle), 1, fp);
-			int a = r.Name.GetLength();
-			fwrite(&a, sizeof(int), 1, fp);
-			fwrite(r.Name.GetString(), sizeof(char), a, fp);
-			fwrite(&r.Score, sizeof(int), 1, fp);
-			
-		}
-		
-		fclose(fp);
-
-		
-
-		for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++)
-			MOF_PRINTLOG("%s\n", m_RankingEntryArray[i].Name.GetString());
+		break;
 	}
+	//入力確定文字列として追加
+	//m_String += g_pImeInput->GetEnterString()->GetString();
+	
+	
+	
+
+	//入力された値を保存
+	RankingEntry* re = new RankingEntry;
+	re->Name = it;
+	re->IconRect = CRectangle(0, 0, 0, 0);
+	re->Score = (int)g_pTimeManager->GetNowTime();
+	m_RankingEntryArray.Add(re);
+	delete re;
+	re = nullptr;
+	//追加したら入力中文字列リセット
+	g_pImeInput->ResetEnterString();
+	//入力を無効にする
+	g_pImeInput->SetEnable(FALSE);
+
+	m_KeySelectX = 0;
+	m_KeySelectY = 0;
+
+	FILE* fpNE = fopen("RankingNE.dat", "wb");
+
+	int ne = m_RankingEntryArray.GetArrayCount();
+
+	if (fpNE) {
+
+
+		fwrite(&ne, sizeof(int), 1, fpNE);
+
+	}
+
+	fclose(fpNE);
+
+
+	FILE* fp = fopen("Ranking.dat", "wb");
+
+
+	for (int i = 0; i < ne; i++) {
+		RankingEntry r = m_RankingEntryArray.GetData(i);
+		fwrite(&r.IconRect, sizeof(CRectangle), 1, fp);
+		int a = r.Name.GetLength();
+		fwrite(&a, sizeof(int), 1, fp);
+		fwrite(r.Name.GetString(), sizeof(char), a, fp);
+		fwrite(&r.Score, sizeof(int), 1, fp);
+
+	}
+
+	fclose(fp);
+
+	
+	g_pImeInput->ResetEnterString();
+
+	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++)
+		MOF_PRINTLOG("%s\n", m_RankingEntryArray[i].Name.GetString());
+	
 
 }
 
