@@ -63,6 +63,8 @@ private:
 	void Animation(void);
 	void Jump(void);
 	
+	int m_DamageWait;
+
 	enum tag_Animation {
 		ANIM_WAIT,
 		ANIM_MOVE,
@@ -99,7 +101,7 @@ public:
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
 
-	void   dmg();
+	bool   dmg(CEnemy& ene);
 
 };
 

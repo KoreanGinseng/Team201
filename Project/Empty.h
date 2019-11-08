@@ -12,5 +12,7 @@ public:
 		return rect;
 	}*/
 	virtual int GetType(void) const = 0;
+
+
 };
 

@@ -99,6 +99,7 @@ void CGame::Update()
 	{
 		m_Player.CollisionStage(o);
 	}
+	
 
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -116,7 +117,14 @@ void CGame::Update()
 		}
 		if (m_pEnemyArray[i].Collision(m_Player.GetRect(), o))
 		{
-			m_Player.CollisionStage(o);
+			if (m_pEnemyArray[i].IsSkill())
+			{
+				m_Player.CollisionStage(o);
+			}
+			else
+			{
+				m_Player.dmg(m_pEnemyArray[i]);
+			}
 		}
 	}
 	//アイテムの更新
