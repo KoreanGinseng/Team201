@@ -316,12 +316,15 @@ void CStage::Render(Vector2 scroll) {
 	//テクスチャの横幅からマップチップの縦オフセットを求める
 	int tcx = m_pChipTexture->GetWidth() / m_ChipSize;
 	//マップチップの描画
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
+	for (int y = 0; y < m_YCount; y++) 
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
 			//描画するチップ番号
 			//チップ番号０は描画しない
 			char cn = m_pChipData[y*m_XCount + x] - 1;
-			if (cn < 0) {
+			if (cn < 0)
+			{
 				continue;
 			}
 			//マップチップの矩形

@@ -45,6 +45,12 @@ void CTitle::Initialize()
 //XV
 void CTitle::Update()
 {
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	{
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+		ReNum::GetInstance().SetReNum();
+	}
 
 	UpdateDebug();
 	

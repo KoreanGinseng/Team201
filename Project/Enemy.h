@@ -48,6 +48,7 @@ public:
 	//Collision
 	void CollisionStage(Vector2 o);
 	bool Collision(CRectangle r, Vector2& o);
+	bool AttackCollision(const CRectangle& r);
 	void Damage(int dmg,bool bRev);
 	
 	//Get

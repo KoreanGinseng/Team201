@@ -47,6 +47,7 @@ private:
 	float						m_CoolTime;
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
+	int							m_DamageWait;
 
 
 	void PadOparation(void);
@@ -87,8 +88,11 @@ public:
 	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
 		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
 	bool	IsTrigger(void) { return m_bTrigger; }
-
+	int		GetHp(void) { return m_HP; }
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
+
+
+	bool   Dmg(CEnemy& ene);
 };
 

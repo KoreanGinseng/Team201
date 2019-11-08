@@ -12,9 +12,9 @@ int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 			"Stage1-1.txt",
-			"testaaa2.txt",
-			"testaaa5.txt",
-			"testaaa4.txt",
+			"Stage1-1.txt",
+			"Stage1-1.txt",
+			"Stage1-1.txt",
 };
 
 //コンストラクタ
@@ -68,6 +68,14 @@ void CGame::Initialize()
 void CGame::Update()
 {
 
+	//
+	if (ReNum::GetInstance().GetReNumber() < 0 && !m_bEnd)
+	{
+		m_bEnd = true;
+		m_pEffect->Out(10);
+		m_NextSceneNo = SCENENO_GAMEOVER;
+	}
+
 	UpdateDebug();
 
 	//F4キーでポーズ
@@ -120,7 +128,14 @@ void CGame::Update()
 		}
 		if (m_pEnemyArray[i].Collision(m_Player.GetRect(), o))
 		{
-			m_Player.CollisionStage(o);
+			if (m_pEnemyArray[i].IsSkill())
+			{
+				m_Player.CollisionStage(o);
+			}
+			else
+			{
+				m_Player.Dmg(m_pEnemyArray[i]);
+			}
 		}
 	}
 	//アイテムの更新
@@ -230,15 +245,8 @@ void CGame::Render()
 		m_pObjArray[i].Render(screenPos);
 	}
 
-	//UIごり押し
-	CTexturePtr ui1 = g_pTextureManager->GetResource("UI01.png");
-	int y = g_pGraphics->GetTargetHeight() - ui1->GetHeight();
-	ui1->Render(0, y - 64);
-	CTexturePtr ui2 = g_pTextureManager->GetResource("UI02.png");
-	int y2 = g_pGraphics->GetTargetHeight() - ui2->GetHeight();
-	int x2 = g_pGraphics->GetTargetWidth() - ui2->GetWidth();
-	ui2->Render(x2, y2 - 64);
-
+	//
+	m_UI.Render(m_Player.GetHp());
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)

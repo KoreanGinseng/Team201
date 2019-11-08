@@ -11,6 +11,7 @@
 #include	"_Inoue/ResourceManager.h"
 #include	"SoundManager.h"
 #include	"Coordinate.h"
+#include	"ReNum.h"
 
 
 //USING
@@ -27,7 +28,7 @@ using CTexturePtr = std::shared_ptr<CTexture>;
 
 #define		GRAVITY			0.3f	//! ÉQÅ[ÉÄì‡èdóÕ
 
-#define		PLAYER_MAXHP			10
+#define		PLAYER_MAXHP			2
 #define		PLAYER_MAXSTOCK			3
 #define		PLAYER_MAXSPEED			8
 #define		PLAYER_SPEED			0.3f

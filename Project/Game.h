@@ -14,6 +14,7 @@
 #include "Camera2D.h"
 #include "Player.h"
 #include "Stage.h"
+#include "UI.h"
 
 class CGame :
 	public CSceneBase
@@ -32,6 +33,8 @@ private:
 	CObject*			m_pObjArray;
 
 	bool				m_bPoase;
+
+	UI					m_UI;
 
 public:
 	CGame(void);

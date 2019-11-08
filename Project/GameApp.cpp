@@ -47,6 +47,7 @@ MofBool CGameApp::Initialize(void){
 #ifdef _DEBUG
 	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
 	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
+	ReNum::GetInstance().SetReNum();
 #endif // _DEBUG
 
 	if (gpLoading == nullptr)

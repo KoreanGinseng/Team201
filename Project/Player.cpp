@@ -61,6 +61,8 @@ void CPlayer::Initialize(void)
 	m_CoolTime = 100.0f;
 	//
 	m_bTrigger = false;
+	//
+	m_DamageWait = 0;
 }
 
 //更新
@@ -85,11 +87,42 @@ void CPlayer::Update(void)
 
 	//アニメーション更新
 	Animation();
+
+	//
+	if (m_DamageWait > 0)
+	{
+		m_DamageWait--;
+	}
+
+	//
+	if (ReNum::GetInstance().GetReNumber() < 0)
+	{
+		m_HP = 0;
+
+	}
+	if (m_HP <= 0)
+	{
+		ReNum::GetInstance().SubReNumber();
+		if (ReNum::GetInstance().GetReNumber() < 0)
+		{
+			m_HP = 0;
+		}
+		else
+		{
+			m_HP = PLAYER_MAXHP;
+		}
+	}
 }
 
 //描画
 void CPlayer::Render(Vector2 screenPos)
 {
+	//
+	if (m_DamageWait % 4 >= 2)
+	{
+		return;
+	}
+
 	CRectangle dr = m_SrcRect;
 	//反転フラグが立っているとき描画矩形を反転
 	if (m_bReverse)
@@ -549,4 +582,33 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 			m_SkillTarget[i]->SetTarget(false);
 		}
 	}
+}
+
+bool CPlayer::Dmg(CEnemy& ene)
+{
+	CRectangle prec = GetRect();
+	CRectangle erec = ene.GetRect();
+
+	if (m_DamageWait > 0 || ene.GetDamageWait() > 0)
+	{
+		return false;
+	}
+	m_DamageWait = 60;
+	if (m_HP > 0)
+	{
+		m_HP--;
+
+		if (prec.Left < erec.Left)
+		{
+			m_Move.x = -5.0f;
+			m_bReverse = false;
+		}
+		else
+		{
+			m_Move.x = 5.0f;
+			m_bReverse = true;
+		}
+		//m_Motion.ChangeMotion(MOTION_DAMAGE);
+	}
+	return true;
 }

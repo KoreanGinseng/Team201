@@ -230,9 +230,17 @@ bool CEnemy::Collision(CRectangle rect, Vector2 & o)
 			rect.Bottom += cr.Bottom - trec.Top;
 		}
 	}
+	else if (cr.CollisionRect(rect))
+	{
+		return true;
+	}
 	return re;
 }
 
+bool CEnemy::AttackCollision(const CRectangle& r)
+{
+	return false;
+}
 
 void CEnemy::SetMoveAttack(const int& no)
 {
