@@ -155,6 +155,15 @@ void CRanking::RenderDebug() {
 
 void CRanking::Release() {
 
+	if (m_pEffect) {
+
+		delete m_pEffect;
+		m_pEffect = nullptr;
+
+	}
+
+	g_pGameKey->Release();
+
 }
 
 void CRanking::ImeInit()
