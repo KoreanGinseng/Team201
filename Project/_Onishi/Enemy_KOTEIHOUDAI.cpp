@@ -28,10 +28,7 @@ void CENEMY_KOTEIHOUDAI::Update(float Xpos, float Ypos) {
 		m_bEnd = !m_bEnd;
 	}
 
-	m_fMoveY += GRAVITY;
-	if (m_fMoveY >= 20.0f) {
-		m_fMoveY = 20.0f;
-	}
+	Gravity();
 
 	if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 		m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();

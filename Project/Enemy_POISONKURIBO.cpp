@@ -2,7 +2,7 @@
  * @file Enemy_POISONKURIBIO.cpp
  * @brief 毒クリボー
  * @author 大西永遠
- * @date 更新日（11/1）
+ * @date 更新日（11/8）
  */
 
 #include	"Enemy_POISONKURIBO.h"
@@ -43,6 +43,7 @@ void CEnemy_POISONKURIBO::Update(float Xpos, float Ypos) {
 			m_bShow = true;
 		}
 	}
+
 	if (m_bShow) {
 		m_Motion.AddTimer(CUtilities::GetFrameSecond());
 		m_SrcRect = m_Motion.GetSrcRect();
@@ -57,26 +58,10 @@ void CEnemy_POISONKURIBO::Update(float Xpos, float Ypos) {
 	}
 
 //ここからmove
-	m_fMoveY += GRAVITY;
-	if (m_fMoveY >= 20.0f) {
-		m_fMoveY = 20.0f;
-	}
+	Gravity();
 
 
-	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
-		if (m_bRevers) {
-			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				m_fMoveX = 0;
-				return;
-			}
-		}
-		else {
-			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				m_fMoveX = 0;
-				return;
-			}
-		}
-	}
+
 	if (m_fYpos - AtackRangeY < Ypos&&m_fYpos + 10 > Ypos) {
 		if (m_bRevers) {
 			if (m_fXpos + AtackRangeX > Xpos&&m_fXpos < Xpos) {
@@ -100,6 +85,8 @@ void CEnemy_POISONKURIBO::Update(float Xpos, float Ypos) {
 			m_fMoveX = -1 * m_fEnemySpeed;
 		}
 	}
+
+	AtackRange(Xpos, Ypos);
 
 	m_fXpos += m_fMoveX;
 	m_fYpos += m_fMoveY;

@@ -2,7 +2,7 @@
  * @file EnemyMove.h
  * @brief 敵の動き
  * @author 大西永遠
- * @date 更新日（11/1）
+ * @date 更新日（11/8）
  */
 #pragma once
 #include	"Mof.h"
@@ -52,6 +52,28 @@ public:
 	void BUpdate(float Xpos, float Ypos);
 	void KOUpdate(void);
 	bool GetDead() { return m_bEnd; }
+	void Gravity() {
+		m_fMoveY += GRAVITY;
+		if (m_fMoveY >= 20.0f) {
+			m_fMoveY = 20.0f;
+		}
+	}
+	void AtackRange(float Xpos, float Ypos){
+		if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
+			if (m_bRevers) {
+				if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
+					m_fMoveX = 0;
+					return ;
+				}
+			}
+			else {
+				if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
+					m_fMoveX = 0;
+					return ;
+				}
+			}
+		}
+	}
 };
 
 

@@ -2,7 +2,7 @@
  * @file Enemy_KURIBIO.cpp
  * @brief クリボー
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/8）
  */
 
 #include	"Enemy_KURIBO.h"
@@ -30,24 +30,9 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 		return;
 	}
 
-	m_fMoveY += GRAVITY;
-	if (m_fMoveY >= 20.0f) {
-		m_fMoveY = 20.0f;
-	}
-	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
-		if (m_bRevers) {
-			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				m_fMoveX = 0;
-				return;
-			}
-		}
-		else {
-			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				m_fMoveX = 0;
-				return;
-			}
-		}
-	}
+	Gravity();
+	
+
 	if (m_fMoveX==0) {
 		if (m_bRevers) {
 			m_fMoveX =  m_fEnemySpeed;
@@ -57,6 +42,8 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 			m_fMoveX = -1 * m_fEnemySpeed;
 		}
 	}
+
+	AtackRange(Xpos, Ypos);
 
 	m_fXpos += m_fMoveX;
 	m_fYpos += m_fMoveY;

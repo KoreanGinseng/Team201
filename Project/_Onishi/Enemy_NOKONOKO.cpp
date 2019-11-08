@@ -2,7 +2,7 @@
  * @file Enemy_NOKONOKO.cpp
  * @brief ノコノコ
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/8）
  */
 
 #include	"Enemy_NOKONOKO.h"
@@ -31,6 +31,7 @@ void CENEMY_NOKONOKO::Update(float Xpos, float Ypos) {
 		}
 		return;
 	}
+	Gravity();
 	if (m_fTimer > 0) {
 		if (g_pInput->IsKeyPush(MOFKEY_A)) {
 			m_bEnd = true;
