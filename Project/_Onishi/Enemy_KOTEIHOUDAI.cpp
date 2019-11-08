@@ -2,7 +2,7 @@
  * @file Enemy_KOTEIHOUDAI.cpp
  * @brief 固定砲台
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/8）
  */
 
 #include	"Enemy_KOTEIHOUDAI.h"
@@ -28,6 +28,11 @@ void CENEMY_KOTEIHOUDAI::Update(float Xpos, float Ypos) {
 		m_bEnd = !m_bEnd;
 	}
 
+	m_fMoveY += GRAVITY;
+	if (m_fMoveY >= 20.0f) {
+		m_fMoveY = 20.0f;
+	}
+
 	if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 		m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
 		if (m_fAtackTimer < 0) {
@@ -40,6 +45,7 @@ void CENEMY_KOTEIHOUDAI::Update(float Xpos, float Ypos) {
 			m_fAtackTimer = AtackTimer;
 		}
 	}
+	m_fYpos += m_fMoveY;
 }
 
 void CENEMY_KOTEIHOUDAI::Render(float Xpos, float Ypos) {
