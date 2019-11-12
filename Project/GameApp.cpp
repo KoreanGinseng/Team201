@@ -56,7 +56,7 @@ MofBool CGameApp::Initialize(void){
 	}
 	gpLoading->SetScene(gpScene);
 	gpLoading->Start("Loading");
-
+	
 	//FPS‚Ìİ’è
 	if (!CUtilities::SetFPS(GAMEFPS))
 	{
