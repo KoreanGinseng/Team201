@@ -5,6 +5,7 @@
 #include	"GameDefine.h"
 #include	"GameKey.h"
 #include	"Coordinate.h"
+#include	"Score.h"
 #include	"_Fujiwara/Fujiwara.h"
 
 
@@ -20,6 +21,7 @@
 typedef struct tag_RankingEntry {
 	CRectangle	IconRect;
 	CString		Name;
+	int			Time;
 	int			Score;
 
 } RankingEntry;
@@ -42,13 +44,13 @@ private:
 	CFont					     m_NameFont;			//ランキング登録用フォント
 	bool						 m_bInputEnable;		//入力中かの判定
 	bool						 m_bShift;
+	bool						 m_bInput;
 	
 
 	int							 m_CursolPointX;
 	int							 m_KeyMaxSize;
 	int							 m_KeySelectX;
 	int							 m_KeySelectY;
-
 	bool					     m_bInit;
 
 	int							 m_InputCount;
@@ -77,10 +79,10 @@ public:
 	void SendKeyBoard(unsigned char VK);
 	void PadOperation(void);
 	void RankingSave(const int type);
-
+	static int Sort(const void* a, const void* b);
 	void VKOperation(void);
 	void KeyRender(void);
-	void RankingSort(std::vector<RankingEntry> r_array);
+	//void RankingSort(std::vector<RankingEntry>* r_array);
 	void MaxKeyLook(void);
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,

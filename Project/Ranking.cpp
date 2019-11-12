@@ -20,6 +20,8 @@ unsigned char KeyBoard[KEYSIZE_Y][KEYSIZE_X] = {
 CRanking::CRanking() :
 m_bInit(false){
 
+	m_bInput = false;
+
 }
 
 bool CRanking::Load() {
@@ -44,7 +46,7 @@ bool CRanking::Load() {
 	
 	FILE* fp = fopen("Ranking.dat", "rb");
 
-	std::vector<RankingEntry> r_array;
+	//std::vector<RankingEntry>* r_array = new std::vector<RankingEntry>();
 
 	if (fp) {
 		for (int i = 0; i < ne; i++) {
@@ -57,9 +59,10 @@ bool CRanking::Load() {
 			str[s] = '\0';
 			fread(str, sizeof(char), s, fp);
 			r.Name.SetString(str);
+			fread(&r.Time, sizeof(int), 1, fp);
 			fread(&r.Score, sizeof(int), 1, fp);
 
-			r_array.push_back(r);
+			m_RankingEntryArray.Add(r);
 
 			delete[] str;
 
@@ -72,8 +75,9 @@ bool CRanking::Load() {
 
 	}
 
-	RankingSort(r_array);
+	m_RankingEntryArray.Sort(Sort);
 
+	//RankingSort(r_array);
 
 
 	return TRUE;
@@ -111,16 +115,36 @@ void CRanking::Update() {
 }
 
 void CRanking::Render() {
+
+	if (m_bInput) {
+
+		CGraphicsUtilities::RenderString(0, 100, "スコア");
+		CGraphicsUtilities::RenderString(100, 100, "タイム");
+		CGraphicsUtilities::RenderString(200, 100, "名前");
+
+		for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
+
+			CGraphicsUtilities::RenderString(0, 100 +(( i + 1) * 50), "%d", m_RankingEntryArray[i].Score);
+			CGraphicsUtilities::RenderString(100, 100 + ((i + 1) * 50), "%d", m_RankingEntryArray[i].Time);
+			CGraphicsUtilities::RenderString(200, 100 +((i + 1) * 50), "%s", m_RankingEntryArray[i].Name.GetString());
+
+		}
+
+		return;
+
+	}
+
 	//Ime関連描画
 	ImeRender();
 	
-	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
+	/*for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
 		CGraphicsUtilities::RenderString(10, 100 + i * 50, "名前:%s タイム:%d", m_RankingEntryArray[i].Name.GetString(),m_RankingEntryArray[i].Score);
 	}
-	CGraphicsUtilities::RenderString(0, 200, "%d", (int)g_pTimeManager->GetNowTime());
+	CGraphicsUtilities::RenderString(0, 200, "%d", (int)g_pTimeManager->GetNowTime());*/
 
 	KeyRender();
 
+	
 }
 
 void CRanking::UpdateDebug() {
@@ -161,6 +185,8 @@ void CRanking::Release() {
 		m_pEffect = nullptr;
 
 	}
+
+	g_pScore->Release();
 
 	g_pGameKey->Release();
 
@@ -266,29 +292,23 @@ void CRanking::ImeRender() {
 	}
 }
 
-void CRanking::RankingSort(std::vector<RankingEntry> r_array) {
-
-	/*std::vector<RankingEntry> r_array;
-
-	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
-
-		r_array.push_back(m_RankingEntryArray[i]);
-
-	}*/
-
-	std::sort(r_array.begin(),
-		r_array.end(),
-		[](const RankingEntry& a, const RankingEntry& b)
-	{return (a.Score == b.Score) ? (a.Name.GetLength() < b.Name.GetLength()) : (a.Score < b.Score); });
-
-	for (int i = 0; i < r_array.size(); i++) {
-
-		m_RankingEntryArray.Add(&r_array[i]);
-	}
-	
-
-	
-}
+//void CRanking::RankingSort(std::vector<RankingEntry>* r_array) {
+//
+//	/*std::sort(r_array->begin(),
+//		r_array->end(),
+//		[](const RankingEntry& a, const RankingEntry& b)
+//	{return (a.Score == b.Score) ? (a.Name.GetLength() < b.Name.GetLength()) : (a.Score < b.Score); });*/
+//
+//	
+//
+//	/*for (int i = 0; i < r_array->size(); i++) {
+//
+//		m_RankingEntryArray.Add(&(r_array[i]));
+//	}
+//	
+//*/
+//	
+//}
 
 
 void CRanking::KeyRender() {
@@ -515,6 +535,18 @@ void CRanking::VKOperation() {
 
 }
 
+int CRanking::Sort(const void* a, const void* b) {
+	RankingEntry* r1 = (RankingEntry*)a;
+	RankingEntry* r2 = (RankingEntry*)b;
+	if (r1->Score > r2->Score) {
+
+		return 0;
+	}
+
+	return 1;
+
+}
+
 void CRanking::RankingSave(const int type) {
 
 	//入力確定
@@ -540,7 +572,8 @@ void CRanking::RankingSave(const int type) {
 	RankingEntry* re = new RankingEntry;
 	re->Name = it;
 	re->IconRect = CRectangle(0, 0, 0, 0);
-	re->Score = (int)g_pTimeManager->GetNowTime();
+	re->Time = (int)g_pTimeManager->GetNowTime();
+	re->Score = g_pScore->GetScore();
 	m_RankingEntryArray.Add(re);
 	delete re;
 	re = nullptr;
@@ -575,6 +608,7 @@ void CRanking::RankingSave(const int type) {
 		int a = r.Name.GetLength();
 		fwrite(&a, sizeof(int), 1, fp);
 		fwrite(r.Name.GetString(), sizeof(char), a, fp);
+		fwrite(&r.Time, sizeof(int), 1, fp);
 		fwrite(&r.Score, sizeof(int), 1, fp);
 
 	}
@@ -587,6 +621,7 @@ void CRanking::RankingSave(const int type) {
 	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++)
 		MOF_PRINTLOG("%s\n", m_RankingEntryArray[i].Name.GetString());
 	
+	m_bInput = true;
 
 }
 

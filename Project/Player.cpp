@@ -240,6 +240,7 @@ void CPlayer::PadOparation(void)
 			if (skillNo!=-1)
 			{
 			
+				g_pScore->AddSkillCount();
 				if (!m_SkillTarget.empty())
 				{
 					m_bTrigger = false;
@@ -632,6 +633,7 @@ bool CPlayer::Dmg(CEnemy& ene)
 	m_DamageWait = 60;
 	if (m_HP > 0)
 	{
+		g_pScore->AddDamageCount();
 		m_HP--;
 
 		if (prec.Left < erec.Left)

@@ -13,6 +13,7 @@
 #include	"Enemy.h"
 #include	"Object.h"
 #include	"Substance.h"
+#include	"Score.h"
 #include	<vector>
 #include	<list>
 
@@ -48,6 +49,7 @@ private:
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
 	int							m_DamageWait;
+	
 
 
 	void PadOparation(void);
