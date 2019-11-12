@@ -75,6 +75,7 @@ public:
 	void RenderDebug(Vector2 screenPos);
 	void Release(void);
 	
+
 	//Skill
 	void Skill(void);
 	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);

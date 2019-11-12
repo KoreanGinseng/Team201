@@ -213,20 +213,56 @@ void CPlayer::PadOparation(void)
 					m_Target = 0;
 				}
 			}
-			//RTトリガーを押したとき選択中の敵にスキルを使用
-			if (xgpad.IsKeyPush(XINPUT_R_TRIGGER))
+
+			//スキルの番号
+			int skillNo = -1;
+
+			//戻る
+			if (xgpad.IsKeyPush(GAMEKEY_X)) {
+
+				skillNo = GAMEKEY_X;
+
+			}//止める
+			else if (xgpad.IsKeyPush(GAMEKEY_Y)) {
+
+				skillNo = GAMEKEY_Y;
+
+			}//飛ばす
+			else if (xgpad.IsKeyPush(GAMEKEY_B)) {
+
+				skillNo = GAMEKEY_B;
+
+			}
+
+
+
+			//X||Y||Bのいずれかを押した場合
+			if (skillNo!=-1)
 			{
 			
 				if (!m_SkillTarget.empty())
 				{
 					m_bTrigger = false;
 					m_SkillTarget[m_Target]->SetSkill();
+					//スキル番号のスキルをセットする
+					switch (skillNo)
+					{
+					case GAMEKEY_X:
+						m_SkillTarget[m_Target]->SetBack();
+						break;
+					case GAMEKEY_Y:
+						m_SkillTarget[m_Target]->SetStop();
+						break;
+					case GAMEKEY_B:
+						m_SkillTarget[m_Target]->SetTrip();
+						break;
+					}
 					for (int i = 0; i < m_SkillTarget.size(); i++)
 					{
 						m_SkillTarget[i]->SetTarget(false);
 					}
 				}
-			}//シフトキーと保存
+			}
 		}
 	}
 	else if (g_pGamePad->GetPadState()->lZ < 1)
