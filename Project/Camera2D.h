@@ -21,6 +21,7 @@ public:
 	void AddScroll(const Vector2& scroll) { m_Pos += scroll; }
 
 	//Get
+	//Vector2 GetScroll() const { return Vector2((int)m_Pos.x,(int)m_Pos.y); }
 	Vector2 GetScroll() const { return m_Pos; }
 	CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + g_pGraphics->GetTargetWidth(), m_Pos.y + g_pGraphics->GetTargetHeight()); }
 
