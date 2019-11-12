@@ -57,16 +57,16 @@ void CReflectBullet::Update() {
 
 	float ox = 0, oy = 0;
 	float mx = m_PosX, my = m_PosY;
-	if (mx < 200) {
-		ox = 200 - mx;
+	if (mx < Collision_Left) {
+		ox = Collision_Left - mx;
 	}
-	else if (mx > 800)
+	else if (mx >Collision_Right)
 	{
-		ox = 800 - mx;
+		ox = Collision_Right - mx;
 
 	}
-	if (my > 600) {
-		oy = 600 - my;
+	if (my > Collision_Down) {
+		oy = Collision_Down - my;
 	}
 
 	CollisionStage(ox, oy);
@@ -79,7 +79,7 @@ void CReflectBullet::Render() {
 	if (!m_bShow) {
 		return;
 	}
-	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, 5, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_RED);
 }
 
 void CReflectBullet::CollisionStage(float ox, float oy) {

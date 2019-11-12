@@ -2,7 +2,7 @@
  * @file Atack_KOTEIHOUDAI.cpp
  * @brief 固定砲台の攻撃
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/12）
  */
 
 #include	"Atack_KOTEIHOUDAI.h"
@@ -66,13 +66,11 @@ void CAtack_KOTEIHOUDAI::Update(float EnemyPosX, float EnemyPosY, bool EnemyReve
 }
 void CAtack_KOTEIHOUDAI::Render() {
 	
-	/*if (!m_bShow) {
-		return;
-	}*/
+	
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
 		m_ShotArry[i]->Render();
 	}
-	//CGraphicsUtilities::RenderFillCircle(m_fAtackPosX,m_fAtackPosY,5,MOF_COLOR_RED);
+	
 }
 void CAtack_KOTEIHOUDAI::Release() {
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {

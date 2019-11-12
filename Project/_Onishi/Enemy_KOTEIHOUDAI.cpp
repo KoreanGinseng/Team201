@@ -2,7 +2,7 @@
  * @file Enemy_KOTEIHOUDAI.cpp
  * @brief 固定砲台
  * @author 大西永遠
- * @date 更新日（11/8）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_KOTEIHOUDAI.h"
@@ -68,7 +68,7 @@ void CENEMY_KOTEIHOUDAI::Render(float Xpos, float Ypos) {
 		}
 		CGraphicsUtilities::RenderLine(m_fXpos, m_fYpos, Xpos, Ypos, MOF_COLOR_RED);
 	}
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 
 void CENEMY_KOTEIHOUDAI::Release() {

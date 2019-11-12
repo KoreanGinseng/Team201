@@ -3,7 +3,7 @@
  * @file Enemy_TESTBOS2.cpp
  * @brief テストボス2
  * @author 大西永遠
- * @date 更新日（11/5）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_TESTBOS2.h"
@@ -33,7 +33,7 @@ void CEnemy_TESTBOS2::Render(float Xpos, float Ypos) {
 	if (m_bEnd) {
 		return;
 	}
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 void CEnemy_TESTBOS2::Release() {
 

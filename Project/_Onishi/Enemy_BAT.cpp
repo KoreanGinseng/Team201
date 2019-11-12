@@ -2,7 +2,7 @@
  * @file Enemy_BAT.cpp
  * @brief 蝙蝠の動き
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_BAT.h"
@@ -48,8 +48,8 @@ void CENEMY_BAT::Update(float Xpos, float Ypos){
 
 		if (m_bRevers) {
 
-			if (m_fXpos + 200 > Xpos&&m_fXpos < Xpos) {
-				m_fYpos += 2 * m_fMoveY;
+			if (m_fXpos + Bat_Atack_Range > Xpos&&m_fXpos < Xpos) {
+				m_fYpos += Acceleration * m_fMoveY;
 				if (m_Motion.GetMotionNo() == BAT_MOVE) {
 					m_Motion.ChangeMotion(BAT_DOWN);
 				}
@@ -57,9 +57,9 @@ void CENEMY_BAT::Update(float Xpos, float Ypos){
 			}
 		}
 		else {
-			if (m_fXpos - 200 < Xpos&&m_fXpos > Xpos) {
+			if (m_fXpos - Bat_Atack_Range < Xpos&&m_fXpos > Xpos) {
 
-				m_fYpos += 2 * m_fMoveY;
+				m_fYpos += Acceleration * m_fMoveY;
 				if (m_Motion.GetMotionNo() == BAT_MOVE) {
 					m_Motion.ChangeMotion(BAT_DOWN);
 				}

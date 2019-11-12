@@ -11,6 +11,8 @@
 #include	"EnemyShot.h"
 #include	"PoisonBullet.h"
 #include	"EnemyDefine.h"
+//åÇÇøèoÇ∑à íu
+#define	Shot_Position 105
 
 class CAtack_POISONKURIBO :public CEnemyAtack {
 private:

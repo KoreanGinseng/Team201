@@ -2,7 +2,7 @@
  * @file Enemy_FLOATING.cpp
  * @brief 跳弾
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/12）
  */
 
 #include "Enemy_FLOATING.h"
@@ -38,7 +38,7 @@ void CENEMY_FLOATING::Update(float Xpos, float Ypos) {
 	m_fXpos += m_fMoveX;
 }
 void CENEMY_FLOATING::Render(float Xpos, float Ypos) {
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 void CENEMY_FLOATING::Release() {
 

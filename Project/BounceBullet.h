@@ -8,7 +8,10 @@
 #pragma once
 #include	"EnemyShot.h"
 #include	"EnemyDefine.h"
-
+#define	Jumping_Power	-10
+#define	Bounce_Times	2
+#define ExplosionTime	3
+#define Bounce_Factor	0.8f
 class CBounceBullet :public CEnemyShot {
 private:
 	int m_BounceTimes;

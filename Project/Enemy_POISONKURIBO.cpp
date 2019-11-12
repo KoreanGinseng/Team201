@@ -2,7 +2,7 @@
  * @file Enemy_POISONKURIBIO.cpp
  * @brief 毒クリボー
  * @author 大西永遠
- * @date 更新日（11/8）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_POISONKURIBO.h"
@@ -62,7 +62,7 @@ void CEnemy_POISONKURIBO::Update(float Xpos, float Ypos) {
 
 
 
-	if (m_fYpos - AtackRangeY < Ypos&&m_fYpos + 10 > Ypos) {
+	if (m_fYpos - AtackRangeY < Ypos&&m_fYpos + EnemyRadius > Ypos) {
 		if (m_bRevers) {
 			if (m_fXpos + AtackRangeX > Xpos&&m_fXpos < Xpos) {
 				m_fMoveX = 0;
@@ -94,13 +94,13 @@ void CEnemy_POISONKURIBO::Update(float Xpos, float Ypos) {
 
 void CEnemy_POISONKURIBO::Render(float Xpos, float Ypos) {
 	if (m_bShow) {
-		m_Texture.Render(m_fXpos-100, m_fYpos-100, m_SrcRect);
+		m_Texture.Render(m_fXpos-Exp_Pos, m_fYpos-Exp_Pos, m_SrcRect);
 	}
 	if (m_bEnd) {
 		return;
 	}
 	//m_Atack->Render();
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 
 void CEnemy_POISONKURIBO::Release() {

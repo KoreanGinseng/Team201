@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS.cpp
  * @brief テストボスの攻撃
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/12）
  */
 
 #include	"Atack_TESTBOS.h"

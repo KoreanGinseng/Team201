@@ -2,7 +2,7 @@
  * @file Enemy_TERESA.cpp
  * @brief テレサ
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_TERESA.h"
@@ -47,7 +47,7 @@ void CENEMY_TERESA::Render(float Xpos, float Ypos) {
 	if (m_bEnd) {
 		return;
 	}
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 void CENEMY_TERESA::Release() {
 

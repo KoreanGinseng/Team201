@@ -2,7 +2,7 @@
  * @file Enemy_KURIBIO.cpp
  * @brief クリボー
  * @author 大西永遠
- * @date 更新日（11/8）
+ * @date 更新日（11/12）
  */
 
 #include	"Enemy_KURIBO.h"
@@ -53,8 +53,7 @@ void CEnemy_KURIBO::Render(float Xpos, float Ypos) {
 	if (m_bEnd) {
 		return;
 	}
-	//m_Atack->Render();
-	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, 10, MOF_COLOR_GREEN);
+	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
 }
 
 void CEnemy_KURIBO::Release() {

@@ -2,7 +2,7 @@
  * @file AimBullet.cpp
  * @brief 狙撃
  * @author 大西永遠
- * @date 更新日（11/5）
+ * @date 更新日（11/12）
  */
 
 #include "AimBullet.h"
@@ -37,8 +37,7 @@ void CAimBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	float d;
 	float ddx;
 	float ddy;
-	/*m_PlayerPlaceX = PlayerPosX;
-	m_PlayerPlaceY = PlayerPosY;*/
+	
 	Playerdx = pPosx - px;
 	Playerdy = pPosy - py;
 	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
@@ -61,7 +60,7 @@ void CAimBullet::Render() {
 	if (!m_bShow) {
 		return;
 	}
-	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, 5, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_RED);
 }
 
 void CAimBullet::Release() {
