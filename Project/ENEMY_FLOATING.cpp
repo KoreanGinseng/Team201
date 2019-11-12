@@ -39,6 +39,7 @@ void CENEMY_FLOATING::Update(float Xpos, float Ypos) {
 }
 void CENEMY_FLOATING::Render(float Xpos, float Ypos) {
 	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
+
 }
 void CENEMY_FLOATING::Release() {
 

@@ -59,7 +59,7 @@ enum BAT_ANIM
 //Atack_KOTEIHOUDAI
 #define		PI	3.14159
 #define		BulletSpeed	8
-#define		ENEMYSHOT_COUNT	50
+#define		ENEMYSHOT_COUNT	5
 
 //Atack_TESTBOS.cpp
 #define BosBulletSpeed 5

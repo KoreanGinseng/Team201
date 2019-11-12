@@ -21,7 +21,8 @@ void CAtack_TESTBOS2::Initialize() {
 	m_fCooltime = 0;
 	m_ShotReflectArry = new CReflectBullet();
 	m_ShotReflectArry->Initialize();
-
+	m_Texture.Load("Hp.png");
+	m_ScaleMagnification = 0;
 }
 
 void CAtack_TESTBOS2::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
@@ -46,6 +47,8 @@ void CAtack_TESTBOS2::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 					m_ShotReflectArry->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
 					break;
 				}
+				m_fAtackPosX = EnemyPosX;
+				m_fAtackPosY = EnemyPosY;
 			}
 		}
 
@@ -58,6 +61,7 @@ void CAtack_TESTBOS2::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 void CAtack_TESTBOS2::Render() {
 
 	m_ShotReflectArry->Render();
+	m_Texture.RenderScaleRotate(m_fAtackPosX,m_fAtackPosY,m_ScaleMagnification,1.0f, MOF_ToRadian(30));
 	
 }
 void CAtack_TESTBOS2::Release() {
@@ -66,6 +70,6 @@ void CAtack_TESTBOS2::Release() {
 		delete[] m_ShotReflectArry;
 		m_ShotReflectArry = NULL;
 	}
-
+	m_Texture.Release();
 
 }

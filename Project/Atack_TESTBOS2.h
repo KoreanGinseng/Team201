@@ -16,7 +16,11 @@ class CAtack_TESTBOS2 :public CEnemyAtack {
 private:
 	float	m_fAtackTimer;
 	float	m_fCooltime;
+	float	m_ScaleMagnification;
 	CEnemyShot* m_ShotReflectArry;
+	CRectangle				m_SrcRect;
+	CTexture	m_Texture;
+	float	m_Radian;
 	//CEnemyShot*	m_ShotBounceArry;
 public:
 	CAtack_TESTBOS2();

@@ -58,7 +58,7 @@ void COnishi::Initialize() {
 	getx = 0;
 	gety = 0;
 	Revers = false;
-	gEnemytype = ENEMY_KURIBO;//デバック
+	gEnemytype = ENEMY_TESTBOS2;//デバック
 	switch (gEnemytype)
 	{
 	case ENEMY_KURIBO:

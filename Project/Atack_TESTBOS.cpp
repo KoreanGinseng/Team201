@@ -19,13 +19,13 @@ void CAtack_TESTBOS::Initialize() {
 	m_bShow = false;
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
-	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+	for (int i = 1; i < ENEMYSHOT_COUNT; i++) {
 		m_ShotAimArry[i] = new CAimBullet();
 		m_ShotAimArry[i]->Initialize();
 	}
-
-	m_ShotBounceArry = new CBounceBullet();
-	m_ShotBounceArry->Initialize();
+	m_ShotAimArry[0] = new CBounceBullet();
+	/*m_ShotBounceArry = new CBounceBullet();
+	m_ShotBounceArry->Initialize();*/
 }
 
 void CAtack_TESTBOS::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
@@ -47,6 +47,10 @@ void CAtack_TESTBOS::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, 
 						continue;
 					}
 					m_ShotAimArry[i]->Initialize();
+					if (i==0) {
+					m_ShotAimArry[i]->Fire(EnemyPosX, EnemyPosY, BosBulletSpeed, BosBulletSpeed, PlayerPosX, PlayerPosY);
+					break;
+					}
 					m_ShotAimArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
 					break;
 				}
@@ -57,14 +61,14 @@ void CAtack_TESTBOS::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, 
 
 
 
-		for (int i = 0; i < 1; i++) {
+	/*	for (int i = 0; i < 1; i++) {
 			if (m_ShotBounceArry->GetShow()) {
 				continue;
 			}
 			m_ShotBounceArry->Initialize();
 			m_ShotBounceArry->Fire(EnemyPosX, EnemyPosY, BosBulletSpeed, BosBulletSpeed, PlayerPosX, PlayerPosY);
 			break;
-		}
+		}*/
 
 		m_bShow = true;
 
@@ -73,10 +77,10 @@ void CAtack_TESTBOS::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, 
 			m_ShotAimArry[i]->Update();
 
 		}
-		for (int i = 0; i < 1; i++) {
+	/*	for (int i = 0; i < 1; i++) {
 			m_ShotBounceArry->Update();
 
-		}
+		}*/
 }
 void CAtack_TESTBOS::Render() {
 
@@ -84,7 +88,7 @@ void CAtack_TESTBOS::Render() {
 		m_ShotAimArry[i]->Render();
 	}
 
-	m_ShotBounceArry->Render();
+	//m_ShotBounceArry->Render();
 }
 void CAtack_TESTBOS::Release() {
 	for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
@@ -94,11 +98,11 @@ void CAtack_TESTBOS::Release() {
 			m_ShotAimArry[i] = NULL;
 		}
 	}
-	if (m_ShotBounceArry) {
+	/*if (m_ShotBounceArry) {
 		m_ShotBounceArry->Release();
 		delete 	m_ShotBounceArry;
 		m_ShotBounceArry = NULL;
 
-	}
+	}*/
 
 }
