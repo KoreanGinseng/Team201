@@ -98,17 +98,30 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationData.cpp" />
     <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectFade.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameKey.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="MoveController.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TargetObj.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -116,21 +129,35 @@
     <ResourceCompile Include="Version.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Anim.h" />
+    <ClInclude Include="AnimationData.h" />
     <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectFade.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameDefine.h" />
+    <ClInclude Include="GameKey.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Loading.h" />
+    <ClInclude Include="MoveController.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEffectBase.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Substance.h" />
+    <ClInclude Include="TargetObj.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="VirtualKeyBoard.h" />
   </ItemGroup>
