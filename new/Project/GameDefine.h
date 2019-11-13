@@ -43,6 +43,21 @@ using RectArray = CDynamicArray<CRectangle>;
 constexpr	char			picture[] = "picture";
 constexpr	char			anim[] = "anim";
 
+constexpr	char*	AnimName[] = {
+	//基本
+	"待機",
+	"移動",
+	"ジャンプ",
+	"攻撃",
+	"攻撃2",
+	"攻撃3",
+	"攻撃4",
+	//オブジェクト
+	"壊れている",
+	"治っている",
+	"消える",
+};
+
 constexpr	char*	FileName[] = {
 	//TEXTURE
 	"player3.png",
@@ -111,6 +126,19 @@ typedef enum tag_WAY {
 	WAY_X,
 	WAY_Y,
 }WAY;
+
+enum tag_ANIMMOTION {
+	MOTION_WAIT,
+	MOTION_MOVE,
+	MOTION_JUMP,
+	MOTION_ATTACK,
+	MOTION_ATTACK2,
+	MOTION_ATTACK3,
+	MOTION_ATTACK4,
+	MOTION_BREAK,
+	MOTION_CLEAN,
+	MOTION_DELETE,
+};
 
 /*****************************************************************
  * @enum tag_SCENENO

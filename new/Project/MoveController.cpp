@@ -4,6 +4,7 @@
 
 CMoveController::CMoveController()
 {
+	m_pMove = nullptr;
 }
 
 
@@ -13,18 +14,17 @@ CMoveController::~CMoveController()
 
 void CMoveController::Initialize(void)
 {
-	for (int i = 0; i < m_MoveArray.GetArrayCount(); i++)
+
+	if (m_pMove)
 	{
-		m_MoveArray[i]->Initialize();
+		m_pMove->Initialize();
 	}
-	m_Anim.Initialize();
 }
 
 void CMoveController::Update(void)
 {
-	for (int i = 0; i < m_MoveArray.GetArrayCount(); i++)
+	if (m_pMove)
 	{
-		m_MoveArray[i]->Update();
+		m_pMove->Update();
 	}
-	m_Anim.Update();
 }

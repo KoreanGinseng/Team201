@@ -6,18 +6,24 @@
 class CMoveController
 {
 private:
-	CDynamicArray<CMove*>	m_MoveArray;
-	CAnim					m_Anim;
+	CMove*	m_pMove;
 public:
 	CMoveController();
 	~CMoveController();
 	void Initialize(void);
 	void Update(void);
-	
-	void MotionCreate(const char* pName) { m_Anim.Create(pName); }
-	CAnim GetAnim(void) const { return m_Anim; }
-	void AddMove(CMove* pm) { m_MoveArray.Add(pm); }
-	void RemoveMove(CMove* pm) { m_MoveArray.Delete(&pm); }
-
+	template< typename T >
+	bool Create( T * p )
+	{
+		T* move = T();
+		if (!move)
+		{
+			return false;
+		}
+		*move = *p;
+		NewPointerRelease(m_pMove);
+		m_pMove = move;
+	}
+	void Remove(void) { NewPointerRelease(m_pMove); }
 };
 

@@ -13,13 +13,17 @@ CCharacter::~CCharacter()
 
 void CCharacter::Initialize(void)
 {
+	m_MvCntrl.Initialize();
+	m_Anim.Initialize();
 }
 
 void CCharacter::Update(void)
 {
+
+	m_Anim.Update();
 }
 
-void CCharacter::Render(Vector2 screenPos)
+void CCharacter::Render(const Vector2& screenPos)
 {
 }
 

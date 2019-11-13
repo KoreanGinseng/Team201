@@ -12,7 +12,7 @@ public:
 	virtual ~CObject();
 	virtual void Initialize(void) = 0;
 	virtual void Update(void) = 0;
-	virtual void Render(Vector2 screenPos) = 0;
+	virtual void Render(const Vector2& screenPos) = 0;
 	virtual void Release(void) = 0;
 	void SetPos(const Vector2& pos) { m_Pos = pos; }
 	void SetTexture(const CTexturePtr& pt) { m_pTexture = pt; }
