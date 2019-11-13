@@ -24,6 +24,8 @@ CPlayer::~CPlayer(void)
 //初期化
 void CPlayer::Initialize(void)
 {
+	//
+	m_bDead = false;
 	//座標の初期化
 	m_Pos = Vector2(960, 768);
 	//HPの初期化
@@ -44,24 +46,33 @@ void CPlayer::Initialize(void)
 //更新
 void CPlayer::Update(void)
 {
-	//コントローラーが接続されているか
-	if (g_pInput->GetGamePadCount())
+	//MOVE
 	{
-		//コントローラー入力での移動量更新
-		PadOparation();
+		//コントローラーが接続されているか
+		if (g_pInput->GetGamePadCount())
+		{
+			//コントローラー入力での移動量更新
+			PadOparation();
+		}
+
+		//キーボード入力での移動量更新
+		KeyOparation();
+
+		//移動
+		Move();
 	}
-
-	//キーボード入力での移動量更新
-	KeyOparation();
-
-	//移動
-	Move();
+	//↓
+	m_MvCntrl.Update();
 
 	//スキル
 	Skill();
 
 	//アニメーション更新
-	Animation();
+	{
+		Animation();
+	}
+	//↓
+	m_Anim.Update();
 
 	//
 	if (m_DamageWait > 0)

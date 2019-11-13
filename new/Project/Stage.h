@@ -8,6 +8,7 @@
 
 //INCLUDE
 #include	"Mof.h"
+#include	"Game.h"
 #include	"Enemy.h"
 #include	"Item.h"
 #include	"Object.h"
