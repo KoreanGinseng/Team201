@@ -1,12 +1,10 @@
 #pragma once
 #include	"Mof.h"
-#include	"TimeManager.h"
 #include	"SceneBase.h"
 #include	"GameDefine.h"
 #include	"GameKey.h"
 #include	"Coordinate.h"
 #include	"Score.h"
-#include	"_Fujiwara/Fujiwara.h"
 
 
 #define		IME_FONT_SIZE	64
@@ -61,14 +59,15 @@ private:
 
 public:
 	CRanking();
-	~CRanking() {}
-	bool Load();
-	void Initialize();
-	void Update();
-	void Render();
+	~CRanking() override {}
+	bool Load() override;
+	void Initialize() override;
+	void Update() override;
+	void Render() override;
+	void RenderUI() override;
 	void UpdateDebug();
-	void RenderDebug();
-	void Release();
+	void RenderDebug() override;
+	void Release() override;
 	int GetSceneName(void) { return SCENENO_RANKING; }
 
 	//------------------------------------------------------------------------------------------

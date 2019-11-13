@@ -78,3 +78,12 @@ void String(int sx, int sy, int fontsize, const int& time)
 		g_pTextureManager->GetResource(FileName[TEXTURE_FONT])->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);
 	}
 }
+
+void NewPointerRelease(void * p)
+{
+	if (p)
+	{
+		delete p;
+		p = nullptr;
+	}
+}

@@ -9,18 +9,17 @@
 //INCLUDE
 #include	"Mof.h"
 #include	"GameDefine.h"
-#include	"GamePadDefine.h"
+#include	"Character.h"
 #include	"Enemy.h"
-#include	"Object.h"
+//#include	"Object.h"
+#include	"TargetObj.h"
 #include	"Substance.h"
 #include	"Score.h"
-#include	<vector>
-#include	<list>
 
 //DEFINE
 #define		PLAYER_RECTDIS		40
 
-class CPlayer
+class CPlayer : public CCharacter
 {
 private:
 
@@ -29,28 +28,15 @@ private:
 		WAY_RIGHT,
 	}WAY;
 
-	CTexturePtr					m_pTexture;
-	Vector2						m_Pos;
-	Vector2						m_Move;
-	Vector2						m_Spd;
 	std::vector<CSubstance*>	m_SkillTarget;
-	bool						m_bMove;
-	bool						m_bReverse;
-	bool						m_bJump;
-	bool						m_bPowUp;
 	bool						m_bTrigger;
 	bool						m_bClime;
 	int							m_HP;
-	int							m_Stock;
-	CSpriteMotionController		m_Motion;
-	CRectangle					m_SrcRect;
 	int							m_Target;
 	float						m_CoolTime;
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
 	int							m_DamageWait;
-	
-
 
 	void PadOparation(void);
 	void KeyOparation(void);
@@ -80,16 +66,12 @@ public:
 
 	//Skill
 	void Skill(void);
-	void SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount);
+	void SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount);
 
 	//Collision
 	void CollisionStage(Vector2 o);
 
 	//Get
-	Vector2 GetPos(void) const { return m_Pos; }
-	Vector2 GetSpd(void) const { return m_Spd; }
-	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
-		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
 	bool	IsTrigger(void) { return m_bTrigger; }
 	int		GetHp(void) { return m_HP; }
 	//Set

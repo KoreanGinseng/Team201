@@ -3,8 +3,6 @@
 #include	"GameDefine.h"
 #include	"SceneBase.h"
 #include	"EffectManager.h"
-#include	"SoundManager.h"
-#include	"TimeManager.h"
 
 class CLoading : public CThread
 {

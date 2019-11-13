@@ -58,6 +58,7 @@ public:
 	~CStage(void) {}
 	bool Load(const char* pName);
 	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
+	void Initialize(STAGEDATA* pData);
 	void Update(void);
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);

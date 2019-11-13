@@ -9,28 +9,18 @@
 
 //INCLUDE
 #include	"GameApp.h"
-#include	"GameDefine.h"
 #include	"SceneBase.h"
+#include	"Loading.h"
 #include	"Game.h"
 #include	"Title.h"
 #include	"GameClear.h"
 #include	"GameOver.h"
 #include	"Ranking.h"
-#include	"_Fujiwara/Fujiwara.h"
-#include	"_Inoue/Inoue.h"
-#include	"_Kimura/Kimura.h"
-#include	"_Onishi/Onishi.h"
-#include	"EffectManager.h"
-#include	"Loading.h"
 
-//GLOBAL
-CSceneBase*		gpScene = nullptr;
-CLoading*		gpLoading = nullptr;
-extern CXGamePad xgpad;
-#ifdef _DEBUG
-bool			gbDebug = true;
-#endif // _DEBUG
+CSceneBase*			gpScene = nullptr;
+CLoading*			gpLoading = nullptr;
 
+CXGamePad*			gpXGpad = nullptr;
 
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
@@ -40,33 +30,18 @@ bool			gbDebug = true;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
-	CUtilities::SetCurrentDirectory("Resource");
-	
-	//gpScene = new CTitle();			//タイトルから開始
-	//gpScene = new CGame();
-#ifdef _DEBUG
-	//gpScene = new CRanking()/*CGame()*/;			//ゲームシーンから開始(デバッグ用)
-	gpScene = new CGame();			//ゲームシーンから開始(デバッグ用)
-	ReNum::GetInstance().SetReNum();
-#endif // _DEBUG
 
-	if (gpLoading == nullptr)
-	{
-		gpLoading = new CLoading();
-	}
+	gpXGpad = new CXGamePad();
+	XGAMEPADCREATEINFO xc;
+	g_pGamePad->Create(&xc);
+
+	gpScene = new CGame();
+
+	gpLoading = new CLoading();
 	gpLoading->SetScene(gpScene);
 	gpLoading->Start("Loading");
-	
-	//FPSの設定
-	if (!CUtilities::SetFPS(GAMEFPS))
-	{
-		return FALSE;
-	}
 
-#ifdef _DEBUG
-	/*g_pGraphics->ChangeScreenMode();*/
-#endif // _DEBUG
-return TRUE;
+	return TRUE;
 }
 /*************************************************************************//*!
 		@brief			アプリケーションの更新
@@ -78,88 +53,47 @@ return TRUE;
 MofBool CGameApp::Update(void){
 	//キーの更新
 	g_pInput->RefreshKey();
+	g_pGamePad->RefreshKey();
 
 	if (!gpLoading->IsEnd())
 	{
 		return TRUE;
 	}
-
-	//シーンの更新
+	
 	gpScene->EffectFrame();
+
 	gpScene->Update();
 
-	//シーン切り替え
-	if (gpScene->IsEnd() && gpScene->IsSceneEnd())
+	if (gpScene->IsEnd())
 	{
-		//次のシーン番号取得
-		int nextScene = gpScene->GetNextSceneNo();
-		
-		//古いシーンを解放
+		int n = gpScene->GetNextSceneNo();
 		gpScene->Release();
-		delete gpScene;
-		
-		//次のシーンを生成
-		switch (nextScene)
+		NewPointerRelease(gpScene);
+		NewPointerRelease(gpLoading);
+		switch (n)
 		{
-		case SCENENO_TITLE:
-			gpScene = new CTitle();
-			break;
 		case SCENENO_GAME:
 			gpScene = new CGame();
 			break;
-		case SCENENO_GAMEOVER:
-			gpScene = new CGameOver();
+		case SCENENO_TITLE:
+			gpScene = new CTitle();
 			break;
 		case SCENENO_GAMECLEAR:
 			gpScene = new CGameClear();
 			break;
+		case SCENENO_GAMEOVER:
+			gpScene = new CGameOver();
+			break;
 		case SCENENO_RANKING:
 			gpScene = new CRanking();
 			break;
-		case SCENENO_FUJIWARA:
-			gpScene = new CFujiwara();
-			break;
-		case SCENENO_INOUE:
-			gpScene = new CInoue();
-			break;
-		case SCENENO_KIMURA:
-			gpScene = new CKimura();
-			break;
-		case SCENENO_ONISHI:
-			gpScene = new COnishi();
+		default:
 			break;
 		}
-		//別スレッドでやりたい。(LOADING)
-		{
-			gpLoading->Release();
-			delete gpLoading;
-			gpLoading = new CLoading();
-			gpLoading->SetScene(gpScene);
-			gpLoading->Start("Loading");
-		}
-	}
-
-	// Oキーでステージ変更
-	if (gpScene->GetSceneName() == SCENENO_GAME && (g_pInput->IsKeyPush(MOFKEY_O) || xgpad.IsKeyPush(XINPUT_RS_PUSH)))
-	{
-		gpScene->Release();
-		delete gpScene;
-		CGame::NextStage();
-		gpScene = new CGame();
-		gpLoading->Release();
-		delete gpLoading;
 		gpLoading = new CLoading();
 		gpLoading->SetScene(gpScene);
 		gpLoading->Start("Loading");
 	}
-
-#ifdef _DEBUG
-	//F1キーでデバッグ表示の切り替え
-	if (g_pInput->IsKeyPush(MOFKEY_F1))
-	{
-		gbDebug = !gbDebug;
-	}
-#endif // _DEBUG
 
 	return TRUE;
 }
@@ -174,31 +108,18 @@ MofBool CGameApp::Render(void){
 	//描画開始
 	g_pGraphics->RenderStart();
 	//画面のクリア
-	g_pGraphics->ClearTarget(0.0f,0.0f,0.0f,0.0f,1.0f,0);
+	g_pGraphics->ClearTarget(0.0f,0.0f,1.0f,0.0f,1.0f,0);
 
 	if (!gpLoading->IsEnd())
 	{
-		CGraphicsUtilities::RenderString(0, 0, "LOADING");
 		//描画の終了
 		g_pGraphics->RenderEnd();
 		return TRUE;
 	}
-	else
-	{
-		CGraphicsUtilities::RenderString(0, 0, "LOADEND");
-	}
 
-	//シーンの描画
 	gpScene->Render();
+	gpScene->RenderUI();
 	gpScene->EffectRender();
-
-#ifdef _DEBUG
-	//デバッグの描画
-	if (gbDebug)
-	{
-		gpScene->RenderDebug();
-	}
-#endif // _DEBUG
 
 	//描画の終了
 	g_pGraphics->RenderEnd();
@@ -212,20 +133,13 @@ MofBool CGameApp::Render(void){
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Release(void){
-	
-	//シーンの解放
-	gpScene->Release();
-	delete gpScene;
-	gpScene = NULL;
-	gpLoading->Release();
-	delete gpLoading;
-	gpLoading = nullptr;
 
-	g_pSoundManager->Release();
-	g_pEffectManager->Release();
-	g_pTextureManager->Release();
-	g_pAnimManager->Release();
-	g_pTimeManager->Release();
+	g_pGamePad->Release();
+	NewPointerRelease(gpXGpad);
+	gpScene->Release();
+	NewPointerRelease(gpScene);
+	gpLoading->Release();
+	NewPointerRelease(gpLoading);
 
 	return TRUE;
 }

@@ -8,17 +8,11 @@
 //INCLUDE
 #include "Player.h"
 
-CXGamePad xgpad;
+
 //コンストラクタ
 CPlayer::CPlayer(void) :
-m_pTexture(nullptr),
-m_Pos(Vector2(0,0)),
-m_Move(Vector2(0,0)),
-m_Spd(Vector2(0,0)),
-m_bJump(false),
 m_bClime(false),
-m_HP(10),
-m_Stock(3)
+m_HP(0)
 {
 }
 
@@ -30,28 +24,10 @@ CPlayer::~CPlayer(void)
 //初期化
 void CPlayer::Initialize(void)
 {
-	XGAMEPADCREATEINFO xc;
-	xgpad.Create(&xc);
-	//画像データのセット
-	m_pTexture = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetTexture();
-	//アニメーションデータのセット
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim(), c);
 	//座標の初期化
-	//m_Pos = Vector2(g_pGraphics->GetTargetWidth() / 2, 0);
 	m_Pos = Vector2(960, 768);
-	//移動量の初期化
-	m_Move = Vector2(0, 0);
-	//移動速度の初期化
-	m_Spd = Vector2(PLAYER_SPEED, PLAYER_JUMPPOW);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
-	//残機の初期化
-	m_Stock = PLAYER_MAXSTOCK;
-	//ジャンプフラグの初期化
-	m_bJump = false;
-	//パワーアップフラグの初期化
-	m_bPowUp = false;
 	//
 	m_bClime = false;
 	//スキルの範囲を初期化
@@ -68,7 +44,6 @@ void CPlayer::Initialize(void)
 //更新
 void CPlayer::Update(void)
 {
-	xgpad.RefreshKey();
 	//コントローラーが接続されているか
 	if (g_pInput->GetGamePadCount())
 	{
@@ -123,7 +98,7 @@ void CPlayer::Render(Vector2 screenPos)
 		return;
 	}
 
-	CRectangle dr = m_SrcRect;
+	CRectangle dr = GetSrcRect();
 	//反転フラグが立っているとき描画矩形を反転
 	if (m_bReverse)
 	{
@@ -139,18 +114,14 @@ void CPlayer::Render(Vector2 screenPos)
 //デバッグ描画
 void CPlayer::RenderDebug(Vector2 screenPos)
 {
-	/*CGraphicsUtilities::RenderString(10, 200, "%.1f", m_Skillrang);
-	CGraphicsUtilities::RenderString(10, 240, "%.1f", m_CoolTime);*/
-	CGraphicsUtilities::RenderCircle(screenPos.x + m_SrcRect.GetWidth() / 2, screenPos.y + m_SrcRect.GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
+	CGraphicsUtilities::RenderCircle(screenPos.x + GetSrcRect().GetWidth() / 2, screenPos.y + GetSrcRect().GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
-		screenPos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, screenPos.y + m_SrcRect.GetHeight(), MOF_COLOR_RED);
-	//CGraphicsUtilities::RenderString(0, 130, "%.1f,%.1f", GetRect().Left, GetRect().Top);
+		screenPos.x + GetSrcRect().GetWidth() - PLAYER_RECTDIS, screenPos.y + GetSrcRect().GetHeight(), MOF_COLOR_RED);
 }
 
 //解放
 void CPlayer::Release(void)
 {
-	m_Motion.Release();
 	m_SkillTarget.clear();
 	m_pTexture = nullptr;
 }
@@ -159,11 +130,11 @@ void CPlayer::Release(void)
 void CPlayer::PadOparation(void)
 {
 	//スティックを右か左に倒した場合、倒した方向に移動
-	if (xgpad.GetStickHorizontal() > 0.8f)
+	if (g_pGamePad->GetStickHorizontal() > 0.8f)
 	{
 		MoveAdd(WAY_RIGHT);
 	}
-	else if (xgpad.GetStickHorizontal() < -0.8f)
+	else if (g_pGamePad->GetStickHorizontal() < -0.8f)
 	{
 		MoveAdd(WAY_LEFT);
 	}
@@ -218,17 +189,17 @@ void CPlayer::PadOparation(void)
 			int skillNo = -1;
 
 			//戻る
-			if (xgpad.IsKeyPush(GAMEKEY_X)) {
+			if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
 
 				skillNo = GAMEKEY_X;
 
 			}//止める
-			else if (xgpad.IsKeyPush(GAMEKEY_Y)) {
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_Y)) {
 
 				skillNo = GAMEKEY_Y;
 
 			}//飛ばす
-			else if (xgpad.IsKeyPush(GAMEKEY_B)) {
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
 				skillNo = GAMEKEY_B;
 
@@ -517,7 +488,7 @@ void CPlayer::Skill()
 }
 
 
-void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCount) {
+void CPlayer::SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount) {
 
 	std::list<CSubstance*> element;
 	//ベクトルに入っていたSubstanceのターゲットの初期化
@@ -531,7 +502,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	for (int i = 0; i < eneCount; i++) 
 	{
-		if (!pene[i].GetShow())
+		if (!pene[i].IsShow())
 		{
 			continue;
 		}
@@ -545,7 +516,7 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 
 	for (int i = 0; i < objCount; i++)
 	{
-		if (!pobj[i].GetShow())
+		if (!pobj[i].IsShow())
 		{
 			continue;
 		}
@@ -564,8 +535,8 @@ void CPlayer::SkillColision(CEnemy* pene, int eneCount, CObject* pobj, int objCo
 	}
 
 	//プレイヤーの位置
-	float stx = m_Pos.x + m_SrcRect.GetWidth()*0.5f;
-	float sty = m_Pos.y + m_SrcRect.GetHeight();
+	float stx = m_Pos.x + GetSrcRect().GetWidth() * 0.5f;
+	float sty = m_Pos.y + GetSrcRect().GetHeight();
 
 	//一つずつv と　v++を比較してソートする
 	element.sort(

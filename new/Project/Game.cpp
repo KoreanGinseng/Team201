@@ -21,9 +21,9 @@ const char*		g_StageFileName[STAGE_COUNT] = {
 CGame::CGame() :
 	CSceneBase(),
 	m_bPoase(false),
-	m_pEnemyArray(nullptr),
-	m_pItemArray(nullptr),
-	m_pObjArray(nullptr)
+	m_pEnemyArray(),
+	m_pItemArray(),
+	m_pTargetObjArray()
 {
 }
 
@@ -44,22 +44,33 @@ bool CGame::Load()
 		return FALSE;
 	}
 	//敵メモリ確保
-	m_pEnemyArray = new CEnemy[m_Stage[m_StageNo].GetEnemyCount()];
+	CEnemy* tmp_e = new CEnemy;
+	m_pEnemyArray.SetArray(&tmp_e, m_Stage[m_StageNo].GetEnemyCount());
+	delete tmp_e;
 	//アイテムメモリ確保
-	m_pItemArray = new CItem[m_Stage[m_StageNo].GetItemCount()];
+	CItem* tmp_i = new CItem;
+	m_pItemArray.SetArray(&tmp_i, m_Stage[m_StageNo].GetItemCount());
+	delete tmp_i;
 	//オブジェクトメモリ確保
-	m_pObjArray = new CObject[m_Stage[m_StageNo].GetObjectCount()];
+	CTargetObj* tmp_t = new CTargetObj;
+	m_pTargetObjArray.SetArray(&tmp_t, m_Stage[m_StageNo].GetObjectCount());
+	delete tmp_t;
+
 	return TRUE;
 }
 
 //初期化
 void CGame::Initialize()
 {
-	//終了フラグの初期化
-	m_bEnd = false;
 	//遷移先の初期化
 	m_NextSceneNo = SCENENO_GAME;
-	m_Stage[m_StageNo].Initialize(m_pEnemyArray, m_pItemArray, m_pObjArray);
+
+	STAGEDATA data;
+	data.pEnemyArray = &m_pEnemyArray;
+	data.pItemArray = &m_pItemArray;
+	data.pTargetObjArray = &m_pTargetObjArray;
+	m_Stage[m_StageNo].Initialize(&data);
+
 	m_Player.Initialize();
 	g_pTimeManager->Reset();
 }
@@ -68,14 +79,14 @@ void CGame::Initialize()
 void CGame::Update()
 {
 
-	//
-	if (ReNum::GetInstance().GetReNumber() < 0 && !m_bEnd)
+	//ゲームオーバーへ
+	if (m_Player.IsDead() && !IsStart())
 	{
-		m_bEnd = true;
 		m_pEffect->Out(10);
 		m_NextSceneNo = SCENENO_GAMEOVER;
 	}
 
+	//デバッグ用
 	UpdateDebug();
 
 	//F4キーでポーズ
@@ -102,6 +113,7 @@ void CGame::Update()
 	{
 		m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 	}
+
 	//プレイヤーの更新
 	m_Player.Update();
 
@@ -115,64 +127,91 @@ void CGame::Update()
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		if (!m_pEnemyArray[i].GetShow())
+		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
 		{
 			continue;
 		}
-		m_pEnemyArray[i].Update(m_Player.GetPos());
-		//当たり判定
-		Vector2 eo(0, 0);
-		if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i].GetRect(), eo))
+		//m_pEnemyArray[i]->Update(m_Player.GetPos());
+		m_pEnemyArray[i]->Update();
+	}
+
+	//当たり判定
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
 		{
-			m_pEnemyArray[i].CollisionStage(eo);
+			continue;
 		}
-		if (m_pEnemyArray[i].Collision(m_Player.GetRect(), o))
+		Vector2 eo(0, 0);
+		for (int j = 0; i < m_pEnemyArray[i]->GetRectArray().GetArrayCount; j++)
 		{
-			if (m_pEnemyArray[i].IsSkill())
+			if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i]->GetRectArray()[j], eo))
 			{
-				m_Player.CollisionStage(o);
+				m_pEnemyArray[i]->CollisionStage(eo);
 			}
-			else
+			if (m_pEnemyArray[i]->Collision(m_Player.GetRect()[i], o))
 			{
-				m_Player.Dmg(m_pEnemyArray[i]);
+				if (m_pEnemyArray[i]->IsSkill())
+				{
+					m_Player.CollisionStage(o);
+				}
+				else
+				{
+					m_Player.Dmg(*m_pEnemyArray[i]);
+				}
 			}
 		}
 	}
+
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
-		if (!m_pItemArray[i].GetShow())
+		if (!m_pItemArray[i]->IsShow())
 		{
 			continue;
 		}
-		m_pItemArray[i].Update();
-		//当たり判定
-		Vector2 io(0, 0);
-		if (m_Stage[m_StageNo].Collision(m_pItemArray[i].GetRect(), io))
+		m_pItemArray[i]->Update();
+	}
+	//当たり判定
+	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	{
+		for (int j = 0; j < m_pItemArray[i]->GetRectArray().GetArrayCount(); j++)
 		{
-			m_pItemArray[i].CollisionStage(io);
+			Vector2 io(0, 0);
+			if (m_Stage[m_StageNo].Collision(m_pItemArray[i]->GetRectArray()[j], io))
+			{
+				if (!m_pItemArray[i]->IsShow())
+				{
+					continue;
+				}
+				m_pItemArray[i]->CollisionStage(io);
+			}
 		}
 	}
 	//オブジェクトの更新
 	bool clime = false;
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
-		if (!m_pObjArray[i].GetShow())
+		if (!m_pTargetObjArray[i]->IsShow())
 		{
 			continue;
 		}
-		m_pObjArray[i].Update();
-		//当たり判定
-		Vector2 oo(0, 0);
-		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))
+		m_pTargetObjArray[i]->Update();
+	}
+
+	//当たり判定
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		if (!m_pTargetObjArray[i]->IsShow())
 		{
-			//m_pObjArray[i].CollisionStage(oo);
+			continue;
 		}
+		Vector2 oo(0, 0);
 		//プレイヤーとの当たり判定
 		oo = Vector2(0, 0);
-		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
+		if (m_pTargetObjArray[i]->Collision(m_Player.GetRect(), oo))
 		{
-			if (m_pObjArray[i].GetType() == OBJECT_ROPE)
+			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 			{
 				clime = true;
 				break;
@@ -186,15 +225,15 @@ void CGame::Update()
 		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
 		{
 			oo = Vector2(0, 0);
-			if (m_pObjArray[i].Collision(m_pEnemyArray[j].GetRect(), oo))
+			if (m_pTargetObjArray[i]->Collision(m_pEnemyArray[j]->GetRect(), oo))
 			{
-				if (m_pObjArray[i].GetType() == OBJECT_ROPE)
+				if (m_pTargetObjArray[i]->GetType() == OBJECT_ROPE)
 				{
 					continue;
 				}
 				else
 				{
-					m_pEnemyArray[j].CollisionStage(oo);
+					m_pEnemyArray[j]->CollisionStage(oo);
 				}
 			}
 		}
@@ -229,24 +268,21 @@ void CGame::Render()
 	//敵の描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
-		m_pEnemyArray[i].Render(screenPos);
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i]->GetPos());
+		m_pEnemyArray[i]->Render(screenPos);
 	}
 	//アイテムの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i].GetPos());
-		m_pItemArray[i].Render(screenPos);
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i]->GetPos());
+		m_pItemArray[i]->Render(screenPos);
 	}
 	//オブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
-		m_pObjArray[i].Render(screenPos);
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pTargetObjArray[i]->GetPos());
+		m_pTargetObjArray[i]->Render(screenPos);
 	}
-
-	//
-	m_UI.Render(m_Player.GetHp());
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)
@@ -256,32 +292,23 @@ void CGame::Render()
 	}
 }
 
+void CGame::RenderUI(void)
+{
+	String(1600, 0, 128, g_pTimeManager->GetNowTime());
+}
+
 void CGame::UpdateDebug() {
 
 	
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
-
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !IsStart()) {
 		g_pScore->TotalScore(g_pTimeManager->GetNowTime());
-		m_bEnd = true;
 		m_pEffect->Out(10);
-		m_SceneNo = SCENENO_GAMEOVER;
-
-
+		m_NextSceneNo = SCENENO_GAMEOVER;
 	}
-	else if (g_pInput->IsKeyPush(MOFKEY_L)) {
-
-		m_bEnd = true;
-
+	else if (g_pInput->IsKeyPush(MOFKEY_L) && !IsStart()) {
 		m_pEffect->Out(10);
-
-		m_SceneNo = SCENENO_GAMECLEAR;
-
-	}
-	if (m_pEffect->IsEnd() && m_bEnd&&m_SceneNo!=-1) {
-
-		m_NextSceneNo = m_SceneNo;
-
+		m_NextSceneNo = SCENENO_GAMECLEAR;
 	}
 }
 //デバッグ描画
@@ -289,50 +316,22 @@ void CGame::RenderDebug()
 {
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	m_Player.RenderDebug(screenPos);
-	//敵の描画
-	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
-	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i].GetPos());
-		m_pEnemyArray[i].RenderDebug(screenPos);
-	}
-	//オブジェクトの描画
-	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
-	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
-		m_pObjArray[i].RenderDebug(screenPos);
-	}
-	String(1600, 0, 128, g_pTimeManager->GetNowTime());
+	
 	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 //解放
 void CGame::Release()
 {
-	if (m_pEffect) {
-
-		delete m_pEffect;
-
-		m_pEffect = nullptr;
-	}
+	NewPointerRelease(m_pEffect);
 	m_Stage[m_StageNo].Release();
 
 	//敵の解放
-	if (m_pEnemyArray != nullptr)
-	{
-		delete[] m_pEnemyArray;
-		m_pEnemyArray = NULL;
-	}
+	m_pEnemyArray.Release();
 	//アイテムの解放
-	if (m_pItemArray != nullptr)
-	{
-		delete[] m_pItemArray;
-		m_pItemArray = NULL;
-	}
+	m_pItemArray.Release();
 	//オブジェクトの開放
-	if (m_pObjArray != nullptr)
-	{
-		delete[] m_pObjArray;
-		m_pObjArray = NULL;
-	}
+	m_pTargetObjArray.Release();
+
 	m_Player.Release();
 }

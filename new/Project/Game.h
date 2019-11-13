@@ -9,12 +9,19 @@
 // INCLUDE
 #include "SceneBase.h"
 #include "GameDefine.h"
-#include "TimeManager.h"
-#include "EffectManager.h"
 #include "Camera2D.h"
 #include "Player.h"
 #include "Stage.h"
-#include "UI.h"
+#include "Enemy.h"
+#include "Item.h"
+#include "TargetObj.h"
+
+//STRUCT
+typedef struct tag_STAGEDATA {
+	CDynamicArray<CEnemy*>*		pEnemyArray;
+	CDynamicArray<CItem*>*		pItemArray;
+	CDynamicArray<CTargetObj*>*	pTargetObjArray;
+}STAGEDATA;
 
 class CGame :
 	public CSceneBase
@@ -24,28 +31,25 @@ private:
 	CPlayer				m_Player;
 	CStage				m_Stage[STAGE_COUNT];
 	static	int			m_StageNo;
-	
-	// 敵
-	CEnemy*				m_pEnemyArray;
-	// アイテム
-	CItem*				m_pItemArray;
-	// オブジェクト
-	CObject*			m_pObjArray;
 
 	bool				m_bPoase;
 
-	UI					m_UI;
+	CDynamicArray<CEnemy*>		m_pEnemyArray;
+	CDynamicArray<CItem*>		m_pItemArray;
+	CDynamicArray<CTargetObj*>	m_pTargetObjArray;
 
 public:
 	CGame(void);
-	~CGame(void);
-	bool Load(void);
-	void Initialize(void);
-	void Update(void);
-	void Render(void);
-	void RenderDebug(void);
+	~CGame(void) override;
+	bool Load(void) override;
+	void Initialize(void) override;
+	void Update(void) override;
+	void Render(void) override;
+	void RenderUI(void) override;
+	void RenderDebug(void) override;
+	void Release(void) override;
+
 	void UpdateDebug(void);
-	void Release(void);
 
 	int GetSceneName(void) { return SCENENO_GAME; }
 

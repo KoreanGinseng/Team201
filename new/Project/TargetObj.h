@@ -1,10 +1,10 @@
 #pragma once
 #include "Substance.h"
-class CEnemy :
+class CTargetObj :
 	public CSubstance
 {
 public:
-	CEnemy();
-	~CEnemy();
+	CTargetObj();
+	~CTargetObj();
 };
 

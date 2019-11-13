@@ -7,3 +7,4 @@ Vector2 ScreenTransration(Vector2 cp, Vector2 wp);
 bool CollisionRectCircle(const CRectangle rect, const CCircle cir);
 void String(int sx, int sy, int fontsize, const char * str);
 void String(int sx, int sy, int fontsize, const int& time);
+void NewPointerRelease(void* p);

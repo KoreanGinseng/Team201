@@ -5,433 +5,117 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\SCENE">
-      <UniqueIdentifier>{3cd10a8c-5fb7-48c2-91ff-cccaf5f99d43}</UniqueIdentifier>
+    <Filter Include="ヘッダーファイル">
+      <UniqueIdentifier>{fd2b504d-822a-48ac-8104-8ebad3db6662}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\MANAGER">
-      <UniqueIdentifier>{9cc7dce9-688a-423f-b1a6-6ad90f52703e}</UniqueIdentifier>
+    <Filter Include="ヘッダーファイル\Scene">
+      <UniqueIdentifier>{1961e446-2915-49b3-8c70-61b666ff14fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\ACTOR">
-      <UniqueIdentifier>{d1db529f-84db-4743-9191-afe4d77c11ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\MANAGER">
-      <UniqueIdentifier>{85a65d2a-d475-4889-8294-8554c01f248e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\SCENE">
-      <UniqueIdentifier>{b197e953-cd7d-4dbb-bba4-7cba310a48c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ACTOR">
-      <UniqueIdentifier>{237f8164-b873-4770-bfdf-fcdd91fef627}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\ENEMY">
-      <UniqueIdentifier>{56522d6b-a3cb-4924-a1a4-d1f968331ed9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ENEMY">
-      <UniqueIdentifier>{95b1efd5-3143-4e87-88be-130e8c088a29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\OBJECT">
-      <UniqueIdentifier>{d45dd998-a0f6-4632-84fa-a35b490e6c66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\OBJECT">
-      <UniqueIdentifier>{c2fef4bf-2b7d-4820-a8c9-2655c958d76d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ATTACK">
-      <UniqueIdentifier>{36f02b1f-00fa-4215-a187-ab1e84b14ce8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\ATTACK">
-      <UniqueIdentifier>{91b86816-8243-4aba-886f-adbc2c1c9089}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\SHOT">
-      <UniqueIdentifier>{439ba543-e616-4f14-86f5-0f2598e15817}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\SHOT">
-      <UniqueIdentifier>{455efa3a-1b45-40b2-97fe-0fdd1843fa8e}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{2f82cb64-bff9-4a88-9a3b-f1e2d3a0c62f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="GameApp.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneEffectBase.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectFade.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Camera2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Coordinate.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="Title.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="GameClear.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOver.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="Ranking.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="GameApp.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="_Fujiwara\Fujiwara.cpp">
-      <Filter>ソース ファイル\ACTOR</Filter>
-    </ClCompile>
-    <ClCompile Include="_Inoue\Inoue.cpp">
-      <Filter>ソース ファイル\ACTOR</Filter>
-    </ClCompile>
-    <ClCompile Include="_Kimura\Kimura.cpp">
-      <Filter>ソース ファイル\ACTOR</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Onishi.cpp">
-      <Filter>ソース ファイル\ACTOR</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\EnemyMove.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
     <ClCompile Include="Loading.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_BAT.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_KOTEIHOUDAI.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_KURIBO.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_NOKONOKO.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_TERESA.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Inoue\AnimationData.cpp">
-      <Filter>ソース ファイル\MANAGER</Filter>
-    </ClCompile>
-    <ClCompile Include="Rope.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
-    <ClCompile Include="Empty.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjTree.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
-    <ClCompile Include="Bridge.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\EnemyAtack.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_BAT.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_KOTEIHOUDAI.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_KURIBO.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_NOKONOKO.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_TERESA.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_TESTBOS.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\AimBullet.cpp">
-      <Filter>ソース ファイル\SHOT</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\BounceBullet.cpp">
-      <Filter>ソース ファイル\SHOT</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\EnemyShot.cpp">
-      <Filter>ソース ファイル\SHOT</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\ENEMY_FLOATING.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_TESTBOS.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="GameKey.cpp">
+    <ClCompile Include="Coordinate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SceneEffectBase.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectFade.cpp">
-      <Filter>ソース ファイル\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_POISONKURIBO.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Enemy_TESTBOS2.cpp">
-      <Filter>ソース ファイル\ENEMY</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_POISONKURIBO.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\Atack_TESTBOS2.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\PoisonBullet.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="_Onishi\ReflectBullet.cpp">
-      <Filter>ソース ファイル\ATTACK</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameApp.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDefine.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Coordinate.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClear.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOver.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="Ranking.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="_Fujiwara\Fujiwara.h">
-      <Filter>ヘッダー ファイル\ACTOR</Filter>
-    </ClInclude>
-    <ClInclude Include="_Inoue\Inoue.h">
-      <Filter>ヘッダー ファイル\ACTOR</Filter>
-    </ClInclude>
-    <ClInclude Include="_Kimura\Kimura.h">
-      <Filter>ヘッダー ファイル\ACTOR</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Onishi.h">
-      <Filter>ヘッダー ファイル\ACTOR</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\EnemyMove.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_BAT.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_KOTEIHOUDAI.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_KURIBO.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_NOKONOKO.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_TERESA.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Inoue\AnimationData.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="_Inoue\ResourceManager.h">
-      <Filter>ヘッダー ファイル\MANAGER</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="Substance.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Rope.h">
-      <Filter>ヘッダー ファイル\OBJECT</Filter>
-    </ClInclude>
-    <ClInclude Include="Empty.h">
-      <Filter>ヘッダー ファイル\OBJECT</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>ヘッダー ファイル\OBJECT</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjTree.h">
-      <Filter>ヘッダー ファイル\OBJECT</Filter>
-    </ClInclude>
-    <ClInclude Include="Bridge.h">
-      <Filter>ヘッダー ファイル\OBJECT</Filter>
-    </ClInclude>
-    <ClInclude Include="GamePadDefine.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\EnemyAtack.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_BAT.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_KOTEIHOUDAI.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_KURIBO.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_NOKONOKO.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_TERESA.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_TESTBOS.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\AimBullet.h">
-      <Filter>ヘッダー ファイル\SHOT</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\BounceBullet.h">
-      <Filter>ヘッダー ファイル\SHOT</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\EnemyShot.h">
-      <Filter>ヘッダー ファイル\SHOT</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\EnemyDefine.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\ENEMY_FLOATING.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_TESTBOS.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="GameKey.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneEffectBase.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectFade.h">
-      <Filter>ヘッダー ファイル\SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_POISONKURIBO.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Atack_TESTBOS2.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_POISONKURIBO.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\Enemy_TESTBOS2.h">
-      <Filter>ヘッダー ファイル\ENEMY</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\PoisonBullet.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="_Onishi\ReflectBullet.h">
-      <Filter>ヘッダー ファイル\ATTACK</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ReNum.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameApp.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDefine.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Substance.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualKeyBoard.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClear.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEffectBase.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectFade.h">
+      <Filter>ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinate.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

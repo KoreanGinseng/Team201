@@ -8,16 +8,16 @@
 
  //INCLUDE
 #include	"Mof.h"
-#include	"_Inoue/ResourceManager.h"
-#include	"SoundManager.h"
+#include	"ResourceManager.h"
 #include	"Coordinate.h"
-#include	"ReNum.h"
 
 
 //USING
 using CTexturePtr = std::shared_ptr<CTexture>;
+using RectArray = CDynamicArray<CRectangle>;
 
-#include	"_Inoue/AnimationData.h"
+#include	"AnimationData.h"
+#include	"TimeManager.h"
 
 //DEFINE
 
@@ -105,9 +105,6 @@ constexpr	char*	FileName[] = {
 	"TestJump.mp3",
 	"TestStageBGM.mp3",
 };
-
-//STRUCT
-
 
 //ENUM
 typedef enum tag_WAY {
@@ -245,6 +242,11 @@ enum tag_OBJECT
 	OBJECT_BRIDGE,
 	OBJECT_TREE01,
 };
+
+
+extern CXGamePad*			gpXGpad;
+
+#define		g_pGamePad		gpXGpad
 
 #include <crtdbg.h>
 #ifdef _DEBUG
