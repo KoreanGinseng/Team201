@@ -113,11 +113,11 @@
     <ClCompile Include="Item.cpp">
       <Filter>ソース ファイル\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Anim.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>ソース ファイル\Move</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
