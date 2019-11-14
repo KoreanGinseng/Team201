@@ -122,6 +122,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PoisonBullet.cpp" />
     <ClCompile Include="Ranking\Ranking.cpp" />
+    <ClCompile Include="RayBullet.cpp" />
     <ClCompile Include="ReflectBullet.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PoisonBullet.h" />
     <ClInclude Include="Ranking\Ranking.h" />
+    <ClInclude Include="RayBullet.h" />
     <ClInclude Include="ReflectBullet.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Stage.h" />

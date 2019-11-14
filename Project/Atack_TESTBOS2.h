@@ -11,6 +11,7 @@
 #include	"AimBullet.h"
 #include	"BounceBullet.h"
 #include	"ReflectBullet.h"
+#include	"RayBullet.h"
 
 class CAtack_TESTBOS2 :public CEnemyAtack {
 private:

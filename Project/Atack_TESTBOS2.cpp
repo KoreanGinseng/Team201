@@ -19,7 +19,7 @@ void CAtack_TESTBOS2::Initialize() {
 	m_bShow = false;
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
-	m_ShotReflectArry = new CReflectBullet();
+	m_ShotReflectArry = new CRayBullet();
 	m_ShotReflectArry->Initialize();
 	m_Texture.Load("Hp.png");
 	m_ScaleMagnification = 0;
