@@ -44,3 +44,7 @@ void CLoading::Run(void)
 
 	m_bEnd = true;
 }
+
+void CLoading::Render(void)
+{
+}

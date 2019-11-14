@@ -7,6 +7,8 @@ protected:
 	Vector2			m_Pos;
 	CTexturePtr		m_pTexture;
 	bool			m_bShow;
+private:
+public:
 public:
 	CObject();
 	virtual ~CObject();
@@ -19,5 +21,6 @@ public:
 	void SetShow(const bool& b) { m_bShow = b; }
 
 	bool IsShow(void) const { return m_bShow; }
+private:
 };
 
