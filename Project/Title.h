@@ -8,6 +8,7 @@
 
  // INCLUDE
 #include "SceneBase.h"
+#include	"GameDefine.h"
 
 class CTitle :
 	public CSceneBase
@@ -21,7 +22,9 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
+	void UpdateDebug();
 	void RenderDebug();
 	void Release();
+	int GetSceneName(void) { return SCENENO_TITLE; }
 };
 

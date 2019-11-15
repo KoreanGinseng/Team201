@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_NOKONOKO.h
+ * @brief ノコノコ
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyMove.h"
 
@@ -9,4 +16,9 @@ public:
 	~CENEMY_NOKONOKO();
 	void Initialize();
 	void Update(float Xpos, float Ypos);
+	CRectangle	GetRect(void) const {
+		CRectangle rect(m_fXpos, m_fYpos, m_fXpos + m_SrcRect.GetWidth(), m_fYpos + m_SrcRect.GetHeight());
+		rect.Expansion(-18, -6);
+		return rect;
+	}
 };

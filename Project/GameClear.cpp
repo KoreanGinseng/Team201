@@ -35,6 +35,12 @@ CGameClear::~CGameClear() {
  * @return なし
  *****************************************************************/
 bool CGameClear::Load() {
+
+	//シーンエフェクトスタート
+	m_pEffect = new CEffectFade();
+	m_pEffect->In(10);
+
+
 	return TRUE;
 }
 
@@ -46,6 +52,12 @@ bool CGameClear::Load() {
  *****************************************************************/
 void CGameClear::Initialize() {
 
+	//終了フラグの初期化
+	m_bEnd = false;
+	//遷移先の初期化
+	m_NextSceneNo = SCENENO_GAMECLEAR;
+
+
 }
 
 /*****************************************************************
@@ -56,8 +68,39 @@ void CGameClear::Initialize() {
  *****************************************************************/
 void CGameClear::Update() {
 
+	UpdateDebug();
+
 }
 
+/*****************************************************************
+* @fn
+* デバッグ更新
+* @param なし
+* @return なし
+*****************************************************************/
+void CGameClear::UpdateDebug() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
+
+		m_bEnd = true;
+		m_pEffect->Out(10);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
+		m_bEnd = true;
+
+	}
+	if (m_pEffect->IsEnd() && m_bEnd) {
+		m_NextSceneNo = SCENENO_TITLE;
+	}
+}
 /*****************************************************************
  * @fn
  * 描画
@@ -65,6 +108,8 @@ void CGameClear::Update() {
  * @return なし
  *****************************************************************/
 void CGameClear::Render() {
+
+	RenderDebug();
 
 }
 
@@ -76,6 +121,7 @@ void CGameClear::Render() {
  *****************************************************************/
 void CGameClear::RenderDebug() {
 
+	CGraphicsUtilities::RenderString(0, 100, "ゲームクリア");
 }
 
 /*****************************************************************
@@ -85,5 +131,11 @@ void CGameClear::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CGameClear::Release() {
+	if (m_pEffect) {
+
+		delete m_pEffect;
+
+		m_pEffect = nullptr;
+	}
 
 }

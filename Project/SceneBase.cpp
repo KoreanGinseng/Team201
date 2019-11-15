@@ -11,7 +11,8 @@
 
 CSceneBase::CSceneBase() :
 m_bEnd(false),
-m_NextSceneNo(0)
+m_NextSceneNo(0),
+m_SceneNo(-1)
 {
 }
 

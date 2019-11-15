@@ -11,11 +11,11 @@
 #include	"_Inoue/ResourceManager.h"
 #include	"SoundManager.h"
 #include	"Coordinate.h"
+#include	"ReNum.h"
 
 
 //USING
 using CTexturePtr = std::shared_ptr<CTexture>;
-using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 
 #include	"_Inoue/AnimationData.h"
 
@@ -23,12 +23,12 @@ using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
-#define		STAGE_COUNT		3		//! ゲームステージ数
+#define		STAGE_COUNT		4		//! ゲームステージ数
 #define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 #define		GRAVITY			0.3f	//! ゲーム内重力
 
-#define		PLAYER_MAXHP			10
+#define		PLAYER_MAXHP			2
 #define		PLAYER_MAXSTOCK			3
 #define		PLAYER_MAXSPEED			8
 #define		PLAYER_SPEED			0.3f
@@ -40,19 +40,70 @@ using CMotionPtr = std::shared_ptr<CSpriteMotionController>;
 #define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
 #define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
 
+constexpr	char			picture[] = "picture";
+constexpr	char			anim[] = "anim";
 
 constexpr	char*	FileName[] = {
+	//TEXTURE
+	"player3.png",
+	"EnemyKinoko.png",
+	"EnemyDoku.png",
+	"EnemyBat.png",
+	"enemy04.png",
+	"enemy05.png",
+	"enemy06.png",
+	"enemy07.png",
+	"enemy08.png",
+	"Item01.png",
+	"Item02.png",
+	"Item03.png",
+	"Item04.png",
+	"Item05.png",
+	"Item06.png",
+	"Item07.png",
+	"Item08.png",
+	"obj_rope03.png",
+	"Obj_Tree01.png",
+	"obj_bridge03.png",
+	"Obj04.png",
+	"Obj05.png",
+	"Obj06.png",
+	"Obj07.png",
+	"Obj08.png",
+	"bg.png",
+	"bgChip01.png",
+	"bgChip02.png",
+	"MapChip02.png",
+	"sumple_imvisible.png",
+	//ANIMATION
 	"playerAnim.bin",
-	"",
-	"",
-	"",
-	"",
-	".png",
-	"",
-	"",
-	"",
-	".mp3",
-	"",
+	"EnemyKinokoAnim.bin",
+	"EnemyDokuAnim.bin",
+	"EnemyBatAnim.bin",
+	"EnemyAnim01.bin",
+	"OctAnim.bin",
+	"EnemyAnim06.bin",
+	"EnemyAnim07.bin",
+	"EnemyAnim08.bin",
+	"ItemAnim01.bin",
+	"ItemAnim02.bin",
+	"ItemAnim03.bin",
+	"ItemAnim04.bin",
+	"ItemAnim05.bin",
+	"ItemAnim06.bin",
+	"ItemAnim07.bin",
+	"ItemAnim08.bin",
+	"RopeAnim.bin",
+	"obj_treeanim01.bin",
+	"BridgeAnim.bin",
+	"ObjAnim04.bin",
+	"ObjAnim05.bin",
+	"ObjAnim06.bin",
+	"ObjAnim07.bin",
+	"ObjAnim08.bin",
+	//SOUND
+	"TestJump.mp3",
+	"TestStageBGM.mp3",
 };
 
 //STRUCT
@@ -110,7 +161,6 @@ typedef enum tag_TEXTUREDATA {
 	TEXTURE_OBJ_6,
 	TEXTURE_OBJ_7,
 	TEXTURE_OBJ_8,
-	TEXTURE_ENEMY_ATTACK,
 	TEXTURE_MAP_BACK,
 	TEXTURE_MAP_BACKCHIP_1,
 	TEXTURE_MAP_BACKCHIP_2,
@@ -154,7 +204,16 @@ typedef enum tag_ANIMATIONDATA {
 	ANIMATION_COUNT,
 }ANIMATIONDATA;
 
+/*****************************************************************
+ * @enum tag_SOUNDDATA
+ * サウンドファイルの列挙
+ *****************************************************************/
+typedef enum tag_SOUNDDATA {
+	SOUND_JUMP = ANIMATION_COUNT,
+	SOUND_STAGEBGM,
 
+	SOUND_COUNT,
+}SOUNDDATA;
 
 
 
@@ -167,7 +226,32 @@ enum tag_ENEMY
 {
 	ENEMY_KURIBO,
 	ENEMY_NOKONOKO,
-	ENEMY_TERESA,
 	ENEMY_BAT,
+	ENEMY_TERESA,
 	ENEMY_KOTEIHOUDAI,
+	ENEMY_TESTBOS,
+	ENEMY_FLOATING,
+	ENEMY_POISONKURIBO,
+	ENEMY_TESTBOS2,
 };
+
+/*****************************************************************
+ * @enum tag_OBJECT
+ * オブジェクトの列挙
+ *****************************************************************/
+enum tag_OBJECT
+{
+	OBJECT_ROPE,
+	OBJECT_BRIDGE,
+	OBJECT_TREE01,
+};
+
+#include <crtdbg.h>
+#ifdef _DEBUG
+#define   new                   new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define   malloc(s)             _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   calloc(c, s)          _calloc_dbg(c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   realloc(p, s)         _realloc_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#endif

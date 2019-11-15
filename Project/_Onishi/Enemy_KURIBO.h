@@ -1,3 +1,10 @@
+/**
+ * @file Enemy_KURIBIO.h
+ * @brief クリボー
+ * @author 大西永遠
+ * @date 更新日（10/29）
+ */
+
 #pragma once
 #include	"EnemyMove.h"
 
@@ -8,4 +15,8 @@ public:
 	~CEnemy_KURIBO();
 	void Initialize();
 	void Update(float Xpos, float Ypos);
+	CRectangle	GetRect(void) const {
+		CRectangle rect(m_fXpos, m_fYpos, m_fXpos + m_SrcRect.GetWidth(), m_fYpos + m_SrcRect.GetHeight());
+		return rect;
+	}
 };

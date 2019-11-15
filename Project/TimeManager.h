@@ -18,6 +18,10 @@ public:
 		}
 		return m_pInstance;
 	}
+	void Release(void) {
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 };
 
 #define		g_pTimeManager	CTimeManager::GetInsctance()

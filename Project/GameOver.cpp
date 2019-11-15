@@ -35,6 +35,11 @@ CGameOver::~CGameOver() {
  * @return なし
  *****************************************************************/
 bool CGameOver::Load() {
+
+	//シーンエフェクトスタート
+	m_pEffect = new CEffectFade();
+	m_pEffect->In(10);
+
 	return TRUE;
 }
 
@@ -46,6 +51,11 @@ bool CGameOver::Load() {
  *****************************************************************/
 void CGameOver::Initialize() {
 
+	//終了フラグの初期化
+	m_bEnd = false;
+	//遷移先の初期化
+	m_NextSceneNo = SCENENO_GAMEOVER;
+
 }
 
 /*****************************************************************
@@ -55,6 +65,15 @@ void CGameOver::Initialize() {
  * @return なし
  *****************************************************************/
 void CGameOver::Update() {
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	{
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+		ReNum::GetInstance().SetReNum();
+	}
+
+	UpdateDebug();
 
 }
 
@@ -66,8 +85,38 @@ void CGameOver::Update() {
  *****************************************************************/
 void CGameOver::Render() {
 
+	RenderDebug();
 }
+/*****************************************************************
+* @fn
+* デバッグ更新
+* @param なし
+* @return なし
+*****************************************************************/
+void CGameOver::UpdateDebug() {
 
+	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+
+		m_bEnd = true;
+		m_NextSceneNo = SCENENO_GAME;
+	}
+
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
+
+		m_bEnd = true;
+		m_pEffect->Out(10);
+
+	}
+	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
+		m_bEnd = true;
+
+	}
+	if (m_pEffect->IsEnd() && m_bEnd) {
+
+		m_NextSceneNo = SCENENO_RANKING;
+	}
+}
 /*****************************************************************
  * @fn
  * デバッグ描画
@@ -75,6 +124,8 @@ void CGameOver::Render() {
  * @return なし
  *****************************************************************/
 void CGameOver::RenderDebug() {
+
+	CGraphicsUtilities::RenderString(0, 100, "ゲームオーバー");
 
 }
 
@@ -85,5 +136,11 @@ void CGameOver::RenderDebug() {
  * @return なし
  *****************************************************************/
 void CGameOver::Release() {
+	if (m_pEffect) {
+
+		delete m_pEffect;
+
+		m_pEffect = nullptr;
+	}
 
 }

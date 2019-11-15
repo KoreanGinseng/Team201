@@ -31,7 +31,6 @@ public:
 		}
 		return m_pInstance;
 	}
-
 };
 
 #define		g_pEffectManager		CEffectManager::GetInstance()

@@ -9,7 +9,6 @@
 //INCLUDE
 #include	"Mof.h"
 #include	"Coordinate.h"
-#include	"GameDefine.h"
 
 class CCamera2D {
 private:
