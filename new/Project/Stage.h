@@ -66,7 +66,7 @@ public:
 	void Release(void);
 
 	//Collision
-	bool Collision(CRectangle r, Vector2& o);
+	bool OverValue(CRectangle r, Vector2& o);
 
 	//Get
 	int			GetEnemyCount()  const { return m_EnemyCount; }

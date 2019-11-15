@@ -26,6 +26,8 @@ void CPlayer::Initialize(void)
 {
 	//
 	m_bDead = false;
+	//
+	m_bReverse = false;
 	//À•W‚Ì‰Šú‰»
 	m_Pos = Vector2(960, 768);
 	//HP‚Ì‰Šú‰»
@@ -80,23 +82,9 @@ void CPlayer::Update(void)
 		m_DamageWait--;
 	}
 
-	//
-	if (ReNum::GetInstance().GetReNumber() < 0)
-	{
-		m_HP = 0;
-
-	}
 	if (m_HP <= 0)
 	{
-		ReNum::GetInstance().SubReNumber();
-		if (ReNum::GetInstance().GetReNumber() < 0)
-		{
-			m_HP = 0;
-		}
-		else
-		{
-			m_HP = PLAYER_MAXHP;
-		}
+		m_bDead = true;
 	}
 }
 

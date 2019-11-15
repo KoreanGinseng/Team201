@@ -11,6 +11,7 @@ protected:
 	CAnim				m_Anim;
 	RectArray			m_RectArray;
 	bool				m_bDead;
+	bool				m_bReverse;
 public:
 	CCharacter(void);
 	~CCharacter(void) override;
@@ -29,5 +30,6 @@ public:
 	CRectangle GetSrcRect(void) const { return m_Anim.GetRect(); }
 	virtual CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight()); }
 	RectArray GetRectArray(void) const { return m_RectArray; }
+	virtual void CollisionStage(const Vector2& over);
 };
 

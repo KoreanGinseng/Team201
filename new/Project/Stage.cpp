@@ -376,7 +376,7 @@ void CStage::Release() {
 }
 
 //当たり判定
-bool CStage::Collision(CRectangle r, Vector2& o) {
+bool CStage::OverValue(CRectangle r, Vector2& o) {
 	bool re = false;
 
 	//当たり判定する矩形の左上と右下のチップ位置を求める

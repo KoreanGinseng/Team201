@@ -119,7 +119,7 @@ void CGame::Update()
 
 	Vector2 o(0, 0);
 	//プレイヤーとステージの当たり判定
-	if (m_Stage[m_StageNo].Collision(m_Player.GetRect(), o))
+	if (m_Stage[m_StageNo].OverValue(m_Player.GetRect(), o))
 	{
 		m_Player.CollisionStage(o);
 	}
@@ -145,11 +145,11 @@ void CGame::Update()
 		Vector2 eo(0, 0);
 		for (int j = 0; i < m_pEnemyArray[i]->GetRectArray().GetArrayCount; j++)
 		{
-			if (m_Stage[m_StageNo].Collision(m_pEnemyArray[i]->GetRectArray()[j], eo))
+			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray()[j], eo))
 			{
 				m_pEnemyArray[i]->CollisionStage(eo);
 			}
-			if (m_pEnemyArray[i]->Collision(m_Player.GetRect()[i], o))
+			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect()[i], o))
 			{
 				if (m_pEnemyArray[i]->IsSkill())
 				{
@@ -178,7 +178,7 @@ void CGame::Update()
 		for (int j = 0; j < m_pItemArray[i]->GetRectArray().GetArrayCount(); j++)
 		{
 			Vector2 io(0, 0);
-			if (m_Stage[m_StageNo].Collision(m_pItemArray[i]->GetRectArray()[j], io))
+			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray()[j], io))
 			{
 				if (!m_pItemArray[i]->IsShow())
 				{
@@ -209,7 +209,7 @@ void CGame::Update()
 		Vector2 oo(0, 0);
 		//プレイヤーとの当たり判定
 		oo = Vector2(0, 0);
-		if (m_pTargetObjArray[i]->Collision(m_Player.GetRect(), oo))
+		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), oo))
 		{
 			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 			{

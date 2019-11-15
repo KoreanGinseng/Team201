@@ -25,11 +25,16 @@ void CCharacter::Update(void)
 
 void CCharacter::Render(const Vector2& screenPos)
 {
-
+	m_pTexture->Render(screenPos.x, screenPos.y, GetSrcRect());
 }
 
 void CCharacter::Release(void)
 {
 	m_MvCntrl.Remove();
 	m_Anim.Release();
+}
+
+void CCharacter::CollisionStage(const Vector2 & over)
+{
+	m_Pos += over;
 }
