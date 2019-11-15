@@ -218,17 +218,17 @@ void CPlayer::PadOparation(void)
 			int skillNo = -1;
 
 			//–ß‚é
-			if (xgpad.IsKeyPush(GAMEKEY_X)) {
+			if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
 
 				skillNo = GAMEKEY_X;
 
 			}//Ž~‚ß‚é
-			else if (xgpad.IsKeyPush(GAMEKEY_Y)) {
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_Y)) {
 
 				skillNo = GAMEKEY_Y;
 
 			}//”ò‚Î‚·
-			else if (xgpad.IsKeyPush(GAMEKEY_B)) {
+			else if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
 				skillNo = GAMEKEY_B;
 

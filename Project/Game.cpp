@@ -262,7 +262,7 @@ void CGame::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
 
-		g_pScore->TotalScore(g_pTimeManager->GetNowTime());
+		g_pScore->TotalScore((int)g_pTimeManager->GetNowTime());
 		m_bEnd = true;
 		m_pEffect->Out(10);
 		m_SceneNo = SCENENO_GAMEOVER;

@@ -19,6 +19,7 @@
 
 
 typedef struct tag_RankingEntry {
+	
 	CRectangle	IconRect;
 	CString		Name;
 	int			Time;
@@ -35,22 +36,22 @@ enum tag_Ranking {
 class CRanking : public CSceneBase {
 private:
 	//! Ime関連
-
+	CTexturePtr					 m_pTexture;			//ランキング背景のテクスチャ
 	CString						 m_String;
 	int							 m_VisibleCount;		//点滅用カウント
 	Vector2						 m_MousePos;
 	Vector2						 m_PadPos;
-	Vector2						 m_KeyOffSet;
+	Vector2						 m_KeyOffSet;			//キー配列の位置
 	CFont					     m_NameFont;			//ランキング登録用フォント
 	bool						 m_bInputEnable;		//入力中かの判定
-	bool						 m_bShift;
-	bool						 m_bInput;
+	bool						 m_bShift;				//シフトフラグ
+	bool						 m_bInput;				//入力確定フラグ
 	
 
 	int							 m_CursolPointX;
-	int							 m_KeyMaxSize;
-	int							 m_KeySelectX;
-	int							 m_KeySelectY;
+	int							 m_KeyMaxSize;			//行配列の最大値
+	int							 m_KeySelectX;			//現在の文字X
+	int							 m_KeySelectY;			//現在の文字Y
 	bool					     m_bInit;
 
 	int							 m_InputCount;
@@ -66,6 +67,7 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
+	void InfoRender(void);		//ランキング情報の描画
 	void UpdateDebug();
 	void RenderDebug();
 	void Release();
@@ -77,13 +79,12 @@ public:
 	void ImeRender();
 
 	void SendKeyBoard(unsigned char VK);
-	void PadOperation(void);
-	void RankingSave(const int type);
-	static int Sort(const void* a, const void* b);
-	void VKOperation(void);
-	void KeyRender(void);
-	//void RankingSort(std::vector<RankingEntry>* r_array);
-	void MaxKeyLook(void);
+	void PadOperation(void);				//ゲームパッドでの操作
+	void RankingSave(const int type);		//ランキングの保存
+	static int Sort(const void* a, const void* b);	//ランキングのソート
+	void VKOperation(void);							//キーボード操作
+	void KeyRender(void);							//キー配列の描画
+	void MaxKeyLook(void);							//行の最大要素数の検索
 	
 	CRectangle GetTextBoxRect() { return CRectangle(g_pGraphics->GetTargetWidth() / 2 - TEXTBOX_WIDHT, TEXTBOX_TOP,
 													g_pGraphics->GetTargetWidth() / 2 + TEXTBOX_WIDHT + TEXTBOX_MARGIN, TEXTBOX_TOP + m_NameFont.GetSize()); }	//テキストボックスの矩形

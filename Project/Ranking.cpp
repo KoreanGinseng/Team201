@@ -26,9 +26,20 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
+	//ランキング背景の読み込み
+	m_pTexture = g_pTextureManager->GetResource("TestRanking.png");
+
+	if (m_pTexture == nullptr) {
+
+		return FALSE;
+
+	}
+
+	//シーンエフェクトの生成
 	m_pEffect = new CEffectFade();
 	m_pEffect->In(10);
 
+	//保存したランキングの要素数の読み込み
 	FILE* fpNE = fopen("RankingNE.dat", "rb");
 
 	if (!fpNE) {
@@ -44,9 +55,8 @@ bool CRanking::Load() {
 
 	m_RankingEntryArray.Release();
 	
+	//保存したランキングの読み込み
 	FILE* fp = fopen("Ranking.dat", "rb");
-
-	//std::vector<RankingEntry>* r_array = new std::vector<RankingEntry>();
 
 	if (fp) {
 		for (int i = 0; i < ne; i++) {
@@ -75,15 +85,15 @@ bool CRanking::Load() {
 
 	}
 
+	//読み込みしたランキングのソート
 	m_RankingEntryArray.Sort(Sort);
-
-	//RankingSort(r_array);
 
 
 	return TRUE;
 }
 
 void CRanking::Initialize() {
+
 	m_KeyMaxSize = 0;
 	m_bShift = false;
 	m_KeySelectX = 0;
@@ -116,19 +126,11 @@ void CRanking::Update() {
 
 void CRanking::Render() {
 
+	//確定されていたら描画(仮)
 	if (m_bInput) {
 
-		CGraphicsUtilities::RenderString(0, 100, "スコア");
-		CGraphicsUtilities::RenderString(100, 100, "タイム");
-		CGraphicsUtilities::RenderString(200, 100, "名前");
-
-		for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
-
-			CGraphicsUtilities::RenderString(0, 100 +(( i + 1) * 50), "%d", m_RankingEntryArray[i].Score);
-			CGraphicsUtilities::RenderString(100, 100 + ((i + 1) * 50), "%d", m_RankingEntryArray[i].Time);
-			CGraphicsUtilities::RenderString(200, 100 +((i + 1) * 50), "%s", m_RankingEntryArray[i].Name.GetString());
-
-		}
+		//スコアなどの情報の描画
+		InfoRender();
 
 		return;
 
@@ -136,15 +138,29 @@ void CRanking::Render() {
 
 	//Ime関連描画
 	ImeRender();
-	
-	/*for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
-		CGraphicsUtilities::RenderString(10, 100 + i * 50, "名前:%s タイム:%d", m_RankingEntryArray[i].Name.GetString(),m_RankingEntryArray[i].Score);
-	}
-	CGraphicsUtilities::RenderString(0, 200, "%d", (int)g_pTimeManager->GetNowTime());*/
 
+	//キー配列の描画
 	KeyRender();
 
 	
+}
+
+void CRanking::InfoRender() {
+
+	m_pTexture->Render(0, 0);
+
+	CGraphicsUtilities::RenderString(0, 100, MOF_COLOR_HRED,"スコア");
+	CGraphicsUtilities::RenderString(650, 100, MOF_COLOR_HRED, "タイム");
+	CGraphicsUtilities::RenderString(650*2, 100, MOF_COLOR_HRED, "名前");
+
+	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++) {
+
+		CGraphicsUtilities::RenderString(0, 100 + ((i + 1) * 50), MOF_COLOR_HRED, "%d", m_RankingEntryArray[i].Score);
+		CGraphicsUtilities::RenderString(650, 100 + ((i + 1) * 50), MOF_COLOR_HRED, "%d", m_RankingEntryArray[i].Time);
+		CGraphicsUtilities::RenderString(650*2, 100 + ((i + 1) * 50), MOF_COLOR_HRED, "%s", m_RankingEntryArray[i].Name.GetString());
+
+	}
+
 }
 
 void CRanking::UpdateDebug() {
@@ -172,9 +188,10 @@ void CRanking::UpdateDebug() {
 }
 
 void CRanking::RenderDebug() {
-	//CGraphicsUtilities::RenderString(10, 200, "%c", 0x7e);
+
+	//現在選んでいるキーの表示
 	CGraphicsUtilities::RenderRect(m_KeyOffSet.x + ((m_KeySelectX+1) * 32), m_KeyOffSet.y + ((m_KeySelectY) * 32), m_KeyOffSet.x + ((m_KeySelectX + 1) * 32) + 32, m_KeyOffSet.y + ((m_KeySelectY ) * 32) + 32, MOF_XRGB(0, 255, 0));
-	/*CGraphicsUtilities::RenderString(0, 100, "KeyMaxSize %d KeySelectX %d KeySelectY %d", m_KeyMaxSize,m_KeySelectX,m_KeySelectY);*/
+	
 }
 
 void CRanking::Release() {
@@ -189,6 +206,8 @@ void CRanking::Release() {
 	g_pScore->Release();
 
 	g_pGameKey->Release();
+
+	g_pScore->Release();
 
 }
 
@@ -292,33 +311,16 @@ void CRanking::ImeRender() {
 	}
 }
 
-//void CRanking::RankingSort(std::vector<RankingEntry>* r_array) {
-//
-//	/*std::sort(r_array->begin(),
-//		r_array->end(),
-//		[](const RankingEntry& a, const RankingEntry& b)
-//	{return (a.Score == b.Score) ? (a.Name.GetLength() < b.Name.GetLength()) : (a.Score < b.Score); });*/
-//
-//	
-//
-//	/*for (int i = 0; i < r_array->size(); i++) {
-//
-//		m_RankingEntryArray.Add(&(r_array[i]));
-//	}
-//	
-//*/
-//	
-//}
-
-
 void CRanking::KeyRender() {
 
+	//入力開始ボタンを押していなければ、処理を返す
 	if (!m_bInputEnable) {
 
 		return;
 
 	}
 
+	//シフトキーが押されている場合
 	if (m_bShift) {
 
 		for (int y = 0; y < KEYSIZE_Y; y++) {
@@ -407,10 +409,10 @@ void CRanking::PadOperation() {
 	VKOperation();
 
 	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
+
 		//保存
-		SendKeyBoard(VK_RETURN);
-	
 		RankingSave(GAMEPAD);
+	
 
 	}
 
@@ -418,13 +420,14 @@ void CRanking::PadOperation() {
 
 void CRanking::VKOperation() {
 
+	//選んでいる行の最大要素数を調べる
 	MaxKeyLook();
 
-	/*テスト*/
-	//Xキーで選択を左にする
+	//左キーで左に進む
 	if (g_pGameKey->KeyLeft()) {
 		
 		m_KeySelectX--;
+		//選んでいる列が1列以上で行が一番左なら、一列下の右端を指す
 		if (m_KeySelectY >= 1 && m_KeySelectX < 0) {
 
 			m_KeySelectY--;
@@ -434,7 +437,7 @@ void CRanking::VKOperation() {
 			m_KeySelectX = m_KeyMaxSize;
 		
 
-		}
+		}//列と行が0なら0で固定する
 		else if (m_KeySelectY == 0 && m_KeySelectX < 0) {
 
 			m_KeySelectX = 0;
@@ -442,17 +445,18 @@ void CRanking::VKOperation() {
 		
 
 
-	}
+	}//右キーで右に進む
 	else if (g_pGameKey->KeyRigth()) {
 	
 		m_KeySelectX++;
 
+		//列が最大値未満かつ行が最大値を超えた場合、一番左の行の一列上を指す
 		if (m_KeySelectY < KEYSIZE_Y-1 && m_KeySelectX>m_KeyMaxSize) {
 
 			m_KeySelectX = 0;
 			m_KeySelectY++;
 
-		}
+		}//列が最大値かつ行が最大値を超えた場合、列行共に最大値で固定する
 		else if (m_KeySelectY == KEYSIZE_Y-1 && m_KeySelectX > m_KeyMaxSize) {
 
 			m_KeySelectX = m_KeyMaxSize;
@@ -460,25 +464,30 @@ void CRanking::VKOperation() {
 
 		
 
-	}
+	}//上キーで上に進む
 	else if (g_pGameKey->KeyUp()) {
 
 		m_KeySelectY--;
+
+		//列が0より小さい場合0で固定する
 		if (m_KeySelectY < 0) {
 
 			m_KeySelectY = 0;
 		}
 
-	}
+	}//下キーで下に進む
 	else if (g_pGameKey->KeyDown()) {
 
 		m_KeySelectY++;
+
+		//列が最大値以上の場合最大値で固定する
 		if (m_KeySelectY >= KEYSIZE_Y-1) {
 
 			m_KeySelectY = KEYSIZE_Y-1;
 
 		}
 
+		//上キーを押したときの値が0なら、行の一番左を差す
 		if (KeyBoard[m_KeySelectY][m_KeySelectX] == 0) {
 
 			MaxKeyLook();
@@ -488,7 +497,7 @@ void CRanking::VKOperation() {
 
 	}
 
-	
+	//選択したキーが、シフトキーだった場合シフトフラグを立てる
 	if (KeyBoard[m_KeySelectY][m_KeySelectX] == VK_SHIFT) {
 
 		if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
@@ -513,7 +522,7 @@ void CRanking::VKOperation() {
 
 	}
 
-
+	//文字を入力
 	if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
 		SendKeyBoard(KeyBoard[m_KeySelectY][m_KeySelectX]);
@@ -521,6 +530,7 @@ void CRanking::VKOperation() {
 
 	}
 
+	//文字の位置を移動
 	if (g_pInput->IsKeyPush(MOFKEY_RIGHT)) {
 
 		SendKeyBoard(VK_RIGHT);
@@ -536,8 +546,10 @@ void CRanking::VKOperation() {
 }
 
 int CRanking::Sort(const void* a, const void* b) {
+
 	RankingEntry* r1 = (RankingEntry*)a;
 	RankingEntry* r2 = (RankingEntry*)b;
+	//スコア降順にソート
 	if (r1->Score > r2->Score) {
 
 		return 0;
@@ -578,13 +590,16 @@ void CRanking::RankingSave(const int type) {
 	delete re;
 	re = nullptr;
 	//追加したら入力中文字列リセット
+	SendKeyBoard(VK_RETURN);
 	g_pImeInput->ResetEnterString();
 	//入力を無効にする
 	g_pImeInput->SetEnable(FALSE);
 
+	//選択位置の初期か
 	m_KeySelectX = 0;
 	m_KeySelectY = 0;
 
+	//ランキングの要素数を保存
 	FILE* fpNE = fopen("RankingNE.dat", "wb");
 
 	int ne = m_RankingEntryArray.GetArrayCount();
@@ -598,7 +613,7 @@ void CRanking::RankingSave(const int type) {
 
 	fclose(fpNE);
 
-
+	//ランキングを保存
 	FILE* fp = fopen("Ranking.dat", "wb");
 
 
@@ -614,13 +629,8 @@ void CRanking::RankingSave(const int type) {
 	}
 
 	fclose(fp);
-
 	
-	g_pImeInput->ResetEnterString();
-
-	for (int i = 0; i < m_RankingEntryArray.GetArrayCount(); i++)
-		MOF_PRINTLOG("%s\n", m_RankingEntryArray[i].Name.GetString());
-	
+	//入力確定フラグを立てる
 	m_bInput = true;
 
 }

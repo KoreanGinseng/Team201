@@ -31,6 +31,7 @@ void CObject::Update(void) {
 
 	if (m_bSkill)
 	{
+
 		m_Motion.AddTimer(CUtilities::GetFrameSecond());
 		if (m_Motion.IsEndMotion())
 		{
