@@ -67,6 +67,7 @@ public:
 	//Skill
 	void Skill(void);
 	void SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount);
+	void TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTargetObj*>* pobjArray, CDynamicArray<CItem*>* pItemArray);
 
 	//Collision
 	void CollisionStage(Vector2 o);
