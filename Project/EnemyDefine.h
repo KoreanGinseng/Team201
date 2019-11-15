@@ -2,7 +2,7 @@
  * @file EnemyDefine.h
  * @brief 敵のまとめ
  * @author 大西永遠
- * @date 更新日（11/12）
+ * @date 更新日（11/15）
  */
 
 #pragma once
@@ -91,6 +91,9 @@ enum  BULLET
 //敵の弾の大きさ
 #define BulletRadius 5
 
+
+//弾を消す時間
+#define EraseTime 4
 #pragma endregion
 
 //重力の最大値

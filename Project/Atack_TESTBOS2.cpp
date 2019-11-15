@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS2.cpp
  * @brief テストボス2の攻撃
  * @author 大西永遠
- * @date 更新日（11/12）
+ * @date 更新日（11/15）
  */
 
 #include	"Atack_TESTBOS2.h"
@@ -19,9 +19,12 @@ void CAtack_TESTBOS2::Initialize() {
 	m_bShow = false;
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
+	/*for (int i = 0; i < ShotCount; i++) {
+
+	}*/
 	m_ShotReflectArry = new CRayBullet();
 	m_ShotReflectArry->Initialize();
-	m_Texture.Load("Hp.png");
+	//m_Texture.Load("Hp.png");
 	m_ScaleMagnification = 0;
 }
 
@@ -39,10 +42,11 @@ void CAtack_TESTBOS2::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 			m_fCooltime -= 1 * CUtilities::GetFrameSecond();
 			if (m_fCooltime < 0) {
 				m_fAtackTimer = AtackTimer;
-				for (int i = 0; i < ENEMYSHOT_COUNT; i++) {
+				for (int i = 0; i < ShotCount; i++) {
 					if (m_ShotReflectArry->GetShow()) {
 						continue;
 					}
+					
 					m_ShotReflectArry->Initialize();
 					m_ShotReflectArry->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
 					break;
@@ -55,21 +59,26 @@ void CAtack_TESTBOS2::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 		m_bShow = true;
 
 	}
-	m_ShotReflectArry->Update();
+	/*for (int i = 0; i < ShotCount; i++) {
+	}*/
+		m_ShotReflectArry->Update();
 	
 }
 void CAtack_TESTBOS2::Render() {
-
-	m_ShotReflectArry->Render();
-	m_Texture.RenderScaleRotate(m_fAtackPosX,m_fAtackPosY,m_ScaleMagnification,1.0f, MOF_ToRadian(30));
+	/*for (int i = 0; i < ShotCount; i++) {
+	}*/
+		m_ShotReflectArry->Render();
+	//m_Texture.RenderScaleRotate(m_fAtackPosX,m_fAtackPosY,m_ScaleMagnification,1.0f, MOF_ToRadian(30));
 	
 }
 void CAtack_TESTBOS2::Release() {
-	if (m_ShotReflectArry) {
-		m_ShotReflectArry->Release();
-		delete[] m_ShotReflectArry;
-		m_ShotReflectArry = NULL;
-	}
-	m_Texture.Release();
+		if (m_ShotReflectArry) {
+			m_ShotReflectArry->Release();
+			delete[] m_ShotReflectArry;
+			m_ShotReflectArry = NULL;
+		}
+	/*for (int i = 1; i < ShotCount; i++) {
+	}*/
+	//m_Texture.Release();
 
 }

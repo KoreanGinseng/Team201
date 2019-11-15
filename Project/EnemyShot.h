@@ -2,7 +2,7 @@
  * @file EnemyShot.h
  * @brief エネミーの弾
  * @author 大西永遠
- * @date 更新日（10/29）
+ * @date 更新日（11/15）
  */
 
 #pragma once
@@ -20,6 +20,7 @@ protected:
 	float		m_SpdY;
 	bool		m_bShow;
 	float		m_Radian;
+	float		m_EraseTime;
 public:
 	 CEnemyShot();
 	virtual ~ CEnemyShot();
@@ -33,6 +34,8 @@ public:
 	bool SetShow(bool bs) { m_bShow = bs; }
 	//void Release();
 	virtual void CollisionStage(float ox, float oy)=0;
+
+	float GetEraseTime() { return m_EraseTime; }
 };
 
 

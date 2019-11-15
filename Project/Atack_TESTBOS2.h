@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS2.h
  * @brief テストボス2の攻撃
  * @author 大西永遠
- * @date 更新日（11/5）
+ * @date 更新日（11/15）
  */
 
 #pragma once
@@ -12,6 +12,7 @@
 #include	"BounceBullet.h"
 #include	"ReflectBullet.h"
 #include	"RayBullet.h"
+#define ShotCount	2
 
 class CAtack_TESTBOS2 :public CEnemyAtack {
 private:
@@ -22,6 +23,7 @@ private:
 	CRectangle				m_SrcRect;
 	CTexture	m_Texture;
 	float	m_Radian;
+	CRayBullet	m_RayBullet;
 	//CEnemyShot*	m_ShotBounceArry;
 public:
 	CAtack_TESTBOS2();
