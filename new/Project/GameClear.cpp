@@ -37,7 +37,7 @@ CGameClear::~CGameClear() {
 bool CGameClear::Load() {
 
 	//シーンエフェクトスタート
-	m_pEffect = new CEffectFade();
+	m_pEffect = NEW CEffectFade();
 	m_pEffect->In(10);
 
 
@@ -52,8 +52,6 @@ bool CGameClear::Load() {
  *****************************************************************/
 void CGameClear::Initialize() {
 
-	//終了フラグの初期化
-	m_bEnd = false;
 	//遷移先の初期化
 	m_NextSceneNo = SCENENO_GAMECLEAR;
 
@@ -81,23 +79,16 @@ void CGameClear::Update() {
 void CGameClear::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
-
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
-
-		m_bEnd = true;
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_pEffect->IsStart()) {
 		m_pEffect->Out(10);
-
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 
-		m_bEnd = true;
-
 	}
-	if (m_pEffect->IsEnd() && m_bEnd) {
+	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 		m_NextSceneNo = SCENENO_TITLE;
 	}
 }

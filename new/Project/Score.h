@@ -18,7 +18,7 @@ public:
 
 		if (m_pInstance == nullptr) {
 
-			m_pInstance = new CScore();
+			m_pInstance = NEW CScore();
 
 		}
 

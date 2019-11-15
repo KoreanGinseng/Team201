@@ -14,7 +14,7 @@ public:
 	float GetNowTime(void) { return m_Time; }
 	static CTimeManager* GetInsctance(void) {
 		if (m_pInstance == nullptr) {
-			m_pInstance = new CTimeManager();
+			m_pInstance = NEW CTimeManager();
 		}
 		return m_pInstance;
 	}

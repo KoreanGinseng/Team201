@@ -37,7 +37,7 @@ CGameOver::~CGameOver() {
 bool CGameOver::Load() {
 
 	//シーンエフェクトスタート
-	m_pEffect = new CEffectFade();
+	m_pEffect = NEW CEffectFade();
 	m_pEffect->In(10);
 
 	return TRUE;
@@ -50,12 +50,8 @@ bool CGameOver::Load() {
  * @return なし
  *****************************************************************/
 void CGameOver::Initialize() {
-
-	//終了フラグの初期化
-	m_bEnd = false;
 	//遷移先の初期化
 	m_NextSceneNo = SCENENO_GAMEOVER;
-
 }
 
 /*****************************************************************
@@ -68,9 +64,7 @@ void CGameOver::Update() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
 	{
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
-		ReNum::GetInstance().SetReNum();
 	}
 
 	UpdateDebug();
@@ -96,23 +90,16 @@ void CGameOver::Render() {
 void CGameOver::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
-
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
-
-		m_bEnd = true;
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_pEffect->IsStart()) {
 		m_pEffect->Out(10);
-
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 
-		m_bEnd = true;
-
 	}
-	if (m_pEffect->IsEnd() && m_bEnd) {
+	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 
 		m_NextSceneNo = SCENENO_RANKING;
 	}

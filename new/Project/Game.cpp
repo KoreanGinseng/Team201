@@ -36,7 +36,7 @@ CGame::~CGame()
 bool CGame::Load()
 {
 	//シーンエフェクトスタート
-	m_pEffect = new CEffectFade();
+	m_pEffect = NEW CEffectFade();
 	m_pEffect->In(10);
 
 	if (!m_Stage[m_StageNo].Load(g_StageFileName[m_StageNo]))
@@ -44,15 +44,15 @@ bool CGame::Load()
 		return FALSE;
 	}
 	//敵メモリ確保
-	CEnemy* tmp_e = new CEnemy;
+	CEnemy* tmp_e = NEW CEnemy;
 	m_pEnemyArray.SetArray(&tmp_e, m_Stage[m_StageNo].GetEnemyCount());
 	delete tmp_e;
 	//アイテムメモリ確保
-	CItem* tmp_i = new CItem;
+	CItem* tmp_i = NEW CItem;
 	m_pItemArray.SetArray(&tmp_i, m_Stage[m_StageNo].GetItemCount());
 	delete tmp_i;
 	//オブジェクトメモリ確保
-	CTargetObj* tmp_t = new CTargetObj;
+	CTargetObj* tmp_t = NEW CTargetObj;
 	m_pTargetObjArray.SetArray(&tmp_t, m_Stage[m_StageNo].GetObjectCount());
 	delete tmp_t;
 

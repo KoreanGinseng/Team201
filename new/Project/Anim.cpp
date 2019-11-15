@@ -7,12 +7,18 @@ void CAnim::Initialize(void)
 
 void CAnim::Update(void)
 {
-	m_Anim.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Anim.GetSrcRect();
+	if (!m_pAnim)
+	{
+		return;
+	}
+	m_pAnim->AddTimer(CUtilities::GetFrameSecond());
+	m_SrcRect = m_pAnim->GetSrcRect();
 }
 
 void CAnim::Create(const char * pName)
 {
 	int c = g_pAnimManager->GetResource(pName)->GetAnimCount();
-	m_Anim.Create(g_pAnimManager->GetResource(pName)->GetAnim(), c);
+	NewPointerRelease(m_pAnim);
+	m_pAnim = new CSpriteMotionController();
+	m_pAnim->Create(g_pAnimManager->GetResource(pName)->GetAnim(), c);
 }

@@ -25,7 +25,7 @@ bool CAnimationData::Load(const char* pName)
 	//画像ファイルの文字列取得
 	int fnc;
 	fread(&fnc, sizeof(int), 1, fp);
-	char* fns = new char[fnc + 1];
+	char* fns = NEW char[fnc + 1];
 	fread(fns, sizeof(char), fnc, fp);
 	fns[fnc] = '\0';
 
@@ -41,7 +41,7 @@ bool CAnimationData::Load(const char* pName)
 
 	//アニメーション数取得
 	fread(&m_AnimCount, sizeof(int), 1, fp);
-	m_pAnim = new SpriteAnimationCreate[m_AnimCount];
+	m_pAnim = NEW SpriteAnimationCreate[m_AnimCount];
 
 	//アニメーションの数だけ繰り返す
 	for (int i = 0; i < m_AnimCount; ++i)
@@ -51,7 +51,7 @@ bool CAnimationData::Load(const char* pName)
 
 		//アニメーション名取得
 		fread(&read, sizeof(int), 1, fp);
-		char* animName = new char[read + 1];
+		char* animName = NEW char[read + 1];
 		fread(animName, sizeof(char), read, fp);
 		animName[read] = '\0';
 		m_pAnim[i].Name = animName;

@@ -34,8 +34,6 @@ bool CTitle::Load()
 //‰Šú‰»
 void CTitle::Initialize()
 {
-	//I—¹ƒtƒ‰ƒO‚Ì‰Šú‰»
-	m_bEnd = false;
 	//‘JˆÚæ‚Ì‰Šú‰»
 	m_NextSceneNo = SCENENO_TITLE;
 
@@ -47,9 +45,7 @@ void CTitle::Update()
 {
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
 	{
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
-		ReNum::GetInstance().SetReNum();
 	}
 
 	UpdateDebug();
@@ -68,18 +64,16 @@ void CTitle::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
 
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN)) {
 
-		m_bEnd = true;
 		m_pEffect->Out(10);
 
 	}
 
-	if (m_pEffect->IsEnd() && m_bEnd) {
+	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 
 		m_NextSceneNo = SCENENO_GAME;
 	}

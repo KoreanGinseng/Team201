@@ -44,7 +44,7 @@ public:
 
 		if (m_pInstance == nullptr) {
 
-			m_pInstance = new CGameKey();
+			m_pInstance = NEW CGameKey();
 
 		}
 

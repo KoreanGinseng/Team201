@@ -31,13 +31,13 @@ CXGamePad*			gpXGpad = nullptr;
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
 
-	gpXGpad = new CXGamePad();
+	gpXGpad = NEW CXGamePad();
 	XGAMEPADCREATEINFO xc;
 	g_pGamePad->Create(&xc);
 
-	gpScene = new CGame();
+	gpScene = NEW CGame();
 
-	gpLoading = new CLoading();
+	gpLoading = NEW CLoading();
 	gpLoading->SetScene(gpScene);
 	gpLoading->Start("Loading");
 
@@ -73,24 +73,24 @@ MofBool CGameApp::Update(void){
 		switch (n)
 		{
 		case SCENENO_GAME:
-			gpScene = new CGame();
+			gpScene = NEW CGame();
 			break;
 		case SCENENO_TITLE:
-			gpScene = new CTitle();
+			gpScene = NEW CTitle();
 			break;
 		case SCENENO_GAMECLEAR:
-			gpScene = new CGameClear();
+			gpScene = NEW CGameClear();
 			break;
 		case SCENENO_GAMEOVER:
-			gpScene = new CGameOver();
+			gpScene = NEW CGameOver();
 			break;
 		case SCENENO_RANKING:
-			gpScene = new CRanking();
+			gpScene = NEW CRanking();
 			break;
 		default:
 			break;
 		}
-		gpLoading = new CLoading();
+		gpLoading = NEW CLoading();
 		gpLoading->SetScene(gpScene);
 		gpLoading->Start("Loading");
 	}

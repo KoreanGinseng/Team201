@@ -26,7 +26,7 @@ m_bInit(false){
 
 bool CRanking::Load() {
 
-	m_pEffect = new CEffectFade();
+	m_pEffect = NEW CEffectFade();
 	m_pEffect->In(10);
 
 	FILE* fpNE = fopen("RankingNE.dat", "rb");
@@ -55,7 +55,7 @@ bool CRanking::Load() {
 			fread(&r.IconRect, sizeof(CRectangle), 1, fp);
 			int s;
 			fread(&s, sizeof(int), 1, fp);
-			char* str = new char[s + 1];
+			char* str = NEW char[s + 1];
 			str[s] = '\0';
 			fread(str, sizeof(char), s, fp);
 			r.Name.SetString(str);
@@ -150,23 +150,17 @@ void CRanking::Render() {
 void CRanking::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
-
-		m_bEnd = true;
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && g_pInput->IsKeyHold(MOFKEY_LCONTROL) && !m_bEnd) {
-
-		m_bEnd = true;
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && g_pInput->IsKeyHold(MOFKEY_LCONTROL) && !m_pEffect->IsStart()) {
 		m_pEffect->Out(10);
 
 	}
 	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
 
-		m_bEnd = true;
-
 	}
-	if (m_pEffect->IsEnd() && m_bEnd) {
+	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 		m_NextSceneNo = SCENENO_TITLE;
 	}
 }
@@ -569,7 +563,7 @@ void CRanking::RankingSave(const int type) {
 	
 
 	//“ü—Í‚³‚ê‚½’l‚ð•Û‘¶
-	RankingEntry* re = new RankingEntry;
+	RankingEntry* re = NEW RankingEntry;
 	re->Name = it;
 	re->IconRect = CRectangle(0, 0, 0, 0);
 	re->Time = (int)g_pTimeManager->GetNowTime();

@@ -4,8 +4,8 @@
 class CAnim
 {
 private:
-	CSpriteMotionController	m_Anim;
-	CRectangle				m_SrcRect;
+	CSpriteMotionController*	m_pAnim;
+	CRectangle					m_SrcRect;
 public:
 	CAnim() {}
 	~CAnim() {}
@@ -13,6 +13,7 @@ public:
 	void Initialize(void);
 	void Update(void);
 	void Create(const char* pName);
-	void ChangeAnim(const int& animNo) { m_Anim.ChangeMotion(animNo); }
+	void ChangeAnim(const int& animNo) { m_pAnim->ChangeMotion(animNo); }
+	void Release(void) { NewPointerRelease(m_pAnim); }
 };
 
