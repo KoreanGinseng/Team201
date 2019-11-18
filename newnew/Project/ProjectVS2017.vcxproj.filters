@@ -225,6 +225,8 @@
     <ClInclude Include="Move.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MovePlayer.h" />
+    <ClInclude Include="MovePlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
