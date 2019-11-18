@@ -60,6 +60,10 @@ void CTitle::Render()
 
 }
 
+void CTitle::RenderUI()
+{
+}
+
 void CTitle::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {

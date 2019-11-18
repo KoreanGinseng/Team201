@@ -9,9 +9,10 @@ class CCharacter :
 protected:
 	CMoveController		m_MvCntrl;
 	CAnim				m_Anim;
-	RectArray			m_RectArray;
+	RectArray			m_SrcRectArray;
 	bool				m_bDead;
 	bool				m_bReverse;
+	int					m_DamageWait;
 public:
 	CCharacter(void);
 	~CCharacter(void) override;
@@ -23,12 +24,19 @@ public:
 	void CreateMove(const int& no) { m_MvCntrl.Create(no); }
 	void CreateAnim(const char* pName) { m_Anim.Create(pName); }
 
+	void LoadRect(const char* pName);
+
 	bool IsDead(void) const { return m_bDead; }
 
 	Vector2 GetPos(void) const { return m_Pos; }
+	Vector2 GetSpd(void) const { return m_MvCntrl.GetSpd(); }
 	CRectangle GetSrcRect(void) const { return m_Anim.GetRect(); }
 	virtual CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight()); }
-	RectArray GetRectArray(void) const { return m_RectArray; }
+	RectArray GetSrcRectArray(void) const { return m_SrcRectArray; }
+	RectArray GetRectArray(void) const;
+	CRectangle GetRectArray(const int& n) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRectArray[n].GetWidth(), m_Pos.y + m_SrcRectArray[n].GetHeight()); }
+	int GetDamageWait(void) const { return m_DamageWait; }
+	bool OverValue(CRectangle rec, Vector2& out);
 	virtual void CollisionStage(const Vector2& over);
 };
 

@@ -8,10 +8,12 @@
 
 //INCLUDE
 #include	"Mof.h"
-#include	"Game.h"
+#include	<vector>
+#include	<string>
+#include	"GameDefine.h"
 #include	"Enemy.h"
 #include	"Item.h"
-#include	"Object.h"
+#include	"TargetObj.h"
 
 #define		RIGHTSLOPE		10
 #define		RIGHTSLOPE2		23
@@ -58,7 +60,6 @@ public:
 	CStage(void);
 	~CStage(void) {}
 	bool Load(const char* pName);
-	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
 	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray);
 	void Update(void);
 	void Render(Vector2 scroll);

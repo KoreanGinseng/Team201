@@ -119,6 +119,11 @@ constexpr	char*	FileName[] = {
 	//SOUND
 	"TestJump.mp3",
 	"TestStageBGM.mp3",
+
+	//RECT
+	"",
+	"",
+	"",
 };
 
 //ENUM
@@ -240,7 +245,11 @@ typedef enum tag_SOUNDDATA {
 	SOUND_COUNT,
 }SOUNDDATA;
 
-
+enum tag_RECTDATA {
+	RECT_OBJ_1 = SOUND_COUNT,
+	RECT_OBJ_2,
+	RECT_OBJ_3,
+};
 
 
 /*****************************************************************
@@ -277,12 +286,14 @@ extern CXGamePad*			gpXGpad;
 #define		g_pGamePad		gpXGpad
 
 #include <crtdbg.h>
-#define	  NEW					new
 #ifdef _DEBUG
-#define   NEW                   new(_NORMAL_BLOCK, __FILE__, __LINE__)
+//íËã`ÇµÇƒÇ≠ÇÍÇƒÇΩÉeÉwÉyÉç
+//#define   NEW                   new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #define   malloc(s)             _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   calloc(c, s)          _calloc_dbg(c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   realloc(p, s)         _realloc_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#else
+#define	  NEW					new
 #endif

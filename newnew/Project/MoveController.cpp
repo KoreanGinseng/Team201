@@ -46,4 +46,5 @@ bool CMoveController::Create(const int & no)
 	}
 	NewPointerRelease(m_pMove);
 	m_pMove = move;
+	return true;
 }

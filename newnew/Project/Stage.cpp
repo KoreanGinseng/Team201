@@ -294,9 +294,9 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
-			(*pTargetObjArray)[n]->SetMotionEnd(m_pObjEndData[y * m_XCount + x]);
-			(*pTargetObjArray)[n]->Initialize();
-			(*pTargetObjArray)[n++]->SetObject(on);
+			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
+			(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
+			(*pTargetObjArray)[n++]->Initialize();
 		}
 	}
 }

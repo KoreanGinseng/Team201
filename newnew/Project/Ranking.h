@@ -8,6 +8,7 @@
 
 
 #define		IME_FONT_SIZE	64
+#define		FONT_SIZE		64
 #define		FONT_LENGTH		10
 #define		TEXTBOX_TOP		50
 #define		TEXTBOX_WIDHT	IME_FONT_SIZE * (FONT_LENGTH / 2)

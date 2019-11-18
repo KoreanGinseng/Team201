@@ -14,7 +14,8 @@ public:
 	void Initialize(void);
 	void Update(void);
 	bool Create(const int& no);
-	Vector2 GetMove(void) const { return m_pMove->GetMove(); }
+	Vector2 GetMove(void) const {return m_pMove->GetMove(); }
+	Vector2 GetSpd(void) const { return m_pMove->GetSpd(); }
 	int GetMotionNo(void) const { return m_pMove->GetMotionNo(); }
 	CMove*  GetInstance(void) { return m_pMove; }
 	void SetMove(const float& x, const float& y) { SetMove(Vector2(x, y)); }

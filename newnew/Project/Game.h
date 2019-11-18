@@ -11,10 +11,10 @@
 #include "GameDefine.h"
 #include "Camera2D.h"
 #include "Player.h"
-#include "Stage.h"
 #include "Enemy.h"
 #include "Item.h"
 #include "TargetObj.h"
+#include "Stage.h"
 
 class CGame :
 	public CSceneBase
@@ -23,6 +23,7 @@ private:
 	CCamera2D			m_MainCamera;
 	CPlayer				m_Player;
 	CStage				m_Stage[STAGE_COUNT];
+
 	static	int			m_StageNo;
 
 	bool				m_bPoase;

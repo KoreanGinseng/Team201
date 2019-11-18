@@ -147,6 +147,10 @@ void CRanking::Render() {
 	
 }
 
+void CRanking::RenderUI()
+{
+}
+
 void CRanking::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
@@ -182,7 +186,7 @@ void CRanking::Release() {
 
 	g_pScore->Release();
 
-	g_pGameKey->Release();
+//	g_pGameKey->Release();
 
 }
 
@@ -383,7 +387,7 @@ void CRanking::SendKeyBoard(unsigned char VK) {
 void CRanking::PadOperation() {
 
 	//テスト.RBで入力開始
-	if (g_pGamePad->IsKeyPush(GAMEKEY_RB)) {
+	if (g_pGamePad->IsKeyPush(XINPUT_R_BTN)) {
 		//編集可能
 		g_pImeInput->SetEnable(TRUE);
 		m_bInputEnable = true;
@@ -400,7 +404,7 @@ void CRanking::PadOperation() {
 	//VKの操作
 	VKOperation();
 
-	if (g_pGamePad->GetPadState()->lZ < -500.0f) {
+	if (g_pGamePad->IsKeyPush(XINPUT_L_TRIGGER)) {
 		//保存
 		SendKeyBoard(VK_RETURN);
 	
@@ -416,7 +420,7 @@ void CRanking::VKOperation() {
 
 	/*テスト*/
 	//Xキーで選択を左にする
-	if (g_pGameKey->KeyLeft()) {
+	if (g_pGamePad->IsKeyPush(XINPUT_DP_LEFT)) {
 		
 		m_KeySelectX--;
 		if (m_KeySelectY >= 1 && m_KeySelectX < 0) {
@@ -437,7 +441,7 @@ void CRanking::VKOperation() {
 
 
 	}
-	else if (g_pGameKey->KeyRigth()) {
+	else if (g_pGamePad->IsKeyPush(XINPUT_DP_RIGHT)) {
 	
 		m_KeySelectX++;
 
@@ -455,7 +459,7 @@ void CRanking::VKOperation() {
 		
 
 	}
-	else if (g_pGameKey->KeyUp()) {
+	else if (g_pGamePad->IsKeyPush(XINPUT_DP_UP)) {
 
 		m_KeySelectY--;
 		if (m_KeySelectY < 0) {
@@ -464,7 +468,7 @@ void CRanking::VKOperation() {
 		}
 
 	}
-	else if (g_pGameKey->KeyDown()) {
+	else if (g_pGamePad->IsKeyPush(XINPUT_DP_DOWN)) {
 
 		m_KeySelectY++;
 		if (m_KeySelectY >= KEYSIZE_Y-1) {
@@ -485,7 +489,7 @@ void CRanking::VKOperation() {
 	
 	if (KeyBoard[m_KeySelectY][m_KeySelectX] == VK_SHIFT) {
 
-		if (g_pGamePad->IsKeyPush(GAMEKEY_START)) {
+		if (g_pGamePad->IsKeyPush(XINPUT_START)) {
 
 			m_bShift = !m_bShift;
 
@@ -508,7 +512,7 @@ void CRanking::VKOperation() {
 	}
 
 
-	if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
+	if (g_pGamePad->IsKeyPush(XINPUT_B)) {
 
 		SendKeyBoard(KeyBoard[m_KeySelectY][m_KeySelectX]);
 
@@ -516,7 +520,7 @@ void CRanking::VKOperation() {
 	}
 
 	if (g_pInput->IsKeyPush(MOFKEY_RIGHT)) {
-
+		//?
 		SendKeyBoard(VK_RIGHT);
 
 	}

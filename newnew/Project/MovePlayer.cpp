@@ -75,7 +75,7 @@ void CMovePlayer::KeyOparation(void)
 		//ˆÚ“®—Ê‚ª‘¶İ‚·‚éê‡A™X‚ÉˆÚ“®—Ê‚ğ0‚É‚·‚é
 		if (m_Move.x != 0)
 		{
-			m_Move.x -= (m_Spd.x - 0.1f) * (m_bMove < 0) ? 1 : -1;
+			m_Move.x -= (m_Spd.x - 0.1f) * (m_Move < 0) ? 1 : -1;
 		}
 		else
 		{

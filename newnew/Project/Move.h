@@ -13,6 +13,7 @@ public:
 	virtual void Update(void) = 0;
 	int  GetMotionNo(void) const { return m_MotionNo; }
 	Vector2 GetMove(void) const { return m_Move; }
-	Vector2 SetMove(const Vector2& move) { m_Move = move; }
+	Vector2 GetSpd(void) const { return m_Spd; }
+	void SetMove(const Vector2& move) { m_Move = move; }
 };
 

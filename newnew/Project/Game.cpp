@@ -110,7 +110,7 @@ void CGame::Update()
 	//プレイヤーがスキル発動時の場合、
 	if (m_Player.IsTrigger())
 	{
-		m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
+		//m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 		m_Player.TargetSelect(&m_pEnemyArray, &m_pTargetObjArray, &m_pItemArray);
 	}
 
@@ -143,13 +143,13 @@ void CGame::Update()
 			continue;
 		}
 		Vector2 eo(0, 0);
-		for (int j = 0; i < m_pEnemyArray[i]->GetRectArray().GetArrayCount; j++)
+		for (int j = 0; i < m_pEnemyArray[i]->GetSrcRectArray().GetArrayCount(); j++)
 		{
-			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray()[j], eo))
+			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), eo))
 			{
 				m_pEnemyArray[i]->CollisionStage(eo);
 			}
-			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect()[i], o))
+			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), o))
 			{
 				if (m_pEnemyArray[i]->IsSkill())
 				{
@@ -175,10 +175,10 @@ void CGame::Update()
 	//当たり判定
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
-		for (int j = 0; j < m_pItemArray[i]->GetRectArray().GetArrayCount(); j++)
+		for (int j = 0; j < m_pItemArray[i]->GetSrcRectArray().GetArrayCount(); j++)
 		{
 			Vector2 io(0, 0);
-			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray()[j], io))
+			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray(j), io))
 			{
 				if (!m_pItemArray[i]->IsShow())
 				{
@@ -225,9 +225,9 @@ void CGame::Update()
 		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
 		{
 			oo = Vector2(0, 0);
-			if (m_pTargetObjArray[i]->Collision(m_pEnemyArray[j]->GetRect(), oo))
+			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), oo))
 			{
-				if (m_pTargetObjArray[i]->GetType() == OBJECT_ROPE)
+				if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 				{
 					continue;
 				}

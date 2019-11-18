@@ -81,6 +81,9 @@ void CGameOver::Render() {
 
 	RenderDebug();
 }
+ void CGameOver::RenderUI()
+ {
+ }
 /*****************************************************************
 * @fn
 * デバッグ更新
