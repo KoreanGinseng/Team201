@@ -2,6 +2,7 @@
 #include	"GameDefine.h"
 #include	"Move.h"
 #include	"Anim.h"
+#include	"MovePlayer.h"
 
 class CMoveController
 {
@@ -12,18 +13,7 @@ public:
 	~CMoveController();
 	void Initialize(void);
 	void Update(void);
-	template< typename T >
-	bool Create( T * p )
-	{
-		T* move = T();
-		if (!move)
-		{
-			return false;
-		}
-		*move = *p;
-		NewPointerRelease(m_pMove);
-		m_pMove = move;
-	}
+	bool Create(const int& no);
 	Vector2 GetMove(void) const { return m_pMove->GetMove(); }
 	int GetMotionNo(void) const { return m_pMove->GetMotionNo(); }
 	CMove*  GetInstance(void) { return m_pMove; }

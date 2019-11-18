@@ -59,7 +59,7 @@ public:
 	~CStage(void) {}
 	bool Load(const char* pName);
 	void Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj);
-	void Initialize(STAGEDATA* pData);
+	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray);
 	void Update(void);
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);

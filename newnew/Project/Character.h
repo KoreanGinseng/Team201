@@ -20,8 +20,7 @@ public:
 	void Render(const Vector2& screenPos) override;
 	void Release(void) override;
 
-	template<typename T >
-	void CreateMove(T* p) { m_MvCntrl.Create(p); }
+	void CreateMove(const int& no) { m_MvCntrl.Create(no); }
 	void CreateAnim(const char* pName) { m_Anim.Create(pName); }
 
 	bool IsDead(void) const { return m_bDead; }

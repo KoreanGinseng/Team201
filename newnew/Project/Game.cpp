@@ -65,13 +65,8 @@ void CGame::Initialize()
 	//遷移先の初期化
 	m_NextSceneNo = SCENENO_GAME;
 
-	//ステージデータの登録
-	STAGEDATA data;
-	data.pEnemyArray = &m_pEnemyArray;
-	data.pItemArray = &m_pItemArray;
-	data.pTargetObjArray = &m_pTargetObjArray;
 	//ステージの初期化
-	m_Stage[m_StageNo].Initialize(&data);
+	m_Stage[m_StageNo].Initialize(&m_pEnemyArray, &m_pItemArray, &m_pTargetObjArray);
 
 	//プレイヤーの初期化
 	m_Player.Initialize();

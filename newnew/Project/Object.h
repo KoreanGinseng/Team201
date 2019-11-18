@@ -16,6 +16,7 @@ public:
 	virtual void Update(void) = 0;
 	virtual void Render(const Vector2& screenPos) = 0;
 	virtual void Release(void) = 0;
+	void SetPos(const float& x, const float& y) { SetPos(x,y); }
 	void SetPos(const Vector2& pos) { m_Pos = pos; }
 	void SetTexture(const CTexturePtr& pt) { m_pTexture = pt; }
 	void SetShow(const bool& b) { m_bShow = b; }

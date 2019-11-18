@@ -16,13 +16,6 @@
 #include "Item.h"
 #include "TargetObj.h"
 
-//STRUCT
-typedef struct tag_STAGEDATA {
-	CDynamicArray<CEnemy*>*		pEnemyArray;
-	CDynamicArray<CItem*>*		pItemArray;
-	CDynamicArray<CTargetObj*>*	pTargetObjArray;
-}STAGEDATA;
-
 class CGame :
 	public CSceneBase
 {

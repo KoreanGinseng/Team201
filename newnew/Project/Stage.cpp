@@ -240,7 +240,8 @@ bool CStage::Load(const char* pName) {
 }
 
 //‰Šú‰»
-void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
+void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>* pItemArray, CDynamicArray<CTargetObj*>* pTargetObjArray)
+{
 	int n = 0;
 	for (int y = 0; y < m_YCount; y++)
 	{
@@ -253,10 +254,11 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pEne[n].SetTexture(m_pEnemyTexture[on]);
-			pEne[n].SetMoveAttack(on);
-			pEne[n].MotionCreate(g_pAnimManager->GetResource(FileName[ANIMATION_ENEMY_1 + on]));
-			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
+			(*pEnemyArray)[n]->CreateMove(on);
+			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
+			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -271,8 +273,10 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pItem[n].SetTexture(m_pItemTexture[on]);
-			pItem[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+			(*pItemArray)[n]->SetTexture(m_pItemTexture[on]);
+			(*pItemArray)[n]->CreateAnim(FileName[ANIMATION_ITEM_1 + on]);
+			(*pItemArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pItemArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -287,13 +291,16 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pObj[n].SetTexture(m_pObjectTexture[on]);
-			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, on);
-			pObj[n++].SetObject(on);
+			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
+			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
+			(*pTargetObjArray)[n]->SetMotionEnd(m_pObjEndData[y * m_XCount + x]);
+			(*pTargetObjArray)[n]->Initialize();
+			(*pTargetObjArray)[n++]->SetObject(on);
 		}
 	}
 }
+
 
 //XV
 void CStage::Update() {

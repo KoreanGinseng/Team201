@@ -28,3 +28,22 @@ void CMoveController::Update(void)
 		m_pMove->Update();
 	}
 }
+
+bool CMoveController::Create(const int & no)
+{
+	CMove* move = nullptr;
+	switch (no)
+	{
+	case 0:
+		move = NEW CMovePlayer();
+		break;
+	default:
+		break;
+	}
+	if (!move)
+	{
+		return false;
+	}
+	NewPointerRelease(m_pMove);
+	m_pMove = move;
+}
