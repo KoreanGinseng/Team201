@@ -19,6 +19,15 @@
 //DEFINE
 #define		PLAYER_RECTDIS		40
 
+namespace Player {
+	enum tag_Animation {
+		ANIM_WAIT,
+		ANIM_MOVE,
+
+		ANIM_COUNT,
+	};
+}
+
 class CPlayer : public CCharacter
 {
 private:
@@ -37,13 +46,6 @@ private:
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
 	int							m_DamageWait;
-
-	enum tag_Animation {
-		ANIM_WAIT,
-		ANIM_MOVE,
-
-		ANIM_COUNT,
-	};
 
 public:
 	CPlayer(void);

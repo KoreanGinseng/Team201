@@ -1,5 +1,5 @@
 #include "MovePlayer.h"
-
+#include	"Player.h"
 
 
 CMovePlayer::CMovePlayer()
@@ -19,6 +19,15 @@ void CMovePlayer::Initialize(void)
 
 void CMovePlayer::Update(void)
 {
+	if (!m_bMove && m_MotionNo != Player::ANIM_WAIT)
+	{
+		m_MotionNo = Player::ANIM_WAIT;
+	}
+	if (m_bMove && m_MotionNo != Player::ANIM_MOVE)
+	{
+		m_MotionNo = Player::ANIM_MOVE;
+	}
+
 	PadOparation();
 	KeyOparation();
 
@@ -49,12 +58,13 @@ void CMovePlayer::Update(void)
 void CMovePlayer::PadOparation(void)
 {
 	//右スティックを倒した場合、倒した方向に移動
-	float s = g_pGamePad->GetStickHorizontal() * 10;
-	std::roundf(s);
-	s /= 10.0f;
+	float s = g_pGamePad->GetStickHorizontal() * 10.0f;
+	s = std::roundf(s);
+	//s /= 10.0f;
 	if (s != 0)
 	{
 		m_Move.x += m_Spd.x * s;
+		m_bMove = true;
 	}
 	//スティックを離した場合（移動の操作をしていない場合）
 	else
@@ -86,6 +96,7 @@ void CMovePlayer::KeyOparation(void)
 	if (g_pInput->IsKeyHold(MOFKEY_RIGHT) || g_pInput->IsKeyHold(MOFKEY_LEFT))
 	{
 		m_Move.x += m_Spd.x * (g_pInput->IsKeyHold(MOFKEY_LEFT) ? -1 : 1);
+		m_bMove = true;
 	}
 	//スティックを離した場合（移動の操作をしていない場合）
 	else
