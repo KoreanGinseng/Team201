@@ -101,6 +101,7 @@
     <ClCompile Include="Atack_KURIBO.cpp" />
     <ClCompile Include="Atack_NOKONOKO.cpp" />
     <ClCompile Include="Atack_POISONKURIBO.cpp" />
+    <ClCompile Include="Atack_RIGHTHAND.cpp" />
     <ClCompile Include="Atack_TERESA.cpp" />
     <ClCompile Include="Atack_TESTBOS.cpp" />
     <ClCompile Include="Atack_TESTBOS2.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Atack_KURIBO.h" />
     <ClInclude Include="Atack_NOKONOKO.h" />
     <ClInclude Include="Atack_POISONKURIBO.h" />
+    <ClInclude Include="Atack_RIGHTHAND.h" />
     <ClInclude Include="Atack_TERESA.h" />
     <ClInclude Include="Atack_TESTBOS.h" />
     <ClInclude Include="Atack_TESTBOS2.h" />
