@@ -45,7 +45,7 @@ constexpr	char			anim[] = "anim";
 
 constexpr	char*	FileName[] = {
 	//TEXTURE
-	"player3.png",
+	"Texture271.png",
 	"EnemyKinoko.png",
 	"EnemyDoku.png",
 	"EnemyBat.png",
@@ -76,7 +76,7 @@ constexpr	char*	FileName[] = {
 	"MapChip02.png",
 	"sumple_imvisible.png",
 	//ANIMATION
-	"playerAnim.bin",
+	"Player333.bin",
 	"EnemyKinokoAnim.bin",
 	"EnemyDokuAnim.bin",
 	"EnemyBatAnim.bin",
