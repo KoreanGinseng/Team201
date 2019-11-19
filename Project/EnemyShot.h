@@ -21,11 +21,13 @@ protected:
 	bool		m_bShow;
 	float		m_Radian;
 	float		m_EraseTime;
+	bool		m_ClonFrag;
 public:
 	 CEnemyShot();
 	virtual ~ CEnemyShot();
 	virtual void Initialize()=0;
 	virtual void Fire(float px,float py,float sx,float sy,float pPosx,float pPosy)=0;
+	virtual void CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy, float rd,float ddx,float ddy) {};
 	virtual void Update()=0;
 	virtual void Render()=0;
 	virtual void Release()=0;
@@ -36,6 +38,45 @@ public:
 	virtual void CollisionStage(float ox, float oy)=0;
 
 	float GetEraseTime() { return m_EraseTime; }
+	float GetRadian(float px, float py, float pPosx, float pPosy) {
+		float dx = pPosx - px;
+		float dy = pPosy - py;
+		m_Radian = atan2f(dy, dx);
+		m_Radian = MOF_ToDegree(m_Radian);
+		return m_Radian;
+	}
+	float Getddx(float px, float py, float pPosx, float pPosy){
+		float dx = pPosx - px;
+		float dy = pPosy - py;
+		float Playerdx;
+		float Playerdy;
+		float d;
+		float ddx=0;
+		float ddy=0;
+
+		Playerdx = pPosx - px;
+		Playerdy = pPosy - py;
+		d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
+		ddx = dx / d;
+		return ddx;
+	}
+	float Getddy(float px, float py, float pPosx, float pPosy) {
+		float dx = pPosx - px;
+		float dy = pPosy - py;
+		float Playerdx;
+		float Playerdy;
+		float d;
+		float ddx;
+		float ddy;
+
+		Playerdx = pPosx - px;
+		Playerdy = pPosy - py;
+		d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
+		ddy = dy / d;
+		return ddy;
+	}
+
+	bool SetFrag(bool bs) { return m_ClonFrag = bs; }
 };
 
 

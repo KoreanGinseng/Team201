@@ -21,6 +21,8 @@ enum ENEMY
 	ENEMY_FLOATING,
 	ENEMY_POISONKURIBO,
 	ENEMY_TESTBOS2,
+	ENEMY_RIGHTHAND,
+	ENEMY_TESTBOS3
 };
 
 //ENEMY_FLOATING.cpp
@@ -108,7 +110,9 @@ enum  BULLET
 #define Collision_Down 600
 #pragma endregion
 
-#pragma region 重力の最大値
+#pragma region 分身
+#define	CloningCount	5
+#define CloningDistance	70
 #pragma endregion
 
 #pragma region 重力の最大値

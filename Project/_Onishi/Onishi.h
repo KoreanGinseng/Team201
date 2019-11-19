@@ -18,6 +18,7 @@
 #include	"../Enemy_FLOATING.h"
 #include	"../Enemy_POISONKURIBO.h"
 #include	"../Enemy_TESTBOS2.h"
+#include	"../Enemy_TESTBOS3.h"
 #include	"../Atack_KURIBO.h"
 #include	"../Atack_NOKONOKO.h"
 #include	"../Atack_TERESA.h"
@@ -26,6 +27,7 @@
 #include	"../Atack_TESTBOS.h"
 #include	"../Atack_POISONKURIBO.h"
 #include	"../Atack_TESTBOS2.h"
+#include	"../Atack_TESTBOS3.h"
 #define		spead 20
  /*****************************************************************
   *	@brief			オオニシシーンクラス
