@@ -9,4 +9,5 @@ CEnemy::CEnemy()
 
 CEnemy::~CEnemy()
 {
+	Release();
 }

@@ -30,9 +30,11 @@ CXGamePad*			gpXGpad = nullptr;
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Initialize(void){
+	CUtilities::SetCurrentDirectory("Resource");
 
 	gpXGpad = NEW CXGamePad();
 	XGAMEPADCREATEINFO xc;
+	xc.No = 0;
 	g_pGamePad->Create(&xc);
 
 	gpScene = NEW CGame();
@@ -140,6 +142,10 @@ MofBool CGameApp::Release(void){
 	NewPointerRelease(gpScene);
 	gpLoading->Release();
 	NewPointerRelease(gpLoading);
-
+	g_pEffectManager->Release();
+	g_pSoundManager->Release();
+	g_pTextureManager->Release();
+	g_pAnimManager->Release();
+	g_pTimeManager->Release();
 	return TRUE;
 }

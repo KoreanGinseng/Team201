@@ -9,4 +9,5 @@ CTargetObj::CTargetObj()
 
 CTargetObj::~CTargetObj()
 {
+	Release();
 }

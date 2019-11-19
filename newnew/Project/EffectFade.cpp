@@ -44,7 +44,7 @@ bool CEffectFade::In(const int & spd)
 	m_Alpha -= m_Spd;
 	if (m_Alpha < 0) {
 		m_bStart[0] = false;
-		m_bEnd = true;
+		//m_bEnd = true;
 		return true;
 	}
 	return false;
@@ -52,7 +52,7 @@ bool CEffectFade::In(const int & spd)
 
 bool CEffectFade::Render(void)
 {
-	if (m_bEnd)
+	if (!IsStart())
 	{
 		return true;
 	}

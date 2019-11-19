@@ -15,5 +15,6 @@ public:
 	Vector2 GetMove(void) const { return m_Move; }
 	Vector2 GetSpd(void) const { return m_Spd; }
 	void SetMove(const Vector2& move) { m_Move = move; }
+	void SetSpd(const Vector2& spd) { m_Spd = spd; }
 };
 

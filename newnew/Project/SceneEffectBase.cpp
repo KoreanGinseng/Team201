@@ -6,6 +6,7 @@ CSceneEffectBase::CSceneEffectBase()
 {
 	m_bStart[0] = false;
 	m_bStart[1] = false;
+	m_bEnd = false;
 }
 
 

@@ -9,4 +9,5 @@ CItem::CItem()
 
 CItem::~CItem()
 {
+	Release();
 }

@@ -38,5 +38,6 @@ public:
 		{
 			itr->second->Release();
 		}
+		m_Resource.clear();
 	}
 };

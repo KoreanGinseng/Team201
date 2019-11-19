@@ -44,17 +44,23 @@ bool CGame::Load()
 		return FALSE;
 	}
 	//敵メモリ確保
-	CEnemy* tmp_e = NEW CEnemy;
-	m_pEnemyArray.SetArray(&tmp_e, m_Stage[m_StageNo].GetEnemyCount());
-	delete tmp_e;
+	m_pEnemyArray.ReSize(m_Stage[m_StageNo].GetEnemyCount());
+	for (int i = 0; i < m_pEnemyArray.GetArrayCount(); i++)
+	{
+		m_pEnemyArray.SetData(NEW CEnemy(), i);
+	}
 	//アイテムメモリ確保
-	CItem* tmp_i = NEW CItem;
-	m_pItemArray.SetArray(&tmp_i, m_Stage[m_StageNo].GetItemCount());
-	delete tmp_i;
+	m_pItemArray.ReSize(m_Stage[m_StageNo].GetItemCount());
+	for (int i = 0; i < m_pItemArray.GetArrayCount(); i++)
+	{
+		m_pItemArray.SetData(NEW CItem(), i);
+	}
 	//オブジェクトメモリ確保
-	CTargetObj* tmp_t = NEW CTargetObj;
-	m_pTargetObjArray.SetArray(&tmp_t, m_Stage[m_StageNo].GetObjectCount());
-	delete tmp_t;
+	m_pTargetObjArray.ReSize(m_Stage[m_StageNo].GetObjectCount());
+	for (int i = 0; i < m_pTargetObjArray.GetArrayCount(); i++)
+	{
+		m_pTargetObjArray.SetData(NEW CTargetObj(), i);
+	}
 
 	return TRUE;
 }

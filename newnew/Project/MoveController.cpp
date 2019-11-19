@@ -2,7 +2,8 @@
 
 
 
-CMoveController::CMoveController()
+CMoveController::CMoveController() :
+m_pMove(nullptr)
 {
 	m_pMove = nullptr;
 }
@@ -14,7 +15,6 @@ CMoveController::~CMoveController()
 
 void CMoveController::Initialize(void)
 {
-
 	if (m_pMove)
 	{
 		m_pMove->Initialize();

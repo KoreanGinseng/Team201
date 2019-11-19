@@ -25,6 +25,13 @@ CPlayer::~CPlayer(void)
 void CPlayer::Initialize(void)
 {
 	//
+	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_PLAYER]);
+	CreateMove(0);
+	m_MvCntrl.Initialize();
+	m_Anim.Initialize();
+	CreateAnim(FileName[ANIMATION_PLAYER]);
+	m_MvCntrl.SetSpd(PLAYER_SPEED, PLAYER_JUMPPOW);
+	//
 	m_bDead = false;
 	//
 	m_bReverse = false;
@@ -50,13 +57,13 @@ void CPlayer::Update(void)
 {
 	//MOVE
 	m_MvCntrl.Update();
+	m_Pos += m_MvCntrl.GetMove();
 
 	//スキル
 	Skill();
 
 	//アニメーション更新
 	Animation();
-	m_Anim.Update();
 
 	//
 	if (m_DamageWait > 0)
@@ -103,6 +110,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 //解放
 void CPlayer::Release(void)
 {
+	CCharacter::Release();
 	m_SkillTarget.clear();
 	m_pTexture = nullptr;
 }

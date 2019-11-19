@@ -20,6 +20,8 @@ public:
 	CMove*  GetInstance(void) { return m_pMove; }
 	void SetMove(const float& x, const float& y) { SetMove(Vector2(x, y)); }
 	void SetMove(const Vector2& move) { m_pMove->SetMove(move); }
+	void SetSpd(const float& x, const float& y) { SetSpd(Vector2(x, y)); }
+	void SetSpd(const Vector2& spd) { m_pMove->SetSpd(spd); }
 	void Remove(void) { NewPointerRelease(m_pMove); }
 };
 

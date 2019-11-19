@@ -254,11 +254,11 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
+			(*pEnemyArray)[n]->Initialize();
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
 			(*pEnemyArray)[n]->CreateMove(on);
 			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
-			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			(*pEnemyArray)[n++]->Initialize();
+			(*pEnemyArray)[n++]->SetPos(x * m_ChipSize, y * m_ChipSize);
 		}
 	}
 	n = 0;
@@ -273,10 +273,10 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
+			(*pItemArray)[n]->Initialize();
 			(*pItemArray)[n]->SetTexture(m_pItemTexture[on]);
 			(*pItemArray)[n]->CreateAnim(FileName[ANIMATION_ITEM_1 + on]);
-			(*pItemArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			(*pItemArray)[n++]->Initialize();
+			(*pItemArray)[n++]->SetPos(x * m_ChipSize, y * m_ChipSize);
 		}
 	}
 	n = 0;
@@ -291,12 +291,12 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
+			(*pTargetObjArray)[n]->Initialize();
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
 			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
-			(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
-			(*pTargetObjArray)[n++]->Initialize();
+			(*pTargetObjArray)[n++]->LoadRect(FileName[RECT_OBJ_1 + on]);
 		}
 	}
 }
