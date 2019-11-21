@@ -121,9 +121,9 @@ constexpr	char*	FileName[] = {
 	"TestStageBGM.mp3",
 
 	//RECT
-	"",
-	"",
-	"",
+	"RectRope.txt",
+	"Rect",
+	"RectBridge.txt",
 };
 
 //ENUM

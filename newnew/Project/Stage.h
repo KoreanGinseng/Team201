@@ -62,6 +62,8 @@ public:
 	bool Load(const char* pName);
 	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray);
 	void Update(void);
+	void RenderBack(Vector2 scroll);
+	void RenderChip(Vector2 scroll);
 	void Render(Vector2 scroll);
 	void RenderDebug(Vector2 scroll);
 	void Release(void);

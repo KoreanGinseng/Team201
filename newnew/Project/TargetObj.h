@@ -9,7 +9,8 @@ private:
 public:
 	CTargetObj();
 	~CTargetObj();
-	void SetStatus(const int& n) { m_Status = n; }
+	void Initialize(void) override;
+	void SetStatus(const int& n) { m_Status = n; m_Anim.ChangeAnim(m_Status); }
 	int  GetObjType(void) const { return m_Type; }
 };
 

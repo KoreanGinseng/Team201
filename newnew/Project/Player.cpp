@@ -75,6 +75,8 @@ void CPlayer::Update(void)
 	{
 		m_bDead = true;
 	}
+
+	m_bReverse = static_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetReverse();
 }
 
 //•`‰æ

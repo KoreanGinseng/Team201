@@ -113,22 +113,12 @@ void CGame::Update()
 	}
 
 
-	//プレイヤーがスキル発動時の場合、
-	if (m_Player.IsTrigger())
-	{
-		//m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
-		m_Player.TargetSelect(&m_pEnemyArray, &m_pTargetObjArray, &m_pItemArray);
-	}
+	
 
 	//プレイヤーの更新
 	m_Player.Update();
 
-	Vector2 o(0, 0);
-	//プレイヤーとステージの当たり判定
-	if (m_Stage[m_StageNo].OverValue(m_Player.GetRect(), o))
-	{
-		m_Player.CollisionStage(o);
-	}
+	
 
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -141,33 +131,7 @@ void CGame::Update()
 		m_pEnemyArray[i]->Update();
 	}
 
-	//当たり判定
-	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
-	{
-		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
-		{
-			continue;
-		}
-		Vector2 eo(0, 0);
-		for (int j = 0; i < m_pEnemyArray[i]->GetSrcRectArray().GetArrayCount(); j++)
-		{
-			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), eo))
-			{
-				m_pEnemyArray[i]->CollisionStage(eo);
-			}
-			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), o))
-			{
-				if (m_pEnemyArray[i]->IsSkill())
-				{
-					m_Player.CollisionStage(o);
-				}
-				else
-				{
-					m_Player.Dmg(*m_pEnemyArray[i]);
-				}
-			}
-		}
-	}
+	
 
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
@@ -178,24 +142,8 @@ void CGame::Update()
 		}
 		m_pItemArray[i]->Update();
 	}
-	//当たり判定
-	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
-	{
-		for (int j = 0; j < m_pItemArray[i]->GetSrcRectArray().GetArrayCount(); j++)
-		{
-			Vector2 io(0, 0);
-			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray(j), io))
-			{
-				if (!m_pItemArray[i]->IsShow())
-				{
-					continue;
-				}
-				m_pItemArray[i]->CollisionStage(io);
-			}
-		}
-	}
+	
 	//オブジェクトの更新
-	bool clime = false;
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
 		if (!m_pTargetObjArray[i]->IsShow())
@@ -206,45 +154,7 @@ void CGame::Update()
 	}
 
 	//当たり判定
-	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
-	{
-		if (!m_pTargetObjArray[i]->IsShow())
-		{
-			continue;
-		}
-		Vector2 oo(0, 0);
-		//プレイヤーとの当たり判定
-		oo = Vector2(0, 0);
-		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), oo))
-		{
-			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
-			{
-				clime = true;
-				break;
-			}
-			else
-			{
-				clime = false;
-				m_Player.CollisionStage(oo);
-			}
-		}
-		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
-		{
-			oo = Vector2(0, 0);
-			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), oo))
-			{
-				if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
-				{
-					continue;
-				}
-				else
-				{
-					m_pEnemyArray[j]->CollisionStage(oo);
-				}
-			}
-		}
-	}
-	m_Player.SetClime(clime);
+	Collosion();
 
 	//カメラの更新
 	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
@@ -265,7 +175,17 @@ void CGame::Render()
 	g_pTextureManager->GetResource("空.png")->Render(0, 0);
 
 	//ステージの描画
-	m_Stage[m_StageNo].Render(m_MainCamera.GetScroll());
+	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
+
+	//オブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pTargetObjArray[i]->GetPos());
+		m_pTargetObjArray[i]->Render(screenPos);
+	}
+
+	//ステージの描画
+	m_Stage[m_StageNo].RenderChip(m_MainCamera.GetScroll());
 
 	//プレイヤーの描画
 	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
@@ -277,17 +197,12 @@ void CGame::Render()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i]->GetPos());
 		m_pEnemyArray[i]->Render(screenPos);
 	}
+	
 	//アイテムの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i]->GetPos());
 		m_pItemArray[i]->Render(screenPos);
-	}
-	//オブジェクトの描画
-	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
-	{
-		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pTargetObjArray[i]->GetPos());
-		m_pTargetObjArray[i]->Render(screenPos);
 	}
 
 	//ポーズ中ならポーズ画面の描画
@@ -340,4 +255,107 @@ void CGame::Release()
 	m_pTargetObjArray.Release();
 
 	m_Player.Release();
+}
+
+
+
+void CGame::Collosion(void)
+{
+	//プレイヤーがスキル発動時の場合、
+	if (m_Player.IsTrigger())
+	{
+		//m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
+		m_Player.TargetSelect(&m_pEnemyArray, &m_pTargetObjArray, &m_pItemArray);
+	}
+	Vector2 o(0, 0);
+	//プレイヤーとステージの当たり判定
+	if (m_Stage[m_StageNo].OverValue(m_Player.GetRect(), o))
+	{
+		m_Player.CollisionStage(o);
+	}
+
+	//当たり判定
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
+		{
+			continue;
+		}
+		Vector2 eo(0, 0);
+		for (int j = 0; i < m_pEnemyArray[i]->GetSrcRectArray().GetArrayCount(); j++)
+		{
+			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), eo))
+			{
+				m_pEnemyArray[i]->CollisionStage(eo);
+			}
+			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), o))
+			{
+				if (m_pEnemyArray[i]->IsSkill())
+				{
+					m_Player.CollisionStage(o);
+				}
+				else
+				{
+					m_Player.Dmg(*m_pEnemyArray[i]);
+				}
+			}
+		}
+	}
+	//当たり判定
+	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	{
+		for (int j = 0; j < m_pItemArray[i]->GetSrcRectArray().GetArrayCount(); j++)
+		{
+			Vector2 io(0, 0);
+			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray(j), io))
+			{
+				if (!m_pItemArray[i]->IsShow())
+				{
+					continue;
+				}
+				m_pItemArray[i]->CollisionStage(io);
+			}
+		}
+	}
+	//当たり判定
+	bool clime = false;
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		if (!m_pTargetObjArray[i]->IsShow())
+		{
+			continue;
+		}
+		Vector2 oo(0, 0);
+		//プレイヤーとの当たり判定
+		oo = Vector2(0, 0);
+		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), oo))
+		{
+			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
+			{
+				clime = true;
+				break;
+			}
+			else
+			{
+				clime = false;
+				m_Player.CollisionStage(oo);
+			}
+		}
+		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
+		{
+			oo = Vector2(0, 0);
+			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), oo))
+			{
+				if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
+				{
+					continue;
+				}
+				else
+				{
+					m_pEnemyArray[j]->CollisionStage(oo);
+				}
+			}
+		}
+	}
+	m_Player.SetClime(clime);
 }

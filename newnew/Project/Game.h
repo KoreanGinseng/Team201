@@ -32,6 +32,8 @@ private:
 	CDynamicArray<CItem*>		m_pItemArray;
 	CDynamicArray<CTargetObj*>	m_pTargetObjArray;
 
+	void Collosion(void);
+
 public:
 	CGame(void);
 	~CGame(void) override;

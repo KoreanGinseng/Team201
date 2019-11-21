@@ -307,8 +307,8 @@ void CStage::Update() {
 
 }
 
-//描画
-void CStage::Render(Vector2 scroll) {
+void CStage::RenderBack(Vector2 scroll)
+{
 	//遠景の描画
 	int scw = g_pGraphics->GetTargetWidth();
 	int sch = g_pGraphics->GetTargetHeight();
@@ -319,11 +319,14 @@ void CStage::Render(Vector2 scroll) {
 			m_pBackTexture->Render(x, y);
 		}
 	}
+}
 
+void CStage::RenderChip(Vector2 scroll)
+{
 	//テクスチャの横幅からマップチップの縦オフセットを求める
 	int tcx = m_pChipTexture->GetWidth() / m_ChipSize;
 	//マップチップの描画
-	for (int y = 0; y < m_YCount; y++) 
+	for (int y = 0; y < m_YCount; y++)
 	{
 		for (int x = 0; x < m_XCount; x++)
 		{
@@ -340,6 +343,13 @@ void CStage::Render(Vector2 scroll) {
 			m_pChipTexture->Render(-scroll.x + x * m_ChipSize, -scroll.y + y * m_ChipSize, cr);
 		}
 	}
+}
+
+//描画
+void CStage::Render(Vector2 scroll) {
+	
+
+	
 }
 
 //デバッグ描画
