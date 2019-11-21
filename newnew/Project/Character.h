@@ -34,9 +34,13 @@ public:
 	virtual CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight()); }
 	RectArray GetSrcRectArray(void) const { return m_SrcRectArray; }
 	RectArray GetRectArray(void) const;
-	CRectangle GetRectArray(const int& n) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRectArray[n].GetWidth(), m_Pos.y + m_SrcRectArray[n].GetHeight()); }
+	CRectangle GetRectArray(const int& n) const {
+		return CRectangle(
+			m_Pos.x + m_SrcRectArray[n].Left, m_Pos.y + m_SrcRectArray[n].Top,
+			m_Pos.x + m_SrcRectArray[n].Right, m_Pos.y + m_SrcRectArray[n].Bottom);
+	}
 	int GetDamageWait(void) const { return m_DamageWait; }
-	bool OverValue(CRectangle rec, Vector2& out);
+	virtual bool OverValue(CRectangle rec, Vector2& out);
 	virtual void CollisionStage(const Vector2& over);
 };
 

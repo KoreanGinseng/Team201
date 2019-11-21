@@ -15,7 +15,7 @@ protected:
 
 public:
 	CSubstance() { m_bShow = false, m_bTarget = false,
-				   m_bStop = false,m_bBack = false,m_bTrip = false; }
+		m_bStop = false, m_bBack = false, m_bTrip = false; m_bSkill = false; }
 	virtual ~CSubstance() {}
 	void	SetTarget(bool target) { m_bTarget = target; }
 	void	SetSkill(void) { m_bSkill = true; }

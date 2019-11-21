@@ -122,7 +122,7 @@ constexpr	char*	FileName[] = {
 
 	//RECT
 	"RectRope.txt",
-	"Rect",
+	"RectTree.txt",
 	"RectBridge.txt",
 };
 

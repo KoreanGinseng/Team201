@@ -112,12 +112,8 @@ void CGame::Update()
 		return;
 	}
 
-
-	
-
 	//プレイヤーの更新
 	m_Player.Update();
-
 	
 
 	//敵の更新
@@ -130,9 +126,7 @@ void CGame::Update()
 		//m_pEnemyArray[i]->Update(m_Player.GetPos());
 		m_pEnemyArray[i]->Update();
 	}
-
 	
-
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
@@ -211,6 +205,7 @@ void CGame::Render()
 		//ゲーム画面が灰色になるやつ
 		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
 	}
+
 }
 
 void CGame::RenderUI(void)
@@ -219,8 +214,6 @@ void CGame::RenderUI(void)
 }
 
 void CGame::UpdateDebug() {
-
-	
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !IsStart()) {
 		g_pScore->TotalScore(g_pTimeManager->GetNowTime());
@@ -267,33 +260,51 @@ void CGame::Collosion(void)
 		//m_Player.SkillColision(m_pEnemyArray, m_Stage[m_StageNo].GetEnemyCount(), m_pObjArray, m_Stage[m_StageNo].GetObjectCount());
 		m_Player.TargetSelect(&m_pEnemyArray, &m_pTargetObjArray, &m_pItemArray);
 	}
-	Vector2 o(0, 0);
+
+	//埋まり値用
+	Vector2 over(0, 0);
 	//プレイヤーとステージの当たり判定
-	if (m_Stage[m_StageNo].OverValue(m_Player.GetRect(), o))
+	if (m_Stage[m_StageNo].OverValue(m_Player.GetRect(), over))
 	{
-		m_Player.CollisionStage(o);
+		//埋まっている値だけ元に戻す
+		m_Player.CollisionStage(over);
 	}
 
-	//当たり判定
+	//敵との当たり判定
+	//敵の数だけループ
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
+		//非表示か死亡の場合スキップ
 		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
 		{
 			continue;
 		}
-		Vector2 eo(0, 0);
-		for (int j = 0; i < m_pEnemyArray[i]->GetSrcRectArray().GetArrayCount(); j++)
+
+		//一体の矩形の数だけループ
+		for (int j = 0; j < m_pEnemyArray[i]->GetSrcRectArray().GetArrayCount(); j++)
 		{
-			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), eo))
+			//埋まり値の値をリセット
+			over = Vector2(0, 0);
+
+			//ステージと埋まりを求める
+			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), over))
 			{
-				m_pEnemyArray[i]->CollisionStage(eo);
+				//埋まっているだけ元に戻す
+				m_pEnemyArray[i]->CollisionStage(over);
 			}
-			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), o))
+
+			//埋まり値の値をリセット
+			over = Vector2(0, 0);
+
+			//プレイヤーとの埋まりを求める
+			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), over))
 			{
+				//敵がスキルで止まっているなら埋まり値だけ戻す
 				if (m_pEnemyArray[i]->IsSkill())
 				{
-					m_Player.CollisionStage(o);
+					m_Player.CollisionStage(over);
 				}
+				//止まってないならプレイヤーにダメージ
 				else
 				{
 					m_Player.Dmg(*m_pEnemyArray[i]);
@@ -301,61 +312,83 @@ void CGame::Collosion(void)
 			}
 		}
 	}
-	//当たり判定
+
+	//アイテムとの当たり判定
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
+		//非表示ならスキップ
+		if (!m_pItemArray[i]->IsShow())
+		{
+			continue;
+		}
+
+		//１アイテムの矩形の数だけループ
 		for (int j = 0; j < m_pItemArray[i]->GetSrcRectArray().GetArrayCount(); j++)
 		{
-			Vector2 io(0, 0);
-			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray(j), io))
+			//埋まり値のリセット
+			over = Vector2(0, 0);
+
+			//ステージとの埋まり値を求める
+			if (m_Stage[m_StageNo].OverValue(m_pItemArray[i]->GetRectArray(j), over))
 			{
-				if (!m_pItemArray[i]->IsShow())
-				{
-					continue;
-				}
-				m_pItemArray[i]->CollisionStage(io);
+				//埋まっているだけ戻す
+				m_pItemArray[i]->CollisionStage(over);
 			}
 		}
 	}
-	//当たり判定
-	bool clime = false;
+
+	//オブジェクトとの当たり判定
+	//オブジェクトの数だけ当たり判定をする
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
+		//非表示ならスキップ
 		if (!m_pTargetObjArray[i]->IsShow())
 		{
 			continue;
 		}
-		Vector2 oo(0, 0);
+		//埋まり値をリセット
+		over = Vector2(0, 0);
+
 		//プレイヤーとの当たり判定
-		oo = Vector2(0, 0);
-		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), oo))
+		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
 		{
+			//ぶつかったオブジェクトがロープの場合
 			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 			{
-				clime = true;
+				//登れるようにする
+				m_Player.SetClime(true);
 				break;
 			}
+			//ロープ以外の場合
 			else
 			{
-				clime = false;
-				m_Player.CollisionStage(oo);
+				//通常の動きにする
+				m_Player.SetClime(false);
+				//埋まり値だけ戻す
+				m_Player.CollisionStage(over);
 			}
 		}
+
+		//敵の数だけループ
 		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
 		{
-			oo = Vector2(0, 0);
-			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), oo))
+			//埋まり値をリセット
+			over = Vector2(0, 0);
+			
+			//敵との埋まり値を求める
+			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), over))
 			{
+				//ロープなら当たり判定をしない
 				if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 				{
 					continue;
 				}
+				//それ以外埋まり値だけ戻す
 				else
 				{
-					m_pEnemyArray[j]->CollisionStage(oo);
+					m_pEnemyArray[j]->CollisionStage(over);
 				}
 			}
 		}
 	}
-	m_Player.SetClime(clime);
 }

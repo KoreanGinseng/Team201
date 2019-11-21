@@ -292,6 +292,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 				continue;
 			}
 			(*pTargetObjArray)[n]->Initialize();
+			(*pTargetObjArray)[n]->SetType(on);
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);

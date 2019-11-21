@@ -26,6 +26,15 @@ void CCharacter::Update(void)
 void CCharacter::Render(const Vector2& screenPos)
 {
 	m_pTexture->Render(screenPos.x, screenPos.y, GetSrcRect());
+
+#ifdef _DEBUG
+	CGraphicsUtilities::RenderRect(screenPos.x,screenPos.y,screenPos.x + GetSrcRect().GetWidth(), screenPos.y + GetSrcRect().GetHeight(), MOF_COLOR_RED);
+	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	{
+		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
+			screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+	}
+#endif // _DEBUG
 }
 
 void CCharacter::Release(void)
@@ -77,7 +86,7 @@ RectArray CCharacter::GetRectArray(void) const
 	RectArray result;
 	for (int i = 0; i < m_SrcRectArray.GetArrayCount(); i++)
 	{
-		CRectangle rec(m_Pos.x, m_Pos.y, m_Pos.x + m_SrcRectArray[i].GetWidth(), m_Pos.y + m_SrcRectArray[i].GetHeight());
+		CRectangle rec(m_Pos.x + m_SrcRectArray[i].Left, m_Pos.y + m_SrcRectArray[i].Top, GetRect().Left + m_SrcRectArray[i].GetWidth(), GetRect().Top + m_SrcRectArray[i].GetHeight());
 		result.Add(rec);
 	}
 	return result;

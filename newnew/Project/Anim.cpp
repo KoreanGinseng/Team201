@@ -12,7 +12,6 @@ void CAnim::Update(void)
 		return;
 	}
 	m_pAnim->AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_pAnim->GetSrcRect();
 }
 
 void CAnim::Create(const char * pName)
