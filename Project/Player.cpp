@@ -242,14 +242,18 @@ void CPlayer::PadOparation(void)
 			if (skillNo!=-1)
 			{
 			
-				g_pScore->AddSkillCount();
+				
 				if (!m_SkillTarget.empty())
 				{
-					m_bTrigger = false;
+					
 
 					if (!IsObject(skillNo)&&skillNo==SKILL_STOP) {
 
+						g_pScore->AddSkillCount();
+
 						m_SkillTarget[m_Target]->SetSkill();
+
+						m_bTrigger = false;
 
 					}
 
@@ -650,10 +654,20 @@ bool CPlayer::IsObject(const int& skillNo) {
 
 	if (m_SkillTarget[m_Target]->GetType()==TYPE_OBJECT) {
 
-		//スキル番号のスキルをセットする
-		m_SkillTarget[m_Target]->SetStatus(skillNo);
-		//テスト用
-		m_SkillTarget[m_Target]->SetSkill();
+
+		if (skillNo != SKILL_STOP) {
+
+			g_pScore->AddSkillCount();
+
+			//スキル番号のスキルをセットする
+			m_SkillTarget[m_Target]->SetStatus(skillNo);
+			//テスト用
+			m_SkillTarget[m_Target]->SetSkill();
+
+			m_bTrigger = false;
+
+		}
+	
 		return true;
 
 	}
