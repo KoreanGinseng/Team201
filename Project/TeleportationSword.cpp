@@ -1,28 +1,29 @@
 /**
- * @file CloningSword.cpp
- * @brief 分身する剣
+ * @file TeleportationSword.cpp
+ * @brief　瞬間移動剣
  * @author 大西永遠
- * @date 更新日（11/19）
+ * @date 更新日（11/22）
  */
 
-#include "CloningSword.h"
+#include "TeleportationSword.h"
 
-CCloningSword::CCloningSword() :
+CTeleportationSword::CTeleportationSword() :
 	CEnemyShot() {
 
 }
-CCloningSword::~CCloningSword() {
+CTeleportationSword::~CTeleportationSword() {
 
 }
-void CCloningSword::Initialize() {
+void CTeleportationSword::Initialize() {
 	m_PosX = 0;
 	m_PosY = 0;
 	m_SpdX = 0;
 	m_SpdY = 0;
 	m_bShow = false;
 	m_ClonFrag = false;
+	m_TleEnd = false;
 }
-void CCloningSword::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
+void CTeleportationSword::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
 	m_PosY = py;
 
@@ -44,11 +45,11 @@ void CCloningSword::Fire(float px, float py, float sx, float sy, float pPosx, fl
 	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
 	ddx = dx / d;
 	ddy = dy / d;
-	m_SpdX = ddx * BulletSpeed;
-	m_SpdY = ddy * BulletSpeed;
+	m_SpdX = ddx * (BulletSpeed / 2);
+	m_SpdY = ddy * (BulletSpeed / 2);
 }
 
-void CCloningSword::CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy,float rd,float ddx,float ddy) {
+void CTeleportationSword::CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy, float rd, float ddx, float ddy) {
 
 
 
@@ -58,27 +59,12 @@ void CCloningSword::CloningFire(float px, float py, float sx, float sy, float pP
 
 	m_bShow = true;
 
-	/*float dx = pPosx - px;
-	float dy = pPosy - py;
-	m_Radian = atan2f(dy, dx);
-	m_Radian = MOF_ToDegree(m_Radian);
-
-	float Playerdx;
-	float Playerdy;
-	float d;
-	float ddx;
-	float ddy;
-
-	Playerdx = pPosx - px;
-	Playerdy = pPosy - py;
-	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
-	ddx = dx / d;
-	ddy = dy / d;*/
-	m_SpdX = ddx * BulletSpeed;
-	m_SpdY = ddy * BulletSpeed;
+	
+	m_SpdX = ddx * (BulletSpeed / 2);
+	m_SpdY = ddy * (BulletSpeed / 2);
 }
 
-void CCloningSword::Update() {
+void CTeleportationSword::Update() {
 	if (!m_bShow) {
 		return;
 	}
@@ -101,43 +87,45 @@ void CCloningSword::Update() {
 
 	CollisionStage(ox, oy);
 
+	
+
 }
-void CCloningSword::Render() {
+void CTeleportationSword::Render() {
 	if (!m_bShow) {
 		return;
 	}
-	if (m_ClonFrag) {
-		CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_GREEN);
-	}
-	else
-	{
-		CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_RED);
-	}
-}
 
-void CCloningSword::Release() {
+	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_RED);
 
 }
 
-void CCloningSword::CollisionStage(float ox, float oy) {
+void CTeleportationSword::Release() {
+
+}
+
+void CTeleportationSword::CollisionStage(float ox, float oy) {
 	m_PosX += ox;
 	m_PosY += oy;
 	if (oy < 0 && m_PosY>0) {
 
 		m_SpdY = 0;
 		m_SpdX = 0;
+		m_TleEnd = true;
 	}
 	else if (oy > 0 && m_PosY < 0) {
 		m_SpdY = 0;
 		m_SpdX = 0;
-		
+		m_TleEnd = true;
+
 	}
 	if (ox < 0 && m_PosX>0) {
 		m_SpdX = 0;
 		m_SpdY = 0;
+		m_TleEnd = true;
 	}
 	else if (ox > 0 && m_PosX < 0) {
 		m_SpdX = 0;
 		m_SpdY = 0;
+		m_TleEnd = true;
 	}
 }

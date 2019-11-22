@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS3.cpp
  * @brief テストボス3の攻撃
  * @author 大西永遠
- * @date 更新日（11/19）
+ * @date 更新日（11/22）
  */
 
 #include	"Atack_TESTBOS3.h"
@@ -20,19 +20,31 @@ void CAtack_TESTBOS3::Initialize() {
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
 	//分身する剣
-	for (int i = 0; i < CloningCount; i++) {
+	/*for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i] = new CCloningSword();
 		m_ShotArry[i]->Initialize();
 
+	}*/
+
+	//瞬間移動する剣
+	for (int i = 0; i < CloningCount; i++) {
+		m_ShotArry[i] = new CTeleportationSword();
+		m_ShotArry[i]->Initialize();
+
 	}
+	m_TleCount = 0;
 
 	//分身する敵
-	for (m_Count = 0; m_Count < CloningCount;m_Count++) {
-		m_KURIBO.ClonInitialize(m_Count);
+	for (m_EneCount = 0; m_EneCount < CloningCount;m_EneCount++) {
+		m_KURIBO.ClonInitialize(m_EneCount);
 	}
-	m_Count = 0;
+	m_EneCount = 0;
+
 	//m_Texture.Load("Hp.png");
 	m_ScaleMagnification = 0;
+	m_TleTime = TLeTime;
+
+	m_Counting = 1;
 }
 
 void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
@@ -87,22 +99,49 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i]->Update();
 	}
-	m_KURIBO.ClonUpdate(m_Count); 
-	m_KURIBO.CollisionStage(m_Count);
-	m_Count++;
-	if (m_Count==CloningCount) {
-		m_Count = 0;
+
+	//分身敵
+	m_KURIBO.ClonUpdate(m_EneCount); 
+	m_KURIBO.CollisionStage(m_EneCount);
+
+	m_EneCount++;
+	if (m_EneCount==CloningCount) {
+		m_EneCount = 0;
 	}
+
+	/*m_EneCount += m_Counting;
+	if (m_EneCount == CloningCount) {
+		m_Counting = -1 ;
+		m_EneCount == CloningCount - 1;
+	}
+	else if (m_EneCount == 0) {
+		m_Counting = 1 ;
+	}*/
+
+	//瞬間移動
+	if (m_ShotArry[m_TleCount]->GetTleEnd()) {
+		return;
+	}
+	m_TleTime -= 1 * CUtilities::GetFrameSecond();
+	if (m_TleTime <= 0) {
+		m_TleCount = rand() % 5;
+		m_TleTime = TLeTime;
+	}
+
 }
 void CAtack_TESTBOS3::Render() {
-	for (int i = 0; i < CloningCount; i++) {
+
+	//分身剣
+	/*for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i]->Render();
 
-	}
+	}*/
+	
+	
+	//瞬間移動
+	m_ShotArry[m_TleCount]->Render();
 
-	m_KURIBO.ClonRender(m_Count);
-
-	//m_Texture.RenderScaleRotate(m_fAtackPosX,m_fAtackPosY,m_ScaleMagnification,1.0f, MOF_ToRadian(30));
+	m_KURIBO.ClonRender(m_EneCount);
 
 }
 void CAtack_TESTBOS3::Release() {
@@ -113,6 +152,6 @@ void CAtack_TESTBOS3::Release() {
 			m_ShotArry[i] = NULL;
 		}
 	}
-	//m_Texture.Release();
+	
 
 }

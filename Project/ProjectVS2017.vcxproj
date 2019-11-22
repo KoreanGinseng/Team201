@@ -131,6 +131,7 @@
     <ClCompile Include="ReflectBullet.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TeleportationSword.cpp" />
     <ClCompile Include="TestEffectScene.cpp" />
     <ClCompile Include="Title\Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="ReflectBullet.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TeleportationSword.h" />
     <ClInclude Include="TestEffectScene.h" />
     <ClInclude Include="Title\Title.h" />
     <ClInclude Include="VirtualKeyBoard.h" />

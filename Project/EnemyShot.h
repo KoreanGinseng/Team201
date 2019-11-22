@@ -8,7 +8,6 @@
 #pragma once
 #include	"Mof.h"
 
-
 class  CEnemyShot
 {
 private:
@@ -22,6 +21,8 @@ protected:
 	float		m_Radian;
 	float		m_EraseTime;
 	bool		m_ClonFrag;
+	bool		m_TleEnd;
+	
 public:
 	 CEnemyShot();
 	virtual ~ CEnemyShot();
@@ -77,6 +78,7 @@ public:
 	}
 
 	bool SetFrag(bool bs) { return m_ClonFrag = bs; }
+	bool GetTleEnd() { return m_TleEnd; }
 };
 
 
