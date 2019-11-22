@@ -60,7 +60,7 @@ public:
 
 	//Skill
 	void Skill(void);
-	void SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount);
+	//void SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount);
 	void TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTargetObj*>* pobjArray, CDynamicArray<CItem*>* pItemArray);
 
 	//Collision
@@ -69,6 +69,12 @@ public:
 	//Get
 	bool	IsTrigger(void) { return m_bTrigger; }
 	int		GetHp(void) { return m_HP; }
+	CRectangle GetRect(void) const override { 
+		CRectangle r = CCharacter::GetRect();
+		r.Expansion(-PLAYER_RECTDIS, 0);
+		r.Top += PLAYER_RECTDIS;
+		return r;
+	}
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
 

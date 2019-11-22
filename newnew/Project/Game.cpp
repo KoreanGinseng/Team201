@@ -357,7 +357,6 @@ void CGame::Collosion(void)
 			{
 				//登れるようにする
 				m_Player.SetClime(true);
-				break;
 			}
 			//ロープ以外の場合
 			else
@@ -381,7 +380,7 @@ void CGame::Collosion(void)
 				//ロープなら当たり判定をしない
 				if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
 				{
-					continue;
+					//continue;
 				}
 				//それ以外埋まり値だけ戻す
 				else

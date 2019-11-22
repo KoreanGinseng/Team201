@@ -135,7 +135,7 @@ MofBool CGameApp::Render(void){
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
 MofBool CGameApp::Release(void){
-
+	gpLoading->Join();
 	g_pGamePad->Release();
 	NewPointerRelease(gpXGpad);
 	gpScene->Release();
@@ -147,5 +147,6 @@ MofBool CGameApp::Release(void){
 	g_pTextureManager->Release();
 	g_pAnimManager->Release();
 	g_pTimeManager->Release();
+	g_pScore->Release();
 	return TRUE;
 }

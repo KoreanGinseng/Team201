@@ -457,14 +457,14 @@ bool CStage::OverValue(CRectangle r, Vector2& o) {
 						sp = 1.0f;
 					}
 					//斜面の上の位置を求める
-					float cTop = cr.Bottom - cr.GetHeight() * sp;
+					float cTop = cr.GetHeight() * sp;
 					if (brec.Bottom < cTop)
 					{
 						continue;
 					}
-					o.y += cTop - brec.Bottom;
-					r.Top += cTop - brec.Bottom;
-					r.Bottom += cTop - brec.Bottom;
+					o.y -= cTop - (cr.Bottom - brec.Bottom);
+					r.Top -= cTop - (cr.Bottom - brec.Bottom);
+					r.Bottom -= cTop - (cr.Bottom - brec.Bottom);
 				}
 				else
 				{
@@ -474,49 +474,48 @@ bool CStage::OverValue(CRectangle r, Vector2& o) {
 					r.Bottom += cr.Top - brec.Bottom;
 				}
 			}
-			if (cn != RIGHTSLOPE || cn != RIGHTSLOPE2)
+			if (cn != RIGHTSLOPE && cn != RIGHTSLOPE2)
 			{
-
-			//当たり判定用のキャラクタ矩形
-			//左、右それぞれで範囲を限定した専用の矩形を作成する。
-			CRectangle lrec = r;
-			lrec.Right = lrec.Left - 1;//
-			lrec.Expansion(0, -6);//
-			CRectangle rrec = r;
-			rrec.Left = rrec.Right - 1;//
-			rrec.Expansion(0, -6);//
-			//左と当たり判定
-			if (cr.CollisionRect(lrec))
-			{
-				re = true;
-				//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
-				o.x += cr.Right - lrec.Left;
-				r.Left += cr.Right - lrec.Left;
-				r.Right += cr.Right - lrec.Left;
-			}
-			//右と当たり判定
-			if (cr.CollisionRect(rrec))
-			{
-				re = true;
-				//右の埋まりなのでチップの左端から
-				o.x += cr.Left - rrec.Right;
-				r.Left += cr.Left - rrec.Right;
-				r.Right += cr.Left - rrec.Right;
-			}
-			//当たり判定用のキャラクタ矩形
-			//上で範囲を限定した専用の矩形を作成する。
-			CRectangle trec = r;
-			trec.Bottom = trec.Top - 1;//
-			trec.Expansion(-6, 0);//
-			//上と当たり判定
-			if (cr.CollisionRect(trec))
-			{
-				re = true;
-				//上の埋まりなのでチップした端から矩形の上端を
-				o.y += cr.Bottom - trec.Top;
-				r.Top += cr.Bottom - trec.Top;
-				r.Bottom += cr.Bottom - trec.Top;
-			}
+				//当たり判定用のキャラクタ矩形
+				//左、右それぞれで範囲を限定した専用の矩形を作成する。
+				CRectangle lrec = r;
+				lrec.Right = lrec.Left - 1;//
+				lrec.Expansion(0, -6);//
+				CRectangle rrec = r;
+				rrec.Left = rrec.Right - 1;//
+				rrec.Expansion(0, -6);//
+				//左と当たり判定
+				if (cr.CollisionRect(lrec))
+				{
+					re = true;
+					//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
+					o.x += cr.Right - lrec.Left;
+					r.Left += cr.Right - lrec.Left;
+					r.Right += cr.Right - lrec.Left;
+				}
+				//右と当たり判定
+				if (cr.CollisionRect(rrec))
+				{
+					re = true;
+					//右の埋まりなのでチップの左端から
+					o.x += cr.Left - rrec.Right;
+					r.Left += cr.Left - rrec.Right;
+					r.Right += cr.Left - rrec.Right;
+				}
+				//当たり判定用のキャラクタ矩形
+				//上で範囲を限定した専用の矩形を作成する。
+				CRectangle trec = r;
+				trec.Bottom = trec.Top - 1;//
+				trec.Expansion(-6, 0);//
+				//上と当たり判定
+				if (cr.CollisionRect(trec))
+				{
+					re = true;
+					//上の埋まりなのでチップした端から矩形の上端を
+					o.y += cr.Bottom - trec.Top;
+					r.Top += cr.Bottom - trec.Top;
+					r.Bottom += cr.Bottom - trec.Top;
+				}
 			}
 		}
 	}
