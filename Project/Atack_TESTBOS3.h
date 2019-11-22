@@ -8,7 +8,8 @@
 #pragma once
 #include	"_Onishi/EnemyAtack.h"
 #include	"EnemyShot.h"
-
+#include	"_Onishi/EnemyMove.h"
+#include	"_Onishi/Enemy_KURIBO.h"
 #include	"CloningSword.h"
 #include	<random>
 #define ShotCount	2
@@ -22,6 +23,8 @@ private:
 	CRectangle				m_SrcRect;
 	CTexture	m_Texture;
 	float	m_Radian;
+	CEnemy_KURIBO m_KURIBO;
+	int m_Count;
 	//CRayBullet	m_RayBullet;
 	//CEnemyShot*	m_ShotBounceArry;
 public:

@@ -19,17 +19,24 @@ void CAtack_TESTBOS3::Initialize() {
 	m_bShow = false;
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
+	//ï™êgÇ∑ÇÈåï
 	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i] = new CCloningSword();
 		m_ShotArry[i]->Initialize();
 
 	}
+
+	//ï™êgÇ∑ÇÈìG
+	for (m_Count = 0; m_Count < CloningCount;m_Count++) {
+		m_KURIBO.ClonInitialize(m_Count);
+	}
+	m_Count = 0;
 	//m_Texture.Load("Hp.png");
 	m_ScaleMagnification = 0;
 }
 
 void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
-
+	//Xç¿ïWÇÃçUåÇîÕàÕ
 	if (EnemyPosX - BosAtackRange < PlayerPosX&&EnemyPosX + BosAtackRange > PlayerPosX) {
 		if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 			m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
@@ -80,13 +87,21 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i]->Update();
 	}
-
+	m_KURIBO.ClonUpdate(m_Count); 
+	m_KURIBO.CollisionStage(m_Count);
+	m_Count++;
+	if (m_Count==CloningCount) {
+		m_Count = 0;
+	}
 }
 void CAtack_TESTBOS3::Render() {
 	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i]->Render();
 
 	}
+
+	m_KURIBO.ClonRender(m_Count);
+
 	//m_Texture.RenderScaleRotate(m_fAtackPosX,m_fAtackPosY,m_ScaleMagnification,1.0f, MOF_ToRadian(30));
 
 }
