@@ -457,14 +457,14 @@ bool CStage::OverValue(CRectangle r, Vector2& o) {
 						sp = 1.0f;
 					}
 					//Î–Ê‚Ìã‚ÌˆÊ’u‚ğ‹‚ß‚é
-					float cTop = cr.GetHeight() * sp;
+					float cTop = cr.Bottom - cr.GetHeight() * sp;
 					if (brec.Bottom < cTop)
 					{
 						continue;
 					}
-					o.y -= cTop - (cr.Bottom - brec.Bottom);
-					r.Top -= cTop - (cr.Bottom - brec.Bottom);
-					r.Bottom -= cTop - (cr.Bottom - brec.Bottom);
+					o.y += cTop - brec.Bottom;
+					r.Top += cTop - brec.Bottom;
+					r.Bottom += cTop - brec.Bottom;
 				}
 				else
 				{
