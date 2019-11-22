@@ -9,6 +9,9 @@ m_pTexture(nullptr) ,
 m_bShow(false) ,
 m_HP(0) ,
 m_DamageWait(0) {
+
+	m_Type = TYPE_ENEMY;
+
 }
 
 /**

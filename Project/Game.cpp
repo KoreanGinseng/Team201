@@ -335,4 +335,5 @@ void CGame::Release()
 		m_pObjArray = NULL;
 	}
 	m_Player.Release();
+
 }

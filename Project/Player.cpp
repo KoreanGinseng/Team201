@@ -133,6 +133,9 @@ void CPlayer::Render(Vector2 screenPos)
 	}
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 
+	if (m_SkillTarget.size()) {
+		CGraphicsUtilities::RenderString(0, 100, "%d", m_SkillTarget[m_Target]->GetStatus());
+	}
 	RenderDebug(screenPos);
 }
 
@@ -220,20 +223,19 @@ void CPlayer::PadOparation(void)
 			//戻る
 			if (g_pGamePad->IsKeyPush(GAMEKEY_X)) {
 
-				skillNo = GAMEKEY_X;
+				skillNo = SKILL_BACK;
 
 			}//止める
 			else if (g_pGamePad->IsKeyPush(GAMEKEY_Y)) {
 
-				skillNo = GAMEKEY_Y;
+				skillNo = SKILL_STOP;
 
 			}//飛ばす
 			else if (g_pGamePad->IsKeyPush(GAMEKEY_B)) {
 
-				skillNo = GAMEKEY_B;
+				skillNo = SKILL_TRIP;
 
 			}
-
 
 
 			//X||Y||Bのいずれかを押した場合
@@ -244,20 +246,13 @@ void CPlayer::PadOparation(void)
 				if (!m_SkillTarget.empty())
 				{
 					m_bTrigger = false;
-					m_SkillTarget[m_Target]->SetSkill();
-					//スキル番号のスキルをセットする
-					switch (skillNo)
-					{
-					case GAMEKEY_X:
-						m_SkillTarget[m_Target]->SetBack();
-						break;
-					case GAMEKEY_Y:
-						m_SkillTarget[m_Target]->SetStop();
-						break;
-					case GAMEKEY_B:
-						m_SkillTarget[m_Target]->SetTrip();
-						break;
+
+					if (!IsObject(skillNo)&&skillNo==SKILL_STOP) {
+
+						m_SkillTarget[m_Target]->SetSkill();
+
 					}
+
 					for (int i = 0; i < m_SkillTarget.size(); i++)
 					{
 						m_SkillTarget[i]->SetTarget(false);
@@ -649,4 +644,20 @@ bool CPlayer::Dmg(CEnemy& ene)
 		//m_Motion.ChangeMotion(MOTION_DAMAGE);
 	}
 	return true;
+}
+
+bool CPlayer::IsObject(const int& skillNo) {
+
+	if (m_SkillTarget[m_Target]->GetType()==TYPE_OBJECT) {
+
+		//スキル番号のスキルをセットする
+		m_SkillTarget[m_Target]->SetStatus(skillNo);
+		//テスト用
+		m_SkillTarget[m_Target]->SetSkill();
+		return true;
+
+	}
+
+	return false;
+
 }

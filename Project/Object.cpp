@@ -5,6 +5,7 @@
 CObject::CObject() :
 CSubstance()
 {
+	m_Type = TYPE_OBJECT;
 }
 
 void CObject::Initialize(float px, float py, const int& cn) {

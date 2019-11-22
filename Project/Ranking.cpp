@@ -85,9 +85,6 @@ bool CRanking::Load() {
 
 	}
 
-	//読み込みしたランキングのソート
-	m_RankingEntryArray.Sort(Sort);
-
 
 	return TRUE;
 }
@@ -207,7 +204,7 @@ void CRanking::Release() {
 
 	g_pGameKey->Release();
 
-	g_pScore->Release();
+	
 
 }
 
@@ -630,6 +627,9 @@ void CRanking::RankingSave(const int type) {
 
 	fclose(fp);
 	
+	//読み込みしたランキングのソート
+	m_RankingEntryArray.Sort(Sort);
+
 	//入力確定フラグを立てる
 	m_bInput = true;
 

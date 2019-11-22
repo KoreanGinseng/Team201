@@ -20,7 +20,6 @@ private:
 	int						m_StopWait;
 	int						m_StopWaitOffset;
 	int						m_DamageWait;
-	int						m_Type;
 
 	//ƒ‚[ƒVƒ‡ƒ“í—Ş’è‹`
 	enum tag_MOTION {
