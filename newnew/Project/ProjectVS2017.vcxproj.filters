@@ -234,7 +234,11 @@
     <ClInclude Include="MovePlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MapObj.h" />
-    <ClInclude Include="BackChip.h" />
+    <ClInclude Include="BackChip.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObj.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
