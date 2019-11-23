@@ -14,6 +14,8 @@
 #include	"Enemy.h"
 #include	"Item.h"
 #include	"TargetObj.h"
+#include	"MapObj.h"
+#include	"BackChip.h"
 
 #define		RIGHTSLOPE		10
 #define		RIGHTSLOPE2		23
@@ -60,7 +62,7 @@ public:
 	CStage(void);
 	~CStage(void) {}
 	bool Load(const char* pName);
-	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray);
+	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray, CDynamicArray<CMapObj*>* pMapObjArray, CDynamicArray<CBackChip*>* pBackChipArray);
 	void Update(void);
 	void RenderBack(Vector2 scroll);
 	void RenderChip(Vector2 scroll);
@@ -72,6 +74,8 @@ public:
 	bool OverValue(CRectangle r, Vector2& o);
 
 	//Get
+	int			GetBackChipCount() const { return m_BackChipCount; }
+	int			GetMapObjCount() const { return m_MapObjCount; }
 	int			GetEnemyCount()  const { return m_EnemyCount; }
 	int			GetItemCount()   const { return m_ItemCount; }
 	int			GetObjectCount() const { return m_ObjectCount; }

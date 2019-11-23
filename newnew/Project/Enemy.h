@@ -6,5 +6,6 @@ class CEnemy :
 public:
 	CEnemy();
 	~CEnemy();
+	void Update(void) override;
 };
 

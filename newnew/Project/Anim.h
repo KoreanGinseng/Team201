@@ -6,7 +6,7 @@ class CAnim
 private:
 	CSpriteMotionController*	m_pAnim;
 public:
-	CAnim() {}
+	CAnim() { m_pAnim = nullptr; }
 	~CAnim() {}
 	CRectangle	GetRect(void) const { return m_pAnim->GetSrcRect(); }
 	void Initialize(void);

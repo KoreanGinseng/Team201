@@ -22,6 +22,8 @@ public:
 	void SetShow(const bool& b) { m_bShow = b; }
 
 	bool IsShow(void) const { return m_bShow; }
+
+	Vector2 GetPos(void) const { return m_Pos; }
 private:
 };
 

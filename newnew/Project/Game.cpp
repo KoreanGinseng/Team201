@@ -23,7 +23,8 @@ CGame::CGame() :
 	m_bPoase(false),
 	m_pEnemyArray(),
 	m_pItemArray(),
-	m_pTargetObjArray()
+	m_pTargetObjArray(),
+	m_pMapObjArray()
 {
 }
 
@@ -61,7 +62,18 @@ bool CGame::Load()
 	{
 		m_pTargetObjArray.SetData(NEW CTargetObj(), i);
 	}
-
+	//マップオブジェクトメモリ確保
+	m_pMapObjArray.ReSize(m_Stage[m_StageNo].GetMapObjCount());
+	for (int i = 0; i < m_pMapObjArray.GetArrayCount(); i++)
+	{
+		m_pMapObjArray.SetData(NEW CMapObj(), i);
+	}
+	//背景チップメモリ確保
+	m_pBackChipArray.ReSize(m_Stage[m_StageNo].GetBackChipCount());
+	for (int i = 0; i < m_pBackChipArray.GetArrayCount(); i++)
+	{
+		m_pBackChipArray.SetData(NEW CBackChip(), i);
+	}
 	return TRUE;
 }
 
@@ -72,7 +84,7 @@ void CGame::Initialize()
 	m_NextSceneNo = SCENENO_GAME;
 
 	//ステージの初期化
-	m_Stage[m_StageNo].Initialize(&m_pEnemyArray, &m_pItemArray, &m_pTargetObjArray);
+	m_Stage[m_StageNo].Initialize(&m_pEnemyArray, &m_pItemArray, &m_pTargetObjArray, &m_pMapObjArray, &m_pBackChipArray);
 
 	//プレイヤーの初期化
 	m_Player.Initialize();
@@ -119,7 +131,7 @@ void CGame::Update()
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
+		if (!m_pEnemyArray[i]->IsShow() || m_pEnemyArray[i]->IsDead())
 		{
 			continue;
 		}
@@ -147,6 +159,26 @@ void CGame::Update()
 		m_pTargetObjArray[i]->Update();
 	}
 
+	//マップオブジェクトの更新
+	for (int i = 0; i < m_Stage[m_StageNo].GetMapObjCount(); i++)
+	{
+		if (!m_pMapObjArray[i]->IsShow())
+		{
+			continue;
+		}
+		m_pMapObjArray[i]->Update();
+	}
+
+	//マップオブジェクトの更新
+	for (int i = 0; i < m_Stage[m_StageNo].GetBackChipCount(); i++)
+	{
+		if (!m_pBackChipArray[i]->IsShow())
+		{
+			continue;
+		}
+		m_pBackChipArray[i]->Update();
+	}
+
 	//当たり判定
 	Collosion();
 
@@ -168,8 +200,36 @@ void CGame::Render()
 	//goriosi
 	g_pTextureManager->GetResource("空.png")->Render(0, 0);
 
-	//ステージの描画
+	//背景チップのBACKBACK描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetBackChipCount(); i++)
+	{
+		if (m_pBackChipArray[i]->GetRenderType() == RENDER_BACKBACK)
+		{
+			Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pBackChipArray[i]->GetPos());
+			m_pBackChipArray[i]->RenderBackBack(screenPos);
+		}
+	}
+
+	//ステージのBACK描画
 	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
+
+
+	//背景チップのBACKSTAGE描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetBackChipCount(); i++)
+	{
+		if (m_pBackChipArray[i]->GetRenderType() == RENDER_BACKSTAGE)
+		{
+			Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pBackChipArray[i]->GetPos());
+			m_pBackChipArray[i]->RenderBackStage(screenPos);
+		}
+	}
+
+	//マップオブジェクトの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetMapObjCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pMapObjArray[i]->GetPos());
+		m_pMapObjArray[i]->Render(screenPos);
+	}
 
 	//オブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
@@ -178,7 +238,7 @@ void CGame::Render()
 		m_pTargetObjArray[i]->Render(screenPos);
 	}
 
-	//ステージの描画
+	//ステージのCHIP描画
 	m_Stage[m_StageNo].RenderChip(m_MainCamera.GetScroll());
 
 	//プレイヤーの描画
@@ -246,7 +306,10 @@ void CGame::Release()
 	m_pItemArray.Release();
 	//オブジェクトの開放
 	m_pTargetObjArray.Release();
-
+	//マップオブジェクトの解放
+	m_pMapObjArray.Release();
+	//背景パーツの解放
+	m_pBackChipArray.Release();
 	m_Player.Release();
 }
 

@@ -15,6 +15,8 @@
 #include "Item.h"
 #include "TargetObj.h"
 #include "Stage.h"
+#include "MapObj.h"
+#include "BackChip.h"
 
 class CGame :
 	public CSceneBase
@@ -31,6 +33,8 @@ private:
 	CDynamicArray<CEnemy*>		m_pEnemyArray;
 	CDynamicArray<CItem*>		m_pItemArray;
 	CDynamicArray<CTargetObj*>	m_pTargetObjArray;
+	CDynamicArray<CMapObj*>		m_pMapObjArray;
+	CDynamicArray<CBackChip*>	m_pBackChipArray;
 
 	void Collosion(void);
 

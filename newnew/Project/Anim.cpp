@@ -2,7 +2,7 @@
 
 void CAnim::Initialize(void)
 {
-	m_pAnim = nullptr;
+	//m_pAnim = nullptr;
 }
 
 void CAnim::Update(void)

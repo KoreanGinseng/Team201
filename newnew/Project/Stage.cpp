@@ -240,7 +240,7 @@ bool CStage::Load(const char* pName) {
 }
 
 //初期化
-void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>* pItemArray, CDynamicArray<CTargetObj*>* pTargetObjArray)
+void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>* pItemArray, CDynamicArray<CTargetObj*>* pTargetObjArray, CDynamicArray<CMapObj*>* pMapObjArray, CDynamicArray<CBackChip*>* pBackChipArray)
 {
 	int n = 0;
 	for (int y = 0; y < m_YCount; y++)
@@ -254,11 +254,11 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
-			(*pEnemyArray)[n]->Initialize();
+			(*pEnemyArray)[n]->CreateMove(MOVE_ENE_KINOKO + on);
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
-			(*pEnemyArray)[n]->CreateMove(on);
 			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
-			(*pEnemyArray)[n++]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -273,10 +273,10 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
-			(*pItemArray)[n]->Initialize();
 			(*pItemArray)[n]->SetTexture(m_pItemTexture[on]);
 			(*pItemArray)[n]->CreateAnim(FileName[ANIMATION_ITEM_1 + on]);
-			(*pItemArray)[n++]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pItemArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pItemArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -291,13 +291,49 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
-			(*pTargetObjArray)[n]->Initialize();
 			(*pTargetObjArray)[n]->SetType(on);
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
 			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
-			(*pTargetObjArray)[n++]->LoadRect(FileName[RECT_OBJ_1 + on]);
+			(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
+			(*pTargetObjArray)[n++]->Initialize();
+		}
+	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pBackChipData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			(*pBackChipArray)[n]->SetTexture(m_pBackChipTexture[on]);
+			(*pBackChipArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pBackChipArray)[n]->CreateMove(MOVE_BC_01 + on);
+			(*pBackChipArray)[n]->SetRenderType(on % 2);
+			(*pBackChipArray)[n++]->Initialize();
+		}
+	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pMapObjData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			(*pMapObjArray)[n]->SetTexture(m_pMapObjTexture[on]);
+			(*pMapObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pMapObjArray)[n++]->Initialize();
 		}
 	}
 }
@@ -447,7 +483,7 @@ bool CStage::OverValue(CRectangle r, Vector2& o) {
 				re = true;
 				if (cn == RIGHTSLOPE || cn == RIGHTSLOPE2)
 				{
-					float sp = (cr.Right - brec.Left) / cr.GetWidth();
+					float sp = (cr.Right - brec.Left) / cr.GetWidth() + 0.1f;
 					if (sp < 0.0f)
 					{
 						sp = 0.0f;

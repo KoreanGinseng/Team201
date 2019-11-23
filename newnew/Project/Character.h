@@ -28,7 +28,6 @@ public:
 
 	bool IsDead(void) const { return m_bDead; }
 
-	Vector2 GetPos(void) const { return m_Pos; }
 	Vector2 GetSpd(void) const { return m_MvCntrl.GetSpd(); }
 	CRectangle GetSrcRect(void) const { return m_Anim.GetRect(); }
 	virtual CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight()); }

@@ -95,8 +95,8 @@ constexpr	char*	FileName[] = {
 	"EnemyKinokoAnim.bin",
 	"EnemyDokuAnim.bin",
 	"EnemyBatAnim.bin",
-	"EnemyAnim01.bin",
 	"OctAnim.bin",
+	"EnemyAnim01.bin",
 	"EnemyAnim06.bin",
 	"EnemyAnim07.bin",
 	"EnemyAnim08.bin",
@@ -280,6 +280,24 @@ enum tag_OBJECT
 	OBJECT_BRIDGE,
 };
 
+enum tag_RENDERTYPE
+{
+	RENDER_BACKBACK,
+	RENDER_BACKSTAGE,
+};
+
+enum tag_MOVE
+{
+	MOVE_PLAYER,
+	MOVE_ENE_KINOKO,
+	MOVE_ENE_DOKU,
+	MOVE_ENE_BAT,
+	MOVE_ENE_TAKO,
+	MOVE_BC_01,
+	MOVE_BC_02,
+	MOVE_BC_03,
+};
+
 
 extern CXGamePad*			gpXGpad;
 
@@ -295,5 +313,5 @@ extern CXGamePad*			gpXGpad;
 #define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #else
-#define	  NEW					new
+//#define	  NEW					new
 #endif
