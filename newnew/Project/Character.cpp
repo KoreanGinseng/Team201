@@ -21,6 +21,7 @@ void CCharacter::Update(void)
 {
 	m_MvCntrl.Update();
 	m_Anim.Update();
+	m_Pos += m_MvCntrl.GetMove();
 }
 
 void CCharacter::Render(const Vector2& screenPos)

@@ -7,6 +7,9 @@
 
 //INCLUDE
 #include	"Stage.h"
+float CStage::m_sChipSize = 0;
+int CStage::m_sXCount = 0;
+int CStage::m_sYCount = 0;
 
 std::string CStage::IsExt(const char * pName)
 {
@@ -123,12 +126,14 @@ bool CStage::Load(const char* pName) {
 	//チップサイズ
 	pstr = strtok(NULL, ",");
 	m_ChipSize = atof(pstr);
-
+	m_sChipSize = m_ChipSize;
 	//マップのチップ数
 	pstr = strtok(NULL, ",");
 	m_XCount = atoi(pstr);
+	m_sXCount = m_XCount;
 	pstr = strtok(NULL, ",");
 	m_YCount = atoi(pstr);
+	m_sYCount = m_YCount;
 
 	//マップチップ用のメモリ確保
 	m_pChipData = (char*)malloc(m_XCount*m_YCount);

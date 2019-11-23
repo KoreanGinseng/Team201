@@ -107,6 +107,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="Move.cpp" />
+    <ClCompile Include="MoveBackChip.cpp" />
     <ClCompile Include="MovePlayer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Coordinate.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapObj.h" />
     <ClInclude Include="Move.h" />
+    <ClInclude Include="MoveBackChip.h" />
     <ClInclude Include="MovePlayer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Coordinate.h" />

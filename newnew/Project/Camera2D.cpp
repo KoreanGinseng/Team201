@@ -1,5 +1,7 @@
 #include	"Camera2D.h"
 
+Vector2 CCamera2D::m_sPos = Vector2();
+
 CCamera2D::CCamera2D() :
 	m_Pos(Vector2(0,0)) {
 }
@@ -63,4 +65,6 @@ void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const C
 
 	m_Pos.x = (int)m_Pos.x;
 	m_Pos.y = (int)m_Pos.y;
+
+	m_sPos = m_Pos;
 }

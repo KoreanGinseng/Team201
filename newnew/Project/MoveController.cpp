@@ -34,8 +34,21 @@ bool CMoveController::Create(const int & no)
 	CMove* move = nullptr;
 	switch (no)
 	{
-	case 0:
+	case MOVE_PLAYER:
 		move = NEW CMovePlayer();
+		break;
+	case MOVE_ENE_KINOKO:
+		break;
+	case MOVE_ENE_DOKU:
+		break;
+	case MOVE_ENE_BAT:
+		break;
+	case MOVE_ENE_TAKO:
+		break;
+	case MOVE_BC_01:
+	case MOVE_BC_02:
+	case MOVE_BC_03:
+		move = NEW CMoveBackChip();
 		break;
 	default:
 		break;

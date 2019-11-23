@@ -40,6 +40,7 @@ MofBool CGameApp::Initialize(void){
 	gpScene = NEW CGame();
 
 	gpLoading = NEW CLoading();
+	gpLoading->SetStartUp(TRUE);
 	gpLoading->SetScene(gpScene);
 	gpLoading->Start("Loading");
 
@@ -57,8 +58,15 @@ MofBool CGameApp::Update(void){
 	g_pInput->RefreshKey();
 	g_pGamePad->RefreshKey();
 
-	if (!gpLoading->IsEnd())
+	if (!gpLoading->IsSceneStart())
 	{
+		if (gpLoading->IsEnd())
+		{
+			if (g_pInput->IsKeyPush(MOFKEY_A) || g_pInput->IsKeyPush(MOFKEY_RETURN) || g_pGamePad->IsKeyPush(XINPUT_A))
+			{
+				gpLoading->SceneStart();
+			}
+		}
 		return TRUE;
 	}
 	
@@ -68,6 +76,7 @@ MofBool CGameApp::Update(void){
 
 	if (gpScene->IsEnd())
 	{
+		bool loadPush = true;
 		int n = gpScene->GetNextSceneNo();
 		gpScene->Release();
 		NewPointerRelease(gpScene);
@@ -75,6 +84,7 @@ MofBool CGameApp::Update(void){
 		switch (n)
 		{
 		case SCENENO_GAME:
+			loadPush = false;
 			gpScene = NEW CGame();
 			break;
 		case SCENENO_TITLE:
@@ -93,6 +103,7 @@ MofBool CGameApp::Update(void){
 			break;
 		}
 		gpLoading = NEW CLoading();
+		gpLoading->SetStartUp(loadPush);
 		gpLoading->SetScene(gpScene);
 		gpLoading->Start("Loading");
 	}
@@ -112,9 +123,10 @@ MofBool CGameApp::Render(void){
 	//‰æ–Ê‚ÌƒNƒŠƒA
 	g_pGraphics->ClearTarget(0.0f,0.0f,1.0f,0.0f,1.0f,0);
 
-	if (!gpLoading->IsEnd())
+	if (!gpLoading->IsSceneStart())
 	{
 		//•`‰æ‚ÌI—¹
+		gpLoading->Render();
 		g_pGraphics->RenderEnd();
 		return TRUE;
 	}

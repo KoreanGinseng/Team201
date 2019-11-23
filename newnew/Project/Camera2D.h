@@ -13,6 +13,7 @@
 class CCamera2D {
 private:
 	Vector2 m_Pos;
+	static Vector2 m_sPos;
 public:
 	CCamera2D();
 	~CCamera2D() {}
@@ -23,7 +24,7 @@ public:
 	//Get
 	Vector2 GetScroll() const { return m_Pos; }
 	CRectangle GetRect() const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + g_pGraphics->GetTargetWidth(), m_Pos.y + g_pGraphics->GetTargetHeight()); }
-
+	static Vector2 GetSScroll() { return m_sPos; }
 	//Set
 	void SetScrollX(const float& x) { m_Pos.x = x; }
 	void SetScrollY(const float& y) { m_Pos.y = y; }

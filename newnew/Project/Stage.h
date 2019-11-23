@@ -20,6 +20,8 @@
 #define		RIGHTSLOPE		10
 #define		RIGHTSLOPE2		23
 
+class CBackChip;
+
 class CStage
 {
 private:
@@ -34,6 +36,9 @@ private:
 	float		m_ChipSize;
 	int			m_XCount;
 	int			m_YCount;
+	static float m_sChipSize;
+	static int	m_sXCount;
+	static int	m_sYCount;
 
 	char*		m_pChipData;
 	char*		m_pMapObjData;
@@ -79,7 +84,8 @@ public:
 	int			GetEnemyCount()  const { return m_EnemyCount; }
 	int			GetItemCount()   const { return m_ItemCount; }
 	int			GetObjectCount() const { return m_ObjectCount; }
-	Vector2		GetStageSize()	 const { return Vector2(m_XCount, m_YCount); }
-	CRectangle  GetStageRect()	 const { return CRectangle(0, 0, m_XCount * m_ChipSize, m_YCount * m_ChipSize); }
+	//Vector2		GetStageSize()	 const { return Vector2(m_XCount, m_YCount); }
+	static Vector2 GetStageSize() { return Vector2(m_sXCount, m_sYCount); }
+	static CRectangle  GetStageRect() { return CRectangle(0, 0, m_sXCount * m_sChipSize, m_sYCount * m_sChipSize); }
 };
 

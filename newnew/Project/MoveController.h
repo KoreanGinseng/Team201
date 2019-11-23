@@ -3,6 +3,7 @@
 #include	"Move.h"
 #include	"Anim.h"
 #include	"MovePlayer.h"
+#include	"MoveBackChip.h"
 
 class CMoveController
 {
