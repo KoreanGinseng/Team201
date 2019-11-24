@@ -24,16 +24,6 @@ void CBackChip::Initialize(void)
 
 void CBackChip::RenderBackBack(const Vector2 & screenPos)
 {
-	/*int w = CStage::GetStageRect().Right - m_pTexture->GetWidth();
-	int h = CStage::GetStageRect().Bottom;
-	int sw = CStage::GetStageRect().Right;
-	for (int y = ((int)(-screenPos.y + m_Pos.y) / 8 % h) - h; y < h; y += h)
-	{
-		for (int x = ((int)(-screenPos.x) / 8 % w) - w + m_Pos.x; x < sw; x += w)
-		{
-			m_pTexture->Render(x, y);
-		}
-	}*/
 	int scw = g_pGraphics->GetTargetWidth();
 	int sch = g_pGraphics->GetTargetHeight();
 	int wn = CStage::GetStageRect().Right;
