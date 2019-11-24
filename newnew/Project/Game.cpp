@@ -205,8 +205,6 @@ void CGame::Render()
 	{
 		if (m_pBackChipArray[i]->GetRenderType() == RENDER_BACKBACK)
 		{
-			Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll() / 8, m_pBackChipArray[i]->GetPos());
-			//m_pBackChipArray[i]->RenderBackBack(screenPos);
 			m_pBackChipArray[i]->RenderBackBack(m_MainCamera.GetScroll());
 		}
 	}
@@ -220,7 +218,6 @@ void CGame::Render()
 	{
 		if (m_pBackChipArray[i]->GetRenderType() == RENDER_BACKSTAGE)
 		{
-			Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll() / 6, m_pBackChipArray[i]->GetPos());
 			m_pBackChipArray[i]->RenderBackStage(m_MainCamera.GetScroll());
 		}
 	}
