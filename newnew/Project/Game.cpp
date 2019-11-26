@@ -11,7 +11,7 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"Stage1-1.txt",
+			"ENEMOVESTAGE.txt",
 			"Stage1-1.txt",
 			"Stage1-1.txt",
 			"Stage1-1.txt",
@@ -336,7 +336,7 @@ void CGame::Collosion(void)
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
 		//非表示か死亡の場合スキップ
-		if (!m_pEnemyArray[i]->IsShow() || !m_pEnemyArray[i]->IsDead())
+		if (!m_pEnemyArray[i]->IsShow() || m_pEnemyArray[i]->IsDead())
 		{
 			continue;
 		}

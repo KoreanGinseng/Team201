@@ -27,6 +27,7 @@ using RectArray = CDynamicArray<CRectangle>;
 #define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 #define		GRAVITY			0.3f	//! ゲーム内重力
+#define		GRAVITYMAX		20.0f	//! ゲーム内重力
 
 #define		PLAYER_MAXHP			2
 #define		PLAYER_MAXSTOCK			3
@@ -258,8 +259,8 @@ enum tag_RECTDATA {
  *****************************************************************/
 enum tag_ENEMY
 {
-	ENEMY_KURIBO,
-	ENEMY_NOKONOKO,
+	ENEMY_MASH,
+	ENEMY_POISUNMASH,
 	ENEMY_BAT,
 	ENEMY_TERESA,
 	ENEMY_KOTEIHOUDAI,

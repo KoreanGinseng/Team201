@@ -3,6 +3,7 @@
 #include	"Move.h"
 #include	"Anim.h"
 #include	"MovePlayer.h"
+#include	"MoveMash.h"
 #include	"MoveBackChip.h"
 
 class CMoveController
@@ -24,5 +25,7 @@ public:
 	void SetSpd(const float& x, const float& y) { SetSpd(Vector2(x, y)); }
 	void SetSpd(const Vector2& spd) { m_pMove->SetSpd(spd); }
 	void Remove(void) { NewPointerRelease(m_pMove); }
+	bool GetReverse(void) const { return m_pMove->GetReverse(); }
+	void MoveReverse(void) { m_pMove->MoveReverse(); }
 };
 

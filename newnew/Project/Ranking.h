@@ -2,7 +2,6 @@
 #include	"Mof.h"
 #include	"SceneBase.h"
 #include	"GameDefine.h"
-#include	"GameKey.h"
 #include	"Coordinate.h"
 #include	"Score.h"
 

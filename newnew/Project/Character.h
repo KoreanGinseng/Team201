@@ -22,7 +22,7 @@ public:
 	void Release(void) override;
 
 	void CreateMove(const int& no) { m_MvCntrl.Create(no); }
-	void CreateAnim(const char* pName) { m_Anim.Create(pName); }
+	void CreateAnim(const char* pName) { m_Anim.Create(pName); m_SrcRectArray.Add(m_Anim.GetRect()); }
 
 	void LoadRect(const char* pName);
 

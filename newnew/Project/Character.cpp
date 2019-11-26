@@ -3,7 +3,9 @@
 
 
 CCharacter::CCharacter()
+	: CObject()
 {
+	m_bDead = false;
 }
 
 
@@ -15,6 +17,8 @@ void CCharacter::Initialize(void)
 {
 	m_MvCntrl.Initialize();
 	m_Anim.Initialize();
+	m_bShow = true;
+	m_bDead = false;
 }
 
 void CCharacter::Update(void)

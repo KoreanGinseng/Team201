@@ -4,6 +4,7 @@
 
 CObject::CObject()
 {
+	m_bShow = true;
 }
 
 
