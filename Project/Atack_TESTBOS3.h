@@ -13,6 +13,7 @@
 #include	"CloningSword.h"
 #include	"TeleportationSword.h"
 #include	<random>
+#include	"Enemy_RIGHTHAND.h"
 #define ShotCount	2
 #define TLeTime 0.2f
 
@@ -32,6 +33,7 @@ private:
 	int m_TleCount;
 	float	m_TleTime;
 	int	m_Counting;
+	CEnemy_RIGHTHAND m_Hand;
 	//CRayBullet	m_RayBullet;
 	//CEnemyShot*	m_ShotBounceArry;
 public:

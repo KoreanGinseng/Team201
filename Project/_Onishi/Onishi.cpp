@@ -101,6 +101,10 @@ void COnishi::Initialize() {
 		gEnemy = new CEnemy_TESTBOS3();
 		gAtack = new CAtack_TESTBOS3();
 		break;
+	/*case ENEMY_RIGHTHAND:
+		gEnemy = new CEnemy_RIGHTHAND();
+		gAtack = new CAtack_RIGHTHAND();
+		break;*/
 	}
 
 	gEnemy->Initialize();
@@ -199,6 +203,11 @@ void COnishi::Update() {
 			gEnemy = new CEnemy_TESTBOS3();
 			gAtack = new CAtack_TESTBOS3();
 		}
+		/*else if (gEnemytype == ENEMY_TESTBOS3) {
+			gEnemytype = ENEMY_RIGHTHAND;
+			gEnemy = new CEnemy_RIGHTHAND();
+			gAtack = new CAtack_RIGHTHAND();
+		}*/
 		else
 		{
 			gEnemytype = ENEMY_KURIBO;
@@ -286,12 +295,16 @@ void COnishi::Render() {
 	case ENEMY_TESTBOS2:
 		CGraphicsUtilities::RenderString(100, 0, "街中のボス");
 		break;
+	case ENEMY_TESTBOS3:
+		CGraphicsUtilities::RenderString(100, 0, "最後のボス");
+		break;
+	case ENEMY_RIGHTHAND:
+		CGraphicsUtilities::RenderString(100, 0, "ボスの右手");
+		break;
 	}
-
 	CGraphicsUtilities::RenderLine(0, 600, g_pGraphics->GetTargetWidth(), 600, MOF_COLOR_WHITE);
 	CGraphicsUtilities::RenderLine(200, 0, 200, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
 	CGraphicsUtilities::RenderLine(800, 0, 800, g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
-
 }
 
 /*****************************************************************

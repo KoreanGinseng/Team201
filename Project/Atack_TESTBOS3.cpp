@@ -67,26 +67,27 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 
 				int rnd = rand() % 5;
 
-				for (int i = 0; i < CloningCount; i++) {
-					/*if (m_ShotArry->GetShow()) {
-						continue;
-					}*/
+				//for (int i = 0; i < CloningCount; i++) {
+				//	/*if (m_ShotArry->GetShow()) {
+				//		continue;
+				//	}*/
 
 
 
-					m_ShotArry[i]->Initialize();
-					if (i==2) {
-						m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
-					}
-					else
-					{
-						m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance*2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY,rd,ddx,ddy);
-					}
+				//	m_ShotArry[i]->Initialize();
+				//	if (i==2) {
+				//		m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
+				//	}
+				//	else
+				//	{
+				//		m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance*2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY,rd,ddx,ddy);
+				//	}
 
 
-					
-				}
-				m_ShotArry[rnd]->SetFrag(true);
+				//	
+				//}
+				//m_ShotArry[rnd]->SetFrag(true);
+
 
 				m_fAtackPosX = EnemyPosX;
 				m_fAtackPosY = EnemyPosY;
@@ -96,38 +97,47 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 		m_bShow = true;
 
 	}
-	for (int i = 0; i < CloningCount; i++) {
-		m_ShotArry[i]->Update();
-	}
 
-	//ï™êgìG
-	m_KURIBO.ClonUpdate(m_EneCount); 
-	m_KURIBO.CollisionStage(m_EneCount);
 
-	m_EneCount++;
-	if (m_EneCount==CloningCount) {
-		m_EneCount = 0;
-	}
+	//for (int i = 0; i < CloningCount; i++) {
+	//	m_ShotArry[i]->Update();
+	//}
 
-	/*m_EneCount += m_Counting;
-	if (m_EneCount == CloningCount) {
-		m_Counting = -1 ;
-		m_EneCount == CloningCount - 1;
-	}
-	else if (m_EneCount == 0) {
-		m_Counting = 1 ;
-	}*/
+	////ï™êgìG
+	//m_KURIBO.ClonUpdate(m_EneCount); 
+	//m_KURIBO.CollisionStage(m_EneCount);
 
-	//èuä‘à⁄ìÆ
-	if (m_ShotArry[m_TleCount]->GetTleEnd()) {
-		return;
-	}
-	m_TleTime -= 1 * CUtilities::GetFrameSecond();
-	if (m_TleTime <= 0) {
-		m_TleCount = rand() % 5;
-		m_TleTime = TLeTime;
-	}
+	//m_EneCount++;
+	//if (m_EneCount==CloningCount) {
+	//	m_EneCount = 0;
+	//}
 
+	///*m_EneCount += m_Counting;
+	//if (m_EneCount == CloningCount) {
+	//	m_Counting = -1 ;
+	//	m_EneCount == CloningCount - 1;
+	//}
+	//else if (m_EneCount == 0) {
+	//	m_Counting = 1 ;
+	//}*/
+
+	////èuä‘à⁄ìÆ
+	//if (m_ShotArry[m_TleCount]->GetTleEnd()) {
+	//	return;
+	//}
+	//m_TleTime -= 1 * CUtilities::GetFrameSecond();
+	//if (m_TleTime <= 0) {
+	//	m_TleCount = rand() % 5;
+	//	m_TleTime = TLeTime;
+	//}
+
+	//âEéË
+	if (!m_Hand.GetMoveFlag()) {
+		m_Hand.Initialize();
+		m_Hand.Start(PlayerPosX);
+	}
+	m_Hand.Update(PlayerPosX, PlayerPosY);
+	m_Hand.CollisionStage();
 }
 void CAtack_TESTBOS3::Render() {
 
@@ -137,7 +147,9 @@ void CAtack_TESTBOS3::Render() {
 
 	}*/
 	
-	
+	//âEéË
+	m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
+
 	//èuä‘à⁄ìÆ
 	m_ShotArry[m_TleCount]->Render();
 

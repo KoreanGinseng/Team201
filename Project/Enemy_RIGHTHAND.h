@@ -7,17 +7,24 @@
 
 #pragma once
 #include "_Onishi/EnemyMove.h"
-#define	CrawlRange	100
-#define CrawlRangeCenter 50
-class CENEMY_RIGHTHAND :public CEnemyMove {
+#define	MAXTOP 200.0f
+#define AIMTIME 2
+
+class CEnemy_RIGHTHAND :public CEnemyMove {
 private:
-	int m_CrawlRange;
-	float m_CrawlRangeCount;
+	float PlayPosX;
+	float m_InitialPositionX;
+	float m_InitialPositionY;
+	float m_AimTime;
+	bool m_MoveEndFlag;
 public:
-	CENEMY_RIGHTHAND();
-	~CENEMY_RIGHTHAND();
+	CEnemy_RIGHTHAND();
+	~CEnemy_RIGHTHAND();
 	void Initialize();
+	void Start(float PlayerPosX);
+	void Start(float InitialPositionX, float InitialPositionY);
 	void Update(float Xpos, float Ypos);
+	void CollisionStage();
 	void Render(float Xpos, float Ypos);
 	void Release();
 };

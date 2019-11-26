@@ -22,6 +22,7 @@ protected:
 	float m_fMoveX;
 	float m_fMoveY;
 	float m_fEnemySpeed;
+	bool m_MoveFlag;
 
 private:
 	
@@ -74,6 +75,8 @@ public:
 			}
 		}
 	}
+	bool SetMoveFlag(bool bs) { return m_MoveFlag; }
+	bool GetMoveFlag() { return m_MoveFlag; }
 };
 
 

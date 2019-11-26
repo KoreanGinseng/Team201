@@ -16,7 +16,8 @@ CEnemyMove::CEnemyMove() :
 	m_fAtackTimer(0),
 	m_fCooltime(0),
 	m_fMoveX(0.0f),
-	m_fMoveY(0.0f){
+	m_fMoveY(0.0f),
+	m_MoveFlag(false){
 }
 
 CEnemyMove::~CEnemyMove() {
@@ -33,32 +34,7 @@ void CEnemyMove::Update(float Xpos, float Ypos) {
 }
 
 void CEnemyMove::KUpdate(float Xpos,float Ypos) {
-	/*if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-
-		m_bEnd = !m_bEnd;
-	}
-	if (m_bEnd) {
-		return;
-	}
-
-	if (m_fYpos - 50 < Ypos&&m_fYpos + 10 > Ypos) {
-		if (m_bRevers) {
-			if (m_fXpos + 50 > Xpos&&m_fXpos < Xpos) {
-				
-				return;
-			}
-		}
-		else {
-			if (m_fXpos - 50 < Xpos&&m_fXpos > Xpos) {
-				
-				return;
-			}
-		}
-	}
-
 	
-	m_fXpos += m_fMoveX;
-	m_fYpos += m_fMoveY;*/
 }
 
 void CEnemyMove::NUpdate() {
