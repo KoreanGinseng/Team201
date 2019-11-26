@@ -111,7 +111,10 @@ void CEnemy_RIGHTHAND::Update(float Xpos, float Ypos) {
 		if (m_fMoveY<0) {
 			m_fMoveY = EnemySpeed;
 		}
-		m_fYpos += m_fMoveY * 5;
+		if (m_AimTime<=0) {
+
+			m_fYpos += m_fMoveY * 5;
+		}
 	}
 
 }
