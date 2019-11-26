@@ -16,7 +16,7 @@
 #include "Stage.h"
 #include "UI.h"
 
-static Vector2	gSavePos = 0;
+static Vector2	gSavePos;
 
 class CGame :
 	public CSceneBase

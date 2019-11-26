@@ -54,7 +54,7 @@ bool CGame::Load()
 
 void CGame::SaveLoad() {
 
-	if (gSavePos != 0) {
+	if (gSavePos.x&&gSavePos.y) {
 
 		m_Player.SetPos(gSavePos);
 
@@ -215,6 +215,8 @@ void CGame::Update()
 
 	//オブジェクトの出現
 	ObjectAppearance();
+
+	PlayerSave();
 
 	//カメラの更新
 	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
