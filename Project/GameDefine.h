@@ -244,6 +244,8 @@ enum tag_OBJECT
 	OBJECT_ROPE,
 	OBJECT_BRIDGE,
 	OBJECT_TREE01,
+	OBJECT_MOVE,
+	OBJECT_SAVE,
 };
 
 /*****************************************************************

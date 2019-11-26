@@ -16,6 +16,8 @@
 #include "Stage.h"
 #include "UI.h"
 
+static Vector2	gSavePos = 0;
+
 class CGame :
 	public CSceneBase
 {
@@ -48,6 +50,8 @@ public:
 	void Release(void);
 
 	void ObjectAppearance(void);
+	void PlayerSave(void);
+	void SaveLoad(void);
 
 	int GetSceneName(void) { return SCENENO_GAME; }
 

@@ -14,8 +14,8 @@ void CObject::Initialize(float px, float py, const int& cn) {
 	m_Pos.y = py;
 	m_bShow = true;
 	//アニメーションを作成
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnimCount();
-	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnim(), c);
+	m_AnimCount = MOF_MAX(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnimCount(), 0);
+	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnim(), m_AnimCount);
 	if (m_bMotionEnd)
 	{
 		m_Motion.ChangeMotion(MOTION_END);
@@ -31,7 +31,7 @@ void CObject::Update(void) {
 
 	m_pObjEmp->Update(m_bMotionEnd);
 
-	if (m_bSkill)
+	if (m_bSkill && m_AnimCount > 0)
 	{
 
 		m_Motion.AddTimer(CUtilities::GetFrameSecond());
@@ -50,8 +50,15 @@ void CObject::Update(void) {
 			}
 		}
 	}
+	if (m_AnimCount > 0)
+	{
+		m_SrcRect = m_Motion.GetSrcRect();
+	}
+	else
+	{
+		m_SrcRect = CRectangle(0, 0, 64, 64);
+	}
 
-	m_SrcRect = m_Motion.GetSrcRect();
 	m_pObjEmp->SetRect(GetRect());
 
 }
@@ -190,6 +197,9 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 
 void CObject::SetObject(const int& Type)
 {
+
+	
+
 	switch (Type)
 	{
 	case 0:
@@ -202,9 +212,29 @@ void CObject::SetObject(const int& Type)
 	case 2:
 		m_pObjEmp = new CBridge();
 		break;
-	case 3:
+	case OBJECT_MOVE:
+
+		m_pObjEmp = new CMoveObject();
+		
 		break;
+	case OBJECT_SAVE:
+
+		m_pObjEmp = new CSaveObject();
+	
+		break;
+
 	default:
 		break;
+	}
+
+	if (m_pObjEmp->GetType() == OBJECT_SAVE) {
+
+		m_bSave = false;
+
+	}
+	else {
+
+		m_bSave = true;
+
 	}
 }

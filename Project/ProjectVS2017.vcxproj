@@ -102,6 +102,8 @@
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EffectFade.cpp" />
+    <ClCompile Include="MoveObject.cpp" />
+    <ClCompile Include="SaveObject.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
@@ -176,12 +178,14 @@
     <ClInclude Include="GamePadDefine.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Loading.h" />
+    <ClInclude Include="MoveObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjTree.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="ReNum.h" />
     <ClInclude Include="Rope.h" />
+    <ClInclude Include="SaveObject.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Score.h" />

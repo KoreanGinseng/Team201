@@ -11,7 +11,7 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"Stage1-1.txt",
+			"TestStage1-1.txt",
 			"Stage1-1.txt",
 			"Stage1-1.txt",
 			"Stage1-1.txt",
@@ -52,6 +52,16 @@ bool CGame::Load()
 	return TRUE;
 }
 
+void CGame::SaveLoad() {
+
+	if (gSavePos != 0) {
+
+		m_Player.SetPos(gSavePos);
+
+	}
+
+}
+
 //初期化
 void CGame::Initialize()
 {
@@ -61,6 +71,7 @@ void CGame::Initialize()
 	m_NextSceneNo = SCENENO_GAME;
 	m_Stage[m_StageNo].Initialize(m_pEnemyArray, m_pItemArray, m_pObjArray);
 	m_Player.Initialize();
+	SaveLoad();
 	g_pTimeManager->Reset();
 }
 
@@ -319,6 +330,33 @@ void CGame::ObjectAppearance() {
 
 }
 
+void CGame::PlayerSave() {
+
+	for (int i = 0; i < m_Stage->GetObjectCount(); i++) {
+
+		//出現していないかつセーブオブジェクトではない場合、飛ばす
+		if (!m_pObjArray[i].IsAppearance()||m_pObjArray[i].GetType()!=OBJECT_SAVE) {
+
+			continue;
+
+		}
+
+		if (m_pObjArray[i].IsSave()) {
+
+			continue;
+
+		}
+
+		if (m_Player.GetPos().x > m_pObjArray[i].GetPos().x) {
+
+			gSavePos = m_pObjArray[i].GetPos();
+			m_pObjArray[i].SetSave(true);
+
+		}
+
+	}
+
+}
 //デバッグ描画
 void CGame::RenderDebug()
 {

@@ -6,6 +6,8 @@
 #include	"Rope.h"
 #include	"ObjTree.h"
 #include	"Bridge.h"
+#include	"MoveObject.h"
+#include	"SaveObject.h"
 
 class CObject : public CSubstance
 {
@@ -17,6 +19,9 @@ protected:
 	bool								m_bAppearance;
 	CRectangle							m_SrcRect;
 	CEmpty*								m_pObjEmp;
+
+	int									m_AnimCount;
+	bool		m_bSave;
 
 	enum tag_MOTION {
 		MOTION_START,
@@ -43,11 +48,14 @@ public:
 	void SetMotionEnd(const bool& be)  { m_bMotionEnd = be; }
 	void SetShow(const bool& bs)       { m_bShow = bs; }
 	void SetAppearance(const bool& ba) { m_bAppearance = ba; }
-
+	void SetSave(const bool& save)			   { m_bSave = save; }
 	//Get
 	bool		GetShow(void)	 const { return m_bShow; }
 	bool		IsAppearance(void)	const { return m_bAppearance; }
+	bool		IsSave(void) { return m_bSave; }
+	
 	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
 	int	 GetType(void) { return m_pObjEmp->GetType(); }
+	
 };
 

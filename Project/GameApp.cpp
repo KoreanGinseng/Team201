@@ -27,6 +27,7 @@
 CSceneBase*		gpScene = nullptr;
 CLoading*		gpLoading = nullptr;
 extern CXGamePad xgpad;
+
 #ifdef _DEBUG
 bool			gbDebug = true;
 #endif // _DEBUG

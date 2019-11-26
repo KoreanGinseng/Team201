@@ -5,6 +5,7 @@
 class CEmpty
 {
 protected:
+	
 	int			m_RectCount;
 	CRectangle	m_Rect;
 	CRectangle* m_pRect;
@@ -18,5 +19,7 @@ public:
 	virtual CRectangle GetRect(const Vector2& pos, const CRectangle& src) const = 0;
 	virtual int GetType(void) const = 0;
 	void SetRect(const CRectangle& r) { m_Rect = r; }
+
+	
 };
 

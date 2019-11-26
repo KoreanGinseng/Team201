@@ -34,6 +34,7 @@ private:
 	Vector2						m_Move;
 	Vector2						m_Spd;
 	std::vector<CSubstance*>	m_SkillTarget;
+	bool						m_bSave;
 	bool						m_bMove;
 	bool						m_bReverse;
 	bool						m_bJump;
@@ -90,12 +91,14 @@ public:
 	Vector2 GetSpd(void) const { return m_Spd; }
 	CRectangle GetRect(void) const { return CRectangle(m_Pos.x + PLAYER_RECTDIS, m_Pos.y + PLAYER_RECTDIS,
 		m_Pos.x + m_SrcRect.GetWidth() - PLAYER_RECTDIS, m_Pos.y + m_SrcRect.GetHeight()); }
+	bool	IsSave(void) { return m_bSave; }
 	bool	IsTrigger(void) { return m_bTrigger; }
 	bool	IsObject(const int& skillNo);
 	int		GetHp(void) { return m_HP; }
 	//Set
 	void   SetClime(const bool& b) { m_bClime = b; }
-
+	void   SetSave(const bool& b) { m_bSave = b; }
+	void   SetPos(const Vector2& pos) { m_Pos = pos; }
 
 	bool   Dmg(CEnemy& ene);
 };
