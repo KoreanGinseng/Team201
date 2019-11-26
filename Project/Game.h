@@ -47,6 +47,8 @@ public:
 	void UpdateDebug(void);
 	void Release(void);
 
+	void ObjectAppearance(void);
+
 	int GetSceneName(void) { return SCENENO_GAME; }
 
 	static	void	NextStage(void) {

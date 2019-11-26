@@ -157,7 +157,8 @@ void CGame::Update()
 	bool clime = false;
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
-		if (!m_pObjArray[i].GetShow())
+		//非表示かつ出現していなかったら処理を飛ばす
+		if (!m_pObjArray[i].GetShow()&&!m_pObjArray[i].IsAppearance())
 		{
 			continue;
 		}
@@ -201,6 +202,9 @@ void CGame::Update()
 	}
 	m_Player.SetClime(clime);
 
+	//オブジェクトの出現
+	ObjectAppearance();
+
 	//カメラの更新
 	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
 	m_MainCamera.Update(centerPos, m_Player.GetRect(), m_Stage[m_StageNo].GetStageRect());
@@ -241,6 +245,12 @@ void CGame::Render()
 	//オブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
+		//オブジェクトが出現していない場合、描画しない
+		if (!m_pObjArray[i].IsAppearance()) {
+
+			continue;
+		}
+
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].Render(screenPos);
 	}
@@ -284,6 +294,31 @@ void CGame::UpdateDebug() {
 
 	}
 }
+
+//オブジェクトの出現
+void CGame::ObjectAppearance() {
+
+	Vector2 screen = Vector2(g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight());
+
+	for (int i = 0; i < m_Stage->GetObjectCount(); i++) {
+
+		if (m_pObjArray[i].IsAppearance()) {
+
+			continue;
+
+		}
+
+		if (m_pObjArray[i].GetPos().x - m_MainCamera.GetScroll().x < g_pGraphics->GetTargetWidth()&&
+			m_pObjArray[i].GetPos().y - m_MainCamera.GetScroll().y < g_pGraphics->GetTargetHeight()) {
+
+			m_pObjArray[i].SetAppearance(true);
+
+		}
+
+	}
+
+}
+
 //デバッグ描画
 void CGame::RenderDebug()
 {
@@ -300,6 +335,7 @@ void CGame::RenderDebug()
 	{
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pObjArray[i].GetPos());
 		m_pObjArray[i].RenderDebug(screenPos);
+		CGraphicsUtilities::RenderString(i * 30, 0, "%d", m_pObjArray[i].IsAppearance());
 	}
 	String(1600, 0, 128, g_pTimeManager->GetNowTime());
 	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
