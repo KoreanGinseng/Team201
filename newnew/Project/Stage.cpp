@@ -391,7 +391,7 @@ void CStage::RenderChip(Vector2 scroll)
 //•`‰æ
 void CStage::Render(Vector2 scroll) {
 	
-
+	g_pSoundManager->GetResource("Jump.wav")->Play();
 	
 }
 

@@ -23,7 +23,6 @@ void CLoading::Load(void)
 	m_Count = 0;
 	g_pEffectManager->Load();
 	m_Count++;
-
 	m_Message = "画像データ読み込み中";
 	m_CountMax = TEXTURE_COUNT;
 	m_Count = 0;
@@ -49,6 +48,7 @@ void CLoading::Load(void)
 		g_pSoundManager->GetResource(FileName[i]);
 		m_Count++;
 	}
+
 	m_Message = "シーンの読み込み中";
 	m_CountMax = 1;
 	m_Count = 0;
