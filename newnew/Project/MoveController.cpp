@@ -38,9 +38,8 @@ bool CMoveController::Create(const int & no)
 		move = NEW CMovePlayer();
 		break;
 	case MOVE_ENE_KINOKO:
-		move = NEW CMoveMash();
-		break;
 	case MOVE_ENE_DOKU:
+		move = NEW CMoveMash();
 		break;
 	case MOVE_ENE_BAT:
 		break;
