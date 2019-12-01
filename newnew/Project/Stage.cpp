@@ -264,6 +264,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pEnemyArray)[n]->SetEneType(on);
+			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcRect());
 			(*pEnemyArray)[n++]->Initialize();
 		}
 	}

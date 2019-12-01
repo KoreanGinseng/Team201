@@ -2,10 +2,12 @@
 
 
 
-CEffectFade::CEffectFade()
+CEffectFade::CEffectFade() :
+CSceneEffectBase()
 {
 	m_pMaskTexture = g_pTextureManager->GetResource("MaskImage.png");
 	m_bEnd = false;
+	m_bStart[0] = m_bStart[1] = false;
 }
 
 
@@ -25,7 +27,7 @@ bool CEffectFade::Out(const int & spd)
 	m_Alpha += m_Spd;
 	if (m_Alpha > 255)
 	{
-		m_bStart[1] = false;
+		//m_bStart[1] = false;
 		m_bEnd = true;
 		return true;
 	}

@@ -22,7 +22,7 @@ public:
 	void Release(void) override;
 
 	void CreateMove(const int& no) { m_MvCntrl.Create(no); }
-	void CreateAnim(const char* pName) { m_Anim.Create(pName); m_SrcRectArray.Add(m_Anim.GetRect()); }
+	void CreateAnim(const char* pName) { m_Anim.Create(pName); }
 
 	void LoadRect(const char* pName);
 
@@ -32,6 +32,7 @@ public:
 	CRectangle GetSrcRect(void) const { return m_Anim.GetRect(); }
 	virtual CRectangle GetRect(void) const { return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight()); }
 	RectArray GetSrcRectArray(void) const { return m_SrcRectArray; }
+	RectArray* GetSrcRectArrayPointer(void) { return &m_SrcRectArray; }
 	RectArray GetRectArray(void) const;
 	CRectangle GetRectArray(const int& n) const {
 		return CRectangle(

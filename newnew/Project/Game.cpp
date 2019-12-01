@@ -358,7 +358,7 @@ void CGame::Collosion(void)
 			over = Vector2(0, 0);
 
 			//プレイヤーとの埋まりを求める
-			if (m_pEnemyArray[i]->OverValue(m_Player.GetRectArray(i), over))
+			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect(), over))
 			{
 				//敵がスキルで止まっているなら埋まり値だけ戻す
 				if (m_pEnemyArray[i]->IsSkill())
@@ -369,6 +369,27 @@ void CGame::Collosion(void)
 				else
 				{
 					m_Player.Dmg(*m_pEnemyArray[i]);
+				}
+			}
+
+			//埋まり値の値をリセット
+			over = Vector2(0, 0);
+
+			//他の敵との埋まりを求める
+			for (int k = 0; k < m_Stage[m_StageNo].GetEnemyCount(); k++)
+			{
+				if (k == i)
+				{
+					continue;
+				}
+				for (int l = 0; l < m_pEnemyArray[k]->GetRectArray().GetArrayCount(); l++)
+				{
+					if (m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
+					{
+						//埋まっているだけ元に戻す
+						m_pEnemyArray[k]->CollisionStage(over);
+						m_pEnemyArray[i]->Reverse(-over);
+					}
 				}
 			}
 		}

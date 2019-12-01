@@ -10,6 +10,8 @@ public:
 	~CEnemy();
 	void Update(void) override;
 	void SetEneType(const int& t) { m_EnemyType = t; }
+	bool OverValue(CRectangle rec, Vector2& out) override;
 	void CollisionStage(const Vector2 & over);
+	void Reverse(const Vector2 & over);
 };
 

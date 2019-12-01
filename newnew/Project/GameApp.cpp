@@ -32,6 +32,11 @@ CXGamePad*			gpXGpad = nullptr;
 MofBool CGameApp::Initialize(void){
 	CUtilities::SetCurrentDirectory("Resource");
 
+	if (!CUtilities::SetFPS(GAMEFPS))
+	{
+		return FALSE;
+	}
+
 	gpXGpad = NEW CXGamePad();
 	XGAMEPADCREATEINFO xc;
 	xc.No = 0;

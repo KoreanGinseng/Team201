@@ -93,6 +93,7 @@ void CGameOver::Render() {
 void CGameOver::UpdateDebug() {
 
 	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+		m_pEffect->Out(10);
 		m_NextSceneNo = SCENENO_GAME;
 	}
 
@@ -105,6 +106,7 @@ void CGameOver::UpdateDebug() {
 	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 
 		m_NextSceneNo = SCENENO_RANKING;
+		m_NextSceneNo = SCENENO_GAME;
 	}
 }
 /*****************************************************************
