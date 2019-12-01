@@ -9,7 +9,6 @@ protected:
 	bool			m_bShow;
 private:
 public:
-public:
 	CObject();
 	virtual ~CObject();
 	virtual void Initialize(void) = 0;

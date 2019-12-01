@@ -246,10 +246,14 @@
     <ClInclude Include="MoveBackChip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveMash.h" />
-    <ClInclude Include="EnemyDefine.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="MoveBat.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveBat.h" />
+    <ClInclude Include="MoveMash.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDefine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

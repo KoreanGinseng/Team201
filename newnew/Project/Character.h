@@ -21,7 +21,7 @@ public:
 	void Render(const Vector2& screenPos) override;
 	void Release(void) override;
 
-	void CreateMove(const int& no) { m_MvCntrl.Create(no); }
+	void CreateMove(const int& no) { m_MvCntrl.Create(no); m_MvCntrl.SetPos(&m_Pos); }
 	void CreateAnim(const char* pName) { m_Anim.Create(pName); }
 
 	void LoadRect(const char* pName);

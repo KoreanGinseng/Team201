@@ -8,9 +8,9 @@
 //INCLUDE
 #include "Player.h"
 
-
 //コンストラクタ
 CPlayer::CPlayer(void) :
+CCharacter(),
 m_bClime(false),
 m_HP(0)
 {
@@ -52,6 +52,8 @@ void CPlayer::Initialize(void)
 	m_bTrigger = false;
 	//
 	m_DamageWait = 0;
+	//
+	m_MvCntrl.PlayerPosSet(&m_Pos);
 }
 
 //更新

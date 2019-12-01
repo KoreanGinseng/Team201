@@ -5,6 +5,7 @@
 #include	"MovePlayer.h"
 #include	"MoveMash.h"
 #include	"MoveBackChip.h"
+#include	"MoveBat.h"
 
 class CMoveController
 {
@@ -24,8 +25,10 @@ public:
 	void SetMove(const Vector2& move) { m_pMove->SetMove(move); }
 	void SetSpd(const float& x, const float& y) { SetSpd(Vector2(x, y)); }
 	void SetSpd(const Vector2& spd) { m_pMove->SetSpd(spd); }
+	static void PlayerPosSet(Vector2* pp) { CMove::PlayerPosSet(pp); }
 	void Remove(void) { NewPointerRelease(m_pMove); }
 	bool GetReverse(void) const { return m_pMove->GetReverse(); }
 	void MoveReverse(void) { m_pMove->MoveReverse(); }
+	void SetPos(Vector2* pos) { m_pMove->SetPos(pos); }
 };
 

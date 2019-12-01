@@ -42,6 +42,7 @@ bool CMoveController::Create(const int & no)
 		move = NEW CMoveMash();
 		break;
 	case MOVE_ENE_BAT:
+		move = NEW CMoveBat();
 		break;
 	case MOVE_ENE_TAKO:
 		break;

@@ -5,6 +5,8 @@
 class CMove
 {
 protected:
+	static Vector2* m_pPlayerPos;
+	Vector2* m_pPos;
 	Vector2	m_Move;
 	Vector2	m_Spd;
 	int		m_MotionNo;
@@ -20,6 +22,8 @@ public:
 	void SetMove(const Vector2& move) { m_Move = move; }
 	void SetSpd(const Vector2& spd) { m_Spd = spd; }
 	bool GetReverse(void) const { return m_bReverse; }
+	void SetPos(Vector2* pos) { m_pPos = pos; }
+	static void PlayerPosSet(Vector2* pp) { m_pPlayerPos = pp; }
 	void MoveReverse(void);
 };
 
