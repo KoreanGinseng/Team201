@@ -105,8 +105,8 @@ void CGameOver::UpdateDebug() {
 	}
 	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 
-		m_NextSceneNo = SCENENO_RANKING;
-		m_NextSceneNo = SCENENO_GAME;
+		/*m_NextSceneNo = SCENENO_RANKING;
+		m_NextSceneNo = SCENENO_GAME;*/
 	}
 }
 /*****************************************************************
