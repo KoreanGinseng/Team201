@@ -596,6 +596,15 @@ void CRanking::RankingSave(const int type) {
 	m_KeySelectX = 0;
 	m_KeySelectY = 0;
 
+	//読み込みしたランキングのソート
+	m_RankingEntryArray.Sort(Sort);
+
+	if (m_RankingEntryArray.GetArrayCount() > 10) {
+
+		m_RankingEntryArray.DeleteLast();
+
+	}
+
 	//ランキングの要素数を保存
 	FILE* fpNE = fopen("RankingNE.dat", "wb");
 
@@ -627,8 +636,7 @@ void CRanking::RankingSave(const int type) {
 
 	fclose(fp);
 	
-	//読み込みしたランキングのソート
-	m_RankingEntryArray.Sort(Sort);
+	
 
 	//入力確定フラグを立てる
 	m_bInput = true;

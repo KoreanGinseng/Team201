@@ -17,7 +17,7 @@ void CSaveObject::Initialize() {
 
 bool CSaveObject::Load() {
 
-	RectLoad("RectBridge.txt");
+	/*RectLoad("RectBridge.txt");*/
 	return true;
 
 }

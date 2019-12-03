@@ -222,7 +222,12 @@ void CObject::SetObject(const int& Type)
 		m_pObjEmp = new CSaveObject();
 	
 		break;
+	case OBJECT_PENDULUM:
 
+		m_pObjEmp = new CPendulum();
+		m_pObjEmp->SetPos(&m_Pos);
+		
+		break;
 	default:
 		break;
 	}
@@ -237,4 +242,5 @@ void CObject::SetObject(const int& Type)
 		m_bSave = true;
 
 	}
+
 }

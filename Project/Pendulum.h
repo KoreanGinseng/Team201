@@ -2,7 +2,7 @@
 
 #include "Empty.h"
 
-class CMoveObject :
+class CPendulum :
 	public CEmpty
 {
 
@@ -10,8 +10,8 @@ private:
 
 
 public:
-	CMoveObject();
-	~CMoveObject();
+	CPendulum();
+	~CPendulum();
 	void Initialize(void);
 	bool Load(void);
 	void Update(const bool& me);
