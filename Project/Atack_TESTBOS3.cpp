@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS3.cpp
  * @brief テストボス3の攻撃
  * @author 大西永遠
- * @date 更新日（11/22）
+ * @date 更新日（12/3）
  */
 
 #include	"Atack_TESTBOS3.h"
@@ -20,19 +20,19 @@ void CAtack_TESTBOS3::Initialize() {
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
 	//分身する剣
-	/*for (int i = 0; i < CloningCount; i++) {
+	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i] = new CCloningSword();
 		m_ShotArry[i]->Initialize();
 
-	}*/
+	}
 
 	//瞬間移動する剣
-	for (int i = 0; i < CloningCount; i++) {
+	/*for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i] = new CTeleportationSword();
 		m_ShotArry[i]->Initialize();
 
 	}
-	m_TleCount = 0;
+	m_TleCount = 0;*/
 
 	//分身する敵
 	for (m_EneCount = 0; m_EneCount < CloningCount;m_EneCount++) {
@@ -67,26 +67,26 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 
 				int rnd = rand() % 5;
 
-				//for (int i = 0; i < CloningCount; i++) {
-				//	/*if (m_ShotArry->GetShow()) {
-				//		continue;
-				//	}*/
+				for (int i = 0; i < CloningCount; i++) {
+					/*if (m_ShotArry->GetShow()) {
+						continue;
+					}*/
 
 
 
-				//	m_ShotArry[i]->Initialize();
-				//	if (i==2) {
-				//		m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
-				//	}
-				//	else
-				//	{
-				//		m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance*2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY,rd,ddx,ddy);
-				//	}
+					m_ShotArry[i]->Initialize();
+					if (i==2) {
+						m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
+					}
+					else
+					{
+						m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance*2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY,rd,ddx,ddy);
+					}
 
 
-				//	
-				//}
-				//m_ShotArry[rnd]->SetFrag(true);
+					
+				}
+				m_ShotArry[rnd]->SetFrag(true);
 
 
 				m_fAtackPosX = EnemyPosX;
@@ -99,27 +99,29 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	}
 
 
-	//for (int i = 0; i < CloningCount; i++) {
-	//	m_ShotArry[i]->Update();
-	//}
+	for (int i = 0; i < CloningCount; i++) {
+		m_ShotArry[i]->Update();
+	}
 
-	////分身敵
+
+
+	//分身敵
 	//m_KURIBO.ClonUpdate(m_EneCount); 
 	//m_KURIBO.CollisionStage(m_EneCount);
-
 	//m_EneCount++;
 	//if (m_EneCount==CloningCount) {
 	//	m_EneCount = 0;
 	//}
+	/*m_EneCount += m_Counting;
+	if (m_EneCount == CloningCount) {
+		m_Counting = -1 ;
+		m_EneCount == CloningCount - 1;
+	}
+	else if (m_EneCount == 0) {
+		m_Counting = 1 ;
+	}*/
 
-	///*m_EneCount += m_Counting;
-	//if (m_EneCount == CloningCount) {
-	//	m_Counting = -1 ;
-	//	m_EneCount == CloningCount - 1;
-	//}
-	//else if (m_EneCount == 0) {
-	//	m_Counting = 1 ;
-	//}*/
+
 
 	////瞬間移動
 	//if (m_ShotArry[m_TleCount]->GetTleEnd()) {
@@ -131,6 +133,7 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	//	m_TleTime = TLeTime;
 	//}
 
+
 	////右手
 	//if (!m_Hand.GetMoveFlag()) {
 	//	m_Hand.Initialize();
@@ -139,6 +142,7 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	//}
 	//m_Hand.Update(PlayerPosX, PlayerPosY);
 	//m_Hand.CollisionStage();
+
 
 	//右手最終形態
 	if (!m_Hand.GetMoveFlag()) {
@@ -159,10 +163,10 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 void CAtack_TESTBOS3::Render() {
 
 	//分身剣
-	/*for (int i = 0; i < CloningCount; i++) {
+	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i]->Render();
 
-	}*/
+	}
 	
 	//右手
 	m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
@@ -171,8 +175,9 @@ void CAtack_TESTBOS3::Render() {
 	m_AtackHand.Render();
 
 	//瞬間移動
-	m_ShotArry[m_TleCount]->Render();
+	//m_ShotArry[m_TleCount]->Render();
 
+	//分身する敵
 	m_KURIBO.ClonRender(m_EneCount);
 
 }

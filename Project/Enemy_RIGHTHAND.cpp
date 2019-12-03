@@ -2,7 +2,7 @@
  * @file Enemy_RIGHTHAND.cpp
  * @brief 右手
  * @author 大西永遠
- * @date 更新日（11/19）
+ * @date 更新日（12/3）
  */
 
 #include "Enemy_RIGHTHAND.h"

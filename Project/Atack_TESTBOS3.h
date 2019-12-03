@@ -2,7 +2,7 @@
  * @file Atack_TESTBOS3.h
  * @brief テストボス3の攻撃
  * @author 大西永遠
- * @date 更新日（11/19）
+ * @date 更新日（12/3）
  */
 
 #pragma once
