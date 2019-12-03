@@ -29,7 +29,7 @@ using RectArray = CDynamicArray<CRectangle>;
 #define		GRAVITY			0.3f	//! ゲーム内重力
 #define		GRAVITYMAX		20.0f	//! ゲーム内重力
 
-#define		PLAYER_MAXHP			2
+#define		PLAYER_MAXHP			200
 #define		PLAYER_MAXSTOCK			3
 #define		PLAYER_MAXSPEED			8
 #define		PLAYER_SPEED			0.3f

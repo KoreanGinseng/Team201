@@ -31,7 +31,13 @@ void CCharacter::Update(void)
 
 void CCharacter::Render(const Vector2& screenPos)
 {
-	m_pTexture->Render(screenPos.x, screenPos.y, GetSrcRect());
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, r);
 
 #ifdef _DEBUG
 	CGraphicsUtilities::RenderRect(screenPos.x,screenPos.y,screenPos.x + GetSrcRect().GetWidth(), screenPos.y + GetSrcRect().GetHeight(), MOF_COLOR_RED);

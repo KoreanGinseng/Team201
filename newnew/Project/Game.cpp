@@ -384,7 +384,7 @@ void CGame::Collosion(void)
 				}
 				for (int l = 0; l < m_pEnemyArray[k]->GetRectArray().GetArrayCount(); l++)
 				{
-					if (m_pEnemyArray[i]->IsCollisionFlag() && m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
+					if (m_pEnemyArray[i]->IsCollisionFlag() && m_pEnemyArray[k]->IsCollisionFlag() && m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
 					{
 						//–„‚Ü‚Á‚Ä‚¢‚é‚¾‚¯Œ³‚É–ß‚·
 						m_pEnemyArray[k]->CollisionStage(over);

@@ -109,6 +109,7 @@ void CEnemy::Reverse(const Vector2 & over)
 		if (over.x > 0)
 		{
 			m_MvCntrl.MoveReverse();
+			m_bReverse = !m_bReverse;
 		}
 	}
 	else if (m_MvCntrl.GetMove().x > 0)
@@ -116,6 +117,7 @@ void CEnemy::Reverse(const Vector2 & over)
 		if (over.x < 0)
 		{
 			m_MvCntrl.MoveReverse();
+			m_bReverse = !m_bReverse;
 		}
 	}
 
