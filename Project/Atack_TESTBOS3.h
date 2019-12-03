@@ -14,6 +14,7 @@
 #include	"TeleportationSword.h"
 #include	<random>
 #include	"Enemy_RIGHTHAND.h"
+#include	"Atack_RIGHTHAND.h"
 #define ShotCount	2
 #define TLeTime 0.2f
 
@@ -34,6 +35,7 @@ private:
 	float	m_TleTime;
 	int	m_Counting;
 	CEnemy_RIGHTHAND m_Hand;
+	CAtack_RIGHTHAND m_AtackHand;
 	//CRayBullet	m_RayBullet;
 	//CEnemyShot*	m_ShotBounceArry;
 public:

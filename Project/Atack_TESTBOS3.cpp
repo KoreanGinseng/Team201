@@ -131,14 +131,31 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	//	m_TleTime = TLeTime;
 	//}
 
-	//右手
+	////右手
+	//if (!m_Hand.GetMoveFlag()) {
+	//	m_Hand.Initialize();
+	//  m_AtackHand.Initialize();
+	//	m_Hand.Start(PlayerPosX);
+	//}
+	//m_Hand.Update(PlayerPosX, PlayerPosY);
+	//m_Hand.CollisionStage();
+
+	//右手最終形態
 	if (!m_Hand.GetMoveFlag()) {
 		m_Hand.Initialize();
-		m_Hand.Start(PlayerPosX);
+		m_Hand.SetLimit(true);
+		m_Hand.Start(EnemyPosX);
+	}
+	if (m_Hand.GetFire()) {
+		m_AtackHand.Initialize(m_Hand.GetXpos(),m_Hand.GetYpos());
+		m_AtackHand.SetLimit(true);
+		m_Hand.SetFire(false);
 	}
 	m_Hand.Update(PlayerPosX, PlayerPosY);
+	m_AtackHand.Update();
 	m_Hand.CollisionStage();
 }
+
 void CAtack_TESTBOS3::Render() {
 
 	//分身剣
@@ -149,6 +166,9 @@ void CAtack_TESTBOS3::Render() {
 	
 	//右手
 	m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
+
+	//右手衝撃波
+	m_AtackHand.Render();
 
 	//瞬間移動
 	m_ShotArry[m_TleCount]->Render();

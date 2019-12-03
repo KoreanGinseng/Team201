@@ -17,6 +17,8 @@ private:
 	float m_InitialPositionY;
 	float m_AimTime;
 	bool m_MoveEndFlag;
+	bool m_Limit;
+	bool m_Fire;
 public:
 	CEnemy_RIGHTHAND();
 	~CEnemy_RIGHTHAND();
@@ -27,4 +29,9 @@ public:
 	void CollisionStage();
 	void Render(float Xpos, float Ypos);
 	void Release();
+	bool SetLimit(bool bs) { return m_Limit = bs; }
+	bool GetFire() { return m_Fire; };
+	bool SetFire(bool bs) { return m_Fire = bs; };
+	float GetPosX() { return m_fXpos; };
+	float GetPosY() { return m_fYpos; };
 };
