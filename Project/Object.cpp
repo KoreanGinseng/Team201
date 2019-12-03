@@ -10,7 +10,18 @@ CSubstance()
 void CObject::Initialize(float px, float py, const int& cn) {
 	m_Pos.x = px;
 	m_Pos.y = py;
+	m_bDoorChn = true;
+//	m_bSwiChn = false;
 	m_bShow = true;
+	//ごり押し
+	/*if (cn == OBJECT_DOOR)
+	{
+		m_SrcRect = CRectangle(m_pTexture->GetWidth() / 2, 0, m_pTexture->GetWidth(), m_pTexture->GetHeight());
+	}*/
+	if (cn == OBJECT_SWITCH)
+	{
+		m_SrcRect = CRectangle(0, 0, m_pTexture->GetWidth() / 2, m_pTexture->GetHeight());
+	}
 	//アニメーションを作成
 	int c = g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnimCount();
 	m_Motion.Create(g_pAnimManager->GetResource(FileName[ANIMATION_OBJ_1 + cn])->GetAnim(), c);
@@ -20,7 +31,7 @@ void CObject::Initialize(float px, float py, const int& cn) {
 	}
 }
 
-void CObject::Update(void) {
+void CObject::Update(const int& cn) {
 	//非表示
 	if (!m_bShow)
 	{
@@ -47,10 +58,33 @@ void CObject::Update(void) {
 			}
 		}
 	}
+	//ごり押し
+	//二個オブジェクトをm_srcrectに当てはめると片方消えてしまう
 
-	m_SrcRect = m_Motion.GetSrcRect();
-	m_pObjEmp->SetRect(GetRect());
-
+	 
+	 if (cn==OBJECT_SWITCH)
+	 {
+		 if (!static_cast<CSwitch*>(m_pObjEmp)->Getste())
+		 {
+			m_SrcRect = CRectangle(0, 0, m_pTexture->GetWidth() / 2, m_pTexture->GetHeight());
+		 }
+		 else
+		 {
+			 m_SrcRect = CRectangle(m_pTexture->GetWidth() / 2, 0, m_pTexture->GetWidth(), m_pTexture->GetHeight());
+		 }
+	 }
+	/*else if (m_bDoorChn)
+	{
+		m_SrcRect = CRectangle(0, 0, m_pTexture->GetWidth() / 2, m_pTexture->GetHeight());
+	}*/
+	else if (cn != OBJECT_SWITCH)
+	{
+		m_SrcRect = m_Motion.GetSrcRect();
+	}
+	else
+	{
+		m_pObjEmp->SetRect(GetRect());
+	}
 }
 
 void CObject::Render(Vector2 sp) {
@@ -59,6 +93,7 @@ void CObject::Render(Vector2 sp) {
 	{
 		return;
 	}
+	
 	//テクスチャの描画
 	m_pTexture->Render(sp.x, sp.y, m_SrcRect);
 }
@@ -91,6 +126,7 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 	bool re = false;
 	//当たり判定
 	CRectangle cr = GetRect();
+	
 	//オブジェクトが壊れていなければ
 	if (!m_bMotionEnd)
 	{
@@ -130,6 +166,7 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 					rect.Bottom += cTop - brec.Bottom;
 				}
 			}
+			
 			else
 			{
 				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
@@ -200,8 +237,33 @@ void CObject::SetObject(const int& Type)
 		m_pObjEmp = new CBridge();
 		break;
 	case 3:
+		m_pObjEmp = new Door();
+		break;
+	case 4:
+		m_pObjEmp = new CSwitch();
+		break;
+	case 5:
 		break;
 	default:
 		break;
 	}
 }
+
+//m_bMotionEnd でまとめる？
+
+void CObject::ChangeDoor(const int& cn)
+{	
+	m_bDoorChn = false;
+}
+
+//void CObject::TrueSwitch(const int & cn)
+//{
+//	m_bSwiChn = true;
+//}
+//
+//void CObject::FalseSwitch(const int & cn)
+//{
+//	m_bSwiChn = false;
+//}
+
+

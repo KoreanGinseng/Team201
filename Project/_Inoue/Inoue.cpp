@@ -129,7 +129,7 @@ void CInoue::Update()
 		{
 			continue;
 		}
-		m_pObjArray[i].Update();
+		//m_pObjArray[i].Update();
 		//“–‚½‚è”»’è
 		Vector2 oo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))

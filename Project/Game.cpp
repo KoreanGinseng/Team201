@@ -166,7 +166,7 @@ void CGame::Update()
 		{
 			continue;
 		}
-		m_pObjArray[i].Update();
+		m_pObjArray[i].Update(m_pObjArray[i].GetType());
 		//当たり判定
 		Vector2 oo(0, 0);
 		if (m_Stage[m_StageNo].Collision(m_pObjArray[i].GetRect(), oo))
@@ -182,12 +182,33 @@ void CGame::Update()
 				clime = true;
 				break;
 			}
+			//ごり押し
+			else if (m_pObjArray[i].GetType() == OBJECT_DOOR)
+			{
+				if (g_pInput->IsKeyPush(MOFKEY_U))
+				{
+					m_pObjArray[i].ChangeDoor(m_pObjArray[i].GetType());
+				}
+			}
+
 			else
 			{
 				clime = false;
 				m_Player.CollisionStage(oo);
+				if (m_pObjArray[i].GetType() == OBJECT_SWITCH)
+				{
+					//ダウンキャスト 中身をswitchに変えて使えるようにする
+					static_cast<CSwitch*>(m_pObjArray[i].GetInstanse())->SetSwitch(true);
+				}
+				
 			}
 		}
+		else
+		{
+			if(m_pObjArray[i].GetType() == OBJECT_SWITCH)
+			static_cast<CSwitch*>(m_pObjArray[i].GetInstanse())->SetSwitch(false);
+		}
+		
 		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
 		{
 			oo = Vector2(0, 0);

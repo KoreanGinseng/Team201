@@ -102,6 +102,7 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="EffectFade.cpp" />
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Switch.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectFade.h" />
     <ClInclude Include="EffectManager.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Substance.h" />
+    <ClInclude Include="Switch.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="UI.h" />

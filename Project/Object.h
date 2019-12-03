@@ -6,6 +6,8 @@
 #include	"Rope.h"
 #include	"ObjTree.h"
 #include	"Bridge.h"
+#include	"Door.h"
+#include	"Switch.h"
 
 class CObject : public CSubstance
 {
@@ -16,6 +18,8 @@ protected:
 	bool								m_bShow;
 	CRectangle							m_SrcRect;
 	CEmpty*								m_pObjEmp;
+	//‚²‚è‰Ÿ‚µ
+	bool								m_bDoorChn;
 
 	enum tag_MOTION {
 		MOTION_START,
@@ -27,7 +31,7 @@ public:
 	CObject();
 	~CObject() { Release(); }
 	void Initialize(float px, float py, const int& cn);
-	void Update(void);
+	void Update(const int& cn);
 	void Render(Vector2 sp);
 	void RenderDebug(Vector2 sp);
 	void Release(void);
@@ -46,5 +50,9 @@ public:
 	bool		GetShow(void)	 const { return m_bShow; }
 	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
 	int	 GetType(void) { return m_pObjEmp->GetType(); }
+	CEmpty* GetInstanse(void) { return m_pObjEmp; }
+	//‚²‚è‰Ÿ‚µ
+void ChangeDoor(const int& cn);
+
 };
 

@@ -65,8 +65,8 @@ constexpr	char*	FileName[] = {
 	"obj_rope03.png",
 	"Obj_Tree01.png",
 	"obj_bridge03.png",
-	"Obj04.png",
-	"Obj05.png",
+	"Test_Door.png",
+	"Test_switch",
 	"Obj06.png",
 	"Obj07.png",
 	"Obj08.png",
@@ -244,6 +244,8 @@ enum tag_OBJECT
 	OBJECT_ROPE,
 	OBJECT_BRIDGE,
 	OBJECT_TREE01,
+	OBJECT_DOOR,
+	OBJECT_SWITCH,
 };
 
 #include <crtdbg.h>
