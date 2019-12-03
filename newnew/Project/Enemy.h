@@ -8,6 +8,7 @@ private:
 public:
 	CEnemy();
 	~CEnemy();
+	void Initialize(void) override;
 	void Update(void) override;
 	void SetEneType(const int& t) { m_EnemyType = t; }
 	bool OverValue(CRectangle rec, Vector2& out) override;

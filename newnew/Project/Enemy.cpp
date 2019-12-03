@@ -14,12 +14,28 @@ CEnemy::~CEnemy()
 	Release();
 }
 
+void CEnemy::Initialize(void)
+{
+	CCharacter::Initialize();
+	if (m_EnemyType == ENEMY_BAT)
+	{
+		m_bCollision = false;
+	}
+}
+
 void CEnemy::Update(void)
 {
 	m_MvCntrl.Update();
 	m_Anim.Update();
 	
 	m_Pos += m_MvCntrl.GetMove();
+
+	if (IsStageOver())
+	{
+		m_bDead = true;
+		m_bShow = false;
+	}
+
 }
 
 bool CEnemy::OverValue(CRectangle rec, Vector2 & out)

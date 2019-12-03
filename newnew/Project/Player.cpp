@@ -80,6 +80,11 @@ void CPlayer::Update(void)
 		m_bDead = true;
 	}
 
+	if (IsStageOver())
+	{
+		m_bDead = true;
+	}
+
 	m_bReverse = static_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetReverse();
 }
 
@@ -111,6 +116,7 @@ void CPlayer::RenderDebug(Vector2 screenPos)
 	CGraphicsUtilities::RenderCircle(screenPos.x + GetSrcRect().GetWidth() / 2, screenPos.y + GetSrcRect().GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
 	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
 		screenPos.x + GetSrcRect().GetWidth() - PLAYER_RECTDIS, screenPos.y + GetSrcRect().GetHeight(), MOF_COLOR_RED);
+	CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
 }
 
 //‰ð•ú

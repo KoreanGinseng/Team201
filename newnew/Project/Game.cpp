@@ -348,7 +348,7 @@ void CGame::Collosion(void)
 			over = Vector2(0, 0);
 
 			//ステージと埋まりを求める
-			if (m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), over))
+			if (m_pEnemyArray[i]->IsCollisionFlag() && m_Stage[m_StageNo].OverValue(m_pEnemyArray[i]->GetRectArray(j), over))
 			{
 				//埋まっているだけ元に戻す
 				m_pEnemyArray[i]->CollisionStage(over);
@@ -384,7 +384,7 @@ void CGame::Collosion(void)
 				}
 				for (int l = 0; l < m_pEnemyArray[k]->GetRectArray().GetArrayCount(); l++)
 				{
-					if (m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
+					if (m_pEnemyArray[i]->IsCollisionFlag() && m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
 					{
 						//埋まっているだけ元に戻す
 						m_pEnemyArray[k]->CollisionStage(over);

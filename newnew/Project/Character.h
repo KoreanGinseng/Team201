@@ -13,6 +13,7 @@ protected:
 	bool				m_bDead;
 	bool				m_bReverse;
 	int					m_DamageWait;
+	bool				m_bCollision;
 public:
 	CCharacter(void);
 	~CCharacter(void) override;
@@ -42,5 +43,11 @@ public:
 	int GetDamageWait(void) const { return m_DamageWait; }
 	virtual bool OverValue(CRectangle rec, Vector2& out);
 	virtual void CollisionStage(const Vector2& over);
+	void SetCollisionFlag(const bool& b) { m_bCollision = b; }
+	bool IsCollisionFlag(void) const { return m_bCollision; }
+	bool IsStageOver(void) const {
+		return (GetRect().Right < CCordinate::GetStageRect().Left || m_Pos.x > CCordinate::GetStageRect().Right ||
+			GetRect().Bottom < CCordinate::GetStageRect().Top || m_Pos.y > CCordinate::GetStageRect().Bottom);
+	}
 };
 

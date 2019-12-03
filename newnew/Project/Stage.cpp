@@ -343,6 +343,8 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pMapObjArray)[n++]->Initialize();
 		}
 	}
+
+	CCordinate::SetStageRect(GetStageRect());
 }
 
 
