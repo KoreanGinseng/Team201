@@ -23,6 +23,4 @@ bool CPendulumBlock::Load(void)
 void CPendulumBlock::Update(const bool & me)
 {
 
-
-
 }

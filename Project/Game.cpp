@@ -54,6 +54,7 @@ bool CGame::Load()
 
 void CGame::SaveLoad() {
 
+	//セーブポイントに値が入っている場合セットする
 	if (gSavePos.x&&gSavePos.y) {
 
 		m_Player.SetPos(gSavePos);
@@ -71,6 +72,7 @@ void CGame::Initialize()
 	m_NextSceneNo = SCENENO_GAME;
 	m_Stage[m_StageNo].Initialize(m_pEnemyArray, m_pItemArray, m_pObjArray);
 	m_Player.Initialize();
+	//セーブポイントの座標をロードする
 	SaveLoad();
 	g_pTimeManager->Reset();
 }
@@ -216,6 +218,7 @@ void CGame::Update()
 	//オブジェクトの出現
 	ObjectAppearance();
 
+	//プレイヤーの座標を保存する
 	PlayerSave();
 
 	//カメラの更新
@@ -281,7 +284,6 @@ void CGame::Render()
 
 void CGame::UpdateDebug() {
 
-	
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_bEnd) {
 
@@ -315,12 +317,14 @@ void CGame::ObjectAppearance() {
 
 	for (int i = 0; i < m_Stage->GetObjectCount(); i++) {
 
+		//出現フラグが立っている場合、飛ばす
 		if (m_pObjArray[i].IsAppearance()) {
 
 			continue;
 
 		}
 
+		//画面内に入ったら出現フラグを立てる
 		if (m_pObjArray[i].GetPos().x - m_MainCamera.GetScroll().x < g_pGraphics->GetTargetWidth()&&
 			m_pObjArray[i].GetPos().y - m_MainCamera.GetScroll().y < g_pGraphics->GetTargetHeight()) {
 
@@ -343,12 +347,14 @@ void CGame::PlayerSave() {
 
 		}
 
+		//すでに通過済みの場合、飛ばす
 		if (m_pObjArray[i].IsSave()) {
 
 			continue;
 
 		}
 
+		//プレイヤーがセーブポイントに達したとき、セーブポイントの座標を保存する
 		if (m_Player.GetPos().x > m_pObjArray[i].GetPos().x) {
 
 			gSavePos = m_pObjArray[i].GetPos();

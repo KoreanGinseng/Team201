@@ -240,9 +240,6 @@
     <ClCompile Include="SaveObject.cpp">
       <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>
-    <ClCompile Include="Pendulum.cpp">
-      <Filter>ソース ファイル\OBJECT</Filter>
-    </ClCompile>
     <ClCompile Include="PendulumLine.cpp">
       <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>

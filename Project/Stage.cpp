@@ -234,7 +234,7 @@ bool CStage::Load(const char* pName) {
 	{
 		for (int x = 0; x < m_XCount; x++)
 		{
-			if (m_pObjectData[y*m_XCount + x] == OBJECT_PENDULUMLINE)
+			if (m_pObjectData[y*m_XCount + x] == OBJECT_PENDULUMLINE+1)
 			{
 				count++;
 			}

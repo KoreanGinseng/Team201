@@ -5,6 +5,7 @@
 CEmpty::CEmpty()
 {
 	m_pRect = nullptr;
+	m_Aliment = RENDERTYPE_NONE;
 }
 
 

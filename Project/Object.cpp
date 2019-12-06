@@ -32,7 +32,10 @@ void CObject::Update(void) {
 	{
 		return;
 	}
-
+	if (m_pObjEmp->GetType() == OBJECT_PENDULUMBLOCK)
+	{
+		m_Pos = m_pObjEmp->GetLineBottomPos();
+	}
 	m_pObjEmp->Update(m_bMotionEnd);
 
 	if (m_bSkill && m_AnimCount > 0)
@@ -74,7 +77,14 @@ void CObject::Render(Vector2 sp) {
 		return;
 	}
 	//テクスチャの描画
-	m_pTexture->Render(sp.x, sp.y, m_SrcRect);
+	if (m_pObjEmp->RenderType() == RENDERTYPE_NONE)
+	{
+		m_pTexture->Render(sp.x, sp.y, m_SrcRect, m_pObjEmp->GetAlin());
+	}
+	else if (m_pObjEmp->RenderType() == RENDERTYPE_ROTATE)
+	{
+		m_pTexture->RenderRotate(sp.x, sp.y, m_pObjEmp->GetRot(), m_SrcRect, m_pObjEmp->GetAlin());
+	}
 }
 
 void CObject::RenderDebug(Vector2 sp) {
@@ -202,8 +212,6 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 void CObject::SetObject(const int& Type)
 {
 
-	
-
 	switch (Type)
 	{
 	case 0:
@@ -230,13 +238,21 @@ void CObject::SetObject(const int& Type)
 
 		m_pObjEmp = new CPendulumLine();
 		m_pObjEmp->SetPos(&m_Pos);
+		m_pObjEmp->SetDownCenter(&GetRect().GetCenter());
+	
 		
 		break;
 
 	case OBJECT_PENDULUMBLOCK:
 
 		m_pObjEmp = new CPendulumBlock();
+		
+		m_Pos.y += 64*3;
+		m_Pos.x -= 64;
+		//ブロックの座標のセット
 		m_pObjEmp->SetPos(&m_Pos);
+		//ブロックの中心のセット
+		m_pObjEmp->SetCenter(&GetRect().GetCenter());
 
 		break;
 	default:

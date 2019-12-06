@@ -103,7 +103,6 @@
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EffectFade.cpp" />
     <ClCompile Include="MoveObject.cpp" />
-    <ClCompile Include="Pendulum.cpp" />
     <ClCompile Include="PendulumBlock.cpp" />
     <ClCompile Include="PendulumLine.cpp" />
     <ClCompile Include="SaveObject.cpp" />

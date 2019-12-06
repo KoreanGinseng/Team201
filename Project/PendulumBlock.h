@@ -8,7 +8,6 @@ class CPendulumBlock :
 
 private:
 
-
 public:
 	CPendulumBlock();
 	~CPendulumBlock();
