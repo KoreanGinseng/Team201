@@ -20,6 +20,10 @@ void CObject::Initialize(float px, float py, const int& cn) {
 	{
 		m_Motion.ChangeMotion(MOTION_END);
 	}
+	if (m_AnimCount <= 0)
+	{
+		m_SrcRect = CRectangle(0, 0, m_pTexture->GetWidth(), m_pTexture->GetHeight());
+	}
 }
 
 void CObject::Update(void) {
@@ -56,7 +60,7 @@ void CObject::Update(void) {
 	}
 	else
 	{
-		m_SrcRect = CRectangle(0, 0, 64, 64);
+		//m_SrcRect = CRectangle(0, 0, 64, 64);
 	}
 
 	m_pObjEmp->SetRect(GetRect());
@@ -231,7 +235,7 @@ void CObject::SetObject(const int& Type)
 
 	case OBJECT_PENDULUMBLOCK:
 
-		m_pObjEmp = new CPendulumLine();
+		m_pObjEmp = new CPendulumBlock();
 		m_pObjEmp->SetPos(&m_Pos);
 
 		break;

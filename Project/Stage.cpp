@@ -229,6 +229,19 @@ bool CStage::Load(const char* pName) {
 	}
 	//配列データの読み込み
 	m_ObjectCount = ChipDataLoad(pstr, m_pObjectData);
+	int count = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			if (m_pObjectData[y*m_XCount + x] == OBJECT_PENDULUMLINE)
+			{
+				count++;
+			}
+		}
+	}
+	m_ObjectCount += count;
+	count = 0;
 	ChipDataLoad(pstr, m_pObjEndData);
 
 	free(pBuffer);
@@ -291,6 +304,13 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
 			pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, on);
 			pObj[n++].SetObject(on);
+			if (on == OBJECT_PENDULUMLINE)
+			{
+				pObj[n].SetTexture(g_pTextureManager->GetResource("BLOCK.png"));
+				pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
+				pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, OBJECT_PENDULUMBLOCK);
+				pObj[n++].SetObject(OBJECT_PENDULUMBLOCK);
+			}
 		}
 	}
 }

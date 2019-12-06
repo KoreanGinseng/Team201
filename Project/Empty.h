@@ -7,6 +7,7 @@ class CEmpty
 protected:
 	
 	int			m_RectCount;
+	CTexture*	m_pTexture;
 	Vector2*	m_pPos;
 	Vector2*	m_pMove;
 	CRectangle	m_Rect;
@@ -23,6 +24,7 @@ public:
 	void SetRect(const CRectangle& r) { m_Rect = r; }
 	void SetPos(Vector2* pos) { m_pPos = pos; }
 	void SetMove(Vector2* move) { m_pMove = move; }
+	void SetTexture(CTexture* pt) { m_pTexture = pt; }
 
 	
 };
