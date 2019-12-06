@@ -243,6 +243,12 @@
     <ClCompile Include="Pendulum.cpp">
       <Filter>ソース ファイル\OBJECT</Filter>
     </ClCompile>
+    <ClCompile Include="PendulumLine.cpp">
+      <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="PendulumBlock.cpp">
+      <Filter>ソース ファイル\OBJECT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h">
@@ -443,7 +449,10 @@
     <ClInclude Include="SaveObject.h">
       <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
-    <ClInclude Include="Pendulum.h">
+    <ClInclude Include="PendulumLine.h">
+      <Filter>ヘッダー ファイル\OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="PendulumBlock.h">
       <Filter>ヘッダー ファイル\OBJECT</Filter>
     </ClInclude>
   </ItemGroup>

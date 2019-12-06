@@ -104,6 +104,8 @@
     <ClCompile Include="EffectFade.cpp" />
     <ClCompile Include="MoveObject.cpp" />
     <ClCompile Include="Pendulum.cpp" />
+    <ClCompile Include="PendulumBlock.cpp" />
+    <ClCompile Include="PendulumLine.cpp" />
     <ClCompile Include="SaveObject.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -182,7 +184,8 @@
     <ClInclude Include="MoveObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjTree.h" />
-    <ClInclude Include="Pendulum.h" />
+    <ClInclude Include="PendulumBlock.h" />
+    <ClInclude Include="PendulumLine.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="ReNum.h" />

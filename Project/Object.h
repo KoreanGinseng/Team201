@@ -8,7 +8,8 @@
 #include	"Bridge.h"
 #include	"MoveObject.h"
 #include	"SaveObject.h"
-#include	"Pendulum.h"
+#include	"PendulumLine.h"
+#include	"PendulumBlock.h"
 
 class CObject : public CSubstance
 {

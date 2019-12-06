@@ -222,11 +222,18 @@ void CObject::SetObject(const int& Type)
 		m_pObjEmp = new CSaveObject();
 	
 		break;
-	case OBJECT_PENDULUM:
+	case OBJECT_PENDULUMLINE:
 
-		m_pObjEmp = new CPendulum();
+		m_pObjEmp = new CPendulumLine();
 		m_pObjEmp->SetPos(&m_Pos);
 		
+		break;
+
+	case OBJECT_PENDULUMBLOCK:
+
+		m_pObjEmp = new CPendulumLine();
+		m_pObjEmp->SetPos(&m_Pos);
+
 		break;
 	default:
 		break;
