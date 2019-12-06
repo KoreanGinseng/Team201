@@ -63,8 +63,6 @@ void CRayBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	float d;
 	float ddx;
 	float ddy;
-	/*m_PlayerPlaceX = PlayerPosX;
-	m_PlayerPlaceY = PlayerPosY;*/
 	Playerdx = pPosx - px;
 	Playerdy = pPosy - py;
 	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
@@ -74,9 +72,7 @@ void CRayBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	m_SpdY = ddy * BulletSpeed;
 }
 void CRayBullet::Update() {
-	/*if (!m_bShow) {
-		return;
-	}*/
+	
 	if (m_EraseTime==0) {
 		for (int i = 0; i < ReflectCount - 1; i++) {
 			if (m_AddNumber[i] > 0) {

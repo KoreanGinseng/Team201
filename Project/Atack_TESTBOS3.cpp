@@ -20,31 +20,30 @@ void CAtack_TESTBOS3::Initialize() {
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
 	//•ªg‚·‚éŒ•
-	for (int i = 0; i < CloningCount; i++) {
-		m_ShotArry[i] = new CCloningSword();
-		m_ShotArry[i]->Initialize();
+	/*for (int i = 0; i < CloningCount; i++) {
+		m_ClonArry[i] = new CCloningSword();
+		m_ClonArry[i]->Initialize();
 
-	}
+	}*/
 
 	//uŠÔˆÚ“®‚·‚éŒ•
-	/*for (int i = 0; i < CloningCount; i++) {
+	for (int i = 0; i < CloningCount; i++) {
 		m_ShotArry[i] = new CTeleportationSword();
 		m_ShotArry[i]->Initialize();
 
 	}
-	m_TleCount = 0;*/
+	m_TleCount = 0;
 
 	//•ªg‚·‚é“G
-	for (m_EneCount = 0; m_EneCount < CloningCount;m_EneCount++) {
+	/*for (m_EneCount = 0; m_EneCount < CloningCount;m_EneCount++) {
 		m_KURIBO.ClonInitialize(m_EneCount);
 	}
 	m_EneCount = 0;
 
-	//m_Texture.Load("Hp.png");
 	m_ScaleMagnification = 0;
 	m_TleTime = TLeTime;
 
-	m_Counting = 1;
+	m_Counting = 1;*/
 }
 
 void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY) {
@@ -52,66 +51,43 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	if (EnemyPosX - BosAtackRange < PlayerPosX&&EnemyPosX + BosAtackRange > PlayerPosX) {
 		if (m_fAtackTimer >= 0 && m_fCooltime <= 0) {
 			m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
-			if (m_fAtackTimer < 0) {
+			if (m_fAtackTimer <= 0) {
+
+				m_fAtackTimer = 0;
 				m_fCooltime = CoolTime;
-				m_bShow = false;
+				//m_bShow = false;
 			}
 		}
 		if (m_fCooltime >= 0 && m_fAtackTimer <= 0) {
 			m_fCooltime -= 1 * CUtilities::GetFrameSecond();
-			if (m_fCooltime < 0) {
-				m_fAtackTimer = AtackTimer;
-				float rd = m_ShotArry[2]->GetRadian(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
-				float ddx = m_ShotArry[2]->Getddx(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
-				float ddy = m_ShotArry[2]->Getddy(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
-
-				int rnd = rand() % 5;
-
-				for (int i = 0; i < CloningCount; i++) {
-					/*if (m_ShotArry->GetShow()) {
-						continue;
-					}*/
-
-
-
-					m_ShotArry[i]->Initialize();
-					if (i==2) {
-						m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
-					}
-					else
-					{
-						m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance*2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY,rd,ddx,ddy);
-					}
-
-
-					
-				}
-				m_ShotArry[rnd]->SetFrag(true);
-
-
-				m_fAtackPosX = EnemyPosX;
-				m_fAtackPosY = EnemyPosY;
+			if (m_fCooltime <= 0) {
+				m_fCooltime = 0;
+				//uŠÔˆÚ“®‚·‚éŒ•
+				//•ªgŒ•
+				//ClonSwordUpdate(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
 			}
 		}
 
-		m_bShow = true;
+	//	m_bShow = true;
 
 	}
 
+				TLSwordUpdate(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
 
-	for (int i = 0; i < CloningCount; i++) {
-		m_ShotArry[i]->Update();
-	}
-
+	//•ªgŒ•
+	/*for (int i = 0; i < CloningCount; i++) {
+		m_ClonArry[i]->Update();
+	}*/
+	
 
 
 	//•ªg“G
-	//m_KURIBO.ClonUpdate(m_EneCount); 
-	//m_KURIBO.CollisionStage(m_EneCount);
-	//m_EneCount++;
-	//if (m_EneCount==CloningCount) {
-	//	m_EneCount = 0;
-	//}
+	/*m_KURIBO.ClonUpdate(m_EneCount); 
+	m_KURIBO.CollisionStage(m_EneCount);
+	m_EneCount++;
+	if (m_EneCount==CloningCount) {
+		m_EneCount = 0;
+	}*/
 	/*m_EneCount += m_Counting;
 	if (m_EneCount == CloningCount) {
 		m_Counting = -1 ;
@@ -123,15 +99,19 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 
 
 
-	////uŠÔˆÚ“®
-	//if (m_ShotArry[m_TleCount]->GetTleEnd()) {
-	//	return;
-	//}
-	//m_TleTime -= 1 * CUtilities::GetFrameSecond();
-	//if (m_TleTime <= 0) {
-	//	m_TleCount = rand() % 5;
-	//	m_TleTime = TLeTime;
-	//}
+	//uŠÔˆÚ“®
+	for (int i = 0; i < CloningCount; i++) {
+		m_ShotArry[i]->Update();
+	}
+	if (m_ShotArry[m_TleCount]->GetTleEnd()) {
+		return;
+	}
+	//ƒ‰ƒ“ƒ_ƒ€‚ÉU‚è•ª‚¯‚é
+	m_TleTime -= 1 * CUtilities::GetFrameSecond();
+	if (m_TleTime <= 0) {
+		m_TleCount = rand() % 5;
+		m_TleTime = TLeTime;
+	}
 
 
 	////‰Eè
@@ -145,7 +125,7 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 
 
 	//‰EèÅIŒ`‘Ô
-	if (!m_Hand.GetMoveFlag()) {
+	/*if (!m_Hand.GetMoveFlag()) {
 		m_Hand.Initialize();
 		m_Hand.SetLimit(true);
 		m_Hand.Start(EnemyPosX);
@@ -157,31 +137,36 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	}
 	m_Hand.Update(PlayerPosX, PlayerPosY);
 	m_AtackHand.Update();
-	m_Hand.CollisionStage();
+	m_Hand.CollisionStage();*/
 }
 
 void CAtack_TESTBOS3::Render() {
 
 	//•ªgŒ•
-	for (int i = 0; i < CloningCount; i++) {
-		m_ShotArry[i]->Render();
+	/*for (int i = 0; i < CloningCount; i++) {
+		m_ClonArry[i]->Render();
 
-	}
+	}*/
 	
 	//‰Eè
-	m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
+	//m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
 
-	//‰EèÕŒ‚”g
-	m_AtackHand.Render();
+	////‰EèÕŒ‚”g
+	//m_AtackHand.Render();
 
 	//uŠÔˆÚ“®
-	//m_ShotArry[m_TleCount]->Render();
+	/*for (int i = 0; i < CloningCount; i++) {
+		
+	m_ShotArry[i]->Render();
+	}*/
+	m_ShotArry[m_TleCount]->Render();
 
 	//•ªg‚·‚é“G
-	m_KURIBO.ClonRender(m_EneCount);
+	/*m_KURIBO.ClonRender(m_EneCount);*/
 
 }
 void CAtack_TESTBOS3::Release() {
+	//uŠÔˆÚ“®
 	for (int i = 0; i < CloningCount; i++) {
 		if (m_ShotArry) {
 			m_ShotArry[i]->Release();
@@ -190,5 +175,71 @@ void CAtack_TESTBOS3::Release() {
 		}
 	}
 	
+	//•ªgŒ•
+	/*for (int i = 0; i < CloningCount; i++) {
+		if (m_ClonArry) {
+			m_ClonArry[i]->Release();
+			delete[] m_ClonArry[i];
+			m_ClonArry[i] = NULL;
+		}
+	}*/
+}
 
+void CAtack_TESTBOS3::TLSwordUpdate(float EnemyPosX, float EnemyPosY, float PlayerPosX, float PlayerPosY) {
+	m_fAtackTimer = AtackTimer;
+	float rd = m_ShotArry[2]->GetRadian(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+	float ddx = m_ShotArry[2]->Getddx(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+	float ddy = m_ShotArry[2]->Getddy(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+
+	int rnd = rand() % 5;
+
+	for (int i = 0; i < CloningCount; i++) {
+		if (m_ShotArry[i]->GetShow()) {
+			continue;
+		}
+		
+		m_ShotArry[i]->Initialize();
+		
+		if (i == 2) {
+			m_ShotArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
+		}
+		else
+		{
+			m_ShotArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance * 2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY, rd, ddx, ddy);
+		}
+
+
+
+	}
+	m_fAtackPosX = EnemyPosX;
+	m_fAtackPosY = EnemyPosY;
+}
+
+void CAtack_TESTBOS3::ClonSwordUpdate(float EnemyPosX, float EnemyPosY, float PlayerPosX, float PlayerPosY) {
+	m_fAtackTimer = AtackTimer;
+	float rd = m_ClonArry[2]->GetRadian(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+	float ddx = m_ClonArry[2]->Getddx(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+	float ddy = m_ClonArry[2]->Getddy(EnemyPosX, EnemyPosY, PlayerPosX, PlayerPosY);
+
+	int rnd = rand() % 5;
+
+	for (int i = 0; i < CloningCount; i++) {
+
+		m_ClonArry[i]->Initialize();
+		if (i == 2) {
+			m_ClonArry[i]->Fire(EnemyPosX, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY);
+		}
+		else
+		{
+			m_ClonArry[i]->CloningFire(EnemyPosX + i * CloningDistance - CloningDistance * 2, EnemyPosY, BulletSpeed, BulletSpeed, PlayerPosX, PlayerPosY, rd, ddx, ddy);
+		}
+
+
+
+	}
+	m_ClonArry[rnd]->SetFrag(true);
+
+
+	m_fAtackPosX = EnemyPosX;
+	m_fAtackPosY = EnemyPosY;
 }

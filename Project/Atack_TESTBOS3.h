@@ -16,7 +16,7 @@
 #include	"Enemy_RIGHTHAND.h"
 #include	"Atack_RIGHTHAND.h"
 #define ShotCount	2
-#define TLeTime 0.2f
+#define TLeTime 0.5f
 
 
 class CAtack_TESTBOS3 :public CEnemyAtack {
@@ -25,6 +25,7 @@ private:
 	float	m_fCooltime;
 	float	m_ScaleMagnification;
 	CEnemyShot* m_ShotArry[CloningCount];
+	CEnemyShot* m_ClonArry[CloningCount];
 	CRectangle				m_SrcRect;
 	CTexture	m_Texture;
 	float	m_Radian;
@@ -45,4 +46,6 @@ public:
 	void Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers, float PlayerPosX, float PlayerPosY);
 	void Render();
 	void Release();
+	void TLSwordUpdate(float EnemyPosX, float EnemyPosY, float PlayerPosX, float PlayerPosY);
+	void ClonSwordUpdate(float EnemyPosX, float EnemyPosY, float PlayerPosX, float PlayerPosY);
 };

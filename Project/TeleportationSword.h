@@ -8,6 +8,7 @@
 #pragma once
 #include "EnemyShot.h"
 #include "EnemyDefine.h"
+#define STOPTIME 4
 
 class CTeleportationSword :public CEnemyShot {
 private:

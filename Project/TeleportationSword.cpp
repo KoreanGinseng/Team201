@@ -8,7 +8,7 @@
 #include "TeleportationSword.h"
 
 CTeleportationSword::CTeleportationSword() :
-	CEnemyShot() {
+	CEnemyShot(){
 
 }
 CTeleportationSword::~CTeleportationSword() {
@@ -22,6 +22,8 @@ void CTeleportationSword::Initialize() {
 	m_bShow = false;
 	m_ClonFrag = false;
 	m_TleEnd = false;
+	m_StopTime = STOPTIME;
+	m_Wall = false;
 }
 void CTeleportationSword::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
@@ -50,10 +52,6 @@ void CTeleportationSword::Fire(float px, float py, float sx, float sy, float pPo
 }
 
 void CTeleportationSword::CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy, float rd, float ddx, float ddy) {
-
-
-
-
 	m_PosX = px;
 	m_PosY = py;
 
@@ -70,6 +68,14 @@ void CTeleportationSword::Update() {
 	}
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
+	if (m_Wall) {
+
+		m_StopTime -= 1 * CUtilities::GetFrameSecond();
+		if (m_StopTime < 0) {
+			m_StopTime = 0;
+			m_bShow = false;
+		}
+	}
 	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
 		m_bShow = false;
 	}
@@ -111,21 +117,27 @@ void CTeleportationSword::CollisionStage(float ox, float oy) {
 		m_SpdY = 0;
 		m_SpdX = 0;
 		m_TleEnd = true;
+		m_Wall = true;
 	}
 	else if (oy > 0 && m_PosY < 0) {
 		m_SpdY = 0;
 		m_SpdX = 0;
 		m_TleEnd = true;
+		m_Wall = true;
 
 	}
 	if (ox < 0 && m_PosX>0) {
 		m_SpdX = 0;
 		m_SpdY = 0;
 		m_TleEnd = true;
+		m_Wall = true;
+
 	}
 	else if (ox > 0 && m_PosX < 0) {
 		m_SpdX = 0;
 		m_SpdY = 0;
 		m_TleEnd = true;
+		m_Wall = true;
+
 	}
 }

@@ -12,7 +12,9 @@ CEnemyShot::CEnemyShot() :
 	m_PosY(0.0f),
 	m_SpdX(0.0f),
 	m_SpdY(0.0f),
-	m_bShow(false)
+	m_bShow(false),
+	m_StopTime(0),
+	m_Wall(false)
 {
 }
 

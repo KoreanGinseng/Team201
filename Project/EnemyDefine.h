@@ -115,7 +115,16 @@ enum  BULLET
 #define CloningDistance	70
 #pragma endregion
 
-#pragma region 重力の最大値
+#pragma region ボスの攻撃
+enum tag_BOS3
+{
+	PUNCH,
+	ACID,
+	SCSWORD,
+	SHOCKWAVE,
+	TLSWORD,
+	SCENEMY,
+};
 #pragma endregion
 
 #pragma region 重力の最大値

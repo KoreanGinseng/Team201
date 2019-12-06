@@ -18,7 +18,7 @@ CEnemy_TESTBOS3::~CEnemy_TESTBOS3() {
 void CEnemy_TESTBOS3::Initialize() {
 	m_fXpos = 600;
 	m_fYpos = 100;
-	m_HP = 3;
+	m_HP = 4;
 }
 void CEnemy_TESTBOS3::Update(float Xpos, float Ypos) {
 	if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {

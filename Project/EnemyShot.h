@@ -22,6 +22,8 @@ protected:
 	float		m_EraseTime;
 	bool		m_ClonFrag;
 	bool		m_TleEnd;
+	float		m_StopTime;
+	bool		m_Wall;
 	
 public:
 	 CEnemyShot();
@@ -79,6 +81,9 @@ public:
 
 	bool SetFrag(bool bs) { return m_ClonFrag = bs; }
 	bool GetTleEnd() { return m_TleEnd; }
+	bool GetStop() { return m_StopTime; }
+	bool GetWall() { return m_Wall; }
+
 };
 
 
