@@ -109,6 +109,7 @@
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="MoveBackChip.cpp" />
     <ClCompile Include="MoveBat.cpp" />
+    <ClCompile Include="MoveHand.cpp" />
     <ClCompile Include="MoveMash.cpp" />
     <ClCompile Include="MovePlayer.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Move.h" />
     <ClInclude Include="MoveBackChip.h" />
     <ClInclude Include="MoveBat.h" />
+    <ClInclude Include="MoveHand.h" />
     <ClInclude Include="MoveMash.h" />
     <ClInclude Include="MovePlayer.h" />
     <ClInclude Include="Object.h" />
