@@ -25,7 +25,11 @@ public:
 	void Initialize();
 	void Start(float PlayerPosX);
 	void Start(float InitialPositionX, float InitialPositionY);
-	void Update(float Xpos, float Ypos);
+	void Update(float x, float y)
+	{
+		Update(Vector2(x, y));
+	}
+	void Update(const Vector2& pos);
 	void CollisionStage();
 	void Render(float Xpos, float Ypos);
 	void Release();

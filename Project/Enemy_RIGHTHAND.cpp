@@ -56,7 +56,7 @@ void CEnemy_RIGHTHAND::Start(float InitialPositionX,float InitialPositionY) {
 
 }
 
-void CEnemy_RIGHTHAND::Update(float Xpos, float Ypos) {
+void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 	//最終形態
 	if (m_Limit) {
 		//本体に戻る
@@ -160,17 +160,17 @@ void CEnemy_RIGHTHAND::Update(float Xpos, float Ypos) {
 		{
 			//ロックオン中
 			m_AimTime -= 1 * CUtilities::GetFrameSecond();
-			if (m_fXpos>Xpos) {
+			if (m_fXpos>pos.x) {
 				m_fXpos -= EnemySpeed*2;
-				if (m_fXpos < Xpos) {
-					m_fXpos = Xpos;
+				if (m_fXpos < pos.x) {
+					m_fXpos = pos.x;
 				}
 			}
-			else if(m_fXpos<Xpos)
+			else if(m_fXpos<pos.x)
 			{
 				m_fXpos += EnemySpeed*2;
-				if (m_fXpos > Xpos) {
-					m_fXpos = Xpos;
+				if (m_fXpos > pos.x) {
+					m_fXpos = pos.x;
 				}
 			}
 			return;

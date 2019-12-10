@@ -9,12 +9,15 @@
 #include "EnemyShot.h"
 #include "EnemyDefine.h"
 #define STOPTIME 4
+#define TLeTime 0.5f
 
 class CTeleportationSword :public CEnemyShot {
 private:
 	
-	/*float m_PosX[CloningCount];
-	float m_PosY[CloningCount];*/
+	float m_PosX[CloningCount];
+	float m_PosY[CloningCount];
+	float	m_TleTime;
+	int m_TleCount;
 public:
 	CTeleportationSword();
 	~CTeleportationSword();
