@@ -14,6 +14,10 @@ CTargetObj::~CTargetObj()
 
 void CTargetObj::Initialize(void)
 {
+	if (m_Type == ENEMY_HAND)
+	{
+		m_bReverse = false;
+	}
 	CCharacter::Initialize();
 	m_bShow = true;
 }

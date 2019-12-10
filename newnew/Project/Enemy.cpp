@@ -17,7 +17,7 @@ CEnemy::~CEnemy()
 void CEnemy::Initialize(void)
 {
 	CCharacter::Initialize();
-	if (m_EnemyType == ENEMY_BAT)
+	if (m_EnemyType == ENEMY_BAT || m_EnemyType == ENEMY_HAND)
 	{
 		m_bCollision = false;
 	}
@@ -35,7 +35,19 @@ void CEnemy::Update(void)
 		m_bDead = true;
 		m_bShow = false;
 	}
+	if (m_MvCntrl.GetMove().x < 0)
+	{
+		m_bReverse = true;
+	}
+	else if (m_MvCntrl.GetMove().x > 0)
+	{
+		m_bReverse = false;
+	}
 
+	if (m_DamageWait > 0)
+	{
+		m_DamageWait--;
+	}
 }
 
 bool CEnemy::OverValue(CRectangle rec, Vector2 & out)
@@ -128,4 +140,47 @@ void CEnemy::Reverse(const Vector2 & over)
 			m_MvCntrl.SetMove(Vector2(m_MvCntrl.GetMove().x, 0));
 		}
 	}
+}
+
+bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
+{
+	CRectangle erec = GetRect();
+	CRectangle prec = pre;
+
+	if (m_DamageWait > 0 || preWait > 0)
+	{
+		return false;
+	}
+	m_DamageWait = 60;
+	if (prec.Left < erec.Left)
+	{
+		m_MvCntrl.SetMove(-5.0f, m_MvCntrl.GetMove().y);
+		m_bReverse = false;
+	}
+	else
+	{
+		m_MvCntrl.SetMove(5.0f, m_MvCntrl.GetMove().y);
+		m_bReverse = true;
+	}
+	//m_Motion.ChangeMotion(MOTION_DAMAGE);
+	return true;
+}
+
+bool CEnemy::KnockBack(const CRectangle & pre)
+{
+	CRectangle erec = GetRect();
+	CRectangle prec = pre;
+	if (prec.Left < erec.Left)
+	{
+		m_Pos.x += 64.0f;
+		m_Pos.y -= 64.0f;
+		m_bReverse = false;
+	}
+	else
+	{
+		m_Pos.x -= 64.0f;
+		m_Pos.y -= 64.0f;
+		m_bReverse = true;
+	}
+	return true;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Substance.h"
+
 class CEnemy :
 	public CSubstance
 {
@@ -14,5 +15,8 @@ public:
 	bool OverValue(CRectangle rec, Vector2& out) override;
 	void CollisionStage(const Vector2 & over);
 	void Reverse(const Vector2 & over);
+	int	 GetEnemyType(void) const { return m_EnemyType; }
+	bool Dmg(const CRectangle& pre, const int& preWait);
+	bool KnockBack(const CRectangle& pre);
 };
 
