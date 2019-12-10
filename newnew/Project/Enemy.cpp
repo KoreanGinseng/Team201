@@ -166,21 +166,25 @@ bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
 	return true;
 }
 
-bool CEnemy::KnockBack(const CRectangle & pre)
+bool CEnemy::KnockBack(const CRectangle & pre, const int& preWait)
 {
 	CRectangle erec = GetRect();
 	CRectangle prec = pre;
+	if (preWait > 0)
+	{
+		return false;
+	}
 	if (prec.Left < erec.Left)
 	{
 		m_Pos.x += 64.0f;
 		m_Pos.y -= 64.0f;
-		m_bReverse = false;
+		m_bReverse = true;
 	}
 	else
 	{
 		m_Pos.x -= 64.0f;
 		m_Pos.y -= 64.0f;
-		m_bReverse = true;
+		m_bReverse = false;
 	}
 	return true;
 }

@@ -17,6 +17,6 @@ public:
 	void Reverse(const Vector2 & over);
 	int	 GetEnemyType(void) const { return m_EnemyType; }
 	bool Dmg(const CRectangle& pre, const int& preWait);
-	bool KnockBack(const CRectangle& pre);
+	bool KnockBack(const CRectangle& pre, const int& preWait);
 };
 

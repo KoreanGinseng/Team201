@@ -45,7 +45,6 @@ private:
 	float						m_CoolTime;
 	float						m_Skillrang;
 	CCircle						m_SkillCircle;
-	int							m_DamageWait;
 
 public:
 	CPlayer(void);

@@ -368,11 +368,11 @@ void CGame::Collosion(void)
 				//止まってないならプレイヤーにダメージ
 				else
 				{
-					m_Player.Dmg(*m_pEnemyArray[i]);
 					if (m_pEnemyArray[i]->GetEnemyType() == ENEMY_HAND)
 					{
-						m_pEnemyArray[i]->KnockBack(m_Player.GetRect());
+						m_pEnemyArray[i]->KnockBack(m_Player.GetRect(), m_Player.GetDamageWait());
 					}
+					m_Player.Dmg(*m_pEnemyArray[i]);
 				}
 			}
 
