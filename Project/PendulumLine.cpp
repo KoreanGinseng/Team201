@@ -3,7 +3,8 @@
 CPendulumLine::CPendulumLine() : CEmpty() {
 
 	m_Aliment = RENDERTYPE_ROTATION;
-
+	 deg = 1;
+	 m_Rote = MOF_ToRadian(90);
 }
 
 CPendulumLine::~CPendulumLine() {
@@ -24,7 +25,15 @@ bool CPendulumLine::Load(void)
 
 void CPendulumLine::Update(const bool & me)
 {
-	m_Rote += MOF_ToRadian(1);
+	
+
+	m_Rote += MOF_ToRadian(deg);
+	int d = MOF_ToDegree(m_Rote);
+	if ( d > 90||d<-90)
+	{
+		deg *= -1;
+	}
+
 }
 
 Vector2 CPendulumLine::GetRectCenter() {

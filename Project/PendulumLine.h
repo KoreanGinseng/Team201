@@ -9,6 +9,7 @@ class CPendulumLine :
 private:
 
 	float* m_pRectCenter;
+	int deg;
 
 public:
 	CPendulumLine();
