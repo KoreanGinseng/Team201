@@ -6,6 +6,7 @@ CEmpty::CEmpty()
 {
 	m_pRect = nullptr;
 	m_Aliment = RENDERTYPE_NONE;
+	m_Rote = 0;
 }
 
 

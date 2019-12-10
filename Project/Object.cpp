@@ -3,7 +3,8 @@
 
 
 CObject::CObject() :
-CSubstance()
+CSubstance() ,
+m_pPosObj(nullptr)
 {
 	m_Type = TYPE_OBJECT;
 	m_bAppearance = false;
@@ -32,9 +33,9 @@ void CObject::Update(void) {
 	{
 		return;
 	}
-	if (m_pObjEmp->GetType() == OBJECT_PENDULUMBLOCK)
+	if (m_ObjType == OBJECT_PENDULUMBLOCK)
 	{
-		m_Pos = m_pObjEmp->GetLineBottomPos();
+		m_Pos = m_pPosObj->GetLineBottomPos();
 	}
 	m_pObjEmp->Update(m_bMotionEnd);
 
@@ -77,13 +78,20 @@ void CObject::Render(Vector2 sp) {
 		return;
 	}
 	//テクスチャの描画
-	if (m_pObjEmp->RenderType() == RENDERTYPE_NONE)
+	if (m_pObjEmp->GetRenderType() == RENDERTYPE_NONE)
 	{
-		m_pTexture->Render(sp.x, sp.y, m_SrcRect, m_pObjEmp->GetAlin());
+		if (m_ObjType == OBJECT_PENDULUMBLOCK)
+		{
+			m_pTexture->Render(sp.x, sp.y, m_SrcRect, TEXTUREALIGNMENT_CENTERCENTER);
+		}
+		else
+		{
+			m_pTexture->Render(sp.x, sp.y, m_SrcRect);
+		}
 	}
-	else if (m_pObjEmp->RenderType() == RENDERTYPE_ROTATE)
+	else if (m_pObjEmp->GetRenderType() == RENDERTYPE_ROTATION)
 	{
-		m_pTexture->RenderRotate(sp.x, sp.y, m_pObjEmp->GetRot(), m_SrcRect, m_pObjEmp->GetAlin());
+		m_pTexture->RenderRotate(sp.x, sp.y, m_pObjEmp->GetRote(), m_SrcRect, TEXTUREALIGNMENT_TOPCENTER);
 	}
 }
 
@@ -211,7 +219,7 @@ bool CObject::Collision(CRectangle rect, Vector2 & o)
 
 void CObject::SetObject(const int& Type)
 {
-
+	m_ObjType = Type;
 	switch (Type)
 	{
 	case 0:
@@ -239,20 +247,19 @@ void CObject::SetObject(const int& Type)
 		m_pObjEmp = new CPendulumLine();
 		m_pObjEmp->SetPos(&m_Pos);
 		m_pObjEmp->SetDownCenter(&GetRect().GetCenter());
-	
-		
 		break;
 
 	case OBJECT_PENDULUMBLOCK:
 
 		m_pObjEmp = new CPendulumBlock();
 		
+		//ブロック表示位置
 		m_Pos.y += 64*3;
 		m_Pos.x -= 64;
 		//ブロックの座標のセット
 		m_pObjEmp->SetPos(&m_Pos);
 		//ブロックの中心のセット
-		m_pObjEmp->SetCenter(&GetRect().GetCenter());
+		//m_pObjEmp->SetCenter(&GetRect().GetCenter());
 
 		break;
 	default:

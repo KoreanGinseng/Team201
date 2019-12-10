@@ -22,9 +22,10 @@ protected:
 	CRectangle							m_SrcRect;
 	CEmpty*								m_pObjEmp;
 
+	int									m_ObjType;
 	int									m_AnimCount;
 	bool		m_bSave;
-
+	CObject*							m_pPosObj;
 	enum tag_MOTION {
 		MOTION_START,
 		MOTION_END,
@@ -51,6 +52,7 @@ public:
 	void SetShow(const bool& bs)       { m_bShow = bs; }
 	void SetAppearance(const bool& ba) { m_bAppearance = ba; }
 	void SetSave(const bool& save)			   { m_bSave = save; }
+	void SetPosObj(CObject* po) { m_pPosObj = po; }
 	//Get
 	bool		GetShow(void)	 const { return m_bShow; }
 	bool		IsAppearance(void)	const { return m_bAppearance; }
@@ -58,6 +60,13 @@ public:
 	
 	CRectangle GetRect() const { return m_pObjEmp->GetRect(m_Pos, m_SrcRect); }
 	int	 GetType(void) { return m_pObjEmp->GetType(); }
-	
+
+	Vector2 GetLineBottomPos() {
+		if (m_ObjType != OBJECT_PENDULUMLINE)
+		{
+			return Vector2();
+		}
+		return dynamic_cast<CPendulumLine*>(m_pObjEmp)->GetRectCenter();
+	}
 };
 

@@ -309,6 +309,7 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 				pObj[n].SetTexture(g_pTextureManager->GetResource("BLOCK.png"));
 				pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
 				pObj[n].Initialize(x * m_ChipSize, y * m_ChipSize, OBJECT_PENDULUMBLOCK);
+				pObj[n].SetPosObj(&pObj[n - 1]);
 				pObj[n++].SetObject(OBJECT_PENDULUMBLOCK);
 			}
 		}
