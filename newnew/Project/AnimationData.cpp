@@ -33,6 +33,7 @@ bool CAnimationData::Load(const char* pName)
 	m_pTexture = g_pTextureManager->GetResource(fns);
 	if (m_pTexture == nullptr)
 	{
+		MOF_SAFE_DELETE(fns);
 		return FALSE;
 	}
 
