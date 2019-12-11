@@ -11,8 +11,8 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
+			"Stage1-a.txt",
 			"ENEMOVESTAGE.txt",
-			"Stage1-1.txt",
 			"Stage1-1.txt",
 			"Stage1-1.txt",
 };

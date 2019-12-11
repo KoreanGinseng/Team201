@@ -130,9 +130,33 @@ void CPlayer::Release(void)
 //アニメーション処理
 void CPlayer::Animation(void)
 {
-	if (m_MvCntrl.GetMotionNo() != m_Anim.GetMotionNo())
+	/*if (m_MvCntrl.GetMotionNo() != m_Anim.GetMotionNo())
 	{
 		m_Anim.ChangeAnim(m_MvCntrl.GetMotionNo());
+	}*/
+	bool jumpUp = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpUp();
+	bool jumpDown = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpDown();
+	bool move = (m_MvCntrl.GetMove().x != 0);
+	bool skill = m_bTrigger;
+	if (jumpUp && m_Anim.GetMotionNo() != 2)
+	{
+		m_Anim.ChangeAnim(2);
+	}
+	else if (jumpDown && m_Anim.GetMotionNo() != 3)
+	{
+		m_Anim.ChangeAnim(3);
+	}
+	else if (move && m_Anim.GetMotionNo() != 1 && !jumpDown && !jumpUp)
+	{
+		m_Anim.ChangeAnim(1);
+	}
+	else if (skill && m_Anim.GetMotionNo() != 4 && !jumpDown && !jumpUp && !move)
+	{
+		m_Anim.ChangeAnim(4);
+	}
+	else if (m_Anim.GetMotionNo() != 0 && !jumpUp && !jumpDown && !move && !skill)
+	{
+		m_Anim.ChangeAnim(0);
 	}
 
 	m_Anim.Update();

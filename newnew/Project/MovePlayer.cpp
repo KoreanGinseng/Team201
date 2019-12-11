@@ -2,8 +2,11 @@
 #include	"Player.h"
 
 
-CMovePlayer::CMovePlayer()
+CMovePlayer::CMovePlayer() :
+CMove()
 {
+	m_bJumpUp = false;
+	m_bJumpDown = false;
 }
 
 
@@ -40,6 +43,11 @@ void CMovePlayer::Update(void)
 
 	if (!m_bClime)
 	{
+		if (m_Move.y > 1)
+		{
+			m_bJumpUp = false;
+			m_bJumpDown = true;
+		}
 		m_Move.y += GRAVITY;
 	}
 	if (m_Move.y > 20.0f)
@@ -103,7 +111,7 @@ void CMovePlayer::PadOparation(void)
 	if (g_pGamePad->IsKeyPush(XINPUT_A) && !m_bJump)
 	{
 		m_bJump = true;
-		
+		m_bJumpUp = true;
 		m_Move.y = PLAYER_JUMPPOW;
 	}
 }
@@ -162,7 +170,7 @@ void CMovePlayer::KeyOparation(void)
 	if (g_pInput->IsKeyHold(MOFKEY_UP) && !m_bJump)
 	{
 		m_bJump = true;
-
+		m_bJumpUp = true;
 		m_Move.y = PLAYER_JUMPPOW;
 	}
 }

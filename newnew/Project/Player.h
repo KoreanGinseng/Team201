@@ -72,6 +72,7 @@ public:
 		CRectangle r = CCharacter::GetRect();
 		r.Expansion(-PLAYER_RECTDIS, 0);
 		r.Top += PLAYER_RECTDIS;
+		r.Bottom -= 10;
 		return r;
 	}
 	//Set

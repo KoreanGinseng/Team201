@@ -61,7 +61,7 @@ constexpr	char*	AnimName[] = {
 
 constexpr	char*	FileName[] = {
 	//TEXTURE
-	"player3.png",
+	"ugople2.png",
 	"EnemyKinoko.png",
 	"EnemyDoku.png",
 	"EnemyBat.png",
@@ -92,7 +92,7 @@ constexpr	char*	FileName[] = {
 	"MapChip02.png",
 	"sumple_imvisible.png",
 	//ANIMATION
-	"playerAnim.bin",
+	"PlayerAnim001.bin",
 	"EnemyKinokoAnim.bin",
 	"EnemyDokuAnim.bin",
 	"EnemyBatAnim.bin",
@@ -125,6 +125,9 @@ constexpr	char*	FileName[] = {
 	"RectRope.txt",
 	"RectTree.txt",
 	"RectBridge.txt",
+	"RectSavePoint.txt",
+	"RectNextPoint.txt",
+	"RectCameraPoint.txt",
 };
 
 //ENUM
