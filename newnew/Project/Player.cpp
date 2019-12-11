@@ -60,6 +60,7 @@ void CPlayer::Initialize(void)
 void CPlayer::Update(void)
 {
 	//MOVE
+	dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->SetClime(m_bClime);
 	m_MvCntrl.Update();
 	m_Pos += m_MvCntrl.GetMove();
 
@@ -130,10 +131,6 @@ void CPlayer::Release(void)
 //アニメーション処理
 void CPlayer::Animation(void)
 {
-	/*if (m_MvCntrl.GetMotionNo() != m_Anim.GetMotionNo())
-	{
-		m_Anim.ChangeAnim(m_MvCntrl.GetMotionNo());
-	}*/
 	bool jumpUp = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpUp();
 	bool jumpDown = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpDown();
 	bool move = (m_MvCntrl.GetMove().x != 0);
@@ -142,7 +139,7 @@ void CPlayer::Animation(void)
 	{
 		m_Anim.ChangeAnim(2);
 	}
-	else if (jumpDown && m_Anim.GetMotionNo() != 3)
+	else if (jumpDown && m_Anim.GetMotionNo() != 3 && !jumpUp)
 	{
 		m_Anim.ChangeAnim(3);
 	}

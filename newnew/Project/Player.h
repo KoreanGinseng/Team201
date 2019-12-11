@@ -67,6 +67,7 @@ public:
 
 	//Get
 	bool	IsTrigger(void) { return m_bTrigger; }
+	bool	IsClime(void) { return m_bClime; }
 	int		GetHp(void) { return m_HP; }
 	CRectangle GetRect(void) const override { 
 		CRectangle r = CCharacter::GetRect();

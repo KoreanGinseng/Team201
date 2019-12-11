@@ -315,6 +315,7 @@ void CGame::Release()
 
 void CGame::Collosion(void)
 {
+#pragma region プレイヤーが当たる側
 	//プレイヤーがスキル発動時の場合、
 	if (m_Player.IsTrigger())
 	{
@@ -330,7 +331,9 @@ void CGame::Collosion(void)
 		//埋まっている値だけ元に戻す
 		m_Player.CollisionStage(over);
 	}
+#pragma endregion
 
+#pragma region 敵が当たる側
 	//敵との当たり判定
 	//敵の数だけループ
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
@@ -398,7 +401,9 @@ void CGame::Collosion(void)
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region アイテムが当たる側
 	//アイテムとの当たり判定
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
@@ -422,7 +427,9 @@ void CGame::Collosion(void)
 			}
 		}
 	}
+#pragma endregion
 
+#pragma region オブジェクトが当たる側
 	//オブジェクトとの当たり判定
 	//オブジェクトの数だけ当たり判定をする
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
@@ -434,8 +441,9 @@ void CGame::Collosion(void)
 		}
 		//埋まり値をリセット
 		over = Vector2(0, 0);
-
+	
 		//プレイヤーとの当たり判定
+		m_Player.SetClime(false);
 		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
 		{
 			//ぶつかったオブジェクトがロープの場合
@@ -443,14 +451,18 @@ void CGame::Collosion(void)
 			{
 				//登れるようにする
 				m_Player.SetClime(true);
+				break;
 			}
 			//ロープ以外の場合
 			else
 			{
 				//通常の動きにする
-				m_Player.SetClime(false);
-				//埋まり値だけ戻す
-				m_Player.CollisionStage(over);
+				//スキルが使われている状態なら当たり判定を行わない
+				if (!m_pTargetObjArray[i]->IsSkill())
+				{
+					//埋まり値だけ戻す
+					m_Player.CollisionStage(over);
+				}
 			}
 		}
 
@@ -471,9 +483,14 @@ void CGame::Collosion(void)
 				//それ以外埋まり値だけ戻す
 				else
 				{
-					m_pEnemyArray[j]->CollisionStage(over);
+					//スキルが使われている状態なら当たり判定を行わない
+					if (!m_pTargetObjArray[i]->IsSkill())
+					{
+						m_pEnemyArray[j]->CollisionStage(over);
+					}
 				}
 			}
 		}
 	}
+#pragma endregion
 }

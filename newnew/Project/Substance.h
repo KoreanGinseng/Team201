@@ -22,7 +22,7 @@ public:
 	void	SetStop(void) { m_bStop = true; }
 	void	SetBack(void) { m_bBack = true; }
 	void	SetTrip(void) { m_bTrip = true; }
-	bool	IsSkill(void) { return m_bSkill; }
+	bool	IsSkill(void) { return m_bSkill || m_bStop || m_bBack || m_bTrip; }
 	bool	IsStop(void) { return m_bStop; }
 	bool	IsBack(void) { return m_bBack; }
 	bool	IsTrip(void) { return m_bTrip; }
