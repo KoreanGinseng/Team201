@@ -47,6 +47,9 @@ bool CMoveController::Create(const int & no)
 	case MOVE_ENE_HAND:
 		move = NEW CMoveHand();
 		break;
+	case MOVE_ENE_FLOAT:
+		move = NEW CMoveFloat();
+		break;
 	case MOVE_BC_01:
 	case MOVE_BC_02:
 	case MOVE_BC_03:

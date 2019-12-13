@@ -137,6 +137,9 @@
     <ClCompile Include="MoveMash.cpp">
       <Filter>ソース ファイル\Move</Filter>
     </ClCompile>
+    <ClCompile Include="MoveFloat.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">
@@ -261,5 +264,6 @@
     <ClInclude Include="MoveHand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="MoveFloat.h" />
   </ItemGroup>
 </Project>

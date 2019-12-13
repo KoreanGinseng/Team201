@@ -7,6 +7,7 @@
 #include	"MoveBackChip.h"
 #include	"MoveBat.h"
 #include	"MoveHand.h"
+#include	"MoveFloat.h"
 
 class CMoveController
 {
