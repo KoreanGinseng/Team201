@@ -17,7 +17,7 @@
 #include	"MovePlayer.h"
 
 //DEFINE
-#define		PLAYER_RECTDIS		40
+#define		PLAYER_RECTDIS		90
 
 namespace Player {
 	enum tag_Animation {
@@ -72,7 +72,7 @@ public:
 	CRectangle GetRect(void) const override { 
 		CRectangle r = CCharacter::GetRect();
 		r.Expansion(-PLAYER_RECTDIS, 0);
-		r.Top += PLAYER_RECTDIS;
+		r.Top += 20;
 		r.Bottom -= 10;
 		return r;
 	}
