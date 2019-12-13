@@ -20,6 +20,7 @@ void CImpactBullet::Initialize() {
 	m_SpdX = 0;
 	m_SpdY = 0;
 	m_bShow = false;
+	m_bShotEnd = false;
 }
 
 
@@ -28,6 +29,7 @@ void CImpactBullet::Fire(float px, float py, float sx, float sy, float pPosx, fl
 	m_PosY = py;
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -54,36 +56,24 @@ void CImpactBullet::Fire(float px, float py) {
 	m_PosY = py;
 
 	m_bShow = true;
-
-	/*float dx = pPosx - px;
-	float dy = pPosy - py;
-	m_Radian = atan2f(dy, dx);
-	m_Radian = MOF_ToDegree(m_Radian);
-
-	float Playerdx;
-	float Playerdy;
-	float d;
-	float ddx;
-	float ddy;
-
-	Playerdx = pPosx - px;
-	Playerdy = pPosy - py;
-	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
-	ddx = dx / d;
-	ddy = dy / d;*/
+	m_bShotEnd = false;
 	m_SpdX = -BulletSpeed;
 	m_SpdY = -BulletSpeed;
 }
 
-void CImpactBullet::Update() {
+bool CImpactBullet::Update() {
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
 	m_PosX += m_SpdX;
 	/*m_PosY += m_SpdY;*/
 	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
 		m_bShow = false;
+		m_bShotEnd = true;
 	}
+
+	return m_bShotEnd;
+	
 }
 void CImpactBullet::Render() {
 	if (!m_bShow) {

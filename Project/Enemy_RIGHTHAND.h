@@ -7,6 +7,7 @@
 
 #pragma once
 #include "_Onishi/EnemyMove.h"
+#include "ImpactBullet.h"
 #define	MAXTOP 200.0f
 #define AIMTIME 2
 
@@ -19,17 +20,15 @@ private:
 	bool m_MoveEndFlag;
 	bool m_Limit;
 	bool m_Fire;
+	CImpactBullet m_shot;
 public:
 	CEnemy_RIGHTHAND();
 	~CEnemy_RIGHTHAND();
 	void Initialize();
 	void Start(float PlayerPosX);
 	void Start(float InitialPositionX, float InitialPositionY);
-	void Update(float x, float y)
-	{
-		Update(Vector2(x, y));
-	}
-	void Update(const Vector2& pos);
+	void Update(float px, float py) {};
+	bool Update(const Vector2& pos);
 	void CollisionStage();
 	void Render(float Xpos, float Ypos);
 	void Release();

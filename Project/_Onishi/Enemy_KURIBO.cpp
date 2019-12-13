@@ -28,10 +28,11 @@ void CEnemy_KURIBO::ClonInitialize(int cnt) {
 
 		m_PosX[cnt] = 300+cnt*CloningDistance;
 		m_PosY[cnt] = 100;
-	//m_bEnd = true;
+	m_bEnd = false;
 	m_fEnemySpeed = EnemySpeed;
 	m_fMoveX = -1 * m_fEnemySpeed;
 	m_fMoveY = m_fEnemySpeed;
+	m_EndTime = ENDTIME;
 }
 
 void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
@@ -61,14 +62,19 @@ void CEnemy_KURIBO::Update(float Xpos, float Ypos) {
 	m_fYpos += m_fMoveY;
 }
 
-void CEnemy_KURIBO::ClonUpdate(int i) {
+bool CEnemy_KURIBO::ClonUpdate(int i) {
 
 	if (m_bEnd) {
-		return;
+		return m_bEnd;
 	}
 
 	Gravity();
 
+	m_EndTime -= CUtilities::GetFrameSecond();
+	if (m_EndTime<=0) {
+		m_EndTime = 0;
+		m_bEnd = true;
+	}
 
 	if (m_fMoveX == 0) {
 		if (m_bRevers) {
@@ -81,6 +87,8 @@ void CEnemy_KURIBO::ClonUpdate(int i) {
 	}
 	m_PosX[i] += m_fMoveX;
 	m_PosY[i] += m_fMoveY;
+
+	return m_bEnd;
 }
 
 void CEnemy_KURIBO::CollisionStage(int i) {

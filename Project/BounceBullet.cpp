@@ -22,6 +22,7 @@ void CBounceBullet::Initialize() {
 	m_SpdX = -BosBulletSpeed;
 	m_SpdY = -5;
 	m_bShow = false;
+	m_bShotEnd = false;
 	m_BounceTimes = Bounce_Times;
 	m_ExplosionTime = ExplosionTime;
 }
@@ -29,12 +30,13 @@ void CBounceBullet::Fire(float px, float py, float sx, float sy, float pPosx, fl
 	m_PosX = px;
 	m_PosY = py;
 	m_bShow = true;
+	m_bShotEnd = false;
 
 
 }
-void CBounceBullet::Update() {
+bool CBounceBullet::Update() {
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
 	m_SpdY += GRAVITY;
 	if (m_SpdY >=GravityMax) {
@@ -56,6 +58,7 @@ void CBounceBullet::Update() {
 
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
+	return m_bShotEnd;
 }
 void CBounceBullet::Render() {
 	if (!m_bShow) {
@@ -88,6 +91,7 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 			m_ExplosionTime -= CUtilities::GetFrameSecond();
 			if (m_ExplosionTime<=0) {
 				m_bShow = false;
+				m_bShotEnd = true;
 			}			
 		}
 	}
@@ -108,6 +112,7 @@ void CBounceBullet::CollisionStage(float ox, float oy) {
 			m_ExplosionTime -= CUtilities::GetFrameSecond();
 			if (m_ExplosionTime<=0) {
 				m_bShow = false;
+				m_bShotEnd = true;
 			}
 
 		}

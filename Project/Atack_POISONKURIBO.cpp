@@ -55,7 +55,7 @@ void CAtack_POISONKURIBO::Update(float EnemyPosX, float EnemyPosY, bool EnemyRev
 						continue;
 					}
 					m_Shot->Initialize();
-					m_Shot->Fire(EnemyPosX, EnemyPosY-Shot_Position, PoisonBulletSpeedX, -PoisonBulletSpeedY, PlayerPosX, PlayerPosY);
+					m_Shot->Fire(EnemyPosX, EnemyPosY-Shot_Position, PoisonBulletSpeedX, PoisonBulletSpeedY, PlayerPosX, PlayerPosY);
 					break;
 				}
 				

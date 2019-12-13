@@ -31,12 +31,14 @@ void CPoisonBullet::Fire(float px, float py, float sx, float sy, float pPosx, fl
 	m_SpdX = sx;
 	m_SpdY = sy;
 	m_bShow = true;
+	m_bShotEnd = false;
 
 
 }
-void CPoisonBullet::Update() {
+bool CPoisonBullet::Update() {
 	if (!m_bShow) {
-		return;
+
+		return m_bShotEnd;
 	}
 	m_SpdY += GRAVITY;
 	if (m_SpdY >= GravityMax) {
@@ -61,15 +63,18 @@ void CPoisonBullet::Update() {
 
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
+	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
+		m_bShow = false;
+		m_bShotEnd = true;
+	}
+
+	return m_bShotEnd;
 }
 void CPoisonBullet::Render() {
 	if (!m_bShow) {
 		return;
 	}
 	CGraphicsUtilities::RenderFillCircle(m_PosX, m_PosY, BulletRadius, MOF_COLOR_RED);
-	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
-		m_bShow = false;
-	}
 }
 
 void CPoisonBullet::CollisionStage(float ox, float oy) {
@@ -82,6 +87,7 @@ void CPoisonBullet::CollisionStage(float ox, float oy) {
 			m_PoisonTime -= CUtilities::GetFrameSecond();
 			if (m_PoisonTime <= 0) {
 				m_bShow = false;
+				m_bShotEnd = true;
 			}
 	}
 	else if (oy > 0 && m_PosY < 0) {
@@ -91,6 +97,7 @@ void CPoisonBullet::CollisionStage(float ox, float oy) {
 			m_PoisonTime -= CUtilities::GetFrameSecond();
 			if (m_PoisonTime <= 0) {
 				m_bShow = false;
+				m_bShotEnd = true;
 			}
 	}
 	if (ox < 0 && m_PosX>0) {

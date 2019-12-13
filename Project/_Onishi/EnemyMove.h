@@ -37,6 +37,7 @@ public:
 	~CEnemyMove();
 	virtual void Initialize() = 0;
 	virtual void Update(float Xpos, float Ypos) = 0;
+	virtual bool Update(const Vector2& pos) { return false; };
 	virtual void Render(float Xpos, float Ypos) = 0;
 	virtual void Release()=0;
 	void CollisionStage(float ox, float oy, int Type);

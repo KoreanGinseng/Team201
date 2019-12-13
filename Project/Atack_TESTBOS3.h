@@ -12,9 +12,12 @@
 #include	"_Onishi/Enemy_KURIBO.h"
 #include	"CloningSword.h"
 #include	"TeleportationSword.h"
+#include	<time.h>
 #include	<random>
 #include	"Enemy_RIGHTHAND.h"
 #include	"Atack_RIGHTHAND.h"
+#include	"PoisonBullet.h"
+
 
 #define ShotCount	2
 
@@ -44,6 +47,7 @@ private:
 
 	CEnemyShot* m_ShotArry;
 	CEnemyShot* m_ClonArry[CloningCount];
+	CEnemyShot* m_Acid;
 	CRectangle				m_SrcRect;
 	CTexture	m_Texture;
 	float	m_Radian;
@@ -56,6 +60,7 @@ private:
 	CAtack_RIGHTHAND m_AtackHand;
 	//CRayBullet	m_RayBullet;
 	//CEnemyShot*	m_ShotBounceArry;
+	int rnd;
 public:
 	CAtack_TESTBOS3();
 	~CAtack_TESTBOS3();

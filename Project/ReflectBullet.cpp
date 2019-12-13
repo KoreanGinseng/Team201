@@ -21,12 +21,15 @@ void CReflectBullet::Initialize() {
 	m_SpdY = 0;
 	m_BounceTimes = 3;
 	m_bShow = false;
+	m_bShotEnd = false;
 }
 void CReflectBullet::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
 	m_PosY = py;
 
 	m_bShow = true;
+	m_bShotEnd = false;
+
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -48,9 +51,9 @@ void CReflectBullet::Fire(float px, float py, float sx, float sy, float pPosx, f
 	m_SpdX = ddx * BulletSpeed;
 	m_SpdY = ddy * BulletSpeed;
 }
-void CReflectBullet::Update() {
+bool CReflectBullet::Update() {
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
@@ -73,7 +76,9 @@ void CReflectBullet::Update() {
 
 	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
 		m_bShow = false;
+		m_bShotEnd = true;
 	}
+	return m_bShotEnd;
 }
 void CReflectBullet::Render() {
 	if (!m_bShow) {
@@ -105,6 +110,7 @@ void CReflectBullet::CollisionStage(float ox, float oy) {
 
 	if (m_BounceTimes==0) {
 		m_bShow = false;
+		m_bShotEnd = true;
 	}
 
 }

@@ -20,13 +20,16 @@ void CCloningSword::Initialize() {
 	m_SpdX = 0;
 	m_SpdY = 0;
 	m_bShow = false;
+	m_bShotEnd = false;
 	m_ClonFrag = false;
+	m_EndTime = ENDTIME;
 }
 void CCloningSword::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
 	m_PosY = py;
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -57,35 +60,28 @@ void CCloningSword::CloningFire(float px, float py, float sx, float sy, float pP
 	m_PosY = py;
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
-	/*float dx = pPosx - px;
-	float dy = pPosy - py;
-	m_Radian = atan2f(dy, dx);
-	m_Radian = MOF_ToDegree(m_Radian);
-
-	float Playerdx;
-	float Playerdy;
-	float d;
-	float ddx;
-	float ddy;
-
-	Playerdx = pPosx - px;
-	Playerdy = pPosy - py;
-	d = sqrt(Playerdx*Playerdx + Playerdy * Playerdy);
-	ddx = dx / d;
-	ddy = dy / d;*/
+	
 	m_SpdX = ddx * BulletSpeed;
 	m_SpdY = ddy * BulletSpeed;
 }
 
-void CCloningSword::Update() {
+bool CCloningSword::Update() {
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
 	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
 		m_bShow = false;
+		m_bShotEnd = true;
+	}
+
+	m_EndTime -= CUtilities::GetFrameSecond();
+	if (m_EndTime<=0) {
+		m_bShow = false;
+		m_bShotEnd = true;
 	}
 
 	float ox = 0, oy = 0;
@@ -101,6 +97,7 @@ void CCloningSword::Update() {
 
 	CollisionStage(ox, oy);
 
+	return m_bShotEnd;
 }
 void CCloningSword::Render() {
 	if (!m_bShow) {

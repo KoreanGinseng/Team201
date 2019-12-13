@@ -14,7 +14,8 @@ CEnemyShot::CEnemyShot() :
 	m_SpdY(0.0f),
 	m_bShow(false),
 	m_StopTime(0),
-	m_Wall(false)
+	m_Wall(false),
+	m_bShotEnd(false)
 {
 }
 
@@ -28,8 +29,8 @@ void CEnemyShot::Initialize() {
 void CEnemyShot::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 
 }
-void CEnemyShot::Update() {
-	
+bool CEnemyShot::Update() {
+	return false;
 }
 void CEnemyShot::Render() {
 	

@@ -21,6 +21,7 @@ void CRayBullet::Initialize() {
 	m_SpdY = 0;
 	m_BounceTimes = 3;
 	m_bShow = false;
+	m_bShotEnd = false;
 	m_Radian = 0;
 	m_EraseTime = EraseTime;
 	m_Texture.Load("Hp.png");
@@ -52,6 +53,7 @@ void CRayBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	m_RPosX[0] = px;
 	m_RPosY[0] = py;
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -71,19 +73,20 @@ void CRayBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	m_SpdX = ddx * BulletSpeed;
 	m_SpdY = ddy * BulletSpeed;
 }
-void CRayBullet::Update() {
-	
+bool CRayBullet::Update() {
+
 	if (m_EraseTime==0) {
 		for (int i = 0; i < ReflectCount - 1; i++) {
 			if (m_AddNumber[i] > 0) {
 				m_AddNumber[i] -= AddNumber;
 				if (m_AddNumber[ReflectCount - 2] <= 0) {
 					m_bShow = false;
+					m_bShotEnd = true;
 				}
 				break;
 			}
 		}
-		return;
+		return m_bShotEnd;
 	}
 	m_PosX += m_SpdX*5;
 	m_PosY += m_SpdY*5;
@@ -130,7 +133,7 @@ void CRayBullet::Update() {
 		SetRadius(m_RPosX[i],m_RPosY[i], m_RPosX[i+1], m_RPosY[i+1],i);
 		SetDistance(m_RPosX[i],m_RPosY[i], m_RPosX[i+1], m_RPosY[i+1],i);
 	}
-
+	return m_bShotEnd;
 }
 
 void CRayBullet::Render() {

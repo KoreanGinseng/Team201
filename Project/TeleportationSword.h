@@ -24,7 +24,7 @@ public:
 	void Initialize();
 	void Fire(float px, float py, float sx, float sy, float pPosx, float pPosy);
 	void CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy, float rd, float ddx, float ddy);
-	void Update();
+	bool Update();
 	void Render();
 	void Release();
 	void CollisionStage(float ox, float oy);

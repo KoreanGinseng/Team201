@@ -24,6 +24,7 @@ protected:
 	bool		m_TleEnd;
 	float		m_StopTime;
 	bool		m_Wall;
+	bool m_bShotEnd;
 	
 public:
 	 CEnemyShot();
@@ -31,12 +32,12 @@ public:
 	virtual void Initialize()=0;
 	virtual void Fire(float px,float py,float sx,float sy,float pPosx,float pPosy)=0;
 	virtual void CloningFire(float px, float py, float sx, float sy, float pPosx, float pPosy, float rd,float ddx,float ddy) {};
-	virtual void Update()=0;
+	virtual bool Update()=0;
 	virtual void Render()=0;
 	virtual void Release()=0;
 	//void SetTexture(CTexture* pt) { m_pTexture = pt; }
 	bool GetShow() { return m_bShow; }
-	bool SetShow(bool bs) { m_bShow = bs; }
+	void SetShow(bool bs) { m_bShow = bs; }
 	//void Release();
 	virtual void CollisionStage(float ox, float oy)=0;
 

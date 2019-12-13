@@ -20,12 +20,14 @@ void CAimBullet::Initialize() {
 	m_SpdX = 0;
 	m_SpdY = 0;
 	m_bShow = false;
+	m_bShotEnd = false;
 }
 void CAimBullet::Fire(float px, float py, float sx, float sy, float pPosx, float pPosy) {
 	m_PosX = px;
 	m_PosY = py;
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -46,15 +48,17 @@ void CAimBullet::Fire(float px, float py, float sx, float sy, float pPosx, float
 	m_SpdX = ddx* BulletSpeed;
 	m_SpdY = ddy* BulletSpeed;
 }
-void CAimBullet::Update() {
+bool CAimBullet::Update() {
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
 	m_PosX += m_SpdX;
 	m_PosY += m_SpdY;
 	if (m_PosX<0 || m_PosX>g_pGraphics->GetTargetWidth() || m_PosY<0 || m_PosY>g_pGraphics->GetTargetHeight()) {
 		m_bShow = false;
+		m_bShotEnd = true;
 	}
+	return m_bShotEnd;
 }
 void CAimBullet::Render() {
 	if (!m_bShow) {

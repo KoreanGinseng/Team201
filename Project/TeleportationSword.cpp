@@ -22,6 +22,7 @@ void CTeleportationSword::Initialize() {
 	m_SpdX = 0;
 	m_SpdY = 0;
 	m_bShow = false;
+	m_bShotEnd = false;
 	m_ClonFrag = false;
 	m_TleEnd = false;
 	m_StopTime = STOPTIME;
@@ -35,6 +36,7 @@ void CTeleportationSword::Fire(float px, float py, float sx, float sy, float pPo
 	}
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	float dx = pPosx - px;
 	float dy = pPosy - py;
@@ -61,33 +63,37 @@ void CTeleportationSword::CloningFire(float px, float py, float sx, float sy, fl
 	m_PosY = py;*/
 
 	m_bShow = true;
+	m_bShotEnd = false;
 
 	
 	m_SpdX = ddx * (BulletSpeed / 2);
 	m_SpdY = ddy * (BulletSpeed / 2);
 }
 
-void CTeleportationSword::Update() {
+bool CTeleportationSword::Update() {
 	if (m_Wall) {
 
 		m_StopTime -= 1 * CUtilities::GetFrameSecond();
 		if (m_StopTime < 0) {
 			m_StopTime = 0;
 			m_bShow = false;
+			m_bShotEnd = true;
 		}
-		return;
+		return m_bShotEnd;
 	}
+
 	if (!m_bShow) {
-		return;
+		return m_bShotEnd;
 	}
+
 	for (int i = 0; i < CloningCount; i++) {
 		m_PosX[i] += m_SpdX;
 		m_PosY[i] += m_SpdY;
 	}
-	/*m_PosX += m_SpdX;
-	m_PosY += m_SpdY;*/
+	
 	if (m_PosX[m_TleCount]<0 || m_PosX[m_TleCount]>g_pGraphics->GetTargetWidth() || m_PosY[m_TleCount]<0 || m_PosY[m_TleCount ]>g_pGraphics->GetTargetHeight()) {
-		Initialize();
+		m_bShow=false;
+		m_bShotEnd = true;
 	}
 
 	float ox = 0, oy = 0;
@@ -110,7 +116,7 @@ void CTeleportationSword::Update() {
 
 	CollisionStage(ox, oy);
 
-	
+	return m_bShotEnd;
 
 }
 void CTeleportationSword::Render() {

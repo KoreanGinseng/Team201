@@ -12,7 +12,7 @@ CAtack_TESTBOS3::CAtack_TESTBOS3() :
 	CEnemyAtack() {
 
 	//å`ë‘
-	m_Form = 1;
+	m_Form = 0;
 
 }
 CAtack_TESTBOS3::~CAtack_TESTBOS3() {
@@ -53,6 +53,8 @@ void CAtack_TESTBOS3::Initialize() {
 	m_fAtackTimer = 0;
 	m_fCooltime = 0;
 
+	srand(time(NULL));
+
 	//çUåÇÉpÉ^Å[ÉìÇÃèâä˙âª
 	PtnInitialize();
 
@@ -63,12 +65,17 @@ void CAtack_TESTBOS3::Initialize() {
 
 	}
 
+
 	//èuä‘à⁄ìÆÇ∑ÇÈåï
 	m_ShotArry = new CTeleportationSword();
 	m_ShotArry->Initialize();
 
+	//é_
+	m_Acid = new CPoisonBullet();
+	m_Acid->Initialize();
+
 	//ï™êgÇ∑ÇÈìG
-	for (m_EneCount = 0; m_EneCount < CloningCount;m_EneCount++) {
+	for (m_EneCount = 0; m_EneCount < CloningCount; m_EneCount++) {
 		m_KURIBO.ClonInitialize(m_EneCount);
 	}
 	m_EneCount = 0;
@@ -104,13 +111,6 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 	}
 
 
-	//ï™êgåï
-	/*for (int i = 0; i < CloningCount; i++) {
-		m_ClonArry[i]->Update();
-	}*/
-	
-
-
 	
 
 	m_TestInfo = {Vector2(EnemyPosX,EnemyPosY),Vector2(PlayerPosX,PlayerPosY)};
@@ -118,11 +118,6 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 
 	BossBehavior();
 
-
-	//èuä‘à⁄ìÆ
-	m_ShotArry->Update();
-	
-	
 	if (g_pInput->IsKeyPush(MOFKEY_G) && m_Form != 0) {
 
 		m_Form--;
@@ -134,17 +129,6 @@ void CAtack_TESTBOS3::Update(float EnemyPosX, float EnemyPosY, bool EnemyRevers,
 		m_Form++;
 		PtnInitialize();
 	}
-
-	
-
-	
-
-	
-
-
-	
-
-
 	
 }
 
@@ -154,10 +138,10 @@ void CAtack_TESTBOS3::Render() {
 	CGraphicsUtilities::RenderString(0, 200*i+50, "%d", m_AttackPtn[i]);
 
 	//ï™êgåï
-	/*for (int i = 0; i < CloningCount; i++) {
+	for (int i = 0; i < CloningCount; i++) {
 		m_ClonArry[i]->Render();
 
-	}*/
+	}
 	
 	//âEéË
 	m_Hand.Render(m_fAtackPosX,m_fAtackPosY);
@@ -168,9 +152,11 @@ void CAtack_TESTBOS3::Render() {
 	//èuä‘à⁄ìÆ
 	m_ShotArry->Render();
 
+	//é_
+	m_Acid->Render();
 	
 	//ï™êgÇ∑ÇÈìG
-	/*m_KURIBO.ClonRender(m_EneCount);*/
+	m_KURIBO.ClonRender(m_EneCount);
 
 }
 void CAtack_TESTBOS3::Release() {
@@ -221,6 +207,9 @@ void CAtack_TESTBOS3::BossBehavior() {
 	}
 
 	if (!m_AttackPtn.GetArrayCount()) {
+
+		if(m_Form!=3)
+		m_Form++;
 
 		PtnInitialize();
 
@@ -279,7 +268,7 @@ void CAtack_TESTBOS3::Form3Ptn() {
 	switch (m_AttackPtn[0])
 	{
 	case 0:
-		CrushHand();
+		end = CrushHand();
 		break;
 	case 1:
 		end = TeleportSword();
@@ -326,61 +315,40 @@ void CAtack_TESTBOS3::Form4Ptn() {
 
 }
 
+bool CAtack_TESTBOS3::AcidBless(void)
+{
+	//é_
+	if (!m_Acid->GetShow()) {
+
+		m_Acid->Fire(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, -BulletSpeed, -BulletSpeed, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
+
+	}
+
+	bool end = m_Acid->Update();
+
+	return end;
+}
+
+
 bool CAtack_TESTBOS3::CrushHand()
 {
-
+	bool end;
 	//âEéË
 	if (!m_Hand.GetMoveFlag()) {
 		m_Hand.Initialize();
-		m_AtackHand.Initialize();
 		m_Hand.Start(m_TestInfo.playerPos.x);
 	}
-	m_Hand.Update(m_TestInfo.playerPos);
+	end = m_Hand.Update(m_TestInfo.playerPos);
 	m_Hand.CollisionStage();
+	if (end) {
 
-	return false;
-
-}
-
-bool CAtack_TESTBOS3::AcidBless(void)
-{
-	return false;
-}
-
-bool CAtack_TESTBOS3::ShadowSwordAttack(void)
-{
-
-	m_fAtackTimer = AtackTimer;
-	float rd = m_ClonArry[2]->GetRadian(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
-	float ddx = m_ClonArry[2]->Getddx(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
-	float ddy = m_ClonArry[2]->Getddy(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
-
-	int rnd = rand() % 5;
-
-	for (int i = 0; i < CloningCount; i++) {
-
-		m_ClonArry[i]->Initialize();
-		if (i == 2) {
-			m_ClonArry[i]->Fire(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
-		}
-		else
-		{
-			m_ClonArry[i]->CloningFire(m_TestInfo.enemyPos.x + i * CloningDistance - CloningDistance * 2, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, 
-				m_TestInfo.playerPos.x, m_TestInfo.playerPos.y, rd, ddx, ddy);
-		}
-
-
-
+		int x = 0;
 	}
-	m_ClonArry[rnd]->SetFrag(true);
-
-
-	m_fAtackPosX = m_TestInfo.enemyPos.x;
-	m_fAtackPosY = m_TestInfo.enemyPos.y;
-
-	return m_ClonArry[rnd]->GetShow();
+	return end;
 
 }
+
+
 
 bool CAtack_TESTBOS3::CrushWave(void)
 {
@@ -391,18 +359,70 @@ bool CAtack_TESTBOS3::CrushWave(void)
 		m_Hand.SetLimit(true);
 		m_Hand.Start(m_TestInfo.enemyPos.x);
 	}
-	if (m_Hand.GetFire()) {
-		m_AtackHand.Initialize(m_Hand.GetXpos(),m_Hand.GetYpos());
-		m_AtackHand.SetLimit(true);
-		m_Hand.SetFire(false);
-	}
-	m_Hand.Update(m_TestInfo.playerPos);
-	m_AtackHand.Update();
+	bool end = m_Hand.Update(m_TestInfo.playerPos);
 	m_Hand.CollisionStage();
+	return end;
+}
 
-	return false;
+
+bool CAtack_TESTBOS3::ShadowSwordAttack(void)
+{
+
+	m_fAtackTimer = AtackTimer;
+	float rd = m_ClonArry[2]->GetRadian(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
+	float ddx = m_ClonArry[2]->Getddx(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
+	float ddy = m_ClonArry[2]->Getddy(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
+
+	
+
+	for (int i = 0; i < CloningCount; i++) {
+		if (m_ClonArry[CloningCount-1]->GetShow()) {
+			continue;
+		}
+		m_ClonArry[i]->Initialize();
+		rnd = rand() % 5;
+		if (i == 2) {
+			m_ClonArry[i]->Fire(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
+		}
+		else
+		{
+			m_ClonArry[i]->CloningFire(m_TestInfo.enemyPos.x + i * CloningDistance - CloningDistance * 2, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, 
+				m_TestInfo.playerPos.x, m_TestInfo.playerPos.y, rd, ddx, ddy);
+		}
+	}
+
+	for (int i = 0; i < CloningCount; i++) {
+
+		if (i == rnd) {
+
+			m_ClonArry[i]->SetFrag(true);
+			continue;
+		}
+
+		m_ClonArry[i]->SetFrag(false);
+
+	}
+	
+
+	bool end;
+
+	//ï™êgåï
+	for (int i = 0; i < CloningCount; i++) {
+		end = m_ClonArry[i]->Update();
+	}
+
+	m_fAtackPosX = m_TestInfo.enemyPos.x;
+	m_fAtackPosY = m_TestInfo.enemyPos.y;
+
+
+	if (end) {
+		int x = 0;
+	}
+
+	return end;
 
 }
+
 
 bool CAtack_TESTBOS3::TeleportSword(void)
 {
@@ -413,24 +433,30 @@ bool CAtack_TESTBOS3::TeleportSword(void)
 	float ddx = m_ShotArry->Getddx(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
 	float ddy = m_ShotArry->Getddy(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
 
-	if (m_ShotArry->GetShow()) {
-		return false;
+	if (!m_ShotArry->GetShow()) {
+		m_ShotArry->Fire(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
 	}
-	m_ShotArry->Initialize();
 
-	m_ShotArry->Fire(m_TestInfo.enemyPos.x, m_TestInfo.enemyPos.y, BulletSpeed, BulletSpeed, m_TestInfo.playerPos.x, m_TestInfo.playerPos.y);
 
 	m_fAtackPosX = m_TestInfo.enemyPos.x;
 	m_fAtackPosY = m_TestInfo.enemyPos.y;
+
+	//èuä‘à⁄ìÆ
+	bool end = m_ShotArry->Update();
 	
-	return false;
+	return end;
 }
 
 bool CAtack_TESTBOS3::TeleportEnemy(void)
 {
-
+	if (m_KURIBO.GetShow()) {
+		for (m_EneCount = 0; m_EneCount < CloningCount; m_EneCount++) {
+			m_KURIBO.ClonInitialize(m_EneCount);
+		}
+		m_EneCount = 0;
+	}
 	//ï™êgìG
-	m_KURIBO.ClonUpdate(m_EneCount);
+	bool end = m_KURIBO.ClonUpdate(m_EneCount);
 	m_KURIBO.CollisionStage(m_EneCount);
 	m_EneCount++;
 	if (m_EneCount==CloningCount) {
@@ -438,14 +464,11 @@ bool CAtack_TESTBOS3::TeleportEnemy(void)
 	}
 	m_EneCount += m_Counting;
 	if (m_EneCount == CloningCount) {
-		m_Counting = -1 ;
-		m_EneCount == CloningCount - 1;
-	}
-	else if (m_EneCount == 0) {
-		m_Counting = 1 ;
+		m_EneCount = 0;
 	}
 
-	return false;
+	m_fAtackTimer -= 1 * CUtilities::GetFrameSecond();
+	return end;
 
 }
 

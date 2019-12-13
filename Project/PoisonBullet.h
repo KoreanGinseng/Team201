@@ -11,6 +11,7 @@
 
 class CPoisonBullet :public CEnemyShot {
 private:
+	
 	int m_BounceTimes;
 	float m_PoisonTime;
 public:
@@ -18,7 +19,7 @@ public:
 	~CPoisonBullet();
 	void Initialize();
 	void Fire(float px, float py, float sx, float sy, float pPosx, float pPosy);
-	void Update();
+	bool Update();
 	void Render();
 	void Release();
 	void CollisionStage(float ox, float oy);

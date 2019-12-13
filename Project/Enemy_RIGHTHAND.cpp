@@ -28,6 +28,8 @@ void CEnemy_RIGHTHAND::Initialize() {
 	m_AimTime = 0;
 	m_Limit = false;
 	m_Fire = false;
+	m_shot.Initialize();
+
 }
 
 void CEnemy_RIGHTHAND::Start(float PlayerPosX) {
@@ -56,11 +58,19 @@ void CEnemy_RIGHTHAND::Start(float InitialPositionX,float InitialPositionY) {
 
 }
 
-void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
+bool CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 	//最終形態
 	if (m_Limit) {
 		//本体に戻る
 		if (m_MoveEndFlag) {
+			if (!m_shot.GetShow()) {
+				m_shot.Fire(m_fXpos,m_fYpos);
+			}
+			m_Fire = m_shot.Update();
+
+			if (m_Fire) {
+				return false;
+			}
 			if (m_fXpos < PlayPosX) {
 				m_fXpos += m_fMoveX;
 				m_fYpos += m_fMoveY;
@@ -68,13 +78,15 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 			else
 			{
 				m_MoveFlag = false;
+				m_shot.SetShow(false);
 			}
-			return;
+			if (!m_MoveFlag) {
+				return true;
+			}
+			return false;
 		}
 
-		if (!m_MoveFlag) {
-			return;
-		}
+		
 
 		if (m_fXpos > PlayPosX&&m_AimTime == 0) {
 
@@ -91,20 +103,8 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 			{
 				//ロックオン中
 				m_AimTime -= 1 * CUtilities::GetFrameSecond();
-				/*if (m_fXpos > Xpos) {
-					m_fXpos -= EnemySpeed * 2;
-					if (m_fXpos < Xpos) {
-						m_fXpos = Xpos;
-					}
-				}
-				else if (m_fXpos < Xpos)
-				{
-					m_fXpos += EnemySpeed * 2;
-					if (m_fXpos > Xpos) {
-						m_fXpos = Xpos;
-					}
-				}*/
-				return;
+
+				return false;
 			}
 			//叩きつける
 			if (m_fMoveY < 0) {
@@ -118,7 +118,7 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 
 
 
-		return;
+		return false;
 	}
 
 
@@ -132,7 +132,13 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 		{
 			m_MoveFlag = false;
 		}
-		return;
+
+		if (!m_MoveFlag) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	//画面外に出ると戻る
@@ -140,10 +146,7 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 		m_MoveFlag = false;
 	}
 
-	if (!m_MoveFlag) {
-		return;
-	}
-
+	
 	//プレイヤーの座標に飛んでいく
 	if (m_fXpos> PlayPosX&&m_AimTime==0) {
 
@@ -173,7 +176,7 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 					m_fXpos = pos.x;
 				}
 			}
-			return;
+			return false;
 		}
 		//叩きつける
 		if (m_fMoveY<0) {
@@ -185,16 +188,14 @@ void CEnemy_RIGHTHAND::Update(const Vector2& pos) {
 		}
 	}
 
+	return false;
 }
 
 void CEnemy_RIGHTHAND::CollisionStage() {
 
 	float ox = 0, oy = 0;
 	float mx = m_fXpos, my = m_fYpos;
-	/*if (mx < 200) {
-		ox = 200 - mx;
-	}
-	else*/ if (mx > 800)
+	if (mx > 800)
 	{
 		ox = 800 - mx;
 
@@ -242,7 +243,7 @@ void CEnemy_RIGHTHAND::CollisionStage() {
 }
 void CEnemy_RIGHTHAND::Render(float Xpos, float Ypos) {
 	CGraphicsUtilities::RenderFillCircle(m_fXpos, m_fYpos, EnemyRadius, MOF_COLOR_GREEN);
-
+	m_shot.Render();
 }
 void CEnemy_RIGHTHAND::Release() {
 
