@@ -17,8 +17,8 @@
 #include	"MapObj.h"
 #include	"BackChip.h"
 
-#define		RIGHTSLOPE		10
-#define		RIGHTSLOPE2		23
+#define		RIGHTSLOPE		30
+#define		RIGHTSLOPE2		43
 
 class CBackChip;
 
