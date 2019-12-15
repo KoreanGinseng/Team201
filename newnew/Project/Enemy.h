@@ -1,11 +1,13 @@
 #pragma once
 #include "Substance.h"
+#include "Shot.h"
 
 class CEnemy :
 	public CSubstance
 {
 private:
 	int m_EnemyType;
+
 public:
 	CEnemy();
 	~CEnemy();

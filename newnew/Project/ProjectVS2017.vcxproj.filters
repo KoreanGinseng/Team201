@@ -140,6 +140,12 @@
     <ClCompile Include="MoveFloat.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="MoveOct.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Shot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">
@@ -265,5 +271,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="MoveFloat.h" />
+    <ClInclude Include="MoveOct.h" />
+    <ClInclude Include="Shot.h" />
   </ItemGroup>
 </Project>

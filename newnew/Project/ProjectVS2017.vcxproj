@@ -112,6 +112,7 @@
     <ClCompile Include="MoveFloat.cpp" />
     <ClCompile Include="MoveHand.cpp" />
     <ClCompile Include="MoveMash.cpp" />
+    <ClCompile Include="MoveOct.cpp" />
     <ClCompile Include="MovePlayer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Coordinate.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TargetObj.cpp" />
     <ClCompile Include="TimeManager.cpp" />
@@ -153,6 +155,7 @@
     <ClInclude Include="MoveFloat.h" />
     <ClInclude Include="MoveHand.h" />
     <ClInclude Include="MoveMash.h" />
+    <ClInclude Include="MoveOct.h" />
     <ClInclude Include="MovePlayer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Coordinate.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="Shot.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Substance.h" />
     <ClInclude Include="TargetObj.h" />
