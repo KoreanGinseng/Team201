@@ -23,13 +23,13 @@ class CGame :
 {
 private:
 	CCamera2D			m_MainCamera;
-	CPlayer				m_Player;
 	CStage				m_Stage[STAGE_COUNT];
 
 	static	int			m_StageNo;
 
 	bool				m_bPoase;
 
+	CPlayer						m_Player;
 	CDynamicArray<CEnemy*>		m_pEnemyArray;
 	CDynamicArray<CItem*>		m_pItemArray;
 	CDynamicArray<CTargetObj*>	m_pTargetObjArray;

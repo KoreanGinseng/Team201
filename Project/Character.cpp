@@ -2,31 +2,22 @@
 
 
 
-CCharacter::CCharacter()
-	: CObject()
+CCharacter::CCharacter() :
+CObject(),
+m_Move(),
+m_pMotion(nullptr),
+m_SrcRectArray(),
+m_bDead(false),
+m_bReverse(false),
+m_DamageWait(0),
+m_bCollision(false)
 {
-	m_bDead = false;
-	m_bCollision = true;
 }
 
 
 CCharacter::~CCharacter()
 {
-}
-
-void CCharacter::Initialize(void)
-{
-	m_MvCntrl.Initialize();
-	m_Anim.Initialize();
-	m_bShow = true;
-	m_bDead = false;
-}
-
-void CCharacter::Update(void)
-{
-	m_MvCntrl.Update();
-	m_Anim.Update();
-	m_Pos += m_MvCntrl.GetMove();
+	Release();
 }
 
 void CCharacter::Render(const Vector2& screenPos)
@@ -52,8 +43,7 @@ void CCharacter::Render(const Vector2& screenPos)
 
 void CCharacter::Release(void)
 {
-	m_MvCntrl.Remove();
-	m_Anim.Release();
+	NewPointerRelease(m_pMotion);
 }
 
 void CCharacter::LoadRect(const char * pName)
@@ -92,6 +82,16 @@ void CCharacter::LoadRect(const char * pName)
 	}
 	free(pBuffer);
 	fclose(fp);
+}
+
+CRectangle CCharacter::GetSrcRect(void) const
+{
+	return CRectangle();
+}
+
+CRectangle CCharacter::GetRect(void) const
+{
+	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight());
 }
 
 RectArray CCharacter::GetRectArray(void) const

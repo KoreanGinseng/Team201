@@ -286,8 +286,8 @@ void CGame::UpdateDebug() {
 //デバッグ描画
 void CGame::RenderDebug()
 {
-	Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
-	m_Player.RenderDebug(screenPos);
+	//Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+	//m_Player.RenderDebug(screenPos);
 	
 	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
@@ -336,7 +336,8 @@ void CGame::Collosion(void)
 #pragma region 敵が当たる側
 	//敵との当たり判定
 	//敵の数だけループ
-	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	//for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	for (int i = 0; i < m_pEnemyArray.GetArrayCount(); i++)
 	{
 		//非表示か死亡の場合スキップ
 		if (!m_pEnemyArray[i]->IsShow() || m_pEnemyArray[i]->IsDead())
@@ -364,7 +365,7 @@ void CGame::Collosion(void)
 			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect(), over))
 			{
 				//敵がスキルで止まっているなら埋まり値だけ戻す
-				if (m_pEnemyArray[i]->IsSkill())
+				if (m_pEnemyArray[i]->IsStop())
 				{
 					m_Player.CollisionStage(over);
 				}
@@ -383,7 +384,8 @@ void CGame::Collosion(void)
 			over = Vector2(0, 0);
 
 			//他の敵との埋まりを求める
-			for (int k = 0; k < m_Stage[m_StageNo].GetEnemyCount(); k++)
+			//for (int k = 0; k < m_Stage[m_StageNo].GetEnemyCount(); k++)
+			for (int k = 0; k < m_pEnemyArray.GetArrayCount(); k++)
 			{
 				if (k == i)
 				{
@@ -405,7 +407,8 @@ void CGame::Collosion(void)
 
 #pragma region アイテムが当たる側
 	//アイテムとの当たり判定
-	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	//for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	for (int i = 0; i < m_pItemArray.GetArrayCount(); i++)
 	{
 		//非表示ならスキップ
 		if (!m_pItemArray[i]->IsShow())
@@ -432,7 +435,8 @@ void CGame::Collosion(void)
 #pragma region オブジェクトが当たる側
 	//オブジェクトとの当たり判定
 	//オブジェクトの数だけ当たり判定をする
-	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	//for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	for (int i = 0; i < m_pTargetObjArray.GetArrayCount(); i++)
 	{
 		//非表示ならスキップ
 		if (!m_pTargetObjArray[i]->IsShow())
@@ -458,7 +462,7 @@ void CGame::Collosion(void)
 			{
 				//通常の動きにする
 				//スキルが使われている状態なら当たり判定を行わない
-				if (!m_pTargetObjArray[i]->IsSkill())
+				if (!m_pTargetObjArray[i]->IsBack())
 				{
 					//埋まり値だけ戻す
 					m_Player.CollisionStage(over);
@@ -467,7 +471,7 @@ void CGame::Collosion(void)
 		}
 
 		//敵の数だけループ
-		for (int j = 0; j < m_Stage[m_StageNo].GetEnemyCount(); j++)
+		for (int j = 0; j < m_pEnemyArray.GetArrayCount(); j++)
 		{
 			//埋まり値をリセット
 			over = Vector2(0, 0);
@@ -484,7 +488,7 @@ void CGame::Collosion(void)
 				else
 				{
 					//スキルが使われている状態なら当たり判定を行わない
-					if (!m_pTargetObjArray[i]->IsSkill())
+					if (!m_pTargetObjArray[i]->IsBack())
 					{
 						m_pEnemyArray[j]->CollisionStage(over);
 					}

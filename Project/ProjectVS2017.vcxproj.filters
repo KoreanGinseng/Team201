@@ -270,8 +270,14 @@
     <ClInclude Include="MoveHand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveFloat.h" />
-    <ClInclude Include="MoveOct.h" />
-    <ClInclude Include="Shot.h" />
+    <ClInclude Include="Shot.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveOct.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveFloat.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
