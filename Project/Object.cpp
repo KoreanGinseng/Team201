@@ -9,7 +9,6 @@ m_bShow(true)
 {
 }
 
-
 CObject::~CObject()
 {
 }

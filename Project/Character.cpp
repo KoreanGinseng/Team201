@@ -4,9 +4,11 @@
 
 CCharacter::CCharacter() :
 CObject(),
+m_HP(1),
 m_Move(),
-m_pMotion(nullptr),
+m_Motion(),
 m_SrcRectArray(),
+m_bMove(false),
 m_bDead(false),
 m_bReverse(false),
 m_DamageWait(0),
@@ -43,7 +45,7 @@ void CCharacter::Render(const Vector2& screenPos)
 
 void CCharacter::Release(void)
 {
-	NewPointerRelease(m_pMotion);
+	m_Motion.Release();
 }
 
 void CCharacter::LoadRect(const char * pName)

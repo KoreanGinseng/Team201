@@ -14,72 +14,71 @@
 #include	"TargetObj.h"
 #include	"Item.h"
 #include	"Score.h"
-#include	"MovePlayer.h"
 
 //DEFINE
-#define		PLAYER_RECTDIS		90
-
-namespace Player {
-	enum tag_Animation {
-		ANIM_WAIT,
-		ANIM_MOVE,
-
-		ANIM_COUNT,
-	};
-}
+#define		PLAYER_RECTDIS		90		//プレイヤーの当たり判定矩形左右の縮める値
 
 class CPlayer : public CCharacter
 {
 private:
+	//プレイヤーのアニメーション
+	enum tag_Animation {
+		ANIM_WAIT,
+		ANIM_MOVE,
+		ANIM_JUMPUP,
+		ANIM_JUMPDOWN,
+		ANIM_SKILLSTANCE,
+		ANIM_SKILLPLAY,
 
-	typedef enum tag_WAY {
-		WAY_LEFT,
-		WAY_RIGHT,
-	}WAY;
-
-	std::vector<CSubstance*>	m_SkillTarget;
-	bool						m_bTrigger;
-	bool						m_bClime;
-	int							m_HP;
-	int							m_Target;
-	float						m_CoolTime;
-	float						m_Skillrang;
-	CCircle						m_SkillCircle;
+		ANIM_COUNT,
+	};
+	struct KeyConfig {
+		bool	moveLeft;
+		bool	moveRight;
+		bool	jump;
+		bool	clime;
+		bool	fall;
+		bool	selectNext;
+		bool	selectBack;
+		bool	skillStance;
+		bool	skillStancePull;
+		bool	skillBack;
+		bool	skillStop;
+		bool	skillSkip;
+	};
+	KeyConfig					m_KeyConfig;		//キーコンフィグ
+	bool						m_bKey;				//キーボードかパッドかのフラグ
+	bool						m_bJump;			//ジャンプフラグ
+	std::vector<CSubstance*>	m_SkillTarget;		//スキルで選択できるリスト
+	bool						m_bTrigger;			//スキルを使ったフラグ
+	bool						m_bClime;			//縄を登るようのフラグ
+	int							m_Target;			//ターゲットしている番号
+	float						m_Skillrang;		//スキルの範囲
+	CCircle						m_SkillCircle;		//スキルの円
 
 public:
-	CPlayer(void);
-	~CPlayer(void);
-	void Initialize(void);
-	void Update(void);
-	void Render(Vector2 screenPos);
-	void RenderDebug(Vector2 screenPos);
-	void Release(void);
-	
-	void Animation(void);
+	CPlayer(void);			//コンストラクタ
+	~CPlayer(void);			//デストラクタ
+	void Initialize(void) override;					//初期化
+	void Update(void) override;						//更新
+	void Render(const Vector2& screenPos) override;	//描画
+	void Release(void) override;					//解放
 
-	//Skill
-	void Skill(void);
-	//void SkillColision(CEnemy* pene, int eneCount, CTargetObj* pobj, int objCount);
+	void Move(void);								//動き,移動量計算
+	void Animation(void);							//アニメーション制御
+	void Skill(void);								//スキル制御
+	//ターゲット選択
 	void TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTargetObj*>* pobjArray, CDynamicArray<CItem*>* pItemArray);
 
-	//Collision
-	void CollisionStage(const Vector2& over) override;
+	void CollisionStage(const Vector2& over) override; //埋まり値の処理
 
 	//Get
-	bool	IsTrigger(void) { return m_bTrigger; }
-	bool	IsClime(void) { return m_bClime; }
-	int		GetHp(void) { return m_HP; }
-	CRectangle GetRect(void) const override { 
-		CRectangle r = CCharacter::GetRect();
-		r.Expansion(-PLAYER_RECTDIS, 0);
-		r.Top += 20;
-		r.Bottom -= 10;
-		return r;
-	}
+	bool	IsTrigger(void) { return m_bTrigger; }	//スキルを使ったかのフラグ取得
+	bool	IsClime(void) { return m_bClime; }		//登る状態かのフラグ
+	CRectangle GetRect(void) const override;		//当たり判定用矩形の取得
 	//Set
-	void   SetClime(const bool& b) { m_bClime = b; }
-
-
-	bool   Dmg(CEnemy& ene);
+	void   SetClime(const bool& b)					//フラグのセット
+	{ m_bClime = b; }
+	bool   Dmg(CEnemy& ene);						//ダメージの処理
 };
 

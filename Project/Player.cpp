@@ -11,29 +11,32 @@
 //コンストラクタ
 CPlayer::CPlayer(void) :
 CCharacter(),
+m_bKey(true),
+m_bJump(false),
+m_SkillTarget(),
+m_bTrigger(false),
 m_bClime(false),
-m_HP(0)
+m_Target(0),
+m_Skillrang(0),
+m_SkillCircle()
 {
 }
 
 //デストラクタ
 CPlayer::~CPlayer(void)
 {
+	Release();
 }
 
 //初期化
 void CPlayer::Initialize(void)
 {
-	//
+	//画像のセット
 	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_PLAYER]);
-	CreateMove(0);
-	m_MvCntrl.Initialize();
-	m_Anim.Initialize();
-	CreateAnim(FileName[ANIMATION_PLAYER]);
-	m_MvCntrl.SetSpd(PLAYER_SPEED, PLAYER_JUMPPOW);
-	//
+	SpriteAnimationCreate* pAnim;
+	pAnim = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim();
+	m_Motion.Create(pAnim, ANIM_COUNT);
 	m_bDead = false;
-	//
 	m_bReverse = false;
 	//座標の初期化
 	m_Pos = Vector2(4000, 192);
@@ -41,31 +44,28 @@ void CPlayer::Initialize(void)
 	//m_Pos = Vector2(960, 768);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
-	//
 	m_bClime = false;
 	//スキルの範囲を初期化
 	m_Skillrang = 0.0f;
 	m_Target = 0;
-	//
-	m_CoolTime = 100.0f;
-	//
 	m_bTrigger = false;
-	//
 	m_DamageWait = 0;
-	//
-	m_MvCntrl.PlayerPosSet(&m_Pos);
+	if (g_pInput->GetGamePadCount())
+	{
+		m_bKey = false;
+	}
 }
 
 //更新
 void CPlayer::Update(void)
 {
-	//MOVE
-	dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->SetClime(m_bClime);
-	m_MvCntrl.Update();
-	m_Pos += m_MvCntrl.GetMove();
 
 	//スキル
 	Skill();
+	//MOVE
+	Move();
+	m_Pos += m_Move;
+
 
 	//アニメーション更新
 	Animation();
@@ -85,12 +85,10 @@ void CPlayer::Update(void)
 	{
 		m_bDead = true;
 	}
-
-	m_bReverse = static_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetReverse();
 }
 
 //描画
-void CPlayer::Render(Vector2 screenPos)
+void CPlayer::Render(const Vector2& screenPos)
 {
 	//
 	if (m_DamageWait % 4 >= 2)
@@ -107,17 +105,6 @@ void CPlayer::Render(Vector2 screenPos)
 		dr.Left = tmp;
 	}
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
-
-	RenderDebug(screenPos);
-}
-
-//デバッグ描画
-void CPlayer::RenderDebug(Vector2 screenPos)
-{
-	CGraphicsUtilities::RenderCircle(screenPos.x + GetSrcRect().GetWidth() / 2, screenPos.y + GetSrcRect().GetHeight() / 2, m_Skillrang, MOF_COLOR_RED);
-	CGraphicsUtilities::RenderRect(screenPos.x + PLAYER_RECTDIS, screenPos.y + PLAYER_RECTDIS,
-		screenPos.x + GetSrcRect().GetWidth() - PLAYER_RECTDIS, screenPos.y + GetSrcRect().GetHeight() - 10, MOF_COLOR_RED);
-	CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
 }
 
 //解放
@@ -128,35 +115,100 @@ void CPlayer::Release(void)
 	m_pTexture = nullptr;
 }
 
+void CPlayer::Move(void)
+{
+	m_KeyConfig.moveRight   = m_bKey ? g_pInput->IsKeyHold(MOFKEY_LEFT)  : (g_pGamePad->GetStickHorizontal() > 0.8f);
+	m_KeyConfig.moveLeft    = m_bKey ? g_pInput->IsKeyHold(MOFKEY_RIGHT) : (g_pGamePad->GetStickHorizontal() < -0.8f);
+	m_KeyConfig.jump        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)    : (g_pGamePad->IsKeyPush(XINPUT_A));
+	m_KeyConfig.clime       = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)    : (g_pGamePad->GetStickVertical() > 0.8f);
+	m_KeyConfig.fall        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN)  : (g_pGamePad->GetStickVertical() < -0.8f);
+
+	if (m_KeyConfig.skillStance)
+	{
+		return;
+	}
+
+	//右スティックを倒した場合、倒した方向に移動
+	if (m_KeyConfig.moveRight)
+	{
+		m_Move.x += PLAYER_SPEED;
+		m_bMove = true;
+		m_bReverse = false;
+		if (m_Move.x > PLAYER_MAXSPEED)
+		{
+			m_Move.x = PLAYER_MAXSPEED;
+		}
+	}
+	else if (m_KeyConfig.moveLeft)
+	{
+		m_Move.x -= PLAYER_SPEED;
+		m_bMove = true;
+		m_bReverse = true;
+		if (m_Move.x < -PLAYER_MAXSPEED)
+		{
+			m_Move.x = -PLAYER_MAXSPEED;
+		}
+	}
+	//スティックを離した場合（移動の操作をしていない場合）
+	else
+	{
+		//移動量が0なら処理に入らない
+		//移動量が存在する場合、徐々に移動量を0にする
+		if (m_Move.x < 0)
+		{
+			m_Move.x += (PLAYER_SPEED - 0.1f);
+			if (m_Move.x > 0)
+			{
+				m_Move.x = 0;
+			}
+		}
+		else if (m_Move.x > 0)
+		{
+			m_Move.x -= (PLAYER_SPEED - 0.1f);
+			if (m_Move.x < 0)
+			{
+				m_Move.x = 0;
+			}
+		}
+		else
+		{
+			m_bMove = false;
+		}
+	}
+
+	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
+	if (m_KeyConfig.jump && !m_bJump)
+	{
+		m_bJump = true;
+		m_Move.y = PLAYER_JUMPPOW;
+	}
+}
+
 //アニメーション処理
 void CPlayer::Animation(void)
 {
-	bool jumpUp = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpUp();
-	bool jumpDown = dynamic_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->GetJumpDown();
-	bool move = (m_MvCntrl.GetMove().x != 0);
-	bool skill = m_bTrigger;
-	if (jumpUp && m_Anim.GetMotionNo() != 2)
+	if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPUP && m_Move.y > 0)
 	{
-		m_Anim.ChangeAnim(2);
+		m_Motion.ChangeMotion(ANIM_JUMPUP);
 	}
-	else if (jumpDown && m_Anim.GetMotionNo() != 3 && !jumpUp)
+	else if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPDOWN && m_Move.y < 0)
 	{
-		m_Anim.ChangeAnim(3);
+		m_Motion.ChangeMotion(ANIM_JUMPDOWN);
 	}
-	else if (move && m_Anim.GetMotionNo() != 1 && !jumpDown && !jumpUp)
+	else if (m_bMove && m_Motion.GetMotionNo() != ANIM_MOVE && !m_bJump)
 	{
-		m_Anim.ChangeAnim(1);
+		m_Motion.ChangeMotion(ANIM_MOVE);
 	}
-	else if (skill && m_Anim.GetMotionNo() != 4 && !jumpDown && !jumpUp && !move)
+	else if (m_bTrigger && m_Motion.GetMotionNo() != ANIM_SKILLSTANCE && !m_bJump && !m_bMove)
 	{
-		m_Anim.ChangeAnim(4);
+		m_Motion.ChangeMotion(ANIM_SKILLSTANCE);
 	}
-	else if (m_Anim.GetMotionNo() != 0 && !jumpUp && !jumpDown && !move && !skill)
+	else if (m_Motion.GetMotionNo() != ANIM_WAIT && !m_bJump && !m_bMove && !m_bTrigger)
 	{
-		m_Anim.ChangeAnim(0);
+		m_Motion.ChangeMotion(ANIM_WAIT);
 	}
 
-	m_Anim.Update();
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 }
 
 //当たり判定
@@ -164,39 +216,55 @@ void CPlayer::CollisionStage(const Vector2& over)
 {
 	m_Pos += over;
 	//落下中の下埋まり、ジャンプ中の上埋まりの場合は移動を初期化
-	if (over.y < 0 && m_MvCntrl.GetMove().y > 0)
+	if (over.y < 0 && m_Move.y > 0)
 	{
-		m_MvCntrl.SetMove(m_MvCntrl.GetMove().x, 0);
-		static_cast<CMovePlayer*>(m_MvCntrl.GetInstance())->ResetJump();
+		m_Move.y = 0;
+		m_bJump = false;
 	}
-	else if (over.y > 0 && m_MvCntrl.GetMove().y < 0)
+	else if (over.y > 0 && m_Move.y < 0)
 	{
-		m_MvCntrl.SetMove(m_MvCntrl.GetMove().x, 0);
+		m_Move.y = 0;
 	}
 	//左移動中の左埋まり、右移動中の右埋まりの場合は移動を初期化する
-	if ((over.x < 0 && m_MvCntrl.GetMove().x > 0) || (over.x > 0 && m_MvCntrl.GetMove().x < 0))
+	if ((over.x < 0 && m_Move.x > 0) || (over.x > 0 && m_Move.x < 0))
 	{
-		m_MvCntrl.SetMove(0, m_MvCntrl.GetMove().y);
+		m_Move = 0;
 	}
 }
 
-void CPlayer::Skill()
+CRectangle CPlayer::GetRect(void) const
 {
+	CRectangle r = CCharacter::GetRect();
+	r.Expansion(-PLAYER_RECTDIS, 0);
+	r.Top += 20;
+	r.Bottom -= 10;
+	return r;
+}
+
+void CPlayer::Skill(void)
+{
+	m_KeyConfig.skillStance = m_bKey ? g_pInput->IsKeyHold(MOFKEY_SPACE) : g_pGamePad->IsKeyHold(XINPUT_L_TRIGGER);
+	m_KeyConfig.selectNext  = m_bKey ? g_pInput->IsKeyPush(MOFKEY_X)     : g_pGamePad->IsKeyPush(XINPUT_R_BTN);
+	m_KeyConfig.selectBack  = m_bKey ? g_pInput->IsKeyPush(MOFKEY_Z)     : g_pGamePad->IsKeyPush(XINPUT_L_BTN);
+	m_KeyConfig.skillBack   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_A)     : (g_pGamePad->IsKeyPush(XINPUT_X));
+	m_KeyConfig.skillStop   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_S)     : (g_pGamePad->IsKeyPush(XINPUT_Y));
+	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
+	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
 	//LTボタンを押した場合、スキルが発動
-	if (g_pGamePad->IsKeyHold(XINPUT_L_TRIGGER) || g_pInput->IsKeyHold(MOFKEY_SPACE))
+	if (m_KeyConfig.skillStance)
 	{
 		m_bTrigger = true;
 		if (!m_SkillTarget.empty())
 		{
 			//LBまたはRBでターゲットを変更
-			if (g_pGamePad->IsKeyPush(XINPUT_L_BTN) || g_pInput->IsKeyPush(MOFKEY_Z))
+			if (m_KeyConfig.selectBack)
 			{
 				if (--m_Target < 0)
 				{
 					m_Target = m_SkillTarget.size() - 1;
 				}
 			}
-			else if (g_pGamePad->IsKeyPush(XINPUT_R_BTN) || g_pInput->IsKeyPush(MOFKEY_X))
+			else if (m_KeyConfig.selectNext)
 			{
 				if (++m_Target >= m_SkillTarget.size())
 				{
@@ -208,17 +276,17 @@ void CPlayer::Skill()
 			int skillNo = -1;
 
 			//戻る
-			if (g_pGamePad->IsKeyPush(XINPUT_X) || g_pInput->IsKeyPush(MOFKEY_A))
+			if (m_KeyConfig.skillBack)
 			{
 				skillNo = XINPUT_X;
 			}
 			//止める
-			else if (g_pGamePad->IsKeyPush(XINPUT_Y) || g_pInput->IsKeyPush(MOFKEY_S))
+			else if (m_KeyConfig.skillStop)
 			{
 				skillNo = XINPUT_Y;
 			}
 			//飛ばす
-			else if (g_pGamePad->IsKeyPush(XINPUT_B) || g_pInput->IsKeyPush(MOFKEY_D))
+			else if (m_KeyConfig.skillSkip)
 			{
 				skillNo = XINPUT_B;
 			}
@@ -230,19 +298,18 @@ void CPlayer::Skill()
 				if (!m_SkillTarget.empty())
 				{
 					m_bTrigger = false;
-					m_SkillTarget[m_Target]->SetSkill();
 
 					//スキル番号のスキルをセットする
 					switch (skillNo)
 					{
 					case XINPUT_X:
-						m_SkillTarget[m_Target]->SetBack();
+						m_SkillTarget[m_Target]->Back();
 						break;
 					case XINPUT_Y:
-						m_SkillTarget[m_Target]->SetStop();
+						m_SkillTarget[m_Target]->Stop();
 						break;
 					case XINPUT_B:
-						m_SkillTarget[m_Target]->SetTrip();
+						m_SkillTarget[m_Target]->Trip();
 						break;
 					}
 					for (int i = 0; i < m_SkillTarget.size(); i++)
@@ -253,7 +320,7 @@ void CPlayer::Skill()
 			}
 		}
 	}
-	else if (g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER) || g_pInput->IsKeyPull(MOFKEY_SPACE))
+	else if (m_KeyConfig.skillStancePull)
 	{
 		m_bTrigger = false;
 	}
@@ -428,12 +495,12 @@ bool CPlayer::Dmg(CEnemy& ene)
 
 		if (prec.Left < erec.Left)
 		{
-			m_MvCntrl.SetMove(-5.0f, m_MvCntrl.GetMove().y);
+			m_Move.x = -5.0f;
 			m_bReverse = false;
 		}
 		else
 		{
-			m_MvCntrl.SetMove(5.0f, m_MvCntrl.GetMove().y);
+			m_Move.x = 5.0f;
 			m_bReverse = true;
 		}
 		//m_Motion.ChangeMotion(MOTION_DAMAGE);

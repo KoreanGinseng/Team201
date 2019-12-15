@@ -98,7 +98,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Anim.cpp" />
     <ClCompile Include="AnimationData.cpp" />
     <ClCompile Include="BackChip.cpp" />
     <ClCompile Include="Camera2D.cpp" />
@@ -106,14 +105,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MapObj.cpp" />
-    <ClCompile Include="Move.cpp" />
-    <ClCompile Include="MoveBackChip.cpp" />
-    <ClCompile Include="MoveBat.cpp" />
-    <ClCompile Include="MoveFloat.cpp" />
-    <ClCompile Include="MoveHand.cpp" />
-    <ClCompile Include="MoveMash.cpp" />
-    <ClCompile Include="MoveOct.cpp" />
-    <ClCompile Include="MovePlayer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -124,7 +115,6 @@
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Loading.cpp" />
-    <ClCompile Include="MoveController.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
@@ -140,7 +130,6 @@
     <ResourceCompile Include="Version.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Anim.h" />
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="BackChip.h" />
     <ClInclude Include="Camera2D.h" />
@@ -149,14 +138,6 @@
     <ClInclude Include="EnemyDefine.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapObj.h" />
-    <ClInclude Include="Move.h" />
-    <ClInclude Include="MoveBackChip.h" />
-    <ClInclude Include="MoveBat.h" />
-    <ClInclude Include="MoveFloat.h" />
-    <ClInclude Include="MoveHand.h" />
-    <ClInclude Include="MoveMash.h" />
-    <ClInclude Include="MoveOct.h" />
-    <ClInclude Include="MovePlayer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Effect.h" />
@@ -168,7 +149,6 @@
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Loading.h" />
-    <ClInclude Include="MoveController.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="ResourceManager.h" />

@@ -5,9 +5,12 @@ class CCharacter :
 	public CObject
 {
 protected:
+
+	int							m_HP;				//体力
 	Vector2						m_Move;				//移動量
-	CSpriteMotionController*	m_pMotion;			//アニメーション
+	CSpriteMotionController		m_Motion;			//アニメーション
 	RectArray					m_SrcRectArray;		//当たり判定用矩形
+	bool						m_bMove;			//移動フラグ
 	bool						m_bDead;			//死亡フラグ
 	bool						m_bReverse;			//反転フラグ
 	int							m_DamageWait;		//ダメージ待ちフレーム
@@ -21,6 +24,7 @@ public:
 	void Release(void) override;					//解放
 	void LoadRect(const char* pName);				//当たり判定用矩形読み込み
 	bool IsDead(void) const { return m_bDead; }		//死亡フラグ取得
+	int	 GetHp(void) { return m_HP; }				//HPの取得
 	CRectangle GetSrcRect(void) const;				//アニメーション矩形取得
 	virtual CRectangle GetRect(void) const;			//当たり判定用矩形取得
 	RectArray GetSrcRectArray(void) const			//当たり判定用矩形の配列取得

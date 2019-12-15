@@ -21,9 +21,6 @@
     <Filter Include="ソース ファイル\Enemy">
       <UniqueIdentifier>{74470445-0ce1-43af-82d0-eb4da8378387}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Move">
-      <UniqueIdentifier>{444bd79d-3595-4cf0-aa42-dba29a9df874}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル">
       <UniqueIdentifier>{fd2b504d-822a-48ac-8104-8ebad3db6662}</UniqueIdentifier>
     </Filter>
@@ -92,9 +89,6 @@
     <ClCompile Include="Character.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MoveController.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -107,12 +101,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>ソース ファイル\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Anim.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
     <ClCompile Include="MapObj.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -120,27 +108,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Loading.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MovePlayer.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveBackChip.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveBat.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveHand.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveMash.cpp">
-      <Filter>ソース ファイル\Move</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveFloat.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveOct.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Shot.cpp">
@@ -225,13 +192,7 @@
     <ClInclude Include="Character.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Anim.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
@@ -243,40 +204,16 @@
     <ClInclude Include="TargetObj.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Move.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MovePlayer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BackChip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="MapObj.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveBackChip.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveBat.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveMash.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyDefine.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MoveHand.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Shot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveOct.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveFloat.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
