@@ -84,5 +84,6 @@ void CEffectManager::Release(void) {
 		}
 		m_Texture[j].Release();
 	}
-
+	delete m_pInstance;
+	m_pInstance = nullptr;
 }

@@ -27,11 +27,10 @@ public:
 	void		Release(void);
 	static CEffectManager* GetInstance() {
 		if (m_pInstance == nullptr) {
-			m_pInstance = new CEffectManager();
+			m_pInstance = NEW CEffectManager();
 		}
 		return m_pInstance;
 	}
-
 };
 
 #define		g_pEffectManager		CEffectManager::GetInstance()

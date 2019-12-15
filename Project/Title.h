@@ -8,6 +8,7 @@
 
  // INCLUDE
 #include "SceneBase.h"
+#include	"GameDefine.h"
 
 class CTitle :
 	public CSceneBase
@@ -16,12 +17,17 @@ private:
 
 public:
 	CTitle();
-	~CTitle();
-	bool Load();
-	void Initialize();
-	void Update();
-	void Render();
-	void RenderDebug();
-	void Release();
+	~CTitle() override;
+	bool Load() override;
+	void Initialize() override;
+	void Update() override;
+	void Render() override;
+	void RenderUI() override;
+	void RenderDebug() override;
+	void Release() override;
+
+	void UpdateDebug();
+
+	int GetSceneName(void) { return SCENENO_TITLE; }
 };
 

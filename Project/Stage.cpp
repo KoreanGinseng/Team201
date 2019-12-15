@@ -7,6 +7,58 @@
 
 //INCLUDE
 #include	"Stage.h"
+float CStage::m_sChipSize = 0;
+int CStage::m_sXCount = 0;
+int CStage::m_sYCount = 0;
+
+std::string CStage::IsExt(const char * pName)
+{
+	std::string fs = pName;
+	int len = fs.find_last_of(".");
+	std::string ext = fs.substr(len);
+	if (ext == ".png" || ext == ".bmp" || ext == ".dds")
+	{
+		return picture;
+	}
+	else if (ext == ".bin")
+	{
+		return anim;
+	}
+	return "";
+}
+
+CTexturePtr CStage::TextureLoad(char * pName)
+{
+	if (IsExt(pName) == picture)
+	{
+		return g_pTextureManager->GetResource(pName);
+
+	}
+	else if (IsExt(pName) == anim)
+	{
+		return g_pAnimManager->GetResource(pName)->GetTexture();
+	}
+	return nullptr;
+}
+
+int CStage::ChipDataLoad(char * str, char * pData)
+{
+	//チップデータの読み込み
+	int count = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			str = strtok(NULL, ",");
+			pData[y*m_XCount + x] = atoi(str);
+			if (pData[y*m_XCount + x] > 0)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
+}
 
 //コンストラクタ
 CStage::CStage() :
@@ -16,10 +68,14 @@ CStage::CStage() :
 	m_XCount(0),
 	m_YCount(0),
 	m_pChipData(nullptr),
+	m_pMapObjData(nullptr),
+	m_pBackChipData(nullptr),
 	m_pEnemyData(nullptr),
 	m_pItemData(nullptr),
 	m_pObjectData(nullptr),
 	m_pObjEndData(nullptr),
+	m_MapObjTextureCount(0),
+	m_BackChipTextureCount(0),
 	m_EnemyTextureCount(0),
 	m_ItemTextureCount(0),
 	m_ObjectTextureCount(0),
@@ -33,7 +89,8 @@ CStage::CStage() :
 bool CStage::Load(const char* pName) {
 	//テキストファイルを開く
 	FILE* fp = fopen(pName, "rt");
-	if (fp == NULL) {
+	if (fp == NULL)
+	{
 		return FALSE;
 	}
 	//ファイルの全容量を調べる
@@ -51,125 +108,145 @@ bool CStage::Load(const char* pName) {
 	pstr = strtok(pBuffer, ",");
 	//if (!m_BackTexture.Load(pstr)) {
 	m_pBackTexture = g_pTextureManager->GetResource(pstr);
-	if (m_pBackTexture == nullptr) {
+	if (m_pBackTexture == nullptr) 
+	{
+		free(pBuffer);
+		pBuffer = nullptr;
 		return FALSE;
 	}
 	pstr = strtok(NULL, ",");
 	m_pChipTexture = g_pTextureManager->GetResource(pstr);
-	if (m_pChipTexture == nullptr) {
+	if (m_pChipTexture == nullptr)
+	{
+		free(pBuffer);
+		pBuffer = nullptr;
 		return FALSE;
 	}
 
 	//チップサイズ
 	pstr = strtok(NULL, ",");
 	m_ChipSize = atof(pstr);
-
+	m_sChipSize = m_ChipSize;
 	//マップのチップ数
 	pstr = strtok(NULL, ",");
 	m_XCount = atoi(pstr);
+	m_sXCount = m_XCount;
 	pstr = strtok(NULL, ",");
 	m_YCount = atoi(pstr);
+	m_sYCount = m_YCount;
 
 	//マップチップ用のメモリ確保
 	m_pChipData = (char*)malloc(m_XCount*m_YCount);
+	m_pMapObjData = (char*)malloc(m_XCount*m_YCount);
+	m_pBackChipData = (char*)malloc(m_XCount*m_YCount);
 	m_pEnemyData = (char*)malloc(m_XCount*m_YCount);
 	m_pItemData = (char*)malloc(m_XCount*m_YCount);
 	m_pObjectData = (char*)malloc(m_XCount*m_YCount);
 	m_pObjEndData = (char*)malloc(m_XCount*m_YCount);
 
 	//チップデータの読み込み
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
-			pstr = strtok(NULL, ",");
-			m_pChipData[y*m_XCount + x] = atoi(pstr);
+	ChipDataLoad(pstr, m_pChipData);
+
+	//マップオブジェクトテクスチャの読み込み
+	pstr = strtok(NULL, ",");
+	int m_MapObjTextureCount = atoi(pstr);
+	for (int i = 0; i < m_MapObjTextureCount; i++)
+	{
+		pstr = strtok(NULL, ",");
+		m_pMapObjTexture.push_back(TextureLoad(pstr));
+		if (m_pMapObjTexture[i] == nullptr)
+		{
+			free(pBuffer);
+			pBuffer = nullptr;
+			return FALSE;
 		}
 	}
+	
+	//チップデータの読み込み
+	m_MapObjCount = ChipDataLoad(pstr, m_pMapObjData);
+	
+	//背景パーツテクスチャの読み込み
+	pstr = strtok(NULL, ",");
+	int m_BackChipTextureCount = atoi(pstr);
+	for (int i = 0; i < m_BackChipTextureCount; i++)
+	{
+		pstr = strtok(NULL, ",");
+		m_pBackChipTexture.push_back(TextureLoad(pstr));
+		if (m_pBackChipTexture[i] == nullptr)
+		{
+			free(pBuffer);
+			pBuffer = nullptr;
+			return FALSE;
+		}
+	}
+	
+	//チップデータの読み込み
+	m_BackChipCount = ChipDataLoad(pstr, m_pBackChipData);
 
 	//敵テクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_EnemyTextureCount = atoi(pstr);
 
-	for (int i = 0; i < m_EnemyTextureCount; i++) {
+	for (int i = 0; i < m_EnemyTextureCount; i++) 
+	{
 		pstr = strtok(NULL, ",");
-		m_pEnemyTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pEnemyTexture[i] == nullptr) {
+		m_pEnemyTexture.push_back(TextureLoad(pstr));
+		if (m_pEnemyTexture[i] == nullptr)
+		{
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
 	//配列データの読み込み
-	m_EnemyCount = 0;
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
-			pstr = strtok(NULL, ",");
-			m_pEnemyData[y*m_XCount + x] = atoi(pstr);
-			if (m_pEnemyData[y*m_XCount + x] > 0) {
-				m_EnemyCount++;
-			}
-		}
-	}
+	m_EnemyCount = ChipDataLoad(pstr, m_pEnemyData);
 
 	//アイテムテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_ItemTextureCount = atoi(pstr);
-	for (int i = 0; i < m_ItemTextureCount; i++) {
+	for (int i = 0; i < m_ItemTextureCount; i++)
+	{
 		pstr = strtok(NULL, ",");
-		m_pItemTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pItemTexture[i] == nullptr) {
+		m_pItemTexture.push_back(TextureLoad(pstr));
+		if (m_pItemTexture[i] == nullptr)
+		{
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
 	//配列データの読み込み
-	m_ItemCount = 0;
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
-			pstr = strtok(NULL, ",");
-			m_pItemData[y*m_XCount + x] = atoi(pstr);
-			if (m_pItemData[y*m_XCount + x] > 0) {
-				m_ItemCount++;
-			}
-		}
-	}
+	m_ItemCount = ChipDataLoad(pstr, m_pItemData);
 
 	//オブジェクトテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_ObjectTextureCount = atoi(pstr);
-	for (int i = 0; i < m_ObjectTextureCount; i++) {
+	for (int i = 0; i < m_ObjectTextureCount; i++) 
+	{
 		pstr = strtok(NULL, ",");
-		m_pObjectTexture.push_back(g_pTextureManager->GetResource(pstr));
-		if (m_pObjectTexture[i] == nullptr) {
+		m_pObjectTexture.push_back(TextureLoad(pstr));
+		if (m_pObjectTexture[i] == nullptr)
+		{
+			free(pBuffer);
+			pBuffer = nullptr;
 			return FALSE;
 		}
 	}
 	//配列データの読み込み
-	m_ObjectCount = 0;
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
-			pstr = strtok(NULL, ",");
-			m_pObjectData[y*m_XCount + x] = atoi(pstr);
-			if (m_pObjectData[y*m_XCount + x] > 0) {
-				m_ObjectCount++;
-			}
-		}
-	}
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
-			pstr = strtok(NULL, ",");
-			m_pObjEndData[y*m_XCount + x] = atoi(pstr);
-			if (m_pObjEndData[y*m_XCount + x] > 0)
-			{
-				MOF_PRINTLOG("a");
-			}
-		}
-	}
+	m_ObjectCount = ChipDataLoad(pstr, m_pObjectData);
+	ChipDataLoad(pstr, m_pObjEndData);
+
+	free(pBuffer);
+	pBuffer = nullptr;
 
 	//ファイルを閉じる
 	fclose(fp);
-	free(pBuffer);
 	return TRUE;
 }
 
 //初期化
-void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
+void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>* pItemArray, CDynamicArray<CTargetObj*>* pTargetObjArray, CDynamicArray<CMapObj*>* pMapObjArray, CDynamicArray<CBackChip*>* pBackChipArray)
+{
 	int n = 0;
 	for (int y = 0; y < m_YCount; y++)
 	{
@@ -182,9 +259,13 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pEne[n].SetTexture(m_pEnemyTexture[on]);
-			pEne[n].SetMoveAttack(on);
-			pEne[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n]->CreateMove(MOVE_ENE_KINOKO + on);
+			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
+			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
+			(*pEnemyArray)[n]->SetEneType(on);
+			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcRect());
+			(*pEnemyArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -199,8 +280,10 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pItem[n].SetTexture(m_pItemTexture[on]);
-			pItem[n++].Initialize(x * m_ChipSize, y * m_ChipSize, on);
+			(*pItemArray)[n]->SetTexture(m_pItemTexture[on]);
+			(*pItemArray)[n]->CreateAnim(FileName[ANIMATION_ITEM_1 + on]);
+			(*pItemArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pItemArray)[n++]->Initialize();
 		}
 	}
 	n = 0;
@@ -215,20 +298,63 @@ void CStage::Initialize(CEnemy* pEne, CItem* pItem, CObject* pObj) {
 			{
 				continue;
 			}
-			pObj[n].SetTexture(m_pObjectTexture[on]);
-			pObj[n].SetMotionEnd((m_pObjEndData[y * m_XCount + x] == 1) ? true : false);
-			pObj[n++].Initialize(x * m_ChipSize, y * m_ChipSize);
+			(*pTargetObjArray)[n]->SetType(on);
+			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
+			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
+			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
+			(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
+			(*pTargetObjArray)[n++]->Initialize();
 		}
 	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pBackChipData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			(*pBackChipArray)[n]->SetTexture(m_pBackChipTexture[on]);
+			(*pBackChipArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pBackChipArray)[n]->CreateMove(MOVE_BC_01 + on);
+			(*pBackChipArray)[n]->SetRenderType(on % 2);
+			(*pBackChipArray)[n++]->Initialize();
+		}
+	}
+	n = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			//配置番号
+			//番号０は配置しない
+			char on = m_pMapObjData[y * m_XCount + x] - 1;
+			if (on < 0)
+			{
+				continue;
+			}
+			(*pMapObjArray)[n]->SetTexture(m_pMapObjTexture[on]);
+			(*pMapObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pMapObjArray)[n++]->Initialize();
+		}
+	}
+
+	CCordinate::SetStageRect(GetStageRect());
 }
+
 
 //更新
 void CStage::Update() {
 
 }
 
-//描画
-void CStage::Render(Vector2 scroll) {
+void CStage::RenderBack(Vector2 scroll)
+{
 	//遠景の描画
 	int scw = g_pGraphics->GetTargetWidth();
 	int sch = g_pGraphics->GetTargetHeight();
@@ -239,16 +365,22 @@ void CStage::Render(Vector2 scroll) {
 			m_pBackTexture->Render(x, y);
 		}
 	}
+}
 
+void CStage::RenderChip(Vector2 scroll)
+{
 	//テクスチャの横幅からマップチップの縦オフセットを求める
 	int tcx = m_pChipTexture->GetWidth() / m_ChipSize;
 	//マップチップの描画
-	for (int y = 0; y < m_YCount; y++) {
-		for (int x = 0; x < m_XCount; x++) {
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
 			//描画するチップ番号
 			//チップ番号０は描画しない
 			char cn = m_pChipData[y*m_XCount + x] - 1;
-			if (cn < 0) {
+			if (cn < 0)
+			{
 				continue;
 			}
 			//マップチップの矩形
@@ -259,6 +391,13 @@ void CStage::Render(Vector2 scroll) {
 	}
 }
 
+//描画
+void CStage::Render(Vector2 scroll) {
+	
+	g_pSoundManager->GetResource("Jump.wav")->Play();
+	
+}
+
 //デバッグ描画
 void CStage::RenderDebug(Vector2 scroll) {
 
@@ -266,31 +405,41 @@ void CStage::RenderDebug(Vector2 scroll) {
 
 //解放
 void CStage::Release() {
-
-	if (m_pChipData) {
+	if (m_pChipData != nullptr) {
 		free(m_pChipData);
 		m_pChipData = nullptr;
 	}
-	if (m_pEnemyData) {
+	if (m_pMapObjData != nullptr) {
+		free(m_pMapObjData);
+		m_pMapObjData = nullptr;
+	}
+	if (m_pBackChipData != nullptr) {
+		free(m_pBackChipData);
+		m_pBackChipData = nullptr;
+	}
+	if (m_pEnemyData != nullptr) {
 		free(m_pEnemyData);
 		m_pEnemyData = nullptr;
 	}
-	if (m_pItemData) {
+	if (m_pItemData != nullptr) {
 		free(m_pItemData);
 		m_pItemData = nullptr;
 	}
-	if (m_pObjectData) {
+	if (m_pObjectData != nullptr) {
 		free(m_pObjectData);
 		m_pObjectData = nullptr;
 	}
-	if (m_pObjEndData) {
+	if (m_pObjEndData != nullptr) {
 		free(m_pObjEndData);
 		m_pObjEndData = nullptr;
 	}
+	m_pEnemyTexture.clear();
+	m_pItemTexture.clear();
+	m_pObjectTexture.clear();
 }
 
 //当たり判定
-bool CStage::Collision(CRectangle r, Vector2& o) {
+bool CStage::OverValue(CRectangle r, Vector2& o) {
 	bool re = false;
 
 	//当たり判定する矩形の左上と右下のチップ位置を求める
@@ -341,50 +490,77 @@ bool CStage::Collision(CRectangle r, Vector2& o) {
 			if (cr.CollisionRect(brec))
 			{
 				re = true;
-				//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
-				o.y += cr.Top - brec.Bottom;
-				r.Top += cr.Top - brec.Bottom;
-				r.Bottom += cr.Top - brec.Bottom;
+				if (cn == RIGHTSLOPE || cn == RIGHTSLOPE2)
+				{
+					float sp = (cr.Right - brec.Left) / cr.GetWidth() + 0.1f;
+					if (sp < 0.0f)
+					{
+						sp = 0.0f;
+					}
+					else if (sp > 1.0f)
+					{
+						sp = 1.0f;
+					}
+					//斜面の上の位置を求める
+					float cTop = cr.Bottom - cr.GetHeight() * sp;
+					if (brec.Bottom < cTop)
+					{
+						continue;
+					}
+					o.y += cTop - brec.Bottom;
+					r.Top += cTop - brec.Bottom;
+					r.Bottom += cTop - brec.Bottom;
+				}
+				else
+				{
+					//下の埋まりなのでチップの上端から矩形の下端の値を引いた値が埋まり値
+					o.y += cr.Top - brec.Bottom;
+					r.Top += cr.Top - brec.Bottom;
+					r.Bottom += cr.Top - brec.Bottom;
+				}
 			}
-			//当たり判定用のキャラクタ矩形
-			//左、右それぞれで範囲を限定した専用の矩形を作成する。
-			CRectangle lrec = r;
-			lrec.Right = lrec.Left - 1;//
-			lrec.Expansion(0, -6);//
-			CRectangle rrec = r;
-			rrec.Left = rrec.Right - 1;//
-			rrec.Expansion(0, -6);//
-			//左と当たり判定
-			if (cr.CollisionRect(lrec))
+			if (cn != RIGHTSLOPE && cn != RIGHTSLOPE2)
 			{
-				re = true;
-				//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
-				o.x += cr.Right - lrec.Left;
-				r.Left += cr.Right - lrec.Left;
-				r.Right += cr.Right - lrec.Left;
-			}
-			//右と当たり判定
-			if (cr.CollisionRect(rrec))
-			{
-				re = true;
-				//右の埋まりなのでチップの左端から
-				o.x += cr.Left - rrec.Right;
-				r.Left += cr.Left - rrec.Right;
-				r.Right += cr.Left - rrec.Right;
-			}
-			//当たり判定用のキャラクタ矩形
-			//上で範囲を限定した専用の矩形を作成する。
-			CRectangle trec = r;
-			trec.Bottom = trec.Top - 1;//
-			trec.Expansion(-6, 0);//
-			//上と当たり判定
-			if (cr.CollisionRect(trec))
-			{
-				re = true;
-				//上の埋まりなのでチップした端から矩形の上端を
-				o.y += cr.Bottom - trec.Top;
-				r.Top += cr.Bottom - trec.Top;
-				r.Bottom += cr.Bottom - trec.Top;
+				//当たり判定用のキャラクタ矩形
+				//左、右それぞれで範囲を限定した専用の矩形を作成する。
+				CRectangle lrec = r;
+				lrec.Right = lrec.Left - 1;//
+				lrec.Expansion(0, -6);//
+				CRectangle rrec = r;
+				rrec.Left = rrec.Right - 1;//
+				rrec.Expansion(0, -6);//
+				//左と当たり判定
+				if (cr.CollisionRect(lrec))
+				{
+					re = true;
+					//左の埋まりなのでチップ右端から矩形の左端の値を引いた値が埋まりの値
+					o.x += cr.Right - lrec.Left;
+					r.Left += cr.Right - lrec.Left;
+					r.Right += cr.Right - lrec.Left;
+				}
+				//右と当たり判定
+				if (cr.CollisionRect(rrec))
+				{
+					re = true;
+					//右の埋まりなのでチップの左端から
+					o.x += cr.Left - rrec.Right;
+					r.Left += cr.Left - rrec.Right;
+					r.Right += cr.Left - rrec.Right;
+				}
+				//当たり判定用のキャラクタ矩形
+				//上で範囲を限定した専用の矩形を作成する。
+				CRectangle trec = r;
+				trec.Bottom = trec.Top - 1;//
+				trec.Expansion(-6, 0);//
+				//上と当たり判定
+				if (cr.CollisionRect(trec))
+				{
+					re = true;
+					//上の埋まりなのでチップした端から矩形の上端を
+					o.y += cr.Bottom - trec.Top;
+					r.Top += cr.Bottom - trec.Top;
+					r.Bottom += cr.Bottom - trec.Top;
+				}
 			}
 		}
 	}

@@ -1,44 +1,28 @@
 #pragma once
-#include	"Mof.h"
-#include	"Substance.h"
 #include	"GameDefine.h"
 
-class CObject : public CSubstance
+class CObject
 {
+protected:
+	Vector2			m_Pos;
+	CTexturePtr		m_pTexture;
+	bool			m_bShow;
 private:
-	CTexturePtr				m_pTexture;
-	CMotionPtr				m_pMotion;
-	bool					m_bMotionEnd;
-	bool					m_bShow;
-	CRectangle				m_SrcRect;
-	bool					m_bAnim;
-
-	enum tag_MOTION {
-		MOTION_START,
-		MOTION_END,
-
-		MOTION_COUNT
-	};
 public:
 	CObject();
-	~CObject();
-	void Initialize(float px, float py);
-	void Update(void);
-	void Render(Vector2 sp);
-	void RenderDebug(Vector2 sp);
-	void Release(void);
+	virtual ~CObject();
+	virtual void Initialize(void) = 0;
+	virtual void Update(void) = 0;
+	virtual void Render(const Vector2& screenPos) = 0;
+	virtual void Release(void) = 0;
+	void SetPos(const float& x, const float& y) { SetPos(Vector2(x,y)); }
+	void SetPos(const Vector2& pos) { m_Pos = pos; }
+	void SetTexture(const CTexturePtr& pt) { m_pTexture = pt; }
+	void SetShow(const bool& b) { m_bShow = b; }
 
-	//Collision
-	void CollisionStage(const Vector2& o);
+	bool IsShow(void) const { return m_bShow; }
 
-	//Set
-	void SetTexture(CTexturePtr pt)	  { m_pTexture = pt; }
-	void SetMotionEnd(const bool be)  { m_bMotionEnd = be; }
-	void SetShow(const bool bs)	      { m_bShow = bs; }
-
-	//Get
-	bool		GetShow(void)	 const { return m_bShow; }
-
-	void Animation(void);
+	Vector2 GetPos(void) const { return m_Pos; }
+private:
 };
 
