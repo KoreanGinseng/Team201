@@ -267,11 +267,10 @@ enum tag_ENEMY
 	ENEMY_BAT,
 	ENEMY_OCT,
 	ENEMY_HAND,
-	ENEMY_KOTEIHOUDAI,
-	ENEMY_TESTBOS,
 	ENEMY_FLOATING,
-	ENEMY_POISONKURIBO,
-	ENEMY_TESTBOS2,
+	ENEMY_BOSS_1,
+	ENEMY_BOSS_2,
+	ENEMY_BOSS_3,
 };
 
 /*****************************************************************

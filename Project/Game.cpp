@@ -19,12 +19,12 @@ const char*		g_StageFileName[STAGE_COUNT] = {
 
 //コンストラクタ
 CGame::CGame() :
-	CSceneBase(),
-	m_bPoase(false),
-	m_pEnemyArray(),
-	m_pItemArray(),
-	m_pTargetObjArray(),
-	m_pMapObjArray()
+CSceneBase(),
+m_bPoase(false),
+m_pEnemyArray(),
+m_pItemArray(),
+m_pTargetObjArray(),
+m_pMapObjArray()
 {
 }
 

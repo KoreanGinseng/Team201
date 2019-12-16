@@ -18,36 +18,24 @@ protected:
 public:
 	CCharacter(void);//コンストラクタ
 	virtual ~CCharacter(void);//デストラクタ
-	void Initialize(void) override = 0;				//初期化
-	void Update(void) override = 0;					//更新
-	void Render(const Vector2& screenPos) override;	//描画
-	void Release(void) override;					//解放
-	void LoadRect(const char* pName);				//当たり判定用矩形読み込み
-	bool IsDead(void) const { return m_bDead; }		//死亡フラグ取得
-	int	 GetHp(void) { return m_HP; }				//HPの取得
-	CRectangle GetSrcRect(void) const;				//アニメーション矩形取得
-	virtual CRectangle GetRect(void) const;			//当たり判定用矩形取得
-	RectArray GetSrcRectArray(void) const			//当たり判定用矩形の配列取得
-	{ return m_SrcRectArray; }
-	RectArray* GetSrcRectArrayPointer(void)			//当たり判定用矩形の配列をポインタで取得
-	{ return &m_SrcRectArray; }
-	RectArray GetRectArray(void) const;				//当たり判定用矩形の配列取得
-	CRectangle GetRectArray(const int& n) const {	//当たり判定用矩形の配列を番号指定で取得
-		return CRectangle(
-			m_Pos.x + m_SrcRectArray[n].Left, m_Pos.y + m_SrcRectArray[n].Top,
-			m_Pos.x + m_SrcRectArray[n].Right, m_Pos.y + m_SrcRectArray[n].Bottom);
-	}
-	int GetDamageWait(void) const					//ダメージ待ちフレーム取得
-	{ return m_DamageWait; }
+	virtual void Initialize(void) override = 0;				//初期化
+	virtual void Update(void) override = 0;					//更新
+	virtual void Render(const Vector2& screenPos) override;	//描画
+	virtual void Release(void) override;					//解放
+	void LoadRect(const char* pName);						//当たり判定用矩形読み込み
+	bool IsDead(void) const { return m_bDead; }				//死亡フラグ取得
+	int	 GetHp(void) { return m_HP; }						//HPの取得
+	CRectangle GetSrcRect(void) const;						//アニメーション矩形取得
+	virtual CRectangle GetRect(void) const;					//当たり判定用矩形取得
+	RectArray GetSrcRectArray(void) const;					//当たり判定用矩形の配列取得
+	RectArray* GetSrcRectArrayPointer(void);				//当たり判定用矩形の配列をポインタで取得
+	RectArray GetRectArray(void) const;						//当たり判定用矩形の配列取得
+	CRectangle GetRectArray(const int& n) const;			//当たり判定用矩形の配列を番号指定で取得
+	int GetDamageWait(void) const;							//ダメージ待ちフレーム取得
 	virtual bool OverValue(CRectangle rec, Vector2& out);	//自身との埋まり値を計算して返す
 	virtual void CollisionStage(const Vector2& over);		//埋まった時の処理
-	void SetCollisionFlag(const bool& b)					//当たり判定をするかどうかのフラグ設定
-	{ m_bCollision = b; }
-	bool IsCollisionFlag(void) const						//当たり判定をするかどうかのフラグ取得
-	{ return m_bCollision; }
-	bool IsStageOver(void) const {							//ステージの範囲外に出ているかどうかを調べる
-		return (GetRect().Right < CCordinate::GetStageRect().Left || m_Pos.x > CCordinate::GetStageRect().Right ||
-			GetRect().Bottom < CCordinate::GetStageRect().Top || m_Pos.y > CCordinate::GetStageRect().Bottom);
-	}
+	void SetCollisionFlag(const bool& b);					//当たり判定をするかどうかのフラグ設定
+	bool IsCollisionFlag(void) const;						//当たり判定をするかどうかのフラグ取得
+	bool IsStageOver(void) const;							//ステージの範囲外に出ているかどうかを調べる
 };
 

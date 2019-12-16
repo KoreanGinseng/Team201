@@ -59,13 +59,12 @@ void CPlayer::Initialize(void)
 //更新
 void CPlayer::Update(void)
 {
-
 	//スキル
 	Skill();
+
 	//MOVE
 	Move();
 	m_Pos += m_Move;
-
 
 	//アニメーション更新
 	Animation();
@@ -76,12 +75,7 @@ void CPlayer::Update(void)
 		m_DamageWait--;
 	}
 
-	if (m_HP <= 0)
-	{
-		m_bDead = true;
-	}
-
-	if (IsStageOver())
+	if (m_HP <= 0 || IsStageOver())
 	{
 		m_bDead = true;
 	}

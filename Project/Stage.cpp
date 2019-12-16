@@ -259,11 +259,22 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
+			delete (*pEnemyArray)[n];
+			switch (on)
+			{
+			case ENEMY_MASH:		(*pEnemyArray)[n] = NEW CEnemyMash();	break;
+			case ENEMY_POISUNMASH:	(*pEnemyArray)[n] = NEW CEnemyPoison(); break;
+			case ENEMY_BAT:			(*pEnemyArray)[n] = NEW CEnemyBat();	break;
+			case ENEMY_OCT:			(*pEnemyArray)[n] = NEW CEnemyOct();	break;
+			case ENEMY_HAND:		(*pEnemyArray)[n] = NEW CEnemyHand();	break;
+			case ENEMY_FLOATING:	(*pEnemyArray)[n] = NEW CEnemyFloat();  break;
+			case ENEMY_BOSS_1:		(*pEnemyArray)[n] = NEW CEnemyBoss();	break;
+			case ENEMY_BOSS_2:		(*pEnemyArray)[n] = NEW CEnemyBoss2();	break;
+			case ENEMY_BOSS_3:		(*pEnemyArray)[n] = NEW CEnemyBoss3();	break;
+			default: break;
+			}
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			(*pEnemyArray)[n]->CreateMove(MOVE_ENE_KINOKO + on);
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
-			(*pEnemyArray)[n]->CreateAnim(FileName[ANIMATION_ENEMY_1 + on]);
-			(*pEnemyArray)[n]->SetEneType(on);
 			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcRect());
 			(*pEnemyArray)[n++]->Initialize();
 		}
@@ -281,7 +292,6 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 				continue;
 			}
 			(*pItemArray)[n]->SetTexture(m_pItemTexture[on]);
-			(*pItemArray)[n]->CreateAnim(FileName[ANIMATION_ITEM_1 + on]);
 			(*pItemArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pItemArray)[n++]->Initialize();
 		}
@@ -301,7 +311,6 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pTargetObjArray)[n]->SetType(on);
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			(*pTargetObjArray)[n]->CreateAnim(FileName[ANIMATION_OBJ_1 + on]);
 			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
 			(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
 			(*pTargetObjArray)[n++]->Initialize();

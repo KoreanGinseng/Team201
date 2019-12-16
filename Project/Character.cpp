@@ -96,6 +96,16 @@ CRectangle CCharacter::GetRect(void) const
 	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight());
 }
 
+RectArray CCharacter::GetSrcRectArray(void) const
+{
+	return m_SrcRectArray;
+}
+
+RectArray * CCharacter::GetSrcRectArrayPointer(void)
+{
+	return &m_SrcRectArray;
+}
+
 RectArray CCharacter::GetRectArray(void) const
 {
 	RectArray result;
@@ -107,6 +117,19 @@ RectArray CCharacter::GetRectArray(void) const
 	return result;
 }
 
+CRectangle CCharacter::GetRectArray(const int & n) const
+{
+	return CRectangle(
+		m_Pos.x + m_SrcRectArray[n].Left, m_Pos.y + m_SrcRectArray[n].Top,
+		m_Pos.x + m_SrcRectArray[n].Right, m_Pos.y + m_SrcRectArray[n].Bottom
+	);
+}
+
+int CCharacter::GetDamageWait(void) const
+{
+	return m_DamageWait;
+}
+
 bool CCharacter::OverValue(CRectangle rec, Vector2 & out)
 {
 	return false;
@@ -115,4 +138,22 @@ bool CCharacter::OverValue(CRectangle rec, Vector2 & out)
 void CCharacter::CollisionStage(const Vector2 & over)
 {
 	m_Pos += over;
+}
+
+void CCharacter::SetCollisionFlag(const bool & b)
+{
+	m_bCollision = b;
+}
+
+bool CCharacter::IsCollisionFlag(void) const
+{
+	return m_bCollision;
+}
+
+bool CCharacter::IsStageOver(void) const
+{
+	return (
+		GetRect().Right < CCordinate::GetStageRect().Left ||m_Pos.x > CCordinate::GetStageRect().Right ||
+		GetRect().Bottom < CCordinate::GetStageRect().Top || m_Pos.y > CCordinate::GetStageRect().Bottom
+		);
 }

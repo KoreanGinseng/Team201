@@ -11,7 +11,15 @@
 #include	<vector>
 #include	<string>
 #include	"GameDefine.h"
-#include	"Enemy.h"
+#include	"EnemyBat.h"
+#include	"EnemyBoss.h"
+#include	"EnemyBoss2.h"
+#include	"EnemyBoss3.h"
+#include	"EnemyFloat.h"
+#include	"EnemyHand.h"
+#include	"EnemyMash.h"
+#include	"EnemyOct.h"
+#include	"EnemyPoison.h"
 #include	"Item.h"
 #include	"TargetObj.h"
 #include	"MapObj.h"

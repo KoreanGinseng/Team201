@@ -2,14 +2,13 @@
 
 
 
-CEnemy::CEnemy()
-	: CSubstance()
+CEnemy::CEnemy(void) :
+CSubstance()
 {
-
 }
 
 
-CEnemy::~CEnemy()
+CEnemy::~CEnemy(void)
 {
 	Release();
 }
