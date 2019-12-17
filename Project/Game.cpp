@@ -184,12 +184,16 @@ void CGame::Update()
 		}
 		//ÉvÉåÉCÉÑÅ[Ç∆ÇÃìñÇΩÇËîªíË
 		oo = Vector2(0, 0);
-		if (m_pObjArray[i].Collision(m_Player.GetRect(), oo))
+		if (m_pObjArray[i].Collision(m_Player.GetRect(),oo))
 		{
 			if (m_pObjArray[i].GetType() == OBJECT_ROPE)
 			{
 				clime = true;
 				break;
+			}
+			else if (m_pObjArray[i].GetType() == OBJECT_PENDULUMBLOCK)
+			{
+				m_Player.m_bPenblock(m_pObjArray[i]);
 			}
 			else
 			{
@@ -206,6 +210,7 @@ void CGame::Update()
 				{
 					continue;
 				}
+				
 				else
 				{
 					m_pEnemyArray[j].CollisionStage(oo);

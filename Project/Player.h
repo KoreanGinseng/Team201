@@ -101,5 +101,6 @@ public:
 	void   SetPos(const Vector2& pos) { m_Pos = pos; }
 
 	bool   Dmg(CEnemy& ene);
+	bool   m_bPenblock(CObject& pblobj);
 };
 

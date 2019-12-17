@@ -651,6 +651,25 @@ bool CPlayer::Dmg(CEnemy& ene)
 	return true;
 }
 
+bool CPlayer::m_bPenblock(CObject& pblobj)
+{
+	CRectangle prec = GetRect();
+	CRectangle blorec = pblobj.GetRect();
+	
+	if (prec.Left < blorec.Left)
+	{
+		m_Move.x = -15.0f;
+		m_bReverse = false;
+	}
+	else
+	{
+		m_Move.x = 15.0f;
+		m_bReverse = true;
+	}
+
+	return true;
+}
+
 bool CPlayer::IsObject(const int& skillNo) {
 
 	if (m_SkillTarget[m_Target]->GetType()==TYPE_OBJECT) {
