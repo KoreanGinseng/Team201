@@ -311,6 +311,12 @@ enum tag_SUBTYPE {
 	SUB_SHOT,
 };
 
+enum tag_SUBSTATUS {
+	SUBSTATUS_BACK,
+	SUBSTATUS_NOMAL,
+	SUBSTATUS_TRIP,
+};
+
 
 extern CXGamePad*			gpXGpad;
 

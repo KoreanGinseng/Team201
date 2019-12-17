@@ -226,10 +226,6 @@ void CGame::Render()
 	//ステージのBACK描画
 	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
 
-
-	LPRenderTarget pr = g_pGraphics->GetRenderTarget();
-	g_pGraphics->SetRenderTarget(tex.GetRenderTarget(), g_pGraphics->GetDepthTarget());
-//	g_pGraphics->ClearTarget(0, 0, 0, 0, 0, 0);
 	//マップオブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetMapObjCount(); i++)
 	{
@@ -271,14 +267,6 @@ void CGame::Render()
 		//ゲーム画面が灰色になるやつ
 		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
 	}
-
-	g_pGraphics->SetRenderTarget(pr, g_pGraphics->GetDepthTarget());
-	g_pGraphics->SetBlending(BLEND_NONE);
-	static float t = 0;
-	t += 0.01f;
-	tex.RenderRotate(g_pGraphics->GetTargetWidth() / 2, g_pGraphics->GetTargetHeight() / 2, t,TEXALIGN_CENTERCENTER);
-	g_pGraphics->SetBlending(BLEND_NORMAL);
-//	tex.Save("A.png");
 
 }
 
@@ -381,7 +369,7 @@ void CGame::Collosion(void)
 			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect(), over))
 			{
 				//敵がスキルで止まっているなら埋まり値だけ戻す
-				if (m_pEnemyArray[i]->IsStop())
+				if (m_pEnemyArray[i]->GetStatus())
 				{
 					m_Player.CollisionStage(over);
 				}
@@ -478,7 +466,7 @@ void CGame::Collosion(void)
 			{
 				//通常の動きにする
 				//スキルが使われている状態なら当たり判定を行わない
-				if (!m_pTargetObjArray[i]->IsBack())
+				if (!m_pTargetObjArray[i]->GetStatus())
 				{
 					//埋まり値だけ戻す
 					m_Player.CollisionStage(over);
@@ -504,7 +492,7 @@ void CGame::Collosion(void)
 				else
 				{
 					//スキルが使われている状態なら当たり判定を行わない
-					if (!m_pTargetObjArray[i]->IsBack())
+					if (!m_pTargetObjArray[i]->GetStatus())
 					{
 						m_pEnemyArray[j]->CollisionStage(over);
 					}
