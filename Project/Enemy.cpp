@@ -118,15 +118,15 @@ void CEnemy::Reverse(const Vector2 & over)
 	{
 		if (over.x > 0)
 		{
-			m_MvCntrl.MoveReverse();
+			m_Move.x *= -1;
 			m_bReverse = !m_bReverse;
 		}
 	}
-	else if (m_MvCntrl.GetMove().x > 0)
+	else if (m_Move.x > 0)
 	{
 		if (over.x < 0)
 		{
-			m_MvCntrl.MoveReverse();
+			m_Move.x *= -1;
 			m_bReverse = !m_bReverse;
 		}
 	}
