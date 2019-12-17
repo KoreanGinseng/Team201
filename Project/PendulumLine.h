@@ -7,10 +7,12 @@ class CPendulumLine :
 {
 
 private:
-
+    //cos‚Ì”g‚Ì‘¬“x
+	 float m_CosSpd;
 	float* m_pRectCenter;
-	int deg;
-
+	float deg;
+	//cos‚Ì”g
+	 float m_CosTime;
 public:
 	CPendulumLine();
 	~CPendulumLine();
