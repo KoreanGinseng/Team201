@@ -131,11 +131,11 @@ void CEnemy::Reverse(const Vector2 & over)
 		}
 	}
 
-	if (m_MvCntrl.GetMove().y > 0)
+	if (m_Move.y > 0)
 	{
 		if (over.y < 0)
 		{
-			m_MvCntrl.SetMove(Vector2(m_MvCntrl.GetMove().x, 0));
+			m_Move.y = 0;
 		}
 	}
 }
@@ -152,12 +152,12 @@ bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
 	m_DamageWait = 60;
 	if (prec.Left < erec.Left)
 	{
-		m_MvCntrl.SetMove(-5.0f, m_MvCntrl.GetMove().y);
+		m_Move.x = -5.0f;
 		m_bReverse = false;
 	}
 	else
 	{
-		m_MvCntrl.SetMove(5.0f, m_MvCntrl.GetMove().y);
+		m_Move.x = 5.0f;
 		m_bReverse = true;
 	}
 	//m_Motion.ChangeMotion(MOTION_DAMAGE);

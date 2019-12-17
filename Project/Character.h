@@ -25,17 +25,17 @@ public:
 	void LoadRect(const char* pName);						//当たり判定用矩形読み込み
 	bool IsDead(void) const { return m_bDead; }				//死亡フラグ取得
 	int	 GetHp(void) { return m_HP; }						//HPの取得
-	CRectangle GetSrcRect(void) const;						//アニメーション矩形取得
-	virtual CRectangle GetRect(void) const;					//当たり判定用矩形取得
+	CRectangle GetSrcRect(void);							//アニメーション矩形取得
+	virtual CRectangle GetRect(void);						//当たり判定用矩形取得
 	RectArray GetSrcRectArray(void) const;					//当たり判定用矩形の配列取得
 	RectArray* GetSrcRectArrayPointer(void);				//当たり判定用矩形の配列をポインタで取得
-	RectArray GetRectArray(void) const;						//当たり判定用矩形の配列取得
+	RectArray GetRectArray(void);							//当たり判定用矩形の配列取得
 	CRectangle GetRectArray(const int& n) const;			//当たり判定用矩形の配列を番号指定で取得
 	int GetDamageWait(void) const;							//ダメージ待ちフレーム取得
 	virtual bool OverValue(CRectangle rec, Vector2& out);	//自身との埋まり値を計算して返す
 	virtual void CollisionStage(const Vector2& over);		//埋まった時の処理
 	void SetCollisionFlag(const bool& b);					//当たり判定をするかどうかのフラグ設定
 	bool IsCollisionFlag(void) const;						//当たり判定をするかどうかのフラグ取得
-	bool IsStageOver(void) const;							//ステージの範囲外に出ているかどうかを調べる
+	bool IsStageOver(void);									//ステージの範囲外に出ているかどうかを調べる
 };
 

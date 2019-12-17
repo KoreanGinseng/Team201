@@ -18,7 +18,6 @@ void CTargetObj::Initialize(void)
 	{
 		m_bReverse = false;
 	}
-	CCharacter::Initialize();
 	m_bShow = true;
 }
 
@@ -26,16 +25,16 @@ void CTargetObj::Update(void)
 {
 	if (m_bSkill)
 	{
-		m_Anim.Update();
-		if (m_Anim.IsEndMotion())
+		//m_Anim.Update();
+		if (m_Motion.IsEndMotion())
 		{
-			if (m_Anim.GetMotionNo() == 0)
+			if (m_Motion.GetMotionNo() == 0)
 			{
-				m_Anim.ChangeAnim(1);
+				m_Motion.ChangeMotion(1);
 			}
 			else
 			{
-				m_Anim.ChangeAnim(0);
+				m_Motion.ChangeMotion(0);
 			}
 			m_bSkill = false;
 		}

@@ -76,7 +76,7 @@ public:
 	//Get
 	bool	IsTrigger(void) { return m_bTrigger; }	//スキルを使ったかのフラグ取得
 	bool	IsClime(void) { return m_bClime; }		//登る状態かのフラグ
-	CRectangle GetRect(void) const override;		//当たり判定用矩形の取得
+	CRectangle GetRect(void) override;				//当たり判定用矩形の取得
 	//Set
 	void   SetClime(const bool& b)					//フラグのセット
 	{ m_bClime = b; }

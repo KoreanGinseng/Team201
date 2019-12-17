@@ -86,12 +86,12 @@ void CCharacter::LoadRect(const char * pName)
 	fclose(fp);
 }
 
-CRectangle CCharacter::GetSrcRect(void) const
+CRectangle CCharacter::GetSrcRect(void)
 {
-	return CRectangle();
+	return m_Motion.GetSrcRect();
 }
 
-CRectangle CCharacter::GetRect(void) const
+CRectangle CCharacter::GetRect(void)
 {
 	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + GetSrcRect().GetWidth(), m_Pos.y + GetSrcRect().GetHeight());
 }
@@ -106,7 +106,7 @@ RectArray * CCharacter::GetSrcRectArrayPointer(void)
 	return &m_SrcRectArray;
 }
 
-RectArray CCharacter::GetRectArray(void) const
+RectArray CCharacter::GetRectArray(void)
 {
 	RectArray result;
 	for (int i = 0; i < m_SrcRectArray.GetArrayCount(); i++)
@@ -150,7 +150,7 @@ bool CCharacter::IsCollisionFlag(void) const
 	return m_bCollision;
 }
 
-bool CCharacter::IsStageOver(void) const
+bool CCharacter::IsStageOver(void)
 {
 	return (
 		GetRect().Right < CCordinate::GetStageRect().Left ||m_Pos.x > CCordinate::GetStageRect().Right ||

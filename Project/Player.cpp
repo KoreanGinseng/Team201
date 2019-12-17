@@ -111,11 +111,11 @@ void CPlayer::Release(void)
 
 void CPlayer::Move(void)
 {
-	m_KeyConfig.moveRight   = m_bKey ? g_pInput->IsKeyHold(MOFKEY_LEFT)  : (g_pGamePad->GetStickHorizontal() > 0.8f);
-	m_KeyConfig.moveLeft    = m_bKey ? g_pInput->IsKeyHold(MOFKEY_RIGHT) : (g_pGamePad->GetStickHorizontal() < -0.8f);
-	m_KeyConfig.jump        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)    : (g_pGamePad->IsKeyPush(XINPUT_A));
-	m_KeyConfig.clime       = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)    : (g_pGamePad->GetStickVertical() > 0.8f);
-	m_KeyConfig.fall        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN)  : (g_pGamePad->GetStickVertical() < -0.8f);
+	m_KeyConfig.moveRight   = m_bKey ? g_pInput->IsKeyHold(MOFKEY_RIGHT)  : (g_pGamePad->GetStickHorizontal() > 0.8f);
+	m_KeyConfig.moveLeft    = m_bKey ? g_pInput->IsKeyHold(MOFKEY_LEFT)   : (g_pGamePad->GetStickHorizontal() < -0.8f);
+	m_KeyConfig.jump        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)     : (g_pGamePad->IsKeyPush(XINPUT_A));
+	m_KeyConfig.clime       = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)     : (g_pGamePad->GetStickVertical() > 0.8f);
+	m_KeyConfig.fall        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN)   : (g_pGamePad->GetStickVertical() < -0.8f);
 
 	if (m_KeyConfig.skillStance)
 	{
@@ -222,11 +222,11 @@ void CPlayer::CollisionStage(const Vector2& over)
 	//¶ˆÚ“®’†‚Ì¶–„‚Ü‚èA‰EˆÚ“®’†‚Ì‰E–„‚Ü‚è‚Ìê‡‚ÍˆÚ“®‚ð‰Šú‰»‚·‚é
 	if ((over.x < 0 && m_Move.x > 0) || (over.x > 0 && m_Move.x < 0))
 	{
-		m_Move = 0;
+		m_Move.x = 0;
 	}
 }
 
-CRectangle CPlayer::GetRect(void) const
+CRectangle CPlayer::GetRect(void)
 {
 	CRectangle r = CCharacter::GetRect();
 	r.Expansion(-PLAYER_RECTDIS, 0);

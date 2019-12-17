@@ -5,6 +5,7 @@
 CBackChip::CBackChip()
 {
 	m_bShow = true;
+	m_bReverse = true;
 }
 
 
@@ -21,7 +22,7 @@ void CBackChip::Initialize(void)
 
 void CBackChip::Update(void)
 {
-	m_Pos += m_Move;
+	m_Pos -= m_Move / 5.0f;
 }
 
 void CBackChip::RenderBackBack(const Vector2 & screenPos)

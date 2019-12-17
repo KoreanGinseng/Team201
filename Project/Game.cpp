@@ -209,10 +209,6 @@ void CGame::Render()
 		}
 	}
 
-	//ステージのBACK描画
-	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
-
-
 	//背景チップのBACKSTAGE描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetBackChipCount(); i++)
 	{
@@ -221,6 +217,10 @@ void CGame::Render()
 			m_pBackChipArray[i]->RenderBackStage(m_MainCamera.GetScroll());
 		}
 	}
+
+	//ステージのBACK描画
+	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
+
 
 	//マップオブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetMapObjCount(); i++)
