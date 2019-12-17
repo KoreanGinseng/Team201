@@ -39,9 +39,9 @@ void CPlayer::Initialize(void)
 	m_bDead = false;
 	m_bReverse = false;
 	//座標の初期化
-	m_Pos = Vector2(4000, 192);
 	m_Pos = Vector2(9600, 768);
-	//m_Pos = Vector2(960, 768);
+	m_Pos = Vector2(960, 768);
+	m_Pos = Vector2(4000, 192);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -78,6 +78,15 @@ void CPlayer::Update(void)
 	if (m_HP <= 0 || IsStageOver())
 	{
 		m_bDead = true;
+	}
+
+	if (!m_bClime)
+	{
+		m_Move.y += GRAVITY;
+	}
+	if (m_Move.y > 20.0f)
+	{
+		m_Move.y = 20.0f;
 	}
 }
 
@@ -181,11 +190,11 @@ void CPlayer::Move(void)
 //アニメーション処理
 void CPlayer::Animation(void)
 {
-	if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPUP && m_Move.y > 0)
+	if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPUP && m_Move.y < 0)
 	{
 		m_Motion.ChangeMotion(ANIM_JUMPUP);
 	}
-	else if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPDOWN && m_Move.y < 0)
+	else if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPDOWN && m_Move.y >= 0)
 	{
 		m_Motion.ChangeMotion(ANIM_JUMPDOWN);
 	}

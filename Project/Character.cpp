@@ -48,6 +48,14 @@ void CCharacter::Release(void)
 	m_Motion.Release();
 }
 
+void CCharacter::CreateMotion(const char * pName)
+{
+	SpriteAnimationCreate* pAnim;
+	pAnim = g_pAnimManager->GetResource(pName)->GetAnim();
+	int c = g_pAnimManager->GetResource(pName)->GetAnimCount();
+	m_Motion.Create(pAnim, c);
+}
+
 void CCharacter::LoadRect(const char * pName)
 {
 	FILE* fp = fopen(pName, "rt");

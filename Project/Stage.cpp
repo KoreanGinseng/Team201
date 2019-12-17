@@ -274,6 +274,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			default: break;
 			}
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
+			(*pEnemyArray)[n]->CreateMotion(FileName[ANIMATION_ENEMY_1 + on]);
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
 			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcRect());
 			(*pEnemyArray)[n++]->Initialize();
@@ -309,6 +310,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 				continue;
 			}
 			(*pTargetObjArray)[n]->SetType(on);
+			(*pTargetObjArray)[n]->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
 			(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
