@@ -8,6 +8,7 @@ protected:
 
 	int							m_HP;				//体力
 	Vector2						m_Move;				//移動量
+	Vector2						m_Spd;				//移動速度
 	CSpriteMotionController		m_Motion;			//アニメーション
 	RectArray					m_SrcRectArray;		//当たり判定用矩形
 	bool						m_bMove;			//移動フラグ

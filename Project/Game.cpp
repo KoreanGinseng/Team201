@@ -17,6 +17,7 @@ const char*		g_StageFileName[STAGE_COUNT] = {
 			"Stage1-1.txt",
 };
 
+CTexture tex;
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
@@ -73,6 +74,11 @@ bool CGame::Load()
 	for (int i = 0; i < m_pBackChipArray.GetArrayCount(); i++)
 	{
 		m_pBackChipArray.SetData(NEW CBackChip(), i);
+	}
+
+	if (!tex.CreateTarget(g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), PixelFormat::PIXELFORMAT_R8G8B8A8_UNORM, BufferAccess::BUFFERACCESS_GPUREADWRITE))
+	{
+		return FALSE;
 	}
 	return TRUE;
 }
@@ -196,7 +202,6 @@ void CGame::Update()
 //描画
 void CGame::Render()
 {
-
 	//goriosi
 	g_pTextureManager->GetResource("空.png")->Render(0, 0);
 
@@ -222,6 +227,9 @@ void CGame::Render()
 	m_Stage[m_StageNo].RenderBack(m_MainCamera.GetScroll());
 
 
+	LPRenderTarget pr = g_pGraphics->GetRenderTarget();
+	g_pGraphics->SetRenderTarget(tex.GetRenderTarget(), g_pGraphics->GetDepthTarget());
+//	g_pGraphics->ClearTarget(0, 0, 0, 0, 0, 0);
 	//マップオブジェクトの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetMapObjCount(); i++)
 	{
@@ -263,6 +271,14 @@ void CGame::Render()
 		//ゲーム画面が灰色になるやつ
 		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
 	}
+
+	g_pGraphics->SetRenderTarget(pr, g_pGraphics->GetDepthTarget());
+	g_pGraphics->SetBlending(BLEND_NONE);
+	static float t = 0;
+	t += 0.01f;
+	tex.RenderRotate(g_pGraphics->GetTargetWidth() / 2, g_pGraphics->GetTargetHeight() / 2, t,TEXALIGN_CENTERCENTER);
+	g_pGraphics->SetBlending(BLEND_NORMAL);
+//	tex.Save("A.png");
 
 }
 

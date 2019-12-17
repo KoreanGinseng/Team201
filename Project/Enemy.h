@@ -1,5 +1,6 @@
 #pragma once
 #include "Substance.h"
+#include "EnemyDefine.h"
 #include "Shot.h"
 
 class CEnemy : public CSubstance {
@@ -17,4 +18,3 @@ public:
 	bool Dmg(const CRectangle& pre, const int& preWait);
 	bool KnockBack(const CRectangle& pre, const int& preWait);
 };
-

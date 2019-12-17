@@ -20,9 +20,9 @@ void CTargetObj::Initialize(void)
 
 void CTargetObj::Update(void)
 {
-	if (m_bSkill)
+	/*if (m_bSkill)
 	{
-		//m_Anim.Update();
+		m_Anim.Update();
 		if (m_Motion.IsEndMotion())
 		{
 			if (m_Motion.GetMotionNo() == 0)
@@ -35,7 +35,7 @@ void CTargetObj::Update(void)
 			}
 			m_bSkill = false;
 		}
-	}
+	}*/
 }
 
 bool CTargetObj::OverValue(CRectangle rec, Vector2 & out)

@@ -40,8 +40,8 @@ void CPlayer::Initialize(void)
 	m_bReverse = false;
 	//À•W‚Ì‰Šú‰»
 	m_Pos = Vector2(9600, 768);
-	m_Pos = Vector2(960, 768);
 	m_Pos = Vector2(4000, 192);
+	m_Pos = Vector2(960, 768);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;

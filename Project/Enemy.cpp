@@ -5,6 +5,7 @@
 CEnemy::CEnemy(void) :
 CSubstance()
 {
+	m_SubType = SUB_ENE;
 }
 
 
@@ -118,7 +119,8 @@ void CEnemy::Reverse(const Vector2 & over)
 	{
 		if (over.x > 0)
 		{
-			m_Move.x *= -1;
+			m_Move.x = 0;
+			m_Spd.x *= -1;
 			m_bReverse = !m_bReverse;
 		}
 	}
@@ -126,7 +128,8 @@ void CEnemy::Reverse(const Vector2 & over)
 	{
 		if (over.x < 0)
 		{
-			m_Move.x *= -1;
+			m_Move.x = 0;
+			m_Spd.x *= -1;
 			m_bReverse = !m_bReverse;
 		}
 	}

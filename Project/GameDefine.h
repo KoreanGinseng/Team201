@@ -304,6 +304,13 @@ enum tag_MOVE
 	MOVE_BC_03,
 };
 
+enum tag_SUBTYPE {
+	SUB_ENE,
+	SUB_OBJ,
+	SUB_ITEM,
+	SUB_SHOT,
+};
+
 
 extern CXGamePad*			gpXGpad;
 
