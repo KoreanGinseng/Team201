@@ -6,5 +6,7 @@ class CItem :
 public:
 	CItem();
 	~CItem();
+	virtual void Initialize(void) override {}
+	virtual void Update(void) override {}
 };
 

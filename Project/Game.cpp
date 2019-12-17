@@ -183,7 +183,7 @@ void CGame::Update()
 	Collosion();
 
 	//カメラの更新
-	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (m_Player.GetSpd() + Vector2(0.1f, 0.1f));
+	Vector2 centerPos = m_Player.GetPos() - Vector2(g_pGraphics->GetTargetWidth() / 2, 180) + (Vector2(PLAYER_SPEED, PLAYER_JUMPPOW) + Vector2(0.1f, 0.1f));
 	m_MainCamera.Update(centerPos, m_Player.GetRect(), m_Stage[m_StageNo].GetStageRect());
 
 	//ステージの更新

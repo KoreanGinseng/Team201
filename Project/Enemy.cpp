@@ -15,7 +15,6 @@ CEnemy::~CEnemy(void)
 
 void CEnemy::Initialize(void)
 {
-	CCharacter::Initialize();
 	if (m_EnemyType == ENEMY_BAT || m_EnemyType == ENEMY_HAND)
 	{
 		m_bCollision = false;
@@ -24,21 +23,21 @@ void CEnemy::Initialize(void)
 
 void CEnemy::Update(void)
 {
-	m_MvCntrl.Update();
-	m_Anim.Update();
+	//m_MvCntrl.Update();
+	//m_Anim.Update();
 	
-	m_Pos += m_MvCntrl.GetMove();
+	m_Pos += m_Move;
 
 	if (IsStageOver())
 	{
 		m_bDead = true;
 		m_bShow = false;
 	}
-	if (m_MvCntrl.GetMove().x < 0)
+	if (m_Move.x < 0)
 	{
 		m_bReverse = true;
 	}
-	else if (m_MvCntrl.GetMove().x > 0)
+	else if (m_Move.x > 0)
 	{
 		m_bReverse = false;
 	}
@@ -115,7 +114,7 @@ void CEnemy::CollisionStage(const Vector2 & over)
 
 void CEnemy::Reverse(const Vector2 & over)
 {
-	if (m_MvCntrl.GetMove().x < 0)
+	if (m_Move.x < 0)
 	{
 		if (over.x > 0)
 		{

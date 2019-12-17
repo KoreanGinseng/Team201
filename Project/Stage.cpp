@@ -330,7 +330,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			}
 			(*pBackChipArray)[n]->SetTexture(m_pBackChipTexture[on]);
 			(*pBackChipArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			(*pBackChipArray)[n]->CreateMove(MOVE_BC_01 + on);
+			//(*pBackChipArray)[n]->CreateMove(MOVE_BC_01 + on);
 			(*pBackChipArray)[n]->SetRenderType(on % 2);
 			(*pBackChipArray)[n++]->Initialize();
 		}

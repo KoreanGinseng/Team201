@@ -12,6 +12,7 @@ public:
 	CBackChip();
 	~CBackChip();
 	void Initialize(void) override;
+	void Update(void) override;
 	void RenderBackBack(const Vector2& screenPos);
 	void RenderBackStage(const Vector2& screenPos);
 	void SetRenderType(const int& t) { m_RenderType = t; }

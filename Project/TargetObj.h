@@ -12,7 +12,7 @@ public:
 	void Initialize(void) override;
 	void Update(void) override;
 	void SetType(const int& n) { m_Type = n; }
-	void SetStatus(const int& n) { m_Status = n; m_Anim.ChangeAnim(m_Status); }
+	void SetStatus(const int& n) { m_Status = n; m_Motion.ChangeMotion(m_Status); }
 	int  GetObjType(void) const { return m_Type; }
 	bool OverValue(CRectangle rec, Vector2 & out) override;
 private:

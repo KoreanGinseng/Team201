@@ -8,8 +8,8 @@ private:
 public:
 	CEnemy(void);
 	virtual ~CEnemy(void);
-	virtual void Initialize(void) override = 0;
-	virtual void Update(void) override = 0;
+	virtual void Initialize(void) override {}
+	virtual void Update(void) override {}
 	bool OverValue(CRectangle rec, Vector2& out) override;
 	void CollisionStage(const Vector2 & over);
 	void Reverse(const Vector2 & over);

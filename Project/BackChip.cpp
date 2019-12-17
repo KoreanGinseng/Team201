@@ -15,11 +15,13 @@ CBackChip::~CBackChip()
 
 void CBackChip::Initialize(void)
 {
-	m_MvCntrl.Initialize();
-	m_Anim.Initialize();
 	m_StartPos = m_Pos;
-	m_MvCntrl.SetSpd(0, 0);
-	m_MvCntrl.SetSpd(CUtilities::Random(1, 3), 0);
+	m_Move = Vector2(CUtilities::Random(1, 3), 0);
+}
+
+void CBackChip::Update(void)
+{
+	m_Pos += m_Move;
 }
 
 void CBackChip::RenderBackBack(const Vector2 & screenPos)

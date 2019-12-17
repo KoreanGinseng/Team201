@@ -46,6 +46,7 @@ private:
 		bool	skillStop;
 		bool	skillSkip;
 	};
+
 	KeyConfig					m_KeyConfig;		//キーコンフィグ
 	bool						m_bKey;				//キーボードかパッドかのフラグ
 	bool						m_bJump;			//ジャンプフラグ
