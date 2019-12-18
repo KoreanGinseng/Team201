@@ -24,6 +24,10 @@ CCharacter::~CCharacter()
 
 void CCharacter::Render(const Vector2& screenPos)
 {
+	if (!m_bShow)
+	{
+		return;
+	}
 	CRectangle r = GetSrcRect();
 	if (!m_bReverse)
 	{
