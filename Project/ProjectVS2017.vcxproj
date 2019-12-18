@@ -130,6 +130,7 @@
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="SubStance.cpp" />
     <ClCompile Include="TargetObj.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />

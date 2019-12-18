@@ -276,7 +276,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pEnemyArray)[n]->CreateMotion(FileName[ANIMATION_ENEMY_1 + on]);
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
-			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcRect());
+			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add(CRectangle(0,0,(*pEnemyArray)[n]->GetSrcRect().GetWidth(), (*pEnemyArray)[n]->GetSrcRect().GetHeight()));
 			(*pEnemyArray)[n++]->Initialize();
 		}
 	}
