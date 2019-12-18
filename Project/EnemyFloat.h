@@ -6,5 +6,6 @@ class CEnemyFloat :
 public:
 	CEnemyFloat();
 	~CEnemyFloat();
+	void Move(void) override;
 };
 

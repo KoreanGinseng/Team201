@@ -20,14 +20,6 @@ CEnemy::~CEnemy(void)
 
 void CEnemy::Initialize(void)
 {
-	if (m_EnemyType == ENEMY_BAT || m_EnemyType == ENEMY_HAND)
-	{
-		m_bCollision = false;
-	}
-	if (m_EnemyType == ENEMY_BAT || m_EnemyType == ENEMY_HAND || m_EnemyType == ENEMY_FLOATING)
-	{
-		m_bGravity = false;
-	}
 }
 
 void CEnemy::Update(void)
