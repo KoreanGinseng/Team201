@@ -18,21 +18,9 @@ public:
 	}
 	virtual ~CSubstance() {}
 	void	SetTarget(const bool& target) { m_bTarget = target; }
-	void	Stop(void) {
-
-	}
-	void	Back(void) {
-		if (m_SubType != SUB_ENE && m_SubStatus != SUBSTATUS_BACK)
-		{
-			m_SubStatus = (m_SubStatus == SUBSTATUS_NOMAL) ? SUBSTATUS_BACK : SUBSTATUS_NOMAL;
-		}
-	}
-	void	Trip(void) {
-		if (m_SubType != SUB_ENE && m_SubStatus != SUBSTATUS_TRIP)
-		{
-			m_SubStatus = (m_SubStatus == SUBSTATUS_NOMAL) ? SUBSTATUS_BACK : SUBSTATUS_NOMAL;
-		}
-	}
+	void	Stop(void);
+	void	Back(void);
+	void	Trip(void);
 	virtual	void	Initialize(void) override = 0;
 	virtual	void	Update(void) override = 0;
 	int		GetStatus(void) const { return m_SubStatus; }

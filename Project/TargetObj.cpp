@@ -2,7 +2,8 @@
 
 
 
-CTargetObj::CTargetObj()
+CTargetObj::CTargetObj() :
+CSubstance()
 {
 }
 
@@ -15,27 +16,11 @@ CTargetObj::~CTargetObj()
 void CTargetObj::Initialize(void)
 {
 	m_bReverse = true;
-	m_bShow = true;
 }
 
 void CTargetObj::Update(void)
 {
-	/*if (m_bSkill)
-	{
-		m_Anim.Update();
-		if (m_Motion.IsEndMotion())
-		{
-			if (m_Motion.GetMotionNo() == 0)
-			{
-				m_Motion.ChangeMotion(1);
-			}
-			else
-			{
-				m_Motion.ChangeMotion(0);
-			}
-			m_bSkill = false;
-		}
-	}*/
+
 }
 
 bool CTargetObj::OverValue(CRectangle rec, Vector2 & out)
