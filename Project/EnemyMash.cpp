@@ -5,19 +5,12 @@
 CEnemyMash::CEnemyMash() :
 CEnemy()
 {
-	m_Spd = Vector2(2.0f, 0);
+	m_Spd = Vector2(-2.0f, 0);
 }
 
 
 CEnemyMash::~CEnemyMash()
 {
-}
-
-void CEnemyMash::Update(void)
-{
-	Move();
-	m_Pos += m_Move;
-	Animation();
 }
 
 void CEnemyMash::Move(void)

@@ -6,6 +6,7 @@ CEnemy::CEnemy(void) :
 CSubstance()
 {
 	m_SubType = SUB_ENE;
+	m_bReverse = true;
 }
 
 
@@ -24,10 +25,11 @@ void CEnemy::Initialize(void)
 
 void CEnemy::Update(void)
 {
-	//m_MvCntrl.Update();
-	//m_Anim.Update();
-	
+	Move();
+
 	m_Pos += m_Move;
+
+	Animation();
 
 	if (IsStageOver())
 	{
@@ -47,6 +49,15 @@ void CEnemy::Update(void)
 	{
 		m_DamageWait--;
 	}
+}
+
+void CEnemy::Move(void)
+{
+}
+
+void CEnemy::Animation(void)
+{
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 }
 
 bool CEnemy::OverValue(CRectangle rec, Vector2 & out)

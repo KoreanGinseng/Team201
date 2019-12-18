@@ -61,7 +61,7 @@ constexpr	char*	AnimName[] = {
 
 constexpr	char*	FileName[] = {
 	//TEXTURE
-	"ugople2.png",
+	"player.png",
 	"ene_Mash2.png",
 	"ene_MashPoison.png",
 	"ene_Bat.png",

@@ -6,8 +6,7 @@ class CEnemyMash :
 public:
 	CEnemyMash();
 	~CEnemyMash();
-	void Update(void) override;
-	void Move(void);
-	void Animation(void);
+	void Move(void) override;
+	void Animation(void) override;
 };
 
