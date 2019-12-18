@@ -4,8 +4,9 @@
 #include "Shot.h"
 
 class CEnemy : public CSubstance {
-private:
+protected:
 	int m_EnemyType;
+	bool m_bGravity;
 public:
 	CEnemy(void);
 	virtual ~CEnemy(void);

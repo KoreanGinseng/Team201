@@ -12,7 +12,7 @@ m_bMove(false),
 m_bDead(false),
 m_bReverse(false),
 m_DamageWait(0),
-m_bCollision(false)
+m_bCollision(true)
 {
 }
 
@@ -33,7 +33,9 @@ void CCharacter::Render(const Vector2& screenPos)
 	m_pTexture->Render(screenPos.x, screenPos.y, r);
 
 #ifdef _DEBUG
-	CGraphicsUtilities::RenderRect(screenPos.x,screenPos.y,screenPos.x + GetSrcRect().GetWidth(), screenPos.y + GetSrcRect().GetHeight(), MOF_COLOR_RED);
+	Vector2 scroll = CCamera2D::GetSScroll();
+	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
 	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
 	{
 		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,

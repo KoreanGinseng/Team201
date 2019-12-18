@@ -2,8 +2,10 @@
 
 
 
-CEnemyOct::CEnemyOct()
+CEnemyOct::CEnemyOct() :
+CEnemy()
 {
+	m_EnemyType = ENEMY_OCT;
 }
 
 

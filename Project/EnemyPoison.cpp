@@ -2,8 +2,10 @@
 
 
 
-CEnemyPoison::CEnemyPoison()
+CEnemyPoison::CEnemyPoison() :
+CEnemy()
 {
+	m_EnemyType = ENEMY_POISUNMASH;
 }
 
 

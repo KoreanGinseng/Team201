@@ -3,10 +3,13 @@
 
 
 CEnemy::CEnemy(void) :
-CSubstance()
+CSubstance(),
+m_bGravity(true)
 {
 	m_SubType = SUB_ENE;
+	m_SubStatus = SUBSTATUS_NOMAL;
 	m_bReverse = true;
+	m_Spd.y = GRAVITY;
 }
 
 
@@ -21,11 +24,24 @@ void CEnemy::Initialize(void)
 	{
 		m_bCollision = false;
 	}
+	if (m_EnemyType == ENEMY_BAT || m_EnemyType == ENEMY_HAND || m_EnemyType == ENEMY_FLOATING)
+	{
+		m_bGravity = false;
+	}
 }
 
 void CEnemy::Update(void)
 {
 	Move();
+
+	if (m_bGravity)
+	{
+		m_Move.y += m_Spd.y;
+		if (m_Move.y > GRAVITYMAX)
+		{
+			m_Move.y += GRAVITYMAX;
+		}
+	}
 
 	m_Pos += m_Move;
 

@@ -4,6 +4,7 @@ void CSubstance::Stop(void)
 {
 	if (m_SubType == SUB_ENE)
 	{
+		m_SubStatus = SUBSTATUS_STOP;
 		g_pSoundManager->GetResource("")->Play();
 	}
 	else

@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Camera2D.h"
 
 class CCharacter :
 	public CObject

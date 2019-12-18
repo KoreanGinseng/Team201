@@ -6,5 +6,6 @@ class CEnemyHand :
 public:
 	CEnemyHand();
 	~CEnemyHand();
+	void Move(void) override;
 };
 

@@ -2,8 +2,10 @@
 
 
 
-CEnemyFloat::CEnemyFloat()
+CEnemyFloat::CEnemyFloat() :
+CEnemy()
 {
+	m_EnemyType = ENEMY_FLOATING;
 }
 
 

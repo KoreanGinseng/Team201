@@ -2,8 +2,10 @@
 
 
 
-CEnemyBat::CEnemyBat()
+CEnemyBat::CEnemyBat() :
+CEnemy()
 {
+	m_EnemyType = ENEMY_BAT;
 }
 
 
