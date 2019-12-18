@@ -8,6 +8,83 @@
 //INCLUDE
 #include "Player.h"
 
+class InputController {
+private:
+	struct KeyConfig {
+		MofU8	moveLeft;
+		MofU8	moveRight;
+		MofU8	jump;
+		MofU8	clime;
+		MofU8	fall;
+		MofU8	selectNext;
+		MofU8	selectBack;
+		MofU8	skillStance;
+		MofU8	skillStancePull;
+		MofU8	skillBack;
+		MofU8	skillStop;
+		MofU8	skillSkip;
+	}keyboard,gamepad;
+	struct KeyState {
+		bool	moveLeft;
+		bool	moveRight;
+		bool	jump;
+		bool	clime;
+		bool	fall;
+		bool	selectNext;
+		bool	selectBack;
+		bool	skillStance;
+		bool	skillStancePull;
+		bool	skillBack;
+		bool	skillStop;
+		bool	skillSkip;
+	}now,prev;
+	bool bKeyboard = true;
+
+	void RefreshKeyboard()
+	{
+		now.moveRight = g_pInput->IsKeyHold(MOFKEY_RIGHT);
+		now.moveLeft = g_pInput->IsKeyHold(keyboard.moveLeft);
+		now.jump = g_pInput->IsKeyHold(MOFKEY_UP);
+		now.clime = g_pInput->IsKeyHold(MOFKEY_UP);
+		now.fall = g_pInput->IsKeyHold(MOFKEY_DOWN);
+	}
+public:
+	void Initialize() {
+		keyboard.moveLeft = MOFKEY_LEFT;
+	}
+	void Refresh() {
+		memcpy(&prev, &now, sizeof(now));
+		for (int i = 0; i < 255; i++)
+		{
+			if (g_pInput->IsKeyPush(i))
+			{
+				bKeyboard = true;
+			}
+		}
+		/*for ()
+		{
+			bKeyboard = false;
+		}
+		*/
+		if (bKeyboard)
+		{
+			RefreshKeyboard();
+		}
+		else
+		{
+		}
+	}
+
+	bool IsPushRight() {
+		return now.moveRight && !prev.moveRight;
+	}
+	bool IsHoldRight() {
+		return now.moveRight;
+	}
+	bool IsPullRight() {
+		return !now.moveRight && prev.moveRight;
+	}
+};
 //コンストラクタ
 CPlayer::CPlayer(void) :
 CCharacter(),
@@ -109,6 +186,17 @@ void CPlayer::Render(const Vector2& screenPos)
 		dr.Left = tmp;
 	}
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
+#ifdef _DEBUG
+	Vector2 scroll = CCamera2D::GetSScroll();
+	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	{
+		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
+			screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+	}
+#endif // _DEBUG
 }
 
 //解放
@@ -241,7 +329,7 @@ CRectangle CPlayer::GetRect(void)
 	CRectangle r = CCharacter::GetRect();
 	r.Expansion(-PLAYER_RECTDIS, 0);
 	r.Top += 20;
-	r.Bottom -= 10;
+	r.Bottom -= 30;
 	return r;
 }
 
