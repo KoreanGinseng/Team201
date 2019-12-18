@@ -130,6 +130,10 @@ constexpr	char*	FileName[] = {
 	"RectSavePoint.txt",
 	"RectNextPoint.txt",
 	"RectCameraPoint.txt",
+	//EFFECT
+	"bomc.png",
+	//EFFECTANIM
+	"Effect_Explosion.bin",
 };
 
 //ENUM
@@ -257,8 +261,32 @@ enum tag_RECTDATA {
 	RECT_OBJ_1 = SOUND_COUNT,
 	RECT_OBJ_2,
 	RECT_OBJ_3,
+
+	RECT_OBJ_COUNT,
 };
 
+/*エフェクトの種類*/
+enum tag_EFFECTDATA {
+	EFFECT_TEST = RECT_OBJ_COUNT,
+
+	EFFECT_COUNT,
+};
+
+/*エフェクトの種類*/
+enum tag_EFFECTANIMDATA {
+	EFFECTANIM_TEST = EFFECT_COUNT,
+
+	EFFECTANIM_COUNT,
+};
+
+/*エフェクトの種類*/
+enum tag_EFFECTTYPE {
+
+	EFC_TEST,
+
+	EFC_TYPECOUNT,
+
+};
 
 /*****************************************************************
  * @enum tag_ENEMY
@@ -292,20 +320,6 @@ enum tag_RENDERTYPE
 {
 	RENDER_BACKBACK,
 	RENDER_BACKSTAGE,
-};
-
-enum tag_MOVE
-{
-	MOVE_PLAYER,
-	MOVE_ENE_KINOKO,
-	MOVE_ENE_DOKU,
-	MOVE_ENE_BAT,
-	MOVE_ENE_OCT,
-	MOVE_ENE_HAND,
-	MOVE_ENE_FLOAT,
-	MOVE_BC_01,
-	MOVE_BC_02,
-	MOVE_BC_03,
 };
 
 enum tag_SUBTYPE {

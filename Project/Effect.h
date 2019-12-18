@@ -1,18 +1,12 @@
 #pragma once
 
 #include		"Mof.h"
-
-/*エフェクトの種類*/
-enum tag_EFFECTTYPE {
-
-	EFC_TEST,EFC_TYPECOUNT
-
-};
+#include		"GameDefine.h"
 
 class CEffect {
 
 private:
-	CTexture*					m_pTexture;
+	CTexturePtr					m_pTexture;
 	CSpriteMotionController		m_Motion;
 	CRectangle					m_SrcRect;
 	Vector2						m_Pos;

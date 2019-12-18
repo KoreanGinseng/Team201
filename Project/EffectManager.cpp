@@ -1,7 +1,5 @@
 #include		"EffectManager.h"
 
-CEffectManager* CEffectManager::m_pInstance = nullptr;
-
 bool CEffectManager::Load() {
 
 	//テクスチャの読み込み

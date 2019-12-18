@@ -48,6 +48,22 @@ void CLoading::Load(void)
 		g_pSoundManager->GetResource(FileName[i]);
 		m_Count++;
 	}
+	m_Message = "エフェクトデータ読み込み中";
+	m_CountMax = EFFECT_COUNT - SOUND_COUNT;
+	m_Count = 0;
+	for (int i = EFFECT_TEST; i < EFFECT_COUNT; i++)
+	{
+		g_pTextureManager->GetResource(FileName[i]);
+		m_Count++;
+	}
+	m_Message = "エフェクトデータ読み込み中";
+	m_CountMax = EFFECTANIM_COUNT - EFFECT_COUNT;
+	m_Count = 0;
+	for (int i = EFFECTANIM_TEST; i < EFFECTANIM_COUNT; i++)
+	{
+		g_pAnimManager->GetResource(FileName[i]);
+		m_Count++;
+	}
 
 	m_Message = "シーンの読み込み中";
 	m_CountMax = 1;

@@ -10,26 +10,20 @@ private:
 
 	CEffect		m_Effect[EFFECTCOUNT][EFC_TYPECOUNT];
 
-	CTexture	m_Texture[EFC_TYPECOUNT];
+	CTexturePtr	m_Texture[EFC_TYPECOUNT];
 
 	CEffectManager() = default;
 	~CEffectManager() = default;
-	static CEffectManager* m_pInstance;
-
 public:
-				
-				
 	bool		Load(void);
 	void		Initialize(void);
 	CEffect*	Start(float px, float py, int type);
 	void		Update(void);
 	void		Render(Vector2 scroll);
 	void		Release(void);
-	static CEffectManager* GetInstance() {
-		if (m_pInstance == nullptr) {
-			m_pInstance = NEW CEffectManager();
-		}
-		return m_pInstance;
+	static CEffectManager* GetInstance(void) {
+		static CEffectManager obj;
+		return &obj;
 	}
 };
 
