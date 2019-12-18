@@ -8,6 +8,7 @@
 
 //INCLUDE
 #include	"Mof.h"
+#include	"Camera2D.h"
 #include	"GameDefine.h"
 #include	"Character.h"
 #include	"Enemy.h"
