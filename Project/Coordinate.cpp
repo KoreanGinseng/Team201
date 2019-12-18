@@ -1,6 +1,7 @@
 #include	"Coordinate.h"
 
 CRectangle CCordinate::m_StageRect = CRectangle();
+Vector2* CCordinate::m_pPlayerPos = nullptr;
 
 Vector2 WorldTransration(Vector2 cp, Vector2 sp) {
 	return Vector2(sp.x + cp.x, sp.y + cp.y);

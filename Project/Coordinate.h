@@ -12,7 +12,10 @@ void String(int sx, int sy, int fontsize, const int& time);
 class CCordinate {
 private:
 	static CRectangle m_StageRect;
+	static Vector2*	  m_pPlayerPos;
 public:
+	static void SetPlayerPos(Vector2* pPos) { m_pPlayerPos = pPos; }
+	static Vector2 GetPlayerPos(void) { return *m_pPlayerPos; }
 	static void SetStageRect(const CRectangle& rec) { m_StageRect = rec; }
 	static CRectangle GetStageRect(void) { return m_StageRect; }
 };

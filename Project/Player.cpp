@@ -21,6 +21,7 @@ m_Target(0),
 m_Skillrang(0),
 m_SkillCircle()
 {
+	CCordinate::SetPlayerPos(&m_Pos);
 }
 
 //デストラクタ
@@ -37,6 +38,7 @@ void CPlayer::Initialize(void)
 	SpriteAnimationCreate* pAnim;
 	pAnim = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim();
 	m_Motion.Create(pAnim, ANIM_COUNT);
+	m_SrcRectArray.Add(GetSrcRect());
 	m_bDead = false;
 	m_bReverse = false;
 	//座標の初期化

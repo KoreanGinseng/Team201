@@ -89,11 +89,12 @@ void CGame::Initialize()
 	//遷移先の初期化
 	m_NextSceneNo = SCENENO_GAME;
 
+	//プレイヤーの初期化
+	m_Player.Initialize();
+
 	//ステージの初期化
 	m_Stage[m_StageNo].Initialize(&m_pEnemyArray, &m_pItemArray, &m_pTargetObjArray, &m_pMapObjArray, &m_pBackChipArray);
 
-	//プレイヤーの初期化
-	m_Player.Initialize();
 	//ゲーム開始時間リセット
 	g_pTimeManager->Reset();
 }
