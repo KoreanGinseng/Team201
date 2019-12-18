@@ -3,8 +3,6 @@
 class CEnemyBat : public CEnemy
 {
 private:
-	float	m_TurnPosLeft;
-	float	m_TurnPosRight;
 	bool	m_bFind;
 	float	m_Measure;
 public:
