@@ -20,4 +20,5 @@ public:
 	int	 GetEnemyType(void) const { return m_EnemyType; }
 	bool Dmg(const CRectangle& pre, const int& preWait);
 	bool KnockBack(const CRectangle& pre, const int& preWait);
+	virtual CRectangle GetSrcAddRect(void);
 };

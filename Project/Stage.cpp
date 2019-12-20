@@ -276,7 +276,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pEnemyArray)[n]->CreateMotion(FileName[ANIMATION_ENEMY_1 + on]);
 			(*pEnemyArray)[n]->SetTexture(m_pEnemyTexture[on]);
-			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add(CRectangle(0,0,(*pEnemyArray)[n]->GetSrcRect().GetWidth(), (*pEnemyArray)[n]->GetSrcRect().GetHeight()));
+			(*pEnemyArray)[n]->GetSrcRectArrayPointer()->Add((*pEnemyArray)[n]->GetSrcAddRect());
 			(*pEnemyArray)[n++]->Initialize();
 		}
 	}
@@ -360,11 +360,11 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 
 
 //更新
-void CStage::Update() {
+void CStage::Update(void) {
 
 }
 
-void CStage::RenderBack(Vector2 scroll)
+void CStage::RenderBack(const Vector2& scroll)
 {
 	//遠景の描画
 	int scw = g_pGraphics->GetTargetWidth();
@@ -378,7 +378,7 @@ void CStage::RenderBack(Vector2 scroll)
 	}
 }
 
-void CStage::RenderChip(Vector2 scroll)
+void CStage::RenderChip(const Vector2& scroll)
 {
 	//テクスチャの横幅からマップチップの縦オフセットを求める
 	int tcx = m_pChipTexture->GetWidth() / m_ChipSize;
@@ -402,20 +402,8 @@ void CStage::RenderChip(Vector2 scroll)
 	}
 }
 
-//描画
-void CStage::Render(Vector2 scroll) {
-	
-	g_pSoundManager->GetResource("Jump.wav")->Play();
-	
-}
-
-//デバッグ描画
-void CStage::RenderDebug(Vector2 scroll) {
-
-}
-
 //解放
-void CStage::Release() {
+void CStage::Release(void) {
 	if (m_pChipData != nullptr) {
 		free(m_pChipData);
 		m_pChipData = nullptr;

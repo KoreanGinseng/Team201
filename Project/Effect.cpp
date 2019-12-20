@@ -15,32 +15,11 @@ void CEffect::Initialize(int type) {
 	m_Pos = Vector2(0, 0);
 	//表示フラグの初期化
 	m_bShow = false;
-
 	//タイプによってアニメーションに入れる
-	switch (type)
-	{
-	
-	case EFC_TEST:
-	{
-		SpriteAnimationCreate anim[] = {
-
-			{
-
-			"テストエフェクト",
-			0,0,
-			120,120,
-			FALSE,{{3,0,0},{3,1,0},{3,2,0},{3,3,0},{3,4,0}}
-
-			},
-		};
-
-		m_Motion.Create(anim, 1);
-		break;
-	}
-
-	}
-
-
+	SpriteAnimationCreate* anim;
+	anim = g_pAnimManager->GetResource(FileName[type])->GetAnim();
+	int c = g_pAnimManager->GetResource(FileName[type])->GetAnimCount();
+	m_Motion.Create(anim, c);
 }
 
 void CEffect::Start(float px, float py) {
@@ -71,7 +50,7 @@ void CEffect::Update() {
 
 }
 
-void CEffect::Render(Vector2 screenPos) {
+void CEffect::Render(const Vector2& screenPos) {
 	//非表示の場合描画しない
 	if (!m_bShow)
 	{

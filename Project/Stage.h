@@ -77,10 +77,8 @@ public:
 	bool Load(const char* pName);
 	void Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>*	pItemArray, CDynamicArray<CTargetObj*>*	pTargetObjArray, CDynamicArray<CMapObj*>* pMapObjArray, CDynamicArray<CBackChip*>* pBackChipArray);
 	void Update(void);
-	void RenderBack(Vector2 scroll);
-	void RenderChip(Vector2 scroll);
-	void Render(Vector2 scroll);
-	void RenderDebug(Vector2 scroll);
+	void RenderBack(const Vector2& scroll);
+	void RenderChip(const Vector2& scroll);
 	void Release(void);
 
 	//Collision

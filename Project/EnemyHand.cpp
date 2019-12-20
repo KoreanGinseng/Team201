@@ -11,7 +11,7 @@ CEnemy()
 	m_bFind = false;
 	m_bGhost = false;
 	m_bReverse = false;
-	m_Spd = Vector2(5, 5);
+	m_Spd = Vector2(3, 3);
 }
 
 

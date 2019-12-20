@@ -23,6 +23,6 @@ public:
 	void	Start(float px, float py);
 
 	bool	GetShow(void) { return m_bShow; }
-	void	SetTexture(CTexture* pt) { m_pTexture = pt; }
+	void	SetTexture(CTexturePtr pt) { m_pTexture = pt; }
 
 };

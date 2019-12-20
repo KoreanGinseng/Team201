@@ -208,3 +208,8 @@ bool CEnemy::KnockBack(const CRectangle & pre, const int& preWait)
 	}
 	return true;
 }
+
+CRectangle CEnemy::GetSrcAddRect(void)
+{
+	return CRectangle(0, 0, GetSrcRect().GetWidth(), GetSrcRect().GetHeight());
+}
