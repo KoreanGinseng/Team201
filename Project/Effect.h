@@ -18,7 +18,7 @@ public:
 			~CEffect();
 	void	Initialize(int type);
 	void	Update(void);
-	void	Render(Vector2 screenPos);
+	void	Render(const Vector2& screenPos);
 	void	Release(void);
 	void	Start(float px, float py);
 

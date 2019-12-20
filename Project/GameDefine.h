@@ -71,6 +71,7 @@ constexpr	char*	FileName[] = {
 	"ene_Boss1.png",
 	"enemy08.png",
 	"enemy09.png",
+
 	"Item01.png",
 	"Item02.png",
 	"Item03.png",
@@ -81,6 +82,7 @@ constexpr	char*	FileName[] = {
 	"Item08.png",
 	"obj_rope03.png",
 	"Obj_Tree01.png",
+
 	"obj_bridge03.png",
 	"Obj04.png",
 	"Obj05.png",
@@ -90,8 +92,10 @@ constexpr	char*	FileName[] = {
 	"bg.png",
 	"bgChip01.png",
 	"bgChip02.png",
-	"MapChip02.png",
+	"MapChip6.png",
 	"sumple_imvisible.png",
+	"bomc.png",
+
 	//ANIMATION
 	"PlayerAnim001.bin",
 	"AnimEneMash.bin",
@@ -119,6 +123,8 @@ constexpr	char*	FileName[] = {
 	"ObjAnim06.bin",
 	"ObjAnim07.bin",
 	"ObjAnim08.bin",
+	"Effect_Explosion.bin",
+
 	//SOUND
 	"TestJump.mp3",
 	"TestStageBGM.mp3",
@@ -130,10 +136,6 @@ constexpr	char*	FileName[] = {
 	"RectSavePoint.txt",
 	"RectNextPoint.txt",
 	"RectCameraPoint.txt",
-	//EFFECT
-	"bomc.png",
-	//EFFECTANIM
-	"Effect_Explosion.bin",
 };
 
 //ENUM

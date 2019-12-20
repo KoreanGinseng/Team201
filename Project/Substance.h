@@ -10,12 +10,10 @@ protected:
 	int						m_SubStatus;
 	bool					m_bSelectTarget;
 	bool					m_bTarget;
+	bool					m_bAnimStop;
+	int						m_WaitCount;
 public:
-	CSubstance() : CCharacter() {
-		m_SubType = -1;
-		m_SubStatus = SUBSTATUS_NOMAL;
-		m_bTarget = false, m_bSelectTarget = true;
-	}
+	CSubstance(void);
 	virtual ~CSubstance() {}
 	void	SetTarget(const bool& target) { m_bTarget = target; }
 	void	Stop(void);

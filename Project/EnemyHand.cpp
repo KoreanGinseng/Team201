@@ -12,6 +12,7 @@ CEnemy()
 	m_bGhost = false;
 	m_bReverse = false;
 	m_Spd = Vector2(3, 3);
+	m_DamageWait = 100;
 }
 
 
@@ -23,6 +24,7 @@ void CEnemyHand::Move(void)
 {
 	if (CCordinate::GetPlayerPos().x > m_Pos.x && !m_bFind)
 	{
+		m_DamageWait = 0;
 		m_bFind = true;
 		m_bGhost = true;
 	}

@@ -11,10 +11,10 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
+			"TEISHUTSUYOU.txt",
 			"ENEMOVESTAGE2.txt",
 			"Stage1-a.txt",
 			"ENEMOVESTAGE.txt",
-			"Stage1-1.txt",
 };
 
 CTexture tex;
@@ -456,7 +456,7 @@ void CGame::Collosion(void)
 		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
 		{
 			//ぶつかったオブジェクトがロープの場合
-			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE)
+			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE && m_pTargetObjArray[i]->GetStatus() == SUBSTATUS_NOMAL)
 			{
 				//登れるようにする
 				m_Player.SetClime(true);

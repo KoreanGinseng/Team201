@@ -11,8 +11,8 @@ public:
 	~CTargetObj();
 	void Initialize(void) override;
 	void Update(void) override;
-	void SetType(const int& n) { m_Type = n; }
-	void SetStatus(const int& n) { m_Status = n; m_Motion.ChangeMotion(m_Status); }
+	void SetType(const int& n);
+	void SetStatus(const int& n);
 	int  GetObjType(void) const { return m_Type; }
 	bool OverValue(CRectangle rec, Vector2 & out) override;
 private:

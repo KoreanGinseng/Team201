@@ -17,8 +17,8 @@ void CEffect::Initialize(int type) {
 	m_bShow = false;
 	//タイプによってアニメーションに入れる
 	SpriteAnimationCreate* anim;
-	anim = g_pAnimManager->GetResource(FileName[type])->GetAnim();
-	int c = g_pAnimManager->GetResource(FileName[type])->GetAnimCount();
+	anim = g_pAnimManager->GetResource(FileName[ANIMATION_EFFECT_EXPROSION + type])->GetAnim();
+	int c = g_pAnimManager->GetResource(FileName[ANIMATION_EFFECT_EXPROSION + type])->GetAnimCount();
 	m_Motion.Create(anim, c);
 }
 
@@ -32,7 +32,7 @@ void CEffect::Start(float px, float py) {
 	m_Motion.ChangeMotion(0);
 }
 
-void CEffect::Update() {
+void CEffect::Update(void) {
 	//非表示の場合処理をしない
 	if (!m_bShow)
 	{
@@ -62,7 +62,7 @@ void CEffect::Render(const Vector2& screenPos) {
 
 }
 
-void CEffect::Release() {
+void CEffect::Release(void) {
 	//エフェクトモーションの解放
 	m_Motion.Release();
 }

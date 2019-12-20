@@ -24,7 +24,10 @@ void CEnemy::Initialize(void)
 
 void CEnemy::Update(void)
 {
-	Move();
+	if (!m_bAnimStop)
+	{
+		Move();
+	}
 
 	if (m_bGravity)
 	{
@@ -37,7 +40,21 @@ void CEnemy::Update(void)
 
 	m_Pos += m_Move;
 
-	Animation();
+	if (!m_bAnimStop)
+	{
+		Animation();
+	}
+
+	if (m_bAnimStop)
+	{
+		m_WaitCount--;
+		if (m_WaitCount < 0)
+		{
+			m_WaitCount = 0;
+			m_bAnimStop = false;
+			m_SubStatus = SUBSTATUS_NOMAL;
+		}
+	}
 
 	if (IsStageOver())
 	{

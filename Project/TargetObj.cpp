@@ -16,11 +16,33 @@ CTargetObj::~CTargetObj()
 void CTargetObj::Initialize(void)
 {
 	m_bReverse = true;
+	if (m_Type == OBJECT_ROPE)
+	{
+		m_Pos.y += 32;
+	}
 }
 
 void CTargetObj::Update(void)
 {
 
+}
+
+void CTargetObj::SetType(const int & n)
+{
+	m_Type = n;
+}
+
+void CTargetObj::SetStatus(const int & n)
+{
+	if (n == 1)
+	{
+		m_SubStatus = 0;
+	}
+	else
+	{
+		m_SubStatus = 1;
+	}
+	m_Motion.ChangeMotion(m_SubStatus);
 }
 
 bool CTargetObj::OverValue(CRectangle rec, Vector2 & out)

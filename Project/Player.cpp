@@ -83,15 +83,6 @@ void CPlayer::Update(void)
 	{
 		m_bDead = true;
 	}
-
-	if (!m_bClime)
-	{
-		m_Move.y += GRAVITY;
-	}
-	if (m_Move.y > 20.0f)
-	{
-		m_Move.y = 20.0f;
-	}
 }
 
 //描画
@@ -141,7 +132,7 @@ void CPlayer::Move(void)
 	m_KeyConfig.clime       = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)     : (g_pGamePad->GetStickVertical() > 0.8f);
 	m_KeyConfig.fall        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN)   : (g_pGamePad->GetStickVertical() < -0.8f);
 
-	if (m_KeyConfig.skillStance)
+	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime)
 	{
 		return;
 	}
@@ -195,10 +186,32 @@ void CPlayer::Move(void)
 	}
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (m_KeyConfig.jump && !m_bJump)
+	if (m_KeyConfig.jump && !m_bJump && !m_bClime)
 	{
 		m_bJump = true;
 		m_Move.y = PLAYER_JUMPPOW;
+	}
+	else if (m_KeyConfig.clime && m_bClime)
+	{
+		m_Move.y = -3.0f;
+	}
+	else if (m_KeyConfig.fall && m_bClime)
+	{
+		m_Move.y = 3.0f;
+	}
+	else if (m_bClime)
+	{
+		m_Move.y = 0;
+	}
+
+	if (m_bClime)
+	{
+		m_Move.y -= GRAVITY;
+	}
+	m_Move.y += GRAVITY;
+	if (m_Move.y > 20.0f)
+	{
+		m_Move.y = 20.0f;
 	}
 }
 
@@ -269,7 +282,7 @@ void CPlayer::Skill(void)
 	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
 	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
 	//LTボタンを押した場合、スキルが発動
-	if (m_KeyConfig.skillStance)
+	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime)
 	{
 		m_bTrigger = true;
 		if (!m_SkillTarget.empty())
