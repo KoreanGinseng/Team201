@@ -6,5 +6,6 @@ class CSavePosint :
 public:
 	CSavePosint();
 	virtual ~CSavePosint();
+	virtual void Update(void) override;
 };
 
