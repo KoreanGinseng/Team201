@@ -44,21 +44,6 @@ using RectArray = CDynamicArray<CRectangle>;
 constexpr	char			picture[] = "picture";
 constexpr	char			anim[] = "anim";
 
-constexpr	char*	AnimName[] = {
-	//基本
-	"待機",
-	"移動",
-	"ジャンプ",
-	"攻撃",
-	"攻撃2",
-	"攻撃3",
-	"攻撃4",
-	//オブジェクト
-	"壊れている",
-	"治っている",
-	"消える",
-};
-
 constexpr	char*	FileName[] = {
 	//TEXTURE
 	"player.png",
