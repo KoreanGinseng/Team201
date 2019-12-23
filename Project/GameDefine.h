@@ -35,7 +35,6 @@ using RectArray = CDynamicArray<CRectangle>;
 #define		PLAYER_SPEED			0.3f
 #define		PLAYER_MAXSKILLRANGE	512.0f
 #define		PLAYER_JUMPPOW			-10.0f
-#define		PLAYER_HIGHJUMPPOW		-15.0f
 
 #define		g_pAnimManager		CResourceManager<CAnimationData>::GetInstance()
 #define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()

@@ -309,20 +309,20 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			{
 				continue;
 			}
-			//(*pTargetObjArray)[n]->SetType(on);
-			(*pTargetObjArray).GetData(n)->SetType(on);
+			delete (*pTargetObjArray)[n];
+			switch (on)
+			{
+			case OBJECT_ROPE:		(*pTargetObjArray)[n] = NEW CRope();	break;
+			case OBJECT_BRIDGE:		(*pTargetObjArray)[n] = NEW CBridge();  break;
+			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();	break;
+			default: break;
+			}
 			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
 			(*pTargetObjArray).GetData(n)->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray).GetData(n)->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray).GetData(n)->SetStatus(m_pObjEndData[y * m_XCount + x]);
 			(*pTargetObjArray).GetData(n)->LoadRect(FileName[RECT_OBJ_1 + on]);
 			(*pTargetObjArray).GetData(n++)->Initialize();
-			//(*pTargetObjArray)[n]->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
-			//(*pTargetObjArray)[n]->SetTexture(m_pObjectTexture[on]);
-			//(*pTargetObjArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
-			//(*pTargetObjArray)[n]->SetStatus(m_pObjEndData[y * m_XCount + x]);
-			//(*pTargetObjArray)[n]->LoadRect(FileName[RECT_OBJ_1 + on]);
-			//(*pTargetObjArray)[n++]->Initialize();
 		}
 	}
 	n = 0;

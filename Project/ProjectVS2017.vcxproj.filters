@@ -146,6 +146,15 @@
     <ClCompile Include="SubStance.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Bridge.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree01.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">
@@ -276,5 +285,8 @@
     <ClInclude Include="EnemyPoison.h">
       <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Rope.h" />
+    <ClInclude Include="Bridge.h" />
+    <ClInclude Include="Tree01.h" />
   </ItemGroup>
 </Project>

@@ -24,6 +24,9 @@
 #include	"TargetObj.h"
 #include	"MapObj.h"
 #include	"BackChip.h"
+#include	"Tree01.h"
+#include	"Bridge.h"
+#include	"Rope.h"
 
 #define		RIGHTSLOPE		30
 #define		RIGHTSLOPE2		43

@@ -3,21 +3,17 @@
 class CTargetObj :
 	public CSubstance
 {
-private:
+protected:
 	int		m_Type;
 	int		m_Status;
 public:
 	CTargetObj();
 	~CTargetObj();
-	void Initialize(void) override;
-	void Update(void) override;
-	void SetType(const int& n);
+	virtual void Initialize(void) override;
+	virtual void Update(void) override;
+	//void SetType(const int& n);
 	void SetStatus(const int& n);
 	int  GetObjType(void) const { return m_Type; }
-	bool OverValue(CRectangle rec, Vector2 & out) override;
-private:
-	bool CollisionRope(CRectangle rec);
-	bool CollisionTree(CRectangle rec, Vector2 & out);
-	bool CollisionBridge(CRectangle rec, Vector2 & out);
+	virtual bool OverValue(CRectangle rec, Vector2 & out) override;
 };
 

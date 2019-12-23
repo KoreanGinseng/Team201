@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationData.cpp" />
     <ClCompile Include="BackChip.cpp" />
+    <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shot.cpp" />
@@ -134,6 +136,7 @@
     <ClCompile Include="TargetObj.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Tree01.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="BackChip.h" />
+    <ClInclude Include="Bridge.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
@@ -171,6 +175,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Score.h" />
@@ -180,6 +185,7 @@
     <ClInclude Include="TargetObj.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="Tree01.h" />
     <ClInclude Include="VirtualKeyBoard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
