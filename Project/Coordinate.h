@@ -13,7 +13,10 @@ class CCordinate {
 private:
 	static CRectangle m_StageRect;
 	static Vector2*	  m_pPlayerPos;
+	static Vector2	  m_SavePos;
 public:
+	static Vector2 GetSavePoint(void) { return m_SavePos; }
+	static Vector2 SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
 	static void SetPlayerPos(Vector2* pPos) { m_pPlayerPos = pPos; }
 	static Vector2 GetPlayerPos(void) { return *m_pPlayerPos; }
 	static void SetStageRect(const CRectangle& rec) { m_StageRect = rec; }
