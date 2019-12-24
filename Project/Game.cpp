@@ -138,11 +138,6 @@ void CGame::Update()
 	//“G‚ÌXV
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
-		if (!m_pEnemyArray[i]->IsShow() || m_pEnemyArray[i]->IsDead())
-		{
-			continue;
-		}
-		//m_pEnemyArray[i]->Update(m_Player.GetPos());
 		m_pEnemyArray[i]->Update();
 	}
 	

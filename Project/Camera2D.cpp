@@ -4,6 +4,7 @@ Vector2 CCamera2D::m_sPos = Vector2();
 
 CCamera2D::CCamera2D() :
 	m_Pos(Vector2(0,0)) {
+	CCordinate::SetMainCameraPos(&m_Pos);
 }
 
 void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const CRectangle& srec)

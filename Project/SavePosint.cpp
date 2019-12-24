@@ -2,7 +2,8 @@
 
 
 
-CSavePosint::CSavePosint()
+CSavePosint::CSavePosint(void) :
+CTargetObj()
 {
 }
 

@@ -10,6 +10,7 @@ m_bGravity(true)
 	m_SubStatus = SUBSTATUS_NOMAL;
 	m_bReverse = true;
 	m_Spd.y = GRAVITY;
+	m_bShow = false;
 }
 
 
@@ -24,6 +25,18 @@ void CEnemy::Initialize(void)
 
 void CEnemy::Update(void)
 {
+	if (m_bDead)
+	{
+		return;
+	}
+	if (!m_bShow)
+	{
+		if (CCordinate::GetMainCameraRect().Right > m_Pos.x)
+		{
+			m_bShow = true;
+		}
+		return;
+	}
 	if (!m_bAnimStop)
 	{
 		Move();
