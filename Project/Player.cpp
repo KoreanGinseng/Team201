@@ -79,7 +79,22 @@ void CPlayer::Update(void)
 		m_DamageWait--;
 	}
 
-	if (m_HP <= 0 || IsStageOver())
+	if (GetRect().Left < CCordinate::GetStageRect().Left)
+	{
+		m_Pos.x = CCordinate::GetStageRect().Left;
+	}
+	else if (GetRect().Right > CCordinate::GetStageRect().Right)
+	{
+		m_Pos.x = CCordinate::GetStageRect().Right - GetRect().GetWidth();
+	}
+	if (GetRect().Top > CCordinate::GetStageRect().Bottom)
+	{
+		m_DamageWait = 60;
+		m_HP--;
+		m_Pos = CCordinate::GetSavePoint();
+	}
+
+	if (m_HP <= 0)
 	{
 		m_bDead = true;
 	}
@@ -409,7 +424,7 @@ void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTar
 
 	for (int i = 0; i < peneArray->GetArrayCount(); i++)
 	{
-		if (!(*peneArray)[i]->IsShow())
+		if (!(*peneArray)[i]->IsShow() || !(*peneArray)[i]->IsSelectTarget())
 		{
 			continue;
 		}
@@ -423,7 +438,7 @@ void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTar
 
 	for (int i = 0; i < pobjArray->GetArrayCount(); i++)
 	{
-		if (!(*pobjArray)[i]->IsShow())
+		if (!(*pobjArray)[i]->IsShow() || !(*pobjArray)[i]->IsSelectTarget())
 		{
 			continue;
 		}
@@ -437,7 +452,7 @@ void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTar
 
 	for (int i = 0; i < pItemArray->GetArrayCount(); i++)
 	{
-		if (!(*pItemArray)[i]->IsShow())
+		if (!(*pItemArray)[i]->IsShow() || !(*pItemArray)[i]->IsSelectTarget())
 		{
 			continue;
 		}

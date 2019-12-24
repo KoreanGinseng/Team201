@@ -1,4 +1,5 @@
 #include	"Camera2D.h"
+#include	"Coordinate.h"
 
 Vector2 CCamera2D::m_sPos = Vector2();
 

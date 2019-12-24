@@ -249,6 +249,9 @@ enum tag_RECTDATA {
 	RECT_OBJ_1 = SOUND_COUNT,
 	RECT_OBJ_2,
 	RECT_OBJ_3,
+	RECT_OBJ_4,
+	RECT_OBJ_5,
+	RECT_OBJ_6,
 
 	RECT_OBJ_COUNT,
 };
@@ -322,20 +325,16 @@ enum tag_SUBSTATUS
 	SUBSTATUS_STOP,
 };
 
+enum tag_CAMERADATA {
+	CAMERA_MOVE_BRIDGE,
+	CAMERA_MOVE_BOSS,
+};
+
+struct CameraCntrlData {
+	Vector2	targetPos;
+	int		second;
+};
 
 extern CXGamePad*			gpXGpad;
 
 #define		g_pGamePad		gpXGpad
-
-#include <crtdbg.h>
-#ifdef _DEBUG
-//íËã`ÇµÇƒÇ≠ÇÍÇƒÇΩÉeÉwÉyÉç
-//#define   NEW                   new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#define   malloc(s)             _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#define   calloc(c, s)          _calloc_dbg(c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#define   realloc(p, s)         _realloc_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#else
-//#define	  NEW					new
-#endif

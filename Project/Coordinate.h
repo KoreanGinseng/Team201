@@ -1,6 +1,7 @@
 #pragma once
 #include	"Mof.h"
 #include	"GameDefine.h"
+#include	"Camera2D.h"
 
 //関数のプロトタイプ宣言
 Vector2 WorldTransration(Vector2 cp, Vector2 sp);
@@ -17,7 +18,7 @@ private:
 	static Vector2	  m_SavePos;
 public:
 	static Vector2 GetSavePoint(void) { return m_SavePos; }
-	static Vector2 SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
+	static void SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
 	static void SetPlayerPos(Vector2* pPos) { m_pPlayerPos = pPos; }
 	static void SetMainCameraPos(Vector2* pPos) { m_pMainCameraPos = pPos; }
 	static Vector2 GetPlayerPos(void) { return *m_pPlayerPos; }

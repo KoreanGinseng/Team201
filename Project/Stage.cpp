@@ -312,9 +312,10 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			delete (*pTargetObjArray)[n];
 			switch (on)
 			{
-			case OBJECT_ROPE:		(*pTargetObjArray)[n] = NEW CRope();	break;
-			case OBJECT_BRIDGE:		(*pTargetObjArray)[n] = NEW CBridge();  break;
-			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();	break;
+			case OBJECT_ROPE:		(*pTargetObjArray)[n] = NEW CRope();		break;
+			case OBJECT_BRIDGE:		(*pTargetObjArray)[n] = NEW CBridge();		break;
+			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();		break;
+			case OBJECT_SAVEPOINT:	(*pTargetObjArray)[n] = NEW CSavePosint();	break;
 			default: break;
 			}
 			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);

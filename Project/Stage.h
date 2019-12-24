@@ -27,6 +27,7 @@
 #include	"Tree01.h"
 #include	"Bridge.h"
 #include	"Rope.h"
+#include	"SavePosint.h"
 
 #define		RIGHTSLOPE		30
 #define		RIGHTSLOPE2		43

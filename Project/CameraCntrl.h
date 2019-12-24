@@ -3,8 +3,13 @@
 class CCameraCntrl :
 	public CTargetObj
 {
+private:
+	CDynamicArray<CameraCntrlData> m_CntrlLists;
+	bool	m_bCntrl;
 public:
-	CCameraCntrl();
-	virtual ~CCameraCntrl();
+	CCameraCntrl(void);
+	virtual ~CCameraCntrl(void);
+	void Update(void) override;
+	bool IsCntrl(void) const { return m_bCntrl; }
 };
 
