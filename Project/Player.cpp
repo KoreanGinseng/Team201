@@ -83,10 +83,12 @@ void CPlayer::Update(void)
 	//
 	if (GetRect().Left < CCordinate::GetStageRect().Left)
 	{
+		m_Move.x = 0;
 		m_Pos.x = CCordinate::GetStageRect().Left - PLAYER_RECTDIS;
 	}
 	else if (GetRect().Right > CCordinate::GetStageRect().Right)
 	{
+		m_Move.x = 0;
 		m_Pos.x = CCordinate::GetStageRect().Right - GetRect().GetWidth() - PLAYER_RECTDIS;
 	}
 	if (GetRect().Top > CCordinate::GetStageRect().Bottom)
@@ -151,6 +153,37 @@ void CPlayer::Move(void)
 
 	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime)
 	{
+		//ˆÚ“®—Ê‚ª0‚È‚çˆ—‚É“ü‚ç‚È‚¢
+		//ˆÚ“®—Ê‚ª‘¶İ‚·‚éê‡A™X‚ÉˆÚ“®—Ê‚ğ0‚É‚·‚é
+		if (m_Move.x < 0)
+		{
+			m_Move.x += (PLAYER_SPEED - 0.1f);
+			if (m_Move.x > 0)
+			{
+				m_Move.x = 0;
+			}
+		}
+		else if (m_Move.x > 0)
+		{
+			m_Move.x -= (PLAYER_SPEED - 0.1f);
+			if (m_Move.x < 0)
+			{
+				m_Move.x = 0;
+			}
+		}
+		else
+		{
+			m_bMove = false;
+		}
+		if (m_bClime)
+		{
+			m_Move.y -= GRAVITY;
+		}
+		m_Move.y += GRAVITY;
+		if (m_Move.y > 20.0f)
+		{
+			m_Move.y = 20.0f;
+		}
 		return;
 	}
 
@@ -535,6 +568,7 @@ bool CPlayer::Dmg(CEnemy& ene)
 	{
 		return false;
 	}
+	m_KeyConfig.skillStance = false;
 	m_DamageWait = 60;
 	if (m_HP > 0)
 	{
