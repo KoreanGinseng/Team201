@@ -16,6 +16,8 @@ private:
 	static Vector2*	  m_pPlayerPos;
 	static Vector2*	  m_pMainCameraPos;
 	static Vector2	  m_SavePos;
+	static bool		  m_bCameraCntrl;
+	static bool		  m_bBoss;
 public:
 	static Vector2 GetSavePoint(void) { return m_SavePos; }
 	static void SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
@@ -30,7 +32,11 @@ public:
 		);
 	}
 	static void SetStageRect(const CRectangle& rec) { m_StageRect = rec; }
-	static CRectangle GetStageRect(void) { return m_StageRect; }
+	static CRectangle GetStageRect(void) { return m_bBoss ? GetMainCameraRect() : m_StageRect; }
+	static bool IsCameraCntrl(void) { return m_bCameraCntrl; }
+	static void SetCameraCntrl(const bool& b) { m_bCameraCntrl = b; }
+	static bool IsBoss(void) { return m_bBoss; }
+	static void SetBossFlag(const bool& b) { m_bBoss = b; }
 };
 
 #define NewPointerRelease(p)	\

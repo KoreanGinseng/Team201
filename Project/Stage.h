@@ -28,6 +28,7 @@
 #include	"Bridge.h"
 #include	"Rope.h"
 #include	"SavePosint.h"
+#include	"CameraCntrl.h"
 
 #define		RIGHTSLOPE		30
 #define		RIGHTSLOPE2		43

@@ -316,6 +316,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case OBJECT_BRIDGE:		(*pTargetObjArray)[n] = NEW CBridge();		break;
 			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();		break;
 			case OBJECT_SAVEPOINT:	(*pTargetObjArray)[n] = NEW CSavePosint();	break;
+			case OBJECT_CAMERACNTRL:(*pTargetObjArray)[n] = NEW CCameraCntrl();	break;
 			default: break;
 			}
 			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);

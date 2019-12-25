@@ -41,6 +41,14 @@ void CEnemy::Update(void)
 	{
 		Move();
 	}
+	if (CCordinate::IsCameraCntrl())
+	{
+		m_Move.x = 0;
+		if (!m_bGravity)
+		{
+			m_Move.y = 0;
+		}
+	}
 
 	if (m_bGravity)
 	{

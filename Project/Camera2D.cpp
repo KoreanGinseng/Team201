@@ -4,12 +4,23 @@
 Vector2 CCamera2D::m_sPos = Vector2();
 
 CCamera2D::CCamera2D() :
-	m_Pos(Vector2(0,0)) {
+m_Pos(Vector2(0,0)),
+m_bStart(false),
+m_StartPos(),
+m_bCenter(false),
+m_KeepCount(0),
+m_bBoss(false)
+{
 	CCordinate::SetMainCameraPos(&m_Pos);
 }
 
 void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const CRectangle& srec)
 {
+	m_sPos = m_Pos;
+	if (m_bStart || m_bBoss)
+	{
+		return;
+	}
 	CRectangle rect = GetRect();
 	if (centerPos != m_Pos)
 	{
@@ -67,6 +78,68 @@ void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const C
 
 	m_Pos.x = (int)m_Pos.x;
 	m_Pos.y = (int)m_Pos.y;
+}
 
-	m_sPos = m_Pos;
+void CCamera2D::Move(const int & type)
+{
+	switch (type)
+	{
+	case CAMERA_MOVE_BRIDGE:
+		{
+			if (!m_bStart)
+			{
+				m_bStart = true;
+				m_StartPos = m_Pos;
+			}
+			if (!m_bCenter)
+			{
+				m_Pos.x += 3;
+				if (m_Pos.x - m_StartPos.x > 850)
+				{
+					m_bCenter = true;
+				}
+			}
+			else
+			{
+				//m_Pos.x -= 4;
+				m_KeepCount++;
+				//if (m_Pos.x - m_StartPos.x < 0)
+				if (m_KeepCount > 30)
+				{
+					m_bCenter = false;
+					m_bStart = false;
+				}
+			}
+		}
+		break;
+	case CAMERA_MOVE_BOSS:
+		{
+			if (!m_bStart)
+			{
+				m_bStart = true;
+				m_StartPos = m_Pos;
+			}
+			if (!m_bCenter)
+			{
+				m_Pos.x += 3;
+				if (m_Pos.x - m_StartPos.x > 880)
+				{
+					m_bCenter = true;
+				}
+			}
+			else
+			{
+				m_KeepCount++;
+				if (m_KeepCount > 120)
+				{
+					m_bBoss = true;
+					m_bCenter = false;
+					m_bStart = false;
+				}
+			}
+		}
+		break;
+	default:
+		break;
+	}
 }

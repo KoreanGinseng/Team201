@@ -14,7 +14,7 @@ protected:
 	int						m_WaitCount;
 public:
 	CSubstance(void);
-	virtual ~CSubstance() {}
+	virtual ~CSubstance(void) {}
 	void	SetTarget(const bool& target) { m_bTarget = target; }
 	void	Stop(void);
 	void	Back(void);

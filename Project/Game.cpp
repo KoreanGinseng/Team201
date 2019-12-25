@@ -181,6 +181,29 @@ void CGame::Update()
 		m_pBackChipArray[i]->Update();
 	}
 
+	m_Player.SetCntrl(true);
+	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
+	{
+		if (m_pTargetObjArray[i]->GetObjType() != OBJECT_CAMERACNTRL)
+		{
+			continue;
+		}
+		if (!static_cast<CCameraCntrl*>(m_pTargetObjArray[i])->IsCntrl() || static_cast<CCameraCntrl*>(m_pTargetObjArray[i])->IsEndCntrl())
+		{
+			continue;
+		}
+		m_Player.SetCntrl(false);
+		m_MainCamera.Move(static_cast<CCameraCntrl*>(m_pTargetObjArray[i])->GetMoveType());
+		static_cast<CCameraCntrl*>(m_pTargetObjArray[i])->SetEnd(!m_MainCamera.IsStart());
+	}
+	CCordinate::SetCameraCntrl(m_MainCamera.IsStart());
+	if (m_MainCamera.IsBoss())
+	{
+		CCordinate::SetBossFlag(true);
+		m_MainCamera.SetScrollX(m_Stage[m_StageNo].GetStageRect().Right - g_pGraphics->GetTargetWidth());
+	}
+
+
 	//“–‚½‚è”»’è
 	Collosion();
 

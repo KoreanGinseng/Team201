@@ -19,7 +19,8 @@ m_bTrigger(false),
 m_bClime(false),
 m_Target(0),
 m_Skillrang(0),
-m_SkillCircle()
+m_SkillCircle(),
+m_bCntrl(true)
 {
 	CCordinate::SetPlayerPos(&m_Pos);
 }
@@ -43,9 +44,9 @@ void CPlayer::Initialize(void)
 	m_bReverse = false;
 	//座標の初期化
 	m_Pos = Vector2(9600, 768);
-	m_Pos = Vector2(4000, 192);
 	m_Pos = Vector2(960, 768);
 	m_Pos = Vector2(200, 768);
+	m_Pos = Vector2(4000, 192);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -79,13 +80,14 @@ void CPlayer::Update(void)
 		m_DamageWait--;
 	}
 
+	//
 	if (GetRect().Left < CCordinate::GetStageRect().Left)
 	{
-		m_Pos.x = CCordinate::GetStageRect().Left;
+		m_Pos.x = CCordinate::GetStageRect().Left - PLAYER_RECTDIS;
 	}
 	else if (GetRect().Right > CCordinate::GetStageRect().Right)
 	{
-		m_Pos.x = CCordinate::GetStageRect().Right - GetRect().GetWidth();
+		m_Pos.x = CCordinate::GetStageRect().Right - GetRect().GetWidth() - PLAYER_RECTDIS;
 	}
 	if (GetRect().Top > CCordinate::GetStageRect().Bottom)
 	{
@@ -153,7 +155,7 @@ void CPlayer::Move(void)
 	}
 
 	//右スティックを倒した場合、倒した方向に移動
-	if (m_KeyConfig.moveRight)
+	if (m_KeyConfig.moveRight && m_bCntrl)
 	{
 		m_Move.x += PLAYER_SPEED;
 		m_bMove = true;
@@ -163,7 +165,7 @@ void CPlayer::Move(void)
 			m_Move.x = PLAYER_MAXSPEED;
 		}
 	}
-	else if (m_KeyConfig.moveLeft)
+	else if (m_KeyConfig.moveLeft && m_bCntrl)
 	{
 		m_Move.x -= PLAYER_SPEED;
 		m_bMove = true;
@@ -201,7 +203,7 @@ void CPlayer::Move(void)
 	}
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (m_KeyConfig.jump && !m_bJump && !m_bClime)
+	if (m_KeyConfig.jump && !m_bJump && !m_bClime && m_bCntrl)
 	{
 		m_bJump = true;
 		m_Move.y = PLAYER_JUMPPOW;
@@ -297,7 +299,7 @@ void CPlayer::Skill(void)
 	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
 	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
 	//LTボタンを押した場合、スキルが発動
-	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime)
+	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && m_bCntrl)
 	{
 		m_bTrigger = true;
 		if (!m_SkillTarget.empty())

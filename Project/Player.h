@@ -57,6 +57,7 @@ private:
 	int							m_Target;			//ターゲットしている番号
 	float						m_Skillrang;		//スキルの範囲
 	CCircle						m_SkillCircle;		//スキルの円
+	bool						m_bCntrl;			//操作可能フラグ
 
 public:
 	CPlayer(void);			//コンストラクタ
@@ -82,5 +83,6 @@ public:
 	void   SetClime(const bool& b)					//フラグのセット
 	{ m_bClime = b; }
 	bool   Dmg(CEnemy& ene);						//ダメージの処理
+	void SetCntrl(const bool& b) { m_bCntrl = b; }	//操作フラグのセット
 };
 
