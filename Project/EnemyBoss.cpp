@@ -2,9 +2,11 @@
 
 
 
-CEnemyBoss::CEnemyBoss()
+CEnemyBoss::CEnemyBoss() :
+CEnemy()
 {
 	m_Scale = 1.7f;
+	m_EnemyType = ENEMY_BOSS_1;
 }
 
 

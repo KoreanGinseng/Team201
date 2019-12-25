@@ -419,6 +419,10 @@ void CGame::Collosion(void)
 					if (m_pEnemyArray[i]->IsCollisionFlag() && m_pEnemyArray[k]->IsCollisionFlag() && m_pEnemyArray[i]->OverValue(m_pEnemyArray[k]->GetRectArray(l), over))
 					{
 						//–„‚Ü‚Á‚Ä‚¢‚é‚¾‚¯Œ³‚É–ß‚·
+						if (m_pEnemyArray[k]->GetEnemyType() == ENEMY_BOSS_1 || m_pEnemyArray[k]->GetEnemyType() == ENEMY_BOSS_3)
+						{
+							continue;
+						}
 						m_pEnemyArray[k]->CollisionStage(over);
 						//m_pEnemyArray[i]->Reverse(-over);
 					}
