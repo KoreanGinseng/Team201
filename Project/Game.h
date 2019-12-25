@@ -28,6 +28,7 @@ private:
 	static	int			m_StageNo;
 
 	bool				m_bPoase;
+	bool				m_bClear;
 
 	CPlayer						m_Player;
 	CDynamicArray<CEnemy*>		m_pEnemyArray;

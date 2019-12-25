@@ -25,7 +25,8 @@ m_bPoase(false),
 m_pEnemyArray(),
 m_pItemArray(),
 m_pTargetObjArray(),
-m_pMapObjArray()
+m_pMapObjArray(),
+m_bClear(false)
 {
 }
 
