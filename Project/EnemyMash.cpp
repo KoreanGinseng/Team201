@@ -25,3 +25,17 @@ void CEnemyMash::Animation(void)
 {
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 }
+
+CRectangle CEnemyMash::GetRect(void)
+{
+	CRectangle rec = CCharacter::GetRect();
+	rec.Expansion(-30, -10);
+	return rec;
+}
+
+CRectangle CEnemyMash::GetSrcAddRect(void)
+{
+	CRectangle rect(0, 0, GetSrcRect().GetWidth(), GetSrcRect().GetHeight());
+	rect.Expansion(-30, -10);
+	return rect;
+}

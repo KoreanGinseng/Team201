@@ -11,10 +11,10 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
+			"TestMap1226.txt",
 			"TEISHUTSUYOU.txt",
 			"ENEMOVESTAGE2.txt",
 			"Stage1-a.txt",
-			"ENEMOVESTAGE.txt",
 };
 
 CTexture tex;
@@ -425,7 +425,7 @@ void CGame::Collosion(void)
 							continue;
 						}
 						m_pEnemyArray[k]->CollisionStage(over);
-						//m_pEnemyArray[i]->Reverse(-over);
+						m_pEnemyArray[i]->Reverse(-over);
 					}
 				}
 			}

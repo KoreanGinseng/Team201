@@ -122,7 +122,7 @@ void CCamera2D::Move(const int & type)
 			if (!m_bCenter)
 			{
 				m_Pos.x += 3;
-				if (m_Pos.x - m_StartPos.x > 880)
+				if (m_Pos.x - m_StartPos.x > 870)
 				{
 					m_bCenter = true;
 				}

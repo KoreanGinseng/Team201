@@ -224,6 +224,12 @@ bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
 	return true;
 }
 
+bool CEnemy::Dmg(const int & dmg)
+{
+	m_HP -= dmg;
+	return true;
+}
+
 bool CEnemy::KnockBack(const CRectangle & pre, const int& preWait)
 {
 	CRectangle erec = GetRect();

@@ -45,8 +45,8 @@ void CPlayer::Initialize(void)
 	//À•W‚Ì‰Šú‰»
 	m_Pos = Vector2(9600, 768);
 	m_Pos = Vector2(960, 768);
-	m_Pos = Vector2(200, 768);
 	m_Pos = Vector2(4000, 192);
+	m_Pos = Vector2(200, 768);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -564,6 +564,15 @@ bool CPlayer::Dmg(CEnemy& ene)
 	CRectangle prec = GetRect();
 	CRectangle erec = ene.GetRect();
 
+	if (ene.GetEnemyType() == ENEMY_MASH || ene.GetEnemyType() == ENEMY_POISUNMASH)
+	{
+		if (prec.Bottom - 5 < erec.Top && prec.Bottom + 5 > erec.Top)
+		{
+			m_Move.y = PLAYER_JUMPPOW / 2;
+			ene.Dmg(1);
+			return false;
+		}
+	}
 	if (m_DamageWait > 0 || ene.GetDamageWait() > 0)
 	{
 		return false;

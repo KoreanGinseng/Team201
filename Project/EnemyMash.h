@@ -8,5 +8,7 @@ public:
 	~CEnemyMash();
 	void Move(void) override;
 	void Animation(void) override;
+	CRectangle GetRect(void) override;
+	CRectangle GetSrcAddRect(void) override;
 };
 

@@ -382,7 +382,7 @@ void CStage::RenderBack(const Vector2& scroll)
 	int hn = m_pBackTexture->GetHeight();
 	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
 		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
-			m_pBackTexture->Render(x, y);
+			m_pBackTexture->Render(x, y + 2);
 		}
 	}
 }
