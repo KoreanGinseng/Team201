@@ -3,7 +3,9 @@
 
 
 CEnemyMash::CEnemyMash() :
-CEnemy()
+CEnemy(),
+m_bDmg(false),
+m_DmgScale(Vector2(1, 1))
 {
 	m_EnemyType = ENEMY_MASH;
 	m_Spd.x = -2.0f;
@@ -12,6 +14,130 @@ CEnemy()
 
 CEnemyMash::~CEnemyMash()
 {
+}
+
+void CEnemyMash::Update(void)
+{
+	if (m_bAnimStop)
+	{
+		m_WaitCount--;
+		if (m_WaitCount < 0)
+		{
+			m_WaitCount = 0;
+			m_bAnimStop = false;
+			m_SubStatus = SUBSTATUS_NOMAL;
+		}
+	}
+	if (m_bDead)
+	{
+		return;
+	}
+	if (!m_bShow)
+	{
+		if (CCordinate::GetMainCameraRect().Right > m_Pos.x)
+		{
+			m_bShow = true;
+		}
+		return;
+	}
+
+	if (m_bDmg)
+	{
+		m_Move = Vector2(0, 0);
+		m_DmgScale.x += 0.1f;
+		m_DmgScale.y -= 0.05f;
+		if (m_DmgScale.y < 0)
+		{
+			m_DmgScale.y = 0;
+			m_bDead = true;
+			m_bSelectTarget = false;
+		}
+		return;
+	}
+
+	if (!m_bAnimStop)
+	{
+		Move();
+	}
+	if (CCordinate::IsCameraCntrl())
+	{
+		m_Move.x = 0;
+		if (!m_bGravity)
+		{
+			m_Move.y = 0;
+		}
+	}
+
+	if (m_bGravity)
+	{
+		m_Move.y += m_Spd.y;
+		if (m_Move.y > GRAVITYMAX)
+		{
+			m_Move.y += GRAVITYMAX;
+		}
+	}
+
+	m_Pos += m_Move;
+
+	if (!m_bAnimStop)
+	{
+		Animation();
+	}
+
+	if (IsStageOver())
+	{
+		m_bDead = true;
+		m_bShow = false;
+	}
+	if (m_Move.x < 0)
+	{
+		m_bReverse = true;
+	}
+	else if (m_Move.x > 0)
+	{
+		m_bReverse = false;
+	}
+
+	if (m_DamageWait > 0)
+	{
+		m_DamageWait--;
+	}
+}
+
+void CEnemyMash::Render(const Vector2 & screenPos)
+{
+	if (!m_bShow)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+
+	if (m_bDmg)
+	{
+		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
+		//m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight() / 2, m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_CENTERCENTER);
+	}
+	else
+	{
+		m_pTexture->Render(screenPos.x, screenPos.y, r);
+	}
+
+#ifdef _DEBUG
+	Vector2 scroll = CCamera2D::GetSScroll();
+	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	{
+		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
+			screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+	}
+#endif // _DEBUG
 }
 
 void CEnemyMash::Move(void)
@@ -24,6 +150,17 @@ void CEnemyMash::Move(void)
 void CEnemyMash::Animation(void)
 {
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+}
+
+bool CEnemyMash::Dmg(const int & dmg)
+{
+	m_HP -= dmg;
+	if (m_HP <= 0)
+	{
+		m_HP = 0;
+		m_bDmg = true;
+	}
+	return true;
 }
 
 CRectangle CEnemyMash::GetRect(void)

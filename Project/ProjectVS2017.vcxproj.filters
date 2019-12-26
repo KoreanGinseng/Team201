@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{fa2e176f-1332-4c5b-b89b-bfbfb899ee7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Shot">
+      <UniqueIdentifier>{29180703-b4f2-4187-8e96-7878c0a9b6eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Shot">
+      <UniqueIdentifier>{d58566da-564a-47b3-a6ec-91fc760f74c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -117,9 +123,6 @@
     <ClCompile Include="Loading.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shot.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyBat.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="MoveFloor.cpp">
       <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Shot.cpp">
+      <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +283,6 @@
     <ClInclude Include="MapObj.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
@@ -351,6 +354,9 @@
     </ClInclude>
     <ClInclude Include="MoveFloor.h">
       <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Shot.h">
+      <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
