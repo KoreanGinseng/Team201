@@ -1,28 +1,23 @@
 #pragma once
+#include	"Mof.h"
+#include	"AnimationManager.h"
 
-#include		"Mof.h"
-#include		"GameDefine.h"
-
-class CEffect {
-
+class CEffect
+{
 private:
-	CTexturePtr					m_pTexture;
-	CSpriteMotionController		m_Motion;
-	CRectangle					m_SrcRect;
-	Vector2						m_Pos;
-	bool						m_bShow;
-
+	//CTexture* m_pTexture;					//! エフェクト画像
+	std::shared_ptr<CTexture> m_pTexture;	//! エフェクト画像
+	CSpriteMotionController m_Motion;		//! エフェクトモーション
+	bool m_bShow;							//! 表示フラグ
+	Vector2 m_Pos;							//! 表示座標
 public:
-
-			CEffect();
-			~CEffect();
-	void	Initialize(int type);
-	void	Update(void);
-	void	Render(const Vector2& screenPos);
-	void	Release(void);
-	void	Start(float px, float py);
-
-	bool	GetShow(void) { return m_bShow; }
-	void	SetTexture(CTexturePtr pt) { m_pTexture = pt; }
-
+	CEffect(void);							//! コンストラクタ
+	~CEffect(void);							//! デストラクタ
+	bool IsShow(void) const;				//! 表示フラグ取得
+	void Start(const Vector2& pos);			//! エフェクトの発生
+	bool Load(const std::string& str);		//! ファイルからデータ読み込み
+	void Update(void);						//! エフェクト制御
+	void Render(void);						//! エフェクト表示
+	void Release(void);						//! 解放
 };
+

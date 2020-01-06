@@ -1,22 +1,20 @@
 #include "AnimationData.h"
 
 
-
-CAnimationData::CAnimationData() :
-m_pTexture(nullptr),
+CAnimationData::CAnimationData(void) :
+m_TextureName(""),
 m_pAnim(nullptr)
 {
 }
 
-
-CAnimationData::~CAnimationData()
+CAnimationData::~CAnimationData(void)
 {
 }
 
-bool CAnimationData::Load(const char* pName) 
+bool CAnimationData::Load(const std::string& str)
 {
 	//ファイルが開けなかった場合error
-	FILE* fp = fopen(pName, "rb");
+	FILE* fp = fopen(str.c_str(), "rb");
 	if (fp == nullptr)
 	{
 		return FALSE;
@@ -25,24 +23,19 @@ bool CAnimationData::Load(const char* pName)
 	//画像ファイルの文字列取得
 	int fnc;
 	fread(&fnc, sizeof(int), 1, fp);
-	char* fns = NEW char[fnc + 1];
+	char* fns = new char[fnc + 1];
 	fread(fns, sizeof(char), fnc, fp);
 	fns[fnc] = '\0';
 
 	//テクスチャの読み込み
-	m_pTexture = g_pTextureManager->GetResource(fns);
-	if (m_pTexture == nullptr)
-	{
-		MOF_SAFE_DELETE(fns);
-		return FALSE;
-	}
+	m_TextureName = fns;
 
-	delete fns;
+	delete[] fns;
 	fns = nullptr;
 
 	//アニメーション数取得
 	fread(&m_AnimCount, sizeof(int), 1, fp);
-	m_pAnim = NEW SpriteAnimationCreate[m_AnimCount];
+	m_pAnim = new SpriteAnimationCreate[m_AnimCount];
 
 	//アニメーションの数だけ繰り返す
 	for (int i = 0; i < m_AnimCount; ++i)
@@ -52,12 +45,14 @@ bool CAnimationData::Load(const char* pName)
 
 		//アニメーション名取得
 		fread(&read, sizeof(int), 1, fp);
-		char* animName = NEW char[read + 1];
+		char* animName = new char[read + 1];
 		fread(animName, sizeof(char), read, fp);
 		animName[read] = '\0';
 		m_pAnim[i].Name = animName;
+
 		delete[] animName;
 		animName = nullptr;
+
 		//OffsetX
 		fread(&read, sizeof(int), 1, fp);
 		m_pAnim[i].OffsetX = (float)read;
@@ -87,16 +82,27 @@ bool CAnimationData::Load(const char* pName)
 		}
 	}
 	fclose(fp);
+
 	return TRUE;
+}
+
+SpriteAnimationCreate * CAnimationData::GetAnim(void)
+{
+	return m_pAnim;
+}
+
+int CAnimationData::GetAnimCount(void) const
+{
+	return m_AnimCount;
+}
+
+std::string CAnimationData::GetTextureName(void) const
+{
+	return m_TextureName;
 }
 
 void CAnimationData::Release(void) 
 {
-	if (m_pTexture != nullptr)
-	{
-		m_pTexture->Release();
-		m_pTexture = nullptr;
-	}
 	delete[] m_pAnim;
 	m_pAnim = nullptr;
 }

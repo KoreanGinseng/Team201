@@ -1,68 +1,95 @@
-#include		"Effect.h"
-
-CEffect::CEffect() {
+#include "Effect.h"
 
 
+
+CEffect::CEffect(void) :
+m_pTexture(nullptr),
+m_Motion(),
+m_bShow(false),
+m_Pos(Vector2(0, 0))
+{
 }
 
-CEffect::~CEffect() {
 
-
+CEffect::~CEffect(void)
+{
 }
 
-void CEffect::Initialize(int type) {
-	//座標の初期化
-	m_Pos = Vector2(0, 0);
-	//表示フラグの初期化
-	m_bShow = false;
-	//タイプによってアニメーションに入れる
-	SpriteAnimationCreate* anim;
-	anim = g_pAnimManager->GetResource(FileName[ANIMATION_EFFECT_EXPROSION + type])->GetAnim();
-	int c = g_pAnimManager->GetResource(FileName[ANIMATION_EFFECT_EXPROSION + type])->GetAnimCount();
-	m_Motion.Create(anim, c);
+bool CEffect::IsShow(void) const
+{
+	return m_bShow;
 }
 
-void CEffect::Start(float px, float py) {
-	//エフェクトを呼び出された場合、引数からもらった座標に出現
-	m_SrcRect = m_Motion.GetSrcRect();
-
-	m_Pos.x = px - m_SrcRect.GetWidth()*0.5f;
-	m_Pos.y = py - m_SrcRect.GetHeight()*0.5f;
+void CEffect::Start(const Vector2 & pos)
+{
+	//発生位置に座標セット
+	m_Pos = pos;
+	//表示フラグON
 	m_bShow = true;
-	m_Motion.ChangeMotion(0);
+	//アニメーションを先頭にセットする
+	m_Motion.SetTime(0);
 }
 
-void CEffect::Update(void) {
-	//非表示の場合処理をしない
+bool CEffect::Load(const std::string& str)
+{
+	//データが存在しない場合読み込み
+	if (CAnimationManager::GetAnimation(str) == nullptr)
+	{
+		CAnimationManager::Load(str);
+	}
+	CAnimationData* pData = CAnimationManager::GetAnimation(str);
+	//データが正しく読み込めていない場合失敗
+	if (pData == nullptr)
+	{
+		return false;
+	}
+	//画像が存在しない場合読み込み
+	std::string texName = pData->GetTextureName();
+	if (CTextureManager::GetTexture(texName) == nullptr)
+	{
+		CTextureManager::Load(texName.c_str());
+	}
+	m_pTexture = CTextureManager::GetTexture(texName);
+	//画像が正しく読み込めていない場合失敗
+	if (m_pTexture == nullptr)
+	{
+		return false;
+	}
+	//モーションの作成
+	int animCount = pData->GetAnimCount();
+	SpriteAnimationCreate* pAnim = pData->GetAnim();
+	m_Motion.Create(pAnim, animCount);
+	return true;
+}
+
+void CEffect::Update(void)
+{
+	//表示フラグが立っていない場合スキップ
 	if (!m_bShow)
 	{
 		return;
 	}
-
+	//アニメーションを更新
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
-	m_SrcRect = m_Motion.GetSrcRect();
-
-	//エフェクトモーションが終了した場合、非表示にする
+	//アニメーションが終了していればフラグを折る
 	if (m_Motion.IsEndMotion())
 	{
 		m_bShow = false;
 	}
-
 }
 
-void CEffect::Render(const Vector2& screenPos) {
-	//非表示の場合描画しない
+void CEffect::Render(void)
+{
+	//表示フラグが立っていない場合スキップ
 	if (!m_bShow)
 	{
 		return;
 	}
-
-	//エフェクトの描画
-	m_pTexture->Render(screenPos.x, screenPos.y,m_SrcRect);
-
+	m_pTexture->Render(m_Pos.x, m_Pos.y, m_Motion.GetSrcRect());
 }
 
-void CEffect::Release(void) {
-	//エフェクトモーションの解放
+void CEffect::Release(void)
+{
+	m_pTexture = nullptr;
 	m_Motion.Release();
 }

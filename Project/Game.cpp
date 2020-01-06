@@ -223,7 +223,7 @@ void CGame::Update()
 void CGame::Render()
 {
 	//goriosi
-	g_pTextureManager->GetResource("‹ó.png")->Render(0, 0);
+	g_pTextureManager->GetTexture("‹ó.png")->Render(0, 0);
 
 	//”wŒiƒ`ƒbƒv‚ÌBACKBACK•`‰æ
 	for (int i = 0; i < m_Stage[m_StageNo].GetBackChipCount(); i++)

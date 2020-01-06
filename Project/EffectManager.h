@@ -1,30 +1,25 @@
 #pragma once
-
+#include	"Mof.h"
+#include	<unordered_map>
 #include	"Effect.h"
 
-#define		EFFECTCOUNT		100
+constexpr	int		DefEffectPool = 10;		//! エフェクトプール数
 
-class CEffectManager {
-
+//エフェクト管理クラス
+class CEffectManager
+{
 private:
-
-	CEffect		m_Effect[EFFECTCOUNT][EFFECT_TYPECOUNT];
-
-	CTexturePtr	m_Texture[EFFECT_TYPECOUNT];
-
-	CEffectManager() = default;
-	~CEffectManager() = default;
+	std::unordered_map<std::string, CDynamicArray<CEffect*>>	m_Resource;			//! データ
+	CEffectManager(void);
+	~CEffectManager(void);
 public:
-	bool		Load(void);
-	void		Initialize(void);
-	CEffect*	Start(float px, float py, int type);
-	void		Update(void);
-	void		Render(const Vector2& scroll);
-	void		Release(void);
-	static CEffectManager* GetInstance(void) {
-		static CEffectManager obj;
-		return &obj;
-	}
+	static CEffectManager* GetEffect(void);											//! マネージャー呼び出し
+	static CEffect* GetEffect(const std::string& str);								//! 再生可能なエフェクト取得
+	static void Start(const std::string& str, const Vector2& pos);					//! エフェクトの再生
+	static void Start(const std::string& str, const float& x, const float& y);		//! エフェクトの再生
+	static bool Load(const std::string& str);										//! 読込
+	static void Update(void);														//! エフェクトの制御
+	static void Render(void);														//! エフェクトの描画
+	static void Release(void);														//! 解放
 };
 
-#define		g_pEffectManager		CEffectManager::GetInstance()

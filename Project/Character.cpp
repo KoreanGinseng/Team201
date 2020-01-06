@@ -57,8 +57,8 @@ void CCharacter::Release(void)
 void CCharacter::CreateMotion(const char * pName)
 {
 	SpriteAnimationCreate* pAnim;
-	pAnim = g_pAnimManager->GetResource(pName)->GetAnim();
-	int c = g_pAnimManager->GetResource(pName)->GetAnimCount();
+	pAnim = g_pAnimManager->GetAnimation(pName)->GetAnim();
+	int c = g_pAnimManager->GetAnimation(pName)->GetAnimCount();
 	m_Motion.Create(pAnim, c);
 }
 

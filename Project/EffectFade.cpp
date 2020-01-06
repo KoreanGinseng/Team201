@@ -5,7 +5,7 @@
 CEffectFade::CEffectFade() :
 CSceneEffectBase()
 {
-	m_pMaskTexture = g_pTextureManager->GetResource("MaskImage.png");
+	m_pMaskTexture = g_pTextureManager->GetTexture("MaskImage.png");
 	m_bEnd = false;
 	m_bStart[0] = m_bStart[1] = false;
 }

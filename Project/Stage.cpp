@@ -31,12 +31,13 @@ CTexturePtr CStage::TextureLoad(char * pName)
 {
 	if (IsExt(pName) == picture)
 	{
-		return g_pTextureManager->GetResource(pName);
+		return g_pTextureManager->GetTexture(pName);
 
 	}
 	else if (IsExt(pName) == anim)
 	{
-		return g_pAnimManager->GetResource(pName)->GetTexture();
+		std::string texName = g_pAnimManager->GetAnimation(pName)->GetTextureName();
+		return g_pTextureManager->GetTexture(texName);
 	}
 	return nullptr;
 }
@@ -107,7 +108,7 @@ bool CStage::Load(const char* pName) {
 	//テクスチャの読み込み
 	pstr = strtok(pBuffer, ",");
 	//if (!m_BackTexture.Load(pstr)) {
-	m_pBackTexture = g_pTextureManager->GetResource(pstr);
+	m_pBackTexture = g_pTextureManager->GetTexture(pstr);
 	if (m_pBackTexture == nullptr) 
 	{
 		free(pBuffer);
@@ -115,7 +116,7 @@ bool CStage::Load(const char* pName) {
 		return FALSE;
 	}
 	pstr = strtok(NULL, ",");
-	m_pChipTexture = g_pTextureManager->GetResource(pstr);
+	m_pChipTexture = g_pTextureManager->GetTexture(pstr);
 	if (m_pChipTexture == nullptr)
 	{
 		free(pBuffer);

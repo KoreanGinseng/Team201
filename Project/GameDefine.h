@@ -36,9 +36,17 @@ using RectArray = CDynamicArray<CRectangle>;
 #define		PLAYER_MAXSKILLRANGE	512.0f
 #define		PLAYER_JUMPPOW			-11.0f
 
-#define		g_pAnimManager		CResourceManager<CAnimationData>::GetInstance()
-#define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
-#define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
+//#define		g_pAnimManager		CResourceManager<CAnimationData>::GetInstance()
+//#define		g_pSoundManager		CResourceManager<CSoundBuffer>::GetInstance()
+//#define		g_pTextureManager	CResourceManager<CTexture>::GetInstance()
+#include	"AnimationManager.h"
+#include	"SoundManager.h"
+#include	"TextureManager.h"
+#include	"EffectManager.h"
+#define		g_pAnimManager		CAnimationManager::GetAnimation()
+#define		g_pTextureManager	CTextureManager::GetTexture()
+#define		g_pSoundManager		CSoundManager::GetSound()
+#define		g_pEffectManager	CEffectManager::GetEffect()
 
 constexpr	char			picture[] = "picture";
 constexpr	char			anim[] = "anim";
@@ -74,6 +82,7 @@ constexpr	char*	FileName[] = {
 	"Obj07.png",
 	"Obj08.png",
 	"bg.png",
+	"空.png",
 	"bgChip01.png",
 	"bgChip02.png",
 	"MapChip6.png",
@@ -107,6 +116,8 @@ constexpr	char*	FileName[] = {
 	"ObjAnim06.bin",
 	"ObjAnim07.bin",
 	"ObjAnim08.bin",
+
+	//EFFECT
 	"Effect_Explosion.bin",
 
 	//SOUND
@@ -189,6 +200,7 @@ typedef enum tag_TEXTUREDATA {
 	TEXTURE_OBJ_7,
 	TEXTURE_OBJ_8,
 	TEXTURE_MAP_BACK,
+	TEXTURE_MAP_BACK2,
 	TEXTURE_MAP_BACKCHIP_1,
 	TEXTURE_MAP_BACKCHIP_2,
 	TEXTURE_MAP_CHIP,
@@ -229,17 +241,22 @@ typedef enum tag_ANIMATIONDATA {
 	ANIMATION_OBJ_6,
 	ANIMATION_OBJ_7,
 	ANIMATION_OBJ_8,
-	ANIMATION_EFFECT_EXPROSION,
 
 	ANIMATION_COUNT,
 }ANIMATIONDATA;
+
+typedef enum tag_EFFECRDATA {
+	EFFECTDATA_EXPROSION = ANIMATION_COUNT,
+
+	EFFECTDATA_COUNT,
+}EFFECTDATA;
 
 /*****************************************************************
  * @enum tag_SOUNDDATA
  * サウンドファイルの列挙
  *****************************************************************/
 typedef enum tag_SOUNDDATA {
-	SOUND_JUMP = ANIMATION_COUNT,
+	SOUND_JUMP = EFFECTDATA_COUNT,
 	SOUND_STAGEBGM,
 
 	SOUND_COUNT,

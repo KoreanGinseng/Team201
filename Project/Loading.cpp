@@ -18,17 +18,12 @@ CLoading::~CLoading()
 
 void CLoading::Load(void)
 {
-	m_Message = "エフェクト読み込み中";
-	m_CountMax = 1;
-	m_Count = 0;
-	g_pEffectManager->Load();
-	m_Count++;
 	m_Message = "画像データ読み込み中";
 	m_CountMax = TEXTURE_COUNT;
 	m_Count = 0;
 	for (int i = TEXTURE_PLAYER; i < TEXTURE_COUNT; i++)
 	{
-		g_pTextureManager->GetResource(FileName[i]);
+		g_pTextureManager->Load(FileName[i]);
 		m_Count++;
 	}
 
@@ -37,18 +32,26 @@ void CLoading::Load(void)
 	m_Count = 0;
 	for (int i = ANIMATION_PLAYER; i < ANIMATION_COUNT; i++)
 	{
-		g_pAnimManager->GetResource(FileName[i]);
+		g_pAnimManager->Load(FileName[i]);
+		m_Count++;
+	}
+	m_Message = "エフェクト読み込み中";
+	m_CountMax = EFFECTDATA_COUNT - ANIMATION_COUNT;
+	m_Count = 0;
+	for (int i = EFFECTDATA_EXPROSION; i < EFFECTDATA_COUNT; i++)
+	{
+		g_pEffectManager->Load(FileName[i]);
 		m_Count++;
 	}
 	m_Message = "サウンドデータ読み込み中";
-	m_CountMax = SOUND_COUNT - ANIMATION_COUNT;
+	m_CountMax = SOUND_COUNT - EFFECTDATA_COUNT;
 	m_Count = 0;
 	for (int i = SOUND_JUMP; i < SOUND_COUNT; i++)
 	{
-		g_pSoundManager->GetResource(FileName[i]);
+		g_pSoundManager->Load(FileName[i]);
 		m_Count++;
 	}
-	g_pEffectManager->Load();
+	//g_pEffectManager->Load();
 
 	m_Message = "シーンの読み込み中";
 	m_CountMax = 1;
@@ -62,7 +65,7 @@ void CLoading::Initialize(void)
 	m_Message = "初期化中";
 	m_CountMax = 2;
 	m_Count = 0;
-	g_pEffectManager->Initialize();
+	//g_pEffectManager->Initialize();
 	m_Count++;
 	m_pScene->Initialize();
 	m_Count++;

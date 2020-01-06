@@ -1,19 +1,21 @@
 #pragma once
-#include	"GameDefine.h"
+#include	"Mof.h"
+#include	"TextureManager.h"
 
+//アニメーションデータクラス
 class CAnimationData
 {
 private:
-	CTexturePtr	m_pTexture;
-	SpriteAnimationCreate* m_pAnim;
-	int			m_AnimCount;
+	std::string				m_TextureName;		//! アニメーションデータの画像名
+	SpriteAnimationCreate*	m_pAnim;			//! アニメーションデータ
+	int						m_AnimCount;		//! アニメーション数
 public:
-	CAnimationData(void);
-	~CAnimationData(void);
-	bool Load(const char* pName);
-	CTexturePtr GetTexture(void) { return m_pTexture; }
-	SpriteAnimationCreate* GetAnim(void) { return m_pAnim; }
-	int GetAnimCount(void) const { return m_AnimCount; }
-	void Release(void);
+	CAnimationData(void);						//! コンストラクタ
+	~CAnimationData(void);						//! デストラクタ
+	bool Load(const std::string& str);			//! 読込
+	SpriteAnimationCreate* GetAnim(void);		//! アニメーションデータ取得
+	int GetAnimCount(void) const;				//! アニメーション数取得
+	std::string GetTextureName(void) const;		//! 画像名取得
+	void Release(void);							//! 解放
 };
 

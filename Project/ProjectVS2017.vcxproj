@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationData.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="BackChip.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Camera2D.cpp" />
@@ -139,9 +140,12 @@
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shot.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="SubStance.cpp" />
     <ClCompile Include="TargetObj.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Treasure.cpp" />
@@ -153,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationData.h" />
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="BackChip.h" />
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Camera2D.h" />
@@ -197,9 +202,12 @@
     <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Shot.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Substance.h" />
     <ClInclude Include="TargetObj.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Treasure.h" />

@@ -35,9 +35,9 @@ CPlayer::~CPlayer(void)
 void CPlayer::Initialize(void)
 {
 	//‰æ‘œ‚ÌƒZƒbƒg
-	m_pTexture = g_pTextureManager->GetResource(FileName[TEXTURE_PLAYER]);
+	m_pTexture = g_pTextureManager->GetTexture(FileName[TEXTURE_PLAYER]);
 	SpriteAnimationCreate* pAnim;
-	pAnim = g_pAnimManager->GetResource(FileName[ANIMATION_PLAYER])->GetAnim();
+	pAnim = g_pAnimManager->GetAnimation(FileName[ANIMATION_PLAYER])->GetAnim();
 	m_Motion.Create(pAnim, ANIM_COUNT);
 	m_SrcRectArray.Add(GetSrcRect());
 	m_bDead = false;
