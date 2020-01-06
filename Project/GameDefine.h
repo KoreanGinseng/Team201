@@ -120,8 +120,10 @@ constexpr	char*	FileName[] = {
 	//EFFECT
 	"Effect_Explosion.bin",
 
-	//SOUND
+	//SOUNDSE
 	"TestJump.mp3",
+
+	//SOUNDBGM
 	"TestStageBGM.mp3",
 
 	//RECT
@@ -255,15 +257,20 @@ typedef enum tag_EFFECRDATA {
  * @enum tag_SOUNDDATA
  * サウンドファイルの列挙
  *****************************************************************/
-typedef enum tag_SOUNDDATA {
-	SOUND_JUMP = EFFECTDATA_COUNT,
-	SOUND_STAGEBGM,
+typedef enum tag_SOUNDSEDATA {
+	SOUND_SE_JUMP = EFFECTDATA_COUNT,
 
-	SOUND_COUNT,
-}SOUNDDATA;
+	SOUND_SE_COUNT,
+}SOUNDSEDATA;
+
+typedef enum tag_SOUNDBGMDATA {
+	SOUND_BGM_STAGE1 = SOUND_SE_COUNT,
+
+	SOUND_BGM_COUNT,
+}SOUNDBGMDATA;
 
 enum tag_RECTDATA {
-	RECT_OBJ_1 = SOUND_COUNT,
+	RECT_OBJ_1 = SOUND_BGM_COUNT,
 	RECT_OBJ_2,
 	RECT_OBJ_3,
 	RECT_OBJ_4,

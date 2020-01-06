@@ -44,11 +44,16 @@ void CLoading::Load(void)
 		m_Count++;
 	}
 	m_Message = "サウンドデータ読み込み中";
-	m_CountMax = SOUND_COUNT - EFFECTDATA_COUNT;
+	m_CountMax = SOUND_BGM_COUNT - EFFECTDATA_COUNT;
 	m_Count = 0;
-	for (int i = SOUND_JUMP; i < SOUND_COUNT; i++)
+	for (int i = SOUND_SE_JUMP; i < SOUND_SE_COUNT; i++)
 	{
-		g_pSoundManager->Load(FileName[i]);
+		g_pSoundManager->LoadSE(FileName[i]);
+		m_Count++;
+	}
+	for (int i = SOUND_BGM_STAGE1; i < SOUND_BGM_COUNT; i++)
+	{
+		g_pSoundManager->LoadBGM(FileName[i]);
 		m_Count++;
 	}
 	//g_pEffectManager->Load();

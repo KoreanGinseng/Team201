@@ -16,15 +16,19 @@ CSoundManager * CSoundManager::GetSound(void)
 	return &obj;
 }
 
-CSound * CSoundManager::GetSound(const std::string & str)
+CSound * CSoundManager::GetSoundSE(const std::string & str)
 {
+	if (CSoundManager::GetSound()->m_ResourceSE[str].GetArrayCount() <= 0)
+	{
+		CSoundManager::LoadSE(str);
+	}
 	CSound* re;
-	int c = CSoundManager::GetSound()->m_Resource[str].GetArrayCount();
+	int c = CSoundManager::GetSound()->m_ResourceSE[str].GetArrayCount();
 	bool bFind = false;
 	//再生可能のサウンドを探す
 	for (int i = 0; i < c; i++)
 	{
-		re = CSoundManager::GetSound()->m_Resource[str].GetData(i);
+		re = CSoundManager::GetSound()->m_ResourceSE[str].GetData(i);
 		//再生中なら次
 		if (re->IsPlay())
 		{
@@ -38,42 +42,66 @@ CSound * CSoundManager::GetSound(const std::string & str)
 	if (!bFind)
 	{
 		//サウンドの大きさを取得
-		float vol = CSoundManager::GetSound()->m_Resource[str].GetData(0)->GetSoundBuffer()->GetVolume();
+		float vol = CSoundManager::GetSound()->m_ResourceSE[str].GetData(0)->GetSoundBuffer()->GetVolume();
 		//追加
-		CSoundManager::GetSound()->m_Resource[str].Add(NEW CSound());
-		CSoundManager::GetSound()->m_Resource[str].GetData(c)->Load(str.c_str());
+		CSoundManager::GetSound()->m_ResourceSE[str].Add(NEW CSound());
+		CSoundManager::GetSound()->m_ResourceSE[str].GetData(c)->Load(str.c_str());
 		//サウンドの大きさを合わせる
-		CSoundManager::GetSound()->m_Resource[str].GetData(c)->GetSoundBuffer()->SetVolume(vol);
-		re = CSoundManager::GetSound()->m_Resource[str].GetData(c);
+		CSoundManager::GetSound()->m_ResourceSE[str].GetData(c)->GetSoundBuffer()->SetVolume(vol);
+		re = CSoundManager::GetSound()->m_ResourceSE[str].GetData(c);
 	}
 	return re;
 }
 
+CSoundBuffer * CSoundManager::GetSoundBGM(const std::string & str)
+{
+	if (CSoundManager::GetSound()->m_ResourceBGM[str] == nullptr)
+	{
+		CSoundManager::LoadBGM(str);
+	}
+	return CSoundManager::GetSound()->m_ResourceBGM[str];
+}
+
 CSoundBuffer * CSoundManager::GetSoundBuffer(const std::string & str)
 {
-	return CSoundManager::GetSound(str)->GetSoundBuffer();
+	CSoundBuffer* re = CSoundManager::GetSoundSE(str)->GetSoundBuffer();
+	if (re == nullptr)
+	{
+		re = CSoundManager::GetSoundBGM(str);
+	}
+	return re;
 }
 
-void CSoundManager::Play(const std::string & str)
+void CSoundManager::PlaySE(const std::string & str)
 {
-	CSoundManager::GetSound(str)->Play();
+	CSoundManager::GetSoundSE(str)->Play();
 }
 
-void CSoundManager::SetVolume(const std::string & str, const float & vol)
+void CSoundManager::PlayBGM(const std::string & str)
 {
-	int c = CSoundManager::GetSound()->m_Resource[str].GetArrayCount();
+	CSoundManager::GetSoundBGM(str)->Play();
+}
+
+void CSoundManager::SetVolumeSE(const std::string & str, const float & vol)
+{
+	int c = CSoundManager::GetSound()->m_ResourceSE[str].GetArrayCount();
 	for (int i = 0; i < c; i++)
 	{
-		CSoundManager::GetSound()->m_Resource[str].GetData(i)->GetSoundBuffer()->SetVolume(vol);
+		CSoundManager::GetSound()->m_ResourceSE[str].GetData(i)->GetSoundBuffer()->SetVolume(vol);
 	}
 }
 
-bool CSoundManager::Load(const std::string& str)
+void CSoundManager::SetVolumeBGM(const std::string & str, const float & vol)
+{
+	CSoundManager::GetSoundBGM(str)->SetVolume(vol);
+}
+
+bool CSoundManager::LoadSE(const std::string& str)
 {
 	for (int i = 0; i < DefSoundPool; i++)
 	{
-		CSoundManager::GetSound()->m_Resource[str].Add(NEW CSound());
-		if (!CSoundManager::GetSound()->m_Resource[str].GetData(i)->Load(str))
+		CSoundManager::GetSound()->m_ResourceSE[str].Add(NEW CSound());
+		if (!CSoundManager::GetSound()->m_ResourceSE[str].GetData(i)->Load(str))
 		{
 			return false;
 		}
@@ -81,9 +109,24 @@ bool CSoundManager::Load(const std::string& str)
 	return true;
 }
 
+bool CSoundManager::LoadBGM(const std::string & str)
+{
+	if (CSoundManager::GetSound()->m_ResourceBGM[str] != nullptr)
+	{
+		return true;
+	}
+	CSoundManager::GetSound()->m_ResourceBGM[str] = new CSoundBuffer();
+	if (!CSoundManager::GetSound()->m_ResourceBGM[str]->Load(str.c_str()))
+	{
+		return false;
+	}
+	CSoundManager::GetSound()->m_ResourceBGM[str]->SetLoop(TRUE);
+	return true;
+}
+
 void CSoundManager::Update(void)
 {
-	for (auto& itr : CSoundManager::GetSound()->m_Resource)
+	for (auto& itr : CSoundManager::GetSound()->m_ResourceSE)
 	{
 		int c = itr.second.GetArrayCount();
 		for (int i = 0; i < c; i++)
@@ -95,7 +138,7 @@ void CSoundManager::Update(void)
 
 void CSoundManager::Release(void)
 {
-	for (auto& itr : CSoundManager::GetSound()->m_Resource)
+	for (auto& itr : CSoundManager::GetSound()->m_ResourceSE)
 	{
 		int c = itr.second.GetArrayCount();
 		for (int i = 0; i < c; i++)
@@ -106,5 +149,11 @@ void CSoundManager::Release(void)
 		}
 		itr.second.Release();
 	}
-	CSoundManager::GetSound()->m_Resource.clear();
+	for (auto& itr : CSoundManager::GetSound()->m_ResourceBGM)
+	{
+			itr.second->Release();
+			delete itr.second;
+			itr.second = nullptr;
+	}
+	CSoundManager::GetSound()->m_ResourceBGM.clear();
 }
