@@ -21,6 +21,7 @@ public:
 	void	Trip(void);
 	virtual	void	Initialize(void) override = 0;
 	virtual	void	Update(void) override = 0;
+	virtual void	Render(const Vector2& screenPos) override;
 	int		GetStatus(void) const { return m_SubStatus; }
 	bool	IsSelectTarget(void) const { return m_bSelectTarget; }
 };

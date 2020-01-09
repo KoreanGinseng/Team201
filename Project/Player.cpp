@@ -121,9 +121,11 @@ void CPlayer::Render(const Vector2& screenPos)
 		dr.Right = dr.Left;
 		dr.Left = tmp;
 	}
+	Vector2 scroll = CCamera2D::GetSScroll();
+	CGraphicsUtilities::RenderFillCircle(m_SkillCircle.x - scroll.x, m_SkillCircle.y - scroll.y, m_SkillCircle.r, MOF_ARGB(128, 255, 0, 0));
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 #ifdef _DEBUG
-	Vector2 scroll = CCamera2D::GetSScroll();
+	//Vector2 scroll = CCamera2D::GetSScroll();
 	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
 	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)

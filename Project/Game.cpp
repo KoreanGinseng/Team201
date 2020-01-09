@@ -11,8 +11,8 @@
 int CGame::m_StageNo = START_STAGE;
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"TestMap1226.txt",
 			"TEISHUTSUYOU.txt",
+			"TestMap1226.txt",
 			"ENEMOVESTAGE2.txt",
 			"Stage1-a.txt",
 };
@@ -412,6 +412,10 @@ void CGame::Collosion(void)
 			for (int k = 0; k < m_pEnemyArray.GetArrayCount(); k++)
 			{
 				if (k == i)
+				{
+					continue;
+				}
+				if (m_pEnemyArray[i]->IsDead() || m_pEnemyArray[k]->IsDead())
 				{
 					continue;
 				}
