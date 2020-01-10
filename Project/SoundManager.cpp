@@ -98,6 +98,10 @@ void CSoundManager::SetVolumeBGM(const std::string & str, const float & vol)
 
 bool CSoundManager::LoadSE(const std::string& str)
 {
+	if (CSoundManager::GetSound()->m_ResourceSE[str].GetArrayCount() > 0)
+	{
+		return true;
+	}
 	for (int i = 0; i < DefSoundPool; i++)
 	{
 		CSoundManager::GetSound()->m_ResourceSE[str].Add(NEW CSound());

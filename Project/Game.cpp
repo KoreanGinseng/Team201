@@ -15,7 +15,6 @@ const char*		g_StageFileName[STAGE_COUNT] = {
 			"Stage1-a.txt",
 };
 
-CTexture tex;
 //コンストラクタ
 CGame::CGame() :
 CSceneBase(),
@@ -76,10 +75,6 @@ bool CGame::Load()
 		m_pBackChipArray.SetData(NEW CBackChip(), i);
 	}
 
-	if (!tex.CreateTarget(g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), PixelFormat::PIXELFORMAT_R8G8B8A8_UNORM, BufferAccess::BUFFERACCESS_GPUREADWRITE))
-	{
-		return FALSE;
-	}
 	return TRUE;
 }
 

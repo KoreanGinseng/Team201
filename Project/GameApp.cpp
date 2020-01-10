@@ -1,5 +1,5 @@
 /*************************************************************************//*!
-					
+
 					@file	GameApp.cpp
 					@brief	基本ゲームアプリ。
 
@@ -26,11 +26,11 @@ static int			gStageNo = 0;
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
-				
+
 		@return			TRUE		成功<br>
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
-MofBool CGameApp::Initialize(void){
+MofBool CGameApp::Initialize(void) {
 	CUtilities::SetCurrentDirectory("Resource");
 
 	if (!CUtilities::SetFPS(GAMEFPS))
@@ -55,11 +55,11 @@ MofBool CGameApp::Initialize(void){
 /*************************************************************************//*!
 		@brief			アプリケーションの更新
 		@param			None
-				
+
 		@return			TRUE		成功<br>
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
-MofBool CGameApp::Update(void){
+MofBool CGameApp::Update(void) {
 	//キーの更新
 	g_pInput->RefreshKey();
 	g_pGamePad->RefreshKey();
@@ -75,7 +75,7 @@ MofBool CGameApp::Update(void){
 		}
 		return TRUE;
 	}
-	
+
 	gpScene->EffectFrame();
 
 	gpScene->Update();
@@ -127,15 +127,15 @@ MofBool CGameApp::Update(void){
 /*************************************************************************//*!
 		@brief			アプリケーションの描画
 		@param			None
-				
+
 		@return			TRUE		成功<br>
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
-MofBool CGameApp::Render(void){
+MofBool CGameApp::Render(void) {
 	//描画開始
 	g_pGraphics->RenderStart();
 	//画面のクリア
-	g_pGraphics->ClearTarget(0.0f,0.0f,1.0f,0.0f,1.0f,0);
+	g_pGraphics->ClearTarget(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0);
 
 	if (!gpLoading->IsSceneStart())
 	{
@@ -156,11 +156,11 @@ MofBool CGameApp::Render(void){
 /*************************************************************************//*!
 		@brief			アプリケーションの解放
 		@param			None
-				
+
 		@return			TRUE		成功<br>
 						それ以外	失敗、エラーコードが戻り値となる
 *//**************************************************************************/
-MofBool CGameApp::Release(void){
+MofBool CGameApp::Release(void) {
 	gpLoading->Join();
 	g_pGamePad->Release();
 	NewPointerRelease(gpXGpad);

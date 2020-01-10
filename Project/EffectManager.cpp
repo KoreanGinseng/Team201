@@ -6,7 +6,6 @@ CEffectManager::CEffectManager(void)
 {
 }
 
-
 CEffectManager::~CEffectManager(void)
 {
 }
@@ -53,6 +52,10 @@ void CEffectManager::Start(const std::string & str, const float & x, const float
 
 bool CEffectManager::Load(const std::string& str)
 {
+	if (CEffectManager::GetEffect()->m_Resource[str].GetArrayCount() > 0)
+	{
+		return true;
+	}
 	for (int i = 0; i < DefEffectPool; i++)
 	{
 		CEffectManager::GetEffect()->m_Resource[str].Add(NEW CEffect());
