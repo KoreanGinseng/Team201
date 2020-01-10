@@ -288,6 +288,23 @@ void CGame::Render()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i]->GetPos());
 		m_pItemArray[i]->Render(screenPos);
 	}
+	//プレイヤーの描画
+	screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
+	m_Player.RenderCircle(screenPos);
+
+	//敵の描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i]->GetPos());
+		m_pEnemyArray[i]->RenderCircle(screenPos);
+	}
+
+	//アイテムの描画
+	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
+	{
+		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i]->GetPos());
+		m_pItemArray[i]->RenderCircle(screenPos);
+	}
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)

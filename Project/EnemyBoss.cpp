@@ -45,6 +45,21 @@ void CEnemyBoss::Render(const Vector2 & screenPos)
 #endif // _DEBUG
 }
 
+void CEnemyBoss::RenderCircle(const Vector2 & screenPos)
+{
+	if (!m_bShow)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+	m_pTexture->RenderScale(screenPos.x, screenPos.y, m_Scale, r, MOF_ARGB(128, 255, 255, 255));
+}
+
 CRectangle CEnemyBoss::GetSrcAddRect(void)
 {
 	CRectangle rec(0, 0, GetSrcRect().GetWidth() * m_Scale, GetSrcRect().GetHeight() * m_Scale);

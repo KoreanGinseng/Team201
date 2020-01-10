@@ -11,6 +11,7 @@ public:
 	~CEnemyMash(void);
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
+	void RenderCircle(const Vector2& screenPos) override;
 	void Move(void) override;
 	void Animation(void) override;
 	bool Dmg(const int& dmg) override;

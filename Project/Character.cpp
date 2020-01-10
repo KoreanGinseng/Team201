@@ -49,6 +49,21 @@ void CCharacter::Render(const Vector2& screenPos)
 #endif // _DEBUG
 }
 
+void CCharacter::RenderCircle(const Vector2 & screenPos)
+{
+	if (!m_bShow)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, r, MOF_ARGB(128, 255, 255, 255));
+}
+
 void CCharacter::Release(void)
 {
 	m_Motion.Release();

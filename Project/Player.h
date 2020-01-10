@@ -65,6 +65,7 @@ public:
 	void Initialize(void) override;					//‰Šú‰»
 	void Update(void) override;						//XV
 	void Render(const Vector2& screenPos) override;	//•`‰æ
+	void RenderCircle(const Vector2& screenPos) override;	//Circle•`‰æ
 	void Release(void) override;					//‰ğ•ú
 
 	void Move(void);								//“®‚«,ˆÚ“®—ÊŒvZ

@@ -9,6 +9,7 @@ public:
 	CEnemyBoss();
 	~CEnemyBoss();
 	void Render(const Vector2& screenPos) override;
+	void RenderCircle(const Vector2& screenPos) override;
 	CRectangle GetSrcAddRect(void) override;
 };
 

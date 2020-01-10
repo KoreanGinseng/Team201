@@ -23,6 +23,7 @@ public:
 	virtual void Initialize(void) override = 0;				//初期化
 	virtual void Update(void) override = 0;					//更新
 	virtual void Render(const Vector2& screenPos) override;	//描画
+	virtual void RenderCircle(const Vector2& screenPos);	//Circle描画
 	virtual void Release(void) override;					//解放
 	void CreateMotion(const char* pName);					//モーションの作成
 	void LoadRect(const char* pName);						//当たり判定用矩形読み込み

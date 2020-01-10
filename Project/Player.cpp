@@ -45,8 +45,8 @@ void CPlayer::Initialize(void)
 	//À•W‚Ì‰Šú‰»
 	m_Pos = Vector2(9600, 768);
 	m_Pos = Vector2(960, 768);
-	m_Pos = Vector2(4000, 192);
 	m_Pos = Vector2(200, 768);
+	m_Pos = Vector2(4000, 192);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -122,7 +122,6 @@ void CPlayer::Render(const Vector2& screenPos)
 		dr.Left = tmp;
 	}
 	Vector2 scroll = CCamera2D::GetSScroll();
-	CGraphicsUtilities::RenderFillCircle(m_SkillCircle.x - scroll.x, m_SkillCircle.y - scroll.y, m_SkillCircle.r, MOF_ARGB(128, 255, 0, 0));
 	m_pTexture->Render(screenPos.x, screenPos.y, dr);
 #ifdef _DEBUG
 	//Vector2 scroll = CCamera2D::GetSScroll();
@@ -135,6 +134,28 @@ void CPlayer::Render(const Vector2& screenPos)
 		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
 	}
 #endif // _DEBUG
+}
+
+void CPlayer::RenderCircle(const Vector2 & screenPos)
+{
+	CRectangle dr = GetSrcRect();
+	//”½“]ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚Æ‚«•`‰æ‹éŒ`‚ð”½“]
+	if (m_bReverse)
+	{
+		float tmp = dr.Right;
+		dr.Right = dr.Left;
+		dr.Left = tmp;
+	}
+	Vector2 scroll = CCamera2D::GetSScroll();
+	//CGraphicsUtilities::RenderFillCircle(m_SkillCircle.x - scroll.x, m_SkillCircle.y - scroll.y, m_SkillCircle.r, MOF_ARGB(128, 255, 0, 0));
+	//204,62,233
+	//120,0,193
+	CGraphicsUtilities::RenderFillCircle(m_SkillCircle.x - scroll.x, m_SkillCircle.y - scroll.y, m_SkillCircle.r, MOF_ARGB(128, 120, 0, 193));
+	for (int i = m_SkillCircle.r - 1; i < m_SkillCircle.r + 1; i++)
+	{
+		CGraphicsUtilities::RenderCircle(m_SkillCircle.x - scroll.x, m_SkillCircle.y - scroll.y, i, MOF_ARGB(255, 120, 0, 193));
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, dr, MOF_ARGB(128, 255, 255, 255));
 }
 
 //‰ð•ú

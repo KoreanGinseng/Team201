@@ -140,6 +140,29 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 #endif // _DEBUG
 }
 
+void CEnemyMash::RenderCircle(const Vector2 & screenPos)
+{
+	if (!m_bShow)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+	if (m_bDmg)
+	{
+		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
+		//m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight() / 2, m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_CENTERCENTER);
+	}
+	else
+	{
+		m_pTexture->Render(screenPos.x, screenPos.y, r, MOF_ARGB(128, 255, 255, 255));
+	}
+}
+
 void CEnemyMash::Move(void)
 {
 	m_Move.x += m_Spd.x;
