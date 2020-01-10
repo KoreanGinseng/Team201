@@ -29,6 +29,10 @@ void CEnemyBoss::Render(const Vector2 & screenPos)
 	m_pTexture->RenderScale(screenPos.x, screenPos.y, m_Scale, r);
 
 #ifdef _DEBUG
+	if (g_pInput->IsKeyPush(MOFKEY_4))
+	{
+		m_bDead = true;
+	}
 	Vector2 scroll = CCamera2D::GetSScroll();
 	//CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 	//CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);

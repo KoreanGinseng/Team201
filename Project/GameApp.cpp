@@ -21,6 +21,7 @@ CSceneBase*			gpScene = nullptr;
 CLoading*			gpLoading = nullptr;
 
 CXGamePad*			gpXGpad = nullptr;
+static int			gStageNo = 0;
 
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
@@ -83,6 +84,13 @@ MofBool CGameApp::Update(void){
 	{
 		bool loadPush = true;
 		int n = gpScene->GetNextSceneNo();
+		if (gpScene->GetSceneName() == SCENENO_GAME)
+		{
+			if (n == SCENENO_GAME)
+			{
+				gStageNo++;
+			}
+		}
 		gpScene->Release();
 		NewPointerRelease(gpScene);
 		NewPointerRelease(gpLoading);
@@ -91,6 +99,7 @@ MofBool CGameApp::Update(void){
 		case SCENENO_GAME:
 			loadPush = false;
 			gpScene = NEW CGame();
+			static_cast<CGame*>(gpScene)->SetStageNo(gStageNo);
 			break;
 		case SCENENO_TITLE:
 			gpScene = NEW CTitle();

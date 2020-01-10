@@ -25,7 +25,7 @@ private:
 	CCamera2D			m_MainCamera;
 	CStage				m_Stage[STAGE_COUNT];
 
-	static	int			m_StageNo;
+	int					m_StageNo;
 
 	bool				m_bPoase;
 	bool				m_bClear;
@@ -53,11 +53,6 @@ public:
 	void UpdateDebug(void);
 
 	int GetSceneName(void) { return SCENENO_GAME; }
-
-	static	void	NextStage(void) {
-		if (++m_StageNo >= STAGE_COUNT) {
-			m_StageNo = 0;
-		};
-	}
+	void SetStageNo(const int& no);
 };
 

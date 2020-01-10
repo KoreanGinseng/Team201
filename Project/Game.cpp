@@ -8,8 +8,6 @@
 // INCLUDE
 #include "Game.h"
 
-int CGame::m_StageNo = START_STAGE;
-
 const char*		g_StageFileName[STAGE_COUNT] = {
 			"TEISHUTSUYOU.txt",
 			"TestMap1226.txt",
@@ -26,7 +24,8 @@ m_pEnemyArray(),
 m_pItemArray(),
 m_pTargetObjArray(),
 m_pMapObjArray(),
-m_bClear(false)
+m_bClear(false),
+m_StageNo(0)
 {
 }
 
@@ -204,7 +203,6 @@ void CGame::Update()
 		m_MainCamera.SetScrollX(m_Stage[m_StageNo].GetStageRect().Right - g_pGraphics->GetTargetWidth());
 	}
 
-
 	//“–‚½‚è”»’è
 	Collosion();
 
@@ -217,6 +215,21 @@ void CGame::Update()
 
 	//ƒQ[ƒ€ŽžŠÔ‚ð‰ÁŽZ
 	g_pTimeManager->Tick();
+	
+	for (int i = 0; i < m_pEnemyArray.GetArrayCount(); i++)
+	{
+		CEnemy* ene = m_pEnemyArray[i];
+		if (!ene->IsBoss())
+		{
+			continue;
+		}
+		if (ene->IsDead())
+		{
+			m_pEffect->Out(10);
+			m_NextSceneNo = SCENENO_GAME;
+		}
+	}
+
 }
 
 //•`‰æ
@@ -306,6 +319,10 @@ void CGame::UpdateDebug() {
 		m_pEffect->Out(10);
 		m_NextSceneNo = SCENENO_GAMECLEAR;
 	}
+}
+void CGame::SetStageNo(const int & no)
+{
+	m_StageNo = no;
 }
 //ƒfƒoƒbƒO•`‰æ
 void CGame::RenderDebug()

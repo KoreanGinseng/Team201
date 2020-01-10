@@ -7,6 +7,7 @@ class CEnemy : public CSubstance {
 protected:
 	int m_EnemyType;
 	bool m_bGravity;
+	bool m_bBoss;
 public:
 	CEnemy(void);
 	virtual ~CEnemy(void);
@@ -22,4 +23,6 @@ public:
 	virtual bool Dmg(const int& dmg);
 	bool KnockBack(const CRectangle& pre, const int& preWait);
 	virtual CRectangle GetSrcAddRect(void);
+	void SetBoss(void);
+	bool IsBoss(void) const;
 };

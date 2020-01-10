@@ -55,6 +55,9 @@ void CSound::Update(void)
 
 void CSound::Release(void)
 {
-	m_pSound->Release();
-	MOF_SAFE_DELETE(m_pSound);
+	if (m_pSound)
+	{
+		m_pSound->Release();
+		MOF_SAFE_DELETE(m_pSound);
+	}
 }

@@ -269,9 +269,18 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case ENEMY_OCT:			(*pEnemyArray)[n] = NEW CEnemyOct();	break;
 			case ENEMY_HAND:		(*pEnemyArray)[n] = NEW CEnemyHand();	break;
 			case ENEMY_FLOATING:	(*pEnemyArray)[n] = NEW CEnemyFloat();  break;
-			case ENEMY_BOSS_1:		(*pEnemyArray)[n] = NEW CEnemyBoss();	break;
-			case ENEMY_BOSS_2:		(*pEnemyArray)[n] = NEW CEnemyBoss2();	break;
-			case ENEMY_BOSS_3:		(*pEnemyArray)[n] = NEW CEnemyBoss3();	break;
+			case ENEMY_BOSS_1:
+				(*pEnemyArray)[n] = NEW CEnemyBoss();
+				(*pEnemyArray)[n]->SetBoss();
+				break;
+			case ENEMY_BOSS_2:
+				(*pEnemyArray)[n] = NEW CEnemyBoss2();
+				(*pEnemyArray)[n]->SetBoss();
+				break;
+			case ENEMY_BOSS_3:
+				(*pEnemyArray)[n] = NEW CEnemyBoss3();
+				(*pEnemyArray)[n]->SetBoss();
+				break;
 			default: break;
 			}
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);

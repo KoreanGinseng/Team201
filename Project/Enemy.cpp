@@ -4,7 +4,8 @@
 
 CEnemy::CEnemy(void) :
 CSubstance(),
-m_bGravity(true)
+m_bGravity(true),
+m_bBoss(false)
 {
 	m_SubType = SUB_ENE;
 	m_SubStatus = SUBSTATUS_NOMAL;
@@ -256,4 +257,14 @@ bool CEnemy::KnockBack(const CRectangle & pre, const int& preWait)
 CRectangle CEnemy::GetSrcAddRect(void)
 {
 	return CRectangle(0, 0, GetSrcRect().GetWidth(), GetSrcRect().GetHeight());
+}
+
+void CEnemy::SetBoss(void)
+{
+	m_bBoss = true;
+}
+
+bool CEnemy::IsBoss(void) const
+{
+	return m_bBoss;
 }
