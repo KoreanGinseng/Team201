@@ -8,8 +8,8 @@ private:
 protected:
 
 public:
-	CShot();
-	virtual ~CShot();
+	CShot(void);
+	virtual ~CShot(void);
 	virtual void Fire(const Vector2& startPos) = 0;
 };
 
