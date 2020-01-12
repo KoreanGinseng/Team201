@@ -522,12 +522,12 @@ void CGame::Collosion(void)
 			else
 			{
 				//通常の動きにする
-				//スキルが使われている状態なら当たり判定を行わない
-				if (!m_pTargetObjArray[i]->GetStatus())
-				{
-					//埋まり値だけ戻す
-					m_Player.CollisionStage(over);
-				}
+				////スキルが使われている状態なら当たり判定を行わない
+				//if (!m_pTargetObjArray[i]->GetStatus())
+				//{
+				//}
+				//埋まり値だけ戻す
+				m_Player.CollisionStage(over);
 			}
 		}
 
@@ -548,11 +548,11 @@ void CGame::Collosion(void)
 				//それ以外埋まり値だけ戻す
 				else
 				{
-					//スキルが使われている状態なら当たり判定を行わない
-					if (!m_pTargetObjArray[i]->GetStatus())
-					{
-						m_pEnemyArray[j]->CollisionStage(over);
-					}
+					////スキルが使われている状態なら当たり判定を行わない
+					//if (!m_pTargetObjArray[i]->GetStatus())
+					//{
+					//}
+					m_pEnemyArray[j]->CollisionStage(over);
 				}
 			}
 		}
