@@ -6,7 +6,9 @@ CEnemyPoison::CEnemyPoison() :
 CEnemy(),
 m_bDmg(false),
 m_DmgScale(Vector2(1,1)),
-m_bAttack(false)
+m_bAttack(false),
+m_pPoisonTexture(nullptr),
+m_PoisonMotion()
 {
 	m_EnemyType = ENEMY_POISUNMASH;
 	m_Spd.x = -3.0f;
@@ -15,6 +17,17 @@ m_bAttack(false)
 
 CEnemyPoison::~CEnemyPoison()
 {
+}
+
+void CEnemyPoison::Initialize(void)
+{
+	CEnemy::Initialize();
+	CAnimationData* pData = CAnimationManager::GetAnimation("Effect_Poison.bin");
+	std::string texName = pData->GetTextureName();
+	SpriteAnimationCreate* pAnim = pData->GetAnim();
+	m_PoisonMotion.Create(pAnim, pData->GetAnimCount());
+	m_pPoisonTexture = CTextureManager::GetTexture(texName);
+	m_PoisonPos = m_Pos;
 }
 
 void CEnemyPoison::Update(void)
