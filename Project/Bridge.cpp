@@ -15,6 +15,10 @@ CBridge::~CBridge()
 
 bool CBridge::OverValue(CRectangle rec, Vector2 & out)
 {
+	if (m_SubStatus != SUBSTATUS_NOMAL)
+	{
+		return false;
+	}
 	bool re = false;
 	CRectangle r = rec;
 	CRectangle myRec = GetRectArray(0);
