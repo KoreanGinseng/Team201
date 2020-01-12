@@ -75,7 +75,7 @@ constexpr	char*	FileName[] = {
 	"obj_rope03.png",
 	"Obj_Tree01.png",
 
-	"obj_bridge03.png",
+	"Bridge.png",
 	"Obj04.png",
 	"Obj05.png",
 	"Obj06.png",
@@ -110,7 +110,7 @@ constexpr	char*	FileName[] = {
 	"ItemAnim08.bin",
 	"Rope.bin",
 	"obj_treeanim01.bin",
-	"BridgeAnim.bin",
+	"Bridge.bin",
 	"ObjAnim04.bin",
 	"ObjAnim05.bin",
 	"ObjAnim06.bin",
