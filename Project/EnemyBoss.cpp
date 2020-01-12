@@ -2,15 +2,16 @@
 
 
 
-CEnemyBoss::CEnemyBoss() :
+CEnemyBoss::CEnemyBoss(void) :
 CEnemy()
 {
 	m_Scale = 1.7f;
 	m_EnemyType = ENEMY_BOSS_1;
+	m_bSelectTarget = false;
 }
 
 
-CEnemyBoss::~CEnemyBoss()
+CEnemyBoss::~CEnemyBoss(void)
 {
 }
 
