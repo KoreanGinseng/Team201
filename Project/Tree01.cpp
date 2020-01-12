@@ -15,6 +15,10 @@ CTree01::~CTree01()
 
 bool CTree01::OverValue(CRectangle rec, Vector2 & out)
 {
+	if (m_SubStatus == SUBSTATUS_TRIP)
+	{
+		return false;
+	}
 	bool re = false;
 	CRectangle r = rec;
 	CRectangle myRec = GetRectArray(2);
