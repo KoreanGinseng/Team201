@@ -7,10 +7,14 @@ private:
 	bool m_bDmg;
 	Vector2 m_DmgScale;
 	bool m_bAttack;
-	CDynamicArray<CShot*> m_ShotArray;
+	CTexturePtr				m_pPoisonTexture;
+	CSpriteMotionController m_PoisonMotion;
+	Vector2 m_PoisonPos;
+	CDynamicArray<CShot*>	m_ShotArray;
 public:
 	CEnemyPoison(void);
 	virtual ~CEnemyPoison(void);
+	void Initialize(void) override;
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
 	void RenderCircle(const Vector2& screenPos) override;
