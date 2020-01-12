@@ -2,13 +2,13 @@
 
 
 
-CShot::CShot() :
+CShot::CShot(void) :
 CSubstance()
 {
 	m_bSelectTarget = false;
 }
 
 
-CShot::~CShot()
+CShot::~CShot(void)
 {
 }
