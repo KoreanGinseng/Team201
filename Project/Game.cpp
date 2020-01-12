@@ -9,10 +9,10 @@
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
+			"Stage-R-1.txt",
 			"TEISHUTSUYOU.txt",
 			"TestMap1226.txt",
 			"ENEMOVESTAGE2.txt",
-			"Stage1-a.txt",
 };
 
 //コンストラクタ
@@ -512,7 +512,7 @@ void CGame::Collosion(void)
 		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
 		{
 			//ぶつかったオブジェクトがロープの場合
-			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE && m_pTargetObjArray[i]->GetStatus() == SUBSTATUS_NOMAL)
+			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE && m_pTargetObjArray[i]->GetStatus() == SUBSTATUS_BACK)
 			{
 				//登れるようにする
 				m_Player.SetClime(true);

@@ -45,8 +45,9 @@ void CPlayer::Initialize(void)
 	//À•W‚Ì‰Šú‰»
 	m_Pos = Vector2(9600, 768);
 	m_Pos = Vector2(960, 768);
-	m_Pos = Vector2(200, 768);
 	m_Pos = Vector2(4000, 192);
+	m_Pos = Vector2(200, 768);
+	m_Pos = Vector2(5510, 192);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;

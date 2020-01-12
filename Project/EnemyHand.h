@@ -11,5 +11,6 @@ public:
 	~CEnemyHand();
 	void Move(void) override;
 	void Render(const Vector2& screenPos) override;
+	void RenderCircle(const Vector2& screenPos) override;
 };
 

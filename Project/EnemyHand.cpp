@@ -63,3 +63,18 @@ void CEnemyHand::Render(const Vector2 & screenPos)
 	}
 #endif // _DEBUG
 }
+
+void CEnemyHand::RenderCircle(const Vector2 & screenPos)
+{
+	if (!m_bShow || !m_bGhost)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+	m_pTexture->Render(screenPos.x, screenPos.y, r, MOF_ARGB(128, 255, 255, 255));
+}

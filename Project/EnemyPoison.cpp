@@ -121,7 +121,6 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 	if (m_bDmg)
 	{
 		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
-		//m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight() / 2, m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_CENTERCENTER);
 	}
 	else
 	{
@@ -139,6 +138,29 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
 	}
 #endif // _DEBUG
+}
+
+void CEnemyPoison::RenderCircle(const Vector2 & screenPos)
+{
+	if (!m_bShow)
+	{
+		return;
+	}
+	CRectangle r = GetSrcRect();
+	if (!m_bReverse)
+	{
+		r.Left = GetSrcRect().Right;
+		r.Right = GetSrcRect().Left;
+	}
+
+	if (m_bDmg)
+	{
+		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
+	}
+	else
+	{
+		m_pTexture->Render(screenPos.x, screenPos.y, r, MOF_ARGB(128, 255, 255, 255));
+	}
 }
 
 void CEnemyPoison::Move(void)
