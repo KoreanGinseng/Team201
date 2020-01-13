@@ -74,7 +74,7 @@ bool CGame::Load()
 	{
 		m_pBackChipArray.SetData(NEW CBackChip(), i);
 	}
-
+	g_pSoundManager->LoadBGM("Stage1_BGM.mp3");
 	return TRUE;
 }
 
@@ -92,6 +92,7 @@ void CGame::Initialize()
 
 	//ゲーム開始時間リセット
 	g_pTimeManager->Reset();
+	g_pSoundManager->PlayBGM("Stage1_BGM.mp3");
 }
 
 //更新
@@ -103,6 +104,7 @@ void CGame::Update()
 	{
 		m_pEffect->Out(10);
 		m_NextSceneNo = SCENENO_GAMEOVER;
+		g_pSoundManager->GetSoundBGM("Stage1_BGM.mp3")->Stop();
 	}
 
 	//デバッグ用
@@ -222,6 +224,7 @@ void CGame::Update()
 		{
 			m_pEffect->Out(10);
 			m_NextSceneNo = SCENENO_GAME;
+			g_pSoundManager->GetSoundBGM("Stage1_BGM.mp3")->Stop();
 		}
 	}
 

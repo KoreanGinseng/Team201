@@ -27,6 +27,7 @@ bool CTitle::Load(void)
 	//シーンエフェクトスタート
 	m_pEffect = new CEffectFade();
 	m_pEffect->In(10);
+	g_pSoundManager->LoadBGM("Title_BGM.mp3");
 
 	return TRUE;
 }
@@ -48,6 +49,7 @@ void CTitle::Initialize(void)
 	m_Rect = CRectangle(sx1, sy1, sx1 + fontSize * (9 + 2), sy1 + 64);
 	m_bAlphaUp = false;
 	m_Alpha = 0;
+	g_pSoundManager->PlayBGM("Title_BGM.mp3");
 }
 
 //更新
@@ -114,6 +116,7 @@ void CTitle::Update(void)
 	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 
 		m_NextSceneNo = SCENENO_GAME;
+		g_pSoundManager->GetSoundBGM("Title_BGM.mp3")->Stop();
 	}
 }
 
