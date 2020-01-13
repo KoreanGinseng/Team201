@@ -14,19 +14,25 @@ class CTitle :
 	public CSceneBase
 {
 private:
-
+	CTexturePtr	m_pTexture;
+	CMovie		m_Movie;
+	int			m_SelectNo;
+	MofU32		m_RectColor;
+	CRectangle	m_Rect;
+	bool		m_bAlphaUp;
+	int			m_Alpha;
 public:
-	CTitle();
-	~CTitle() override;
-	bool Load() override;
-	void Initialize() override;
-	void Update() override;
-	void Render() override;
-	void RenderUI() override;
-	void RenderDebug() override;
-	void Release() override;
+	CTitle(void);
+	~CTitle(void) override;
+	bool Load(void) override;
+	void Initialize(void) override;
+	void Update(void) override;
+	void Render(void) override;
+	void RenderUI(void) override;
+	void RenderDebug(void) override;
+	void Release(void) override;
 
-	void UpdateDebug();
+	void UpdateDebug(void);
 
 	int GetSceneName(void) { return SCENENO_TITLE; }
 };

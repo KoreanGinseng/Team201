@@ -317,7 +317,26 @@ void CGame::Render()
 
 void CGame::RenderUI(void)
 {
-	String(1600, 0, 128, g_pTimeManager->GetNowTime());
+	String(g_pGraphics->GetTargetWidth() - 64 * 2 - 64 * 7, 0, 64, "Time:");
+	String(g_pGraphics->GetTargetWidth() - 64 * 2, 0, 64, g_pTimeManager->GetNowTime());
+	CTexturePtr pt = g_pTextureManager->GetTexture("UI_HP.png");
+	pt->RenderScale(0.0f, g_pGraphics->GetTargetHeight() - pt->GetHeight() * 0.4f + 100, 0.4f);
+	CTexturePtr pt2 = g_pTextureManager->GetTexture("UI_SKILL.png");
+	pt2->RenderScale(g_pGraphics->GetTargetWidth() - pt2->GetWidth() * 0.4f, g_pGraphics->GetTargetHeight() - pt2->GetHeight() * 0.4f + 100, 0.4f);
+	int hp = m_Player.GetHp();
+	CTexturePtr pt3 = g_pTextureManager->GetTexture("HP_H.png");
+	CTexturePtr pt4 = g_pTextureManager->GetTexture("HP.png");
+	for (int i = 1; i <= hp; i++)
+	{
+		if(i % 2 == 0)
+		{
+			pt4->RenderScale(0 + 35 * i - 100, 800, 0.4f);
+		}
+		else
+		{
+			pt3->RenderScale(0 + 35 * (i + 1) - 5 - 100, 800, 0.4f);
+		}
+	}
 }
 
 void CGame::UpdateDebug() {

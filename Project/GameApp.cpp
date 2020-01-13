@@ -43,7 +43,8 @@ MofBool CGameApp::Initialize(void) {
 	xc.No = 0;
 	g_pGamePad->Create(&xc);
 
-	gpScene = NEW CGame();
+	//gpScene = NEW CGame();
+	gpScene = NEW CTitle();
 
 	gpLoading = NEW CLoading();
 	gpLoading->SetStartUp(TRUE);
