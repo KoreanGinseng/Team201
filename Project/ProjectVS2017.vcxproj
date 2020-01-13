@@ -131,6 +131,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PoisonShot.cpp" />
     <ClCompile Include="Pole.cpp" />
     <ClCompile Include="PushSwitch.cpp" />
     <ClCompile Include="Ranking.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Loading.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PoisonShot.h" />
     <ClInclude Include="Pole.h" />
     <ClInclude Include="PushSwitch.h" />
     <ClInclude Include="Ranking.h" />
