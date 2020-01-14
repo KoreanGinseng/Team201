@@ -36,6 +36,7 @@
 #include	"PushSwitch.h"
 #include	"Renga.h"
 #include	"MoveFloor.h"
+#include	"Heal.h"
 
 #define		RIGHTSLOPE		30
 #define		RIGHTSLOPE2		43

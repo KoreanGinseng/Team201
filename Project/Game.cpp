@@ -553,6 +553,10 @@ void CGame::Collosion(void)
 				m_Player.SetClime(true);
 				break;
 			}
+			else if (m_pTargetObjArray[i]->GetObjType() == OBJECT_HEAL)
+			{
+				m_Player.Heal(1);
+			}
 			//ƒ[ƒvˆÈŠO‚Ìê‡
 			else
 			{

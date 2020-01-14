@@ -85,5 +85,6 @@ public:
 	{ m_bClime = b; }
 	bool   Dmg(CEnemy& ene);						//ダメージの処理
 	void SetCntrl(const bool& b) { m_bCntrl = b; }	//操作フラグのセット
+	void Heal(const int& h) { m_HP += h; }
 };
 

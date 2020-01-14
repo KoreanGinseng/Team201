@@ -333,7 +333,37 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case OBJECT_TRESURE:	(*pTargetObjArray)[n] = NEW CTreasure();	break;
 			case OBJECT_PUSHSWITCH:	(*pTargetObjArray)[n] = NEW CPushSwitch();	break;
 			case OBJECT_RENGA:		(*pTargetObjArray)[n] = NEW CRenga();		break;
-			case OBJECT_MOVEFLOOR:	(*pTargetObjArray)[n] = NEW CMoveFloor();	break;
+			case OBJECT_MOVEFLOOR1:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(0);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(0);
+				break;
+			case OBJECT_MOVEFLOOR2:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(0);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(1);
+				break;
+			case OBJECT_MOVEFLOOR3:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(0);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(2);
+				break;
+			case OBJECT_MOVEFLOOR4:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(1);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(0);
+				break;
+			case OBJECT_MOVEFLOOR5:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(1);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(1);
+				break;
+			case OBJECT_MOVEFLOOR6:
+				(*pTargetObjArray)[n] = NEW CMoveFloor();
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetRectType(1);
+				static_cast<CMoveFloor*>((*pTargetObjArray)[n])->SetColorType(2);
+				break;
+			case OBJECT_HEAL:		(*pTargetObjArray)[n] = NEW CHeal();		break;
 			default: break;
 			}
 			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
