@@ -5,11 +5,15 @@ class CEnemyBoss :
 {
 private:
 	float m_Scale;
+	CDynamicArray<CShot*>	m_AnimShotArray;
+	CDynamicArray<CShot*>	m_BoundShotArray;
 public:
-	CEnemyBoss();
-	~CEnemyBoss();
+	CEnemyBoss(void);
+	~CEnemyBoss(void);
 	void Render(const Vector2& screenPos) override;
 	void RenderCircle(const Vector2& screenPos) override;
 	CRectangle GetSrcAddRect(void) override;
+	CDynamicArray<CShot*>*	GetAnimShotArray(void);
+	CDynamicArray<CShot*>*	GetBoundShotArray(void);
 };
 

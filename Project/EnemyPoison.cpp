@@ -22,12 +22,6 @@ CEnemyPoison::~CEnemyPoison()
 void CEnemyPoison::Initialize(void)
 {
 	CEnemy::Initialize();
-	CAnimationData* pData = CAnimationManager::GetAnimation("Effect_Poison.bin");
-	std::string texName = pData->GetTextureName();
-	SpriteAnimationCreate* pAnim = pData->GetAnim();
-	m_PoisonMotion.Create(pAnim, pData->GetAnimCount());
-	m_pPoisonTexture = CTextureManager::GetTexture(texName);
-	m_PoisonPos = m_Pos;
 }
 
 void CEnemyPoison::Update(void)
@@ -81,6 +75,11 @@ void CEnemyPoison::Update(void)
 	}
 
 	m_Pos += m_Move;
+
+	for (int i = 0; i < m_ShotArray.GetArrayCount(); i++)
+	{
+		m_ShotArray[i]->Update();
+	}
 
 	if (!m_bAnimStop)
 	{
@@ -139,9 +138,13 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 	{
 		m_pTexture->Render(screenPos.x, screenPos.y, r);
 	}
-
-#ifdef _DEBUG
 	Vector2 scroll = CCamera2D::GetSScroll();
+	for (int i = 0; i < m_ShotArray.GetArrayCount(); i++)
+	{
+		Vector2 sp = ScreenTransration(scroll, m_ShotArray[i]->GetPos());
+		m_ShotArray[i]->Render(sp);
+	}
+#ifdef _DEBUG
 	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
 	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
@@ -186,6 +189,17 @@ void CEnemyPoison::Move(void)
 	if (m_bAttack)
 	{
 		m_Move.x = 0;
+		if (m_ShotArray.GetArrayCount() < 1)
+		{
+			m_ShotArray.Add(NEW CPoisonShot());
+			m_ShotArray[0]->Initialize();
+			m_ShotArray[0]->Fire(m_Pos);
+		}
+		else if (!m_ShotArray[0]->IsShot())
+		{
+			m_ShotArray[0]->Fire(m_Pos);
+		}
+		m_bAttack = false;
 		return;
 	}
 	if (m_bReverse)
@@ -248,7 +262,18 @@ bool CEnemyPoison::OverValue(CRectangle rec, Vector2 & out)
 	bool re = false;
 	CRectangle r = rec;
 	CRectangle er = GetRect();
-
+	if (m_ShotArray.GetArrayCount() > 0)
+	{
+		CRectangle sr = m_ShotArray[0]->GetRect();
+		if (sr.CollisionRect(r))
+		{
+			re = true;
+			out.x += r.Right - sr.Left;
+			r.Left += r.Right - sr.Left;
+			r.Right += r.Right - sr.Left;
+			m_ShotArray[0]->SetShot(false);
+		}
+	}
 	//‰º–„‚Ü‚è’lŒvŽZ
 	CRectangle brec = r;
 	brec.Top = brec.Bottom + 1;

@@ -368,7 +368,7 @@ void CGame::RenderDebug()
 }
 
 //‰ð•ú
-void CGame::Release()
+void CGame::Release(void)
 {
 	NewPointerRelease(m_pEffect);
 	m_Stage[m_StageNo].Release();

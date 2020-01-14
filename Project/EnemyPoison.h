@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "PoisonShot.h"
 class CEnemyPoison :
 	public CEnemy
 {

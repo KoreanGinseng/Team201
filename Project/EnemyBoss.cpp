@@ -69,4 +69,14 @@ CRectangle CEnemyBoss::GetSrcAddRect(void)
 	return rec;
 }
 
+CDynamicArray<CShot*>* CEnemyBoss::GetAnimShotArray(void)
+{
+	return &m_AnimShotArray;
+}
+
+CDynamicArray<CShot*>* CEnemyBoss::GetBoundShotArray(void)
+{
+	return &m_BoundShotArray;
+}
+
 

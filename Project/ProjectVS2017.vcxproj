@@ -101,6 +101,8 @@
     <ClCompile Include="AnimationData.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="BackChip.cpp" />
+    <ClCompile Include="Boss1Shot.cpp" />
+    <ClCompile Include="Boss1Shot2.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="CameraCntrl.cpp" />
@@ -160,6 +162,8 @@
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="BackChip.h" />
+    <ClInclude Include="Boss1Shot.h" />
+    <ClInclude Include="Boss1Shot2.h" />
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="CameraCntrl.h" />

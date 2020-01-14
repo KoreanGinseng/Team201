@@ -80,14 +80,14 @@ void CTitle::Update(void)
 			m_bAlphaUp = true;
 		}
 	}
-	if (g_pGamePad->IsKeyPush(XINPUT_DP_UP) || g_pGamePad->GetStickVertical() > 0.8f)
+	if (g_pGamePad->IsKeyPush(XINPUT_DP_UP) || g_pGamePad->GetStickVertical() > 0.8f || g_pInput->IsKeyPush(MOFKEY_UP))
 	{
 		if (--m_SelectNo < 0)
 		{
 			m_SelectNo = 1;
 		}
 	}
-	else if (g_pGamePad->IsKeyPush(XINPUT_DP_DOWN) || g_pGamePad->GetStickVertical() < -0.8f)
+	else if (g_pGamePad->IsKeyPush(XINPUT_DP_DOWN) || g_pGamePad->GetStickVertical() < -0.8f || g_pInput->IsKeyPush(MOFKEY_DOWN))
 	{
 		if (++m_SelectNo > 1)
 		{
