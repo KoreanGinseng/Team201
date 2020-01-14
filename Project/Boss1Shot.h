@@ -3,6 +3,8 @@
 class CBoss1Shot1 :
 	public CShot
 {
+private:
+	int	m_Bound;
 public:
 	CBoss1Shot1(void);
 	virtual ~CBoss1Shot1(void);

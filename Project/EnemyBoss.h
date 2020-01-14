@@ -15,5 +15,7 @@ public:
 	CRectangle GetSrcAddRect(void) override;
 	CDynamicArray<CShot*>*	GetAnimShotArray(void);
 	CDynamicArray<CShot*>*	GetBoundShotArray(void);
+	void Move(void) override;
+	void Animation(void) override;
 };
 

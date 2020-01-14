@@ -327,6 +327,13 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();		break;
 			case OBJECT_SAVEPOINT:	(*pTargetObjArray)[n] = NEW CSavePosint();	break;
 			case OBJECT_CAMERACNTRL:(*pTargetObjArray)[n] = NEW CCameraCntrl();	break;
+			case OBJECT_POLE:		(*pTargetObjArray)[n] = NEW CPole();		break;
+			case OBJECT_HAMMER:		(*pTargetObjArray)[n] = NEW CHammer();		break;
+			case OBJECT_DOOR:		(*pTargetObjArray)[n] = NEW CDoor();		break;
+			case OBJECT_TRESURE:	(*pTargetObjArray)[n] = NEW CTreasure();	break;
+			case OBJECT_PUSHSWITCH:	(*pTargetObjArray)[n] = NEW CPushSwitch();	break;
+			case OBJECT_RENGA:		(*pTargetObjArray)[n] = NEW CRenga();		break;
+			case OBJECT_MOVEFLOOR:	(*pTargetObjArray)[n] = NEW CMoveFloor();	break;
 			default: break;
 			}
 			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);

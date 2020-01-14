@@ -29,6 +29,13 @@
 #include	"Rope.h"
 #include	"SavePosint.h"
 #include	"CameraCntrl.h"
+#include	"Pole.h"
+#include	"Hammer.h"
+#include	"Door.h"
+#include	"Treasure.h"
+#include	"PushSwitch.h"
+#include	"Renga.h"
+#include	"MoveFloor.h"
 
 #define		RIGHTSLOPE		30
 #define		RIGHTSLOPE2		43

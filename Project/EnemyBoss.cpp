@@ -1,5 +1,5 @@
 #include "EnemyBoss.h"
-
+#include "Boss1Shot.h"
 
 
 CEnemyBoss::CEnemyBoss(void) :
@@ -28,13 +28,19 @@ void CEnemyBoss::Render(const Vector2 & screenPos)
 		r.Right = GetSrcRect().Left;
 	}
 	m_pTexture->RenderScale(screenPos.x, screenPos.y, m_Scale, r);
-
+	
+	Vector2 scroll = CCamera2D::GetSScroll();
+	
+	for (int i = 0; i < m_BoundShotArray.GetArrayCount(); i++)
+	{
+		Vector2 sp = ScreenTransration(scroll, m_BoundShotArray[i]->GetPos());
+		m_BoundShotArray[i]->Render(sp);
+	}
 #ifdef _DEBUG
 	if (g_pInput->IsKeyPush(MOFKEY_4))
 	{
 		m_bDead = true;
 	}
-	Vector2 scroll = CCamera2D::GetSScroll();
 	//CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 	//CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
 	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
@@ -77,6 +83,33 @@ CDynamicArray<CShot*>* CEnemyBoss::GetAnimShotArray(void)
 CDynamicArray<CShot*>* CEnemyBoss::GetBoundShotArray(void)
 {
 	return &m_BoundShotArray;
+}
+
+void CEnemyBoss::Move(void)
+{
+
+	//if (m_BoundShotArray.GetArrayCount() < 1)
+	//{
+	//	m_BoundShotArray.Add(NEW CBoss1Shot1());
+	//	m_BoundShotArray[0]->Initialize();
+	//	m_BoundShotArray[0]->Fire(m_Pos);
+	//}
+	//else if(!m_BoundShotArray[0]->IsShot())
+	//{
+	//	m_BoundShotArray[0]->Initialize();
+	//	m_BoundShotArray[0]->Fire(m_Pos);
+	//}
+
+	//for (int i = 0; i < m_BoundShotArray.GetArrayCount(); i++)
+	//{
+	//	m_BoundShotArray[i]->Update();
+	//}
+
+}
+
+void CEnemyBoss::Animation(void)
+{
+	CEnemy::Animation();
 }
 
 

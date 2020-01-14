@@ -434,7 +434,15 @@ void CGame::Collosion(void)
 
 				if (m_pEnemyArray[i]->GetEnemyType() == ENEMY_BOSS_1)
 				{
-					static_cast<CEnemyBoss*>(m_pEnemyArray[i])->GetAnimShotArray()
+					CEnemyBoss* pe = static_cast<CEnemyBoss*>(m_pEnemyArray[i]);
+					if (pe->GetBoundShotArray()->GetArrayCount() > 0)
+					{
+						Vector2 shotOver(0, 0);
+						if (m_Stage[m_StageNo].OverValue(pe->GetRect(), shotOver))
+						{
+							pe->CollisionStage(shotOver);
+						}
+					}
 				}
 			}
 
