@@ -129,13 +129,13 @@ void CTitle::Render()
 	float y = (g_pGraphics->GetTargetHeight() - m_pTexture->GetHeight() * scale) * 0.5f;
 	m_pTexture->RenderScale(x, y, scale);
 	int fontSize = 64;
-	float sx1 = (g_pGraphics->GetTargetWidth() - fontSize * 9) * 0.5f;
+	float sx1 = (g_pGraphics->GetTargetWidth() - fontSize * 9) * 0.5f - fontSize;
 	float sy1 = g_pGraphics->GetTargetHeight() * 0.5f + 200;
-	float sx2 = (g_pGraphics->GetTargetWidth() - fontSize * 4) * 0.5f;
+	float sx2 = (g_pGraphics->GetTargetWidth() - fontSize * 4) * 0.5f - fontSize;
 	float sy2 = g_pGraphics->GetTargetHeight() * 0.5f + 300;
 	CGraphicsUtilities::RenderFillRect(sx1, sy1 + 100 * m_SelectNo, sx1 + fontSize * (9 + 2), sy1 + 64 + 100 * m_SelectNo, MOF_ARGB(m_Alpha, 180, 180, 180));
-	String(sx1, sy1, fontSize, "GameStart");
-	String(sx2, sy2, fontSize, "Exit");
+	String(sx1, sy1, fontSize, "GAMESTART");
+	String(sx2, sy2, fontSize, "EXIT");
 }
 
 void CTitle::RenderUI()

@@ -320,7 +320,7 @@ void CGame::Render()
 
 void CGame::RenderUI(void)
 {
-	String(g_pGraphics->GetTargetWidth() - 64 * 2 - 64 * 7, 0, 64, "Time:");
+	String(g_pGraphics->GetTargetWidth() - 64 * 2 - 64 * 7, 0, 64, "TIME:");
 	String(g_pGraphics->GetTargetWidth() - 64 * 2, 0, 64, g_pTimeManager->GetNowTime());
 	CTexturePtr pt = g_pTextureManager->GetTexture("UI_HP.png");
 	pt->RenderScale(0.0f, g_pGraphics->GetTargetHeight() - pt->GetHeight() * 0.4f + 100, 0.4f);
@@ -431,6 +431,11 @@ void CGame::Collosion(void)
 			{
 				//埋まっているだけ元に戻す
 				m_pEnemyArray[i]->CollisionStage(over);
+
+				if (m_pEnemyArray[i]->GetEnemyType() == ENEMY_BOSS_1)
+				{
+					static_cast<CEnemyBoss*>(m_pEnemyArray[i])->GetAnimShotArray()
+				}
 			}
 
 			//埋まり値の値をリセット

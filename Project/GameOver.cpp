@@ -118,8 +118,8 @@ void CGameOver::UpdateDebug() {
 void CGameOver::RenderDebug() {
 
 	CGraphicsUtilities::RenderString(0, 100, "ゲームオーバー");
-	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GameOver");
-	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GameOver", MOF_ARGB(128, 0, 0, 255));
+	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER");
+	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER", MOF_ARGB(128, 0, 0, 255));
 
 }
 
