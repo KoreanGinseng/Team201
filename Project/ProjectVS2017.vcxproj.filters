@@ -208,7 +208,7 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="PoisonShot.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -389,7 +389,7 @@
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="PoisonShot.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Shot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
