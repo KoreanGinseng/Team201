@@ -13,6 +13,7 @@ CEnemy()
 	m_bReverse = false;
 	m_Spd = Vector2(3, 3);
 	m_DamageWait = 100;
+	m_OffsetWait = 180;
 }
 
 

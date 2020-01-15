@@ -22,6 +22,7 @@ CEnemy::~CEnemy(void)
 
 void CEnemy::Initialize(void)
 {
+	m_bDead = false;
 }
 
 void CEnemy::Update(void)
@@ -227,7 +228,16 @@ bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
 
 bool CEnemy::Dmg(const int & dmg)
 {
+	if (m_DamageWait > 0)
+	{
+		return false;
+	}
 	m_HP -= dmg;
+	m_DamageWait = 60;
+	if (m_HP < 0)
+	{
+		m_bDead = true;
+	}
 	return true;
 }
 
@@ -262,6 +272,11 @@ CRectangle CEnemy::GetSrcAddRect(void)
 void CEnemy::SetBoss(void)
 {
 	m_bBoss = true;
+}
+
+void CEnemy::SetCameraMove(const bool & b)
+{
+	m_bCameraMove = b;
 }
 
 bool CEnemy::IsBoss(void) const

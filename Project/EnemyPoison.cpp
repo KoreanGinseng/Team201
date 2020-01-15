@@ -12,6 +12,7 @@ m_PoisonMotion()
 {
 	m_EnemyType = ENEMY_POISUNMASH;
 	m_Spd.x = -3.0f;
+	m_OffsetWait = 240;
 }
 
 

@@ -8,11 +8,18 @@ CEnemy()
 	m_Scale = 1.7f;
 	m_EnemyType = ENEMY_BOSS_1;
 	m_bSelectTarget = false;
+	m_HP = 2;
 }
 
 
 CEnemyBoss::~CEnemyBoss(void)
 {
+}
+
+void CEnemyBoss::Initialize(void)
+{
+	CEnemy::Initialize();
+	m_HP = 2;
 }
 
 void CEnemyBoss::Render(const Vector2 & screenPos)
@@ -27,7 +34,10 @@ void CEnemyBoss::Render(const Vector2 & screenPos)
 		r.Left = GetSrcRect().Right;
 		r.Right = GetSrcRect().Left;
 	}
-	m_pTexture->RenderScale(screenPos.x, screenPos.y, m_Scale, r);
+	if (m_DamageWait % 2 != 1)
+	{
+		m_pTexture->RenderScale(screenPos.x, screenPos.y, m_Scale, r);
+	}
 	
 	Vector2 scroll = CCamera2D::GetSScroll();
 	
@@ -87,23 +97,25 @@ CDynamicArray<CShot*>* CEnemyBoss::GetBoundShotArray(void)
 
 void CEnemyBoss::Move(void)
 {
+	if (m_BoundShotArray.GetArrayCount() < 1)
+	{
+		if (!m_bCameraMove)
+		{
+			m_BoundShotArray.Add(NEW CBoss1Shot1());
+			m_BoundShotArray[0]->Initialize();
+			m_BoundShotArray[0]->Fire(m_Pos);
+		}
+	}
+	else if(!m_BoundShotArray[0]->IsShot())
+	{
+		m_BoundShotArray[0]->Initialize();
+		m_BoundShotArray[0]->Fire(m_Pos);
+	}
 
-	//if (m_BoundShotArray.GetArrayCount() < 1)
-	//{
-	//	m_BoundShotArray.Add(NEW CBoss1Shot1());
-	//	m_BoundShotArray[0]->Initialize();
-	//	m_BoundShotArray[0]->Fire(m_Pos);
-	//}
-	//else if(!m_BoundShotArray[0]->IsShot())
-	//{
-	//	m_BoundShotArray[0]->Initialize();
-	//	m_BoundShotArray[0]->Fire(m_Pos);
-	//}
-
-	//for (int i = 0; i < m_BoundShotArray.GetArrayCount(); i++)
-	//{
-	//	m_BoundShotArray[i]->Update();
-	//}
+	for (int i = 0; i < m_BoundShotArray.GetArrayCount(); i++)
+	{
+		m_BoundShotArray[i]->Update();
+	}
 
 }
 

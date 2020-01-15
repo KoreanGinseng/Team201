@@ -8,6 +8,7 @@ protected:
 	int m_EnemyType;
 	bool m_bGravity;
 	bool m_bBoss;
+	bool m_bCameraMove;
 public:
 	CEnemy(void);
 	virtual ~CEnemy(void);
@@ -23,6 +24,7 @@ public:
 	virtual bool Dmg(const int& dmg);
 	bool KnockBack(const CRectangle& pre, const int& preWait);
 	virtual CRectangle GetSrcAddRect(void);
-	void SetBoss(void);
+	void SetBoss(void); 
+	void SetCameraMove(const bool& b);
 	bool IsBoss(void) const;
 };

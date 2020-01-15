@@ -5,26 +5,29 @@
  *	@date			2019/09/29
  *****************************************************************/
 
-// INCLUDE
+ // INCLUDE
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 			"Stage-R-1.txt",
-			"TEISHUTSUYOU.txt",
-			"TestMap1226.txt",
-			"ENEMOVESTAGE2.txt",
+			"Stage-R-1.txt",
+			"Stage-R-1.txt",
+			"Stage-R-1.txt",
+			//"TEISHUTSUYOU.txt",
+			//"TestMap1226.txt",
+			//"ENEMOVESTAGE2.txt",
 };
 
 //コンストラクタ
 CGame::CGame() :
-CSceneBase(),
-m_bPoase(false),
-m_pEnemyArray(),
-m_pItemArray(),
-m_pTargetObjArray(),
-m_pMapObjArray(),
-m_bClear(false),
-m_StageNo(0)
+	CSceneBase(),
+	m_bPoase(false),
+	m_pEnemyArray(),
+	m_pItemArray(),
+	m_pTargetObjArray(),
+	m_pMapObjArray(),
+	m_bClear(false),
+	m_StageNo(0)
 {
 }
 
@@ -130,14 +133,15 @@ void CGame::Update()
 
 	//プレイヤーの更新
 	m_Player.Update();
-	
+
 
 	//敵の更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	{
 		m_pEnemyArray[i]->Update();
+		m_pEnemyArray[i]->SetCameraMove(m_MainCamera.IsStart());
 	}
-	
+
 	//アイテムの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
@@ -147,7 +151,7 @@ void CGame::Update()
 		}
 		m_pItemArray[i]->Update();
 	}
-	
+
 	//オブジェクトの更新
 	for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	{
@@ -212,7 +216,7 @@ void CGame::Update()
 
 	//ゲーム時間を加算
 	g_pTimeManager->Tick();
-	
+
 	for (int i = 0; i < m_pEnemyArray.GetArrayCount(); i++)
 	{
 		CEnemy* ene = m_pEnemyArray[i];
@@ -284,7 +288,7 @@ void CGame::Render()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pEnemyArray[i]->GetPos());
 		m_pEnemyArray[i]->Render(screenPos);
 	}
-	
+
 	//アイテムの描画
 	for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	{
@@ -331,7 +335,7 @@ void CGame::RenderUI(void)
 	CTexturePtr pt4 = g_pTextureManager->GetTexture("HP.png");
 	for (int i = 1; i <= hp; i++)
 	{
-		if(i % 2 == 0)
+		if (i % 2 == 0)
 		{
 			pt4->RenderScale(0 + 35 * i - 100, 800, 0.4f);
 		}
@@ -363,7 +367,7 @@ void CGame::RenderDebug()
 {
 	//Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
 	//m_Player.RenderDebug(screenPos);
-	
+
 	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
@@ -406,6 +410,16 @@ void CGame::Collosion(void)
 		//埋まっている値だけ元に戻す
 		m_Player.CollisionStage(over);
 	}
+
+	for (int i = 0; i < CShot::GetShotLists()->GetArrayCount(); i++)
+	{
+		over = Vector2(0, 0);
+		//if (m_Player.OverValue(CShot::GetShotLists()->GetData(i)->GetRect(), over))
+		if (CShot::GetShotLists()->GetData(i)->OverValue(m_Player.GetRect(), over))
+		{
+			CShot::GetShotLists()->GetData(i)->CollisionPlayer(over);
+		}
+	}
 #pragma endregion
 
 #pragma region 敵が当たる側
@@ -438,13 +452,25 @@ void CGame::Collosion(void)
 					if (pe->GetBoundShotArray()->GetArrayCount() > 0)
 					{
 						Vector2 shotOver(0, 0);
-						if (m_Stage[m_StageNo].OverValue(pe->GetRect(), shotOver))
+						if (m_Stage[m_StageNo].OverValue(pe->GetBoundShotArray()->GetData(0)->GetRect(), shotOver))
 						{
-							pe->CollisionStage(shotOver);
+							pe->GetBoundShotArray()->GetData(0)->CollisionStage(shotOver);
 						}
 					}
 				}
+				for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+				{
+					if (m_pEnemyArray[i]->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
+					{
+						m_pEnemyArray[i]->Dmg(1);
+					}
+					//if (CShot::GetShotLists()->GetData(sc)->GetRect().CollisionRect(m_pEnemyArray[i]->GetRectArray(j)))
+					//{
+
+					//}
+				}
 			}
+
 
 			//埋まり値の値をリセット
 			over = Vector2(0, 0);
@@ -541,7 +567,7 @@ void CGame::Collosion(void)
 		}
 		//埋まり値をリセット
 		over = Vector2(0, 0);
-	
+
 		//プレイヤーとの当たり判定
 		m_Player.SetClime(false);
 		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
@@ -575,7 +601,7 @@ void CGame::Collosion(void)
 		{
 			//埋まり値をリセット
 			over = Vector2(0, 0);
-			
+
 			//敵との埋まり値を求める
 			if (m_pTargetObjArray[i]->OverValue(m_pEnemyArray[j]->GetRect(), over))
 			{

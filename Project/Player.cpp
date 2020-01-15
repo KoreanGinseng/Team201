@@ -46,8 +46,9 @@ void CPlayer::Initialize(void)
 	m_Pos = Vector2(9600, 768);
 	m_Pos = Vector2(960, 768);
 	m_Pos = Vector2(4000, 192);
-	m_Pos = Vector2(5510, 192);
 	m_Pos = Vector2(200, 768);
+	m_Pos = Vector2(6510, 192);
+	m_Pos = Vector2(8810, 192);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -468,7 +469,7 @@ void CPlayer::Skill(void)
 	}
 }
 
-
+#include	"Shot.h"
 void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTargetObj*>* pobjArray, CDynamicArray<CItem*>* pItemArray) {
 
 	std::list<CSubstance*> element;
@@ -480,6 +481,21 @@ void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTar
 	//ベクトルの要素をクリア
 	m_SkillTarget.clear();
 
+	for (int i = 0; i < CShot::GetShotLists()->GetArrayCount(); i++)
+	{
+		if (!CShot::GetShotLists()->GetData(i)->IsShow() || !CShot::GetShotLists()->GetData(i)->IsSelectTarget())
+		{
+			MOF_PRINTLOG("CONTINUE\n");
+			continue;
+		}
+		MOF_PRINTLOG("TRUE\n");
+
+		//表示されていてスキルの円にTAMAが当たっている場合、その敵の要素を入れる
+		if (CollisionRectCircle(CShot::GetShotLists()->GetData(i)->GetRect(), m_SkillCircle))
+		{
+			element.push_back(static_cast<CSubstance*>(CShot::GetShotLists()->GetData(i)));
+		}
+	}
 
 	for (int i = 0; i < peneArray->GetArrayCount(); i++)
 	{

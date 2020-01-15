@@ -12,6 +12,7 @@ protected:
 	bool					m_bTarget;
 	bool					m_bAnimStop;
 	int						m_WaitCount;
+	int						m_OffsetWait;
 public:
 	CSubstance(void);
 	virtual ~CSubstance(void) {}

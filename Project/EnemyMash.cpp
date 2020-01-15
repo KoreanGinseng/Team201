@@ -9,6 +9,7 @@ m_DmgScale(Vector2(1, 1))
 {
 	m_EnemyType = ENEMY_MASH;
 	m_Spd.x = -2.0f;
+	m_OffsetWait = 300;
 }
 
 

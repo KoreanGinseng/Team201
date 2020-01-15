@@ -10,6 +10,7 @@ private:
 public:
 	CEnemyBoss(void);
 	~CEnemyBoss(void);
+	void Initialize(void) override;
 	void Render(const Vector2& screenPos) override;
 	void RenderCircle(const Vector2& screenPos) override;
 	CRectangle GetSrcAddRect(void) override;

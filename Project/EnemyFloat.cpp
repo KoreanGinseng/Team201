@@ -8,6 +8,7 @@ CEnemy()
 	m_EnemyType = ENEMY_FLOATING;
 	m_bGravity = false;
 	m_Spd.x = -2.0f;
+	m_OffsetWait = 300;
 }
 
 

@@ -17,7 +17,7 @@ void CSubstance::Stop(void)
 		m_SubStatus = SUBSTATUS_STOP;
 		m_bAnimStop = true;
 		m_Move = Vector2(0, 0);
-		m_WaitCount = 180;
+		m_WaitCount = m_OffsetWait;
 		//g_pSoundManager->GetResource("")->Play();
 	}
 	else

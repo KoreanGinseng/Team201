@@ -11,6 +11,7 @@ CEnemy()
 	m_Spd = Vector2(5, 5);
 	m_bFind = false;
 	m_Measure = 0;
+	m_OffsetWait = 300;
 }
 
 
