@@ -2,10 +2,10 @@
 
 
 
-CBoss1Shot2::CBoss1Shot2()
+CBoss1Shot2::CBoss1Shot2() :
+CShot()
 {
 }
-
 
 CBoss1Shot2::~CBoss1Shot2()
 {
