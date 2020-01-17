@@ -64,6 +64,16 @@ void CBoss1Shot1::Fire(const Vector2 & pos)
 	m_bShot = true;
 }
 
+void CBoss1Shot1::CollisionPlayer(const Vector2 & over)
+{
+	CShot::CollisionPlayer(over);
+	m_WaitCount = 0;
+	if (m_Bound <= 0)
+	{
+		m_Bound = 1;
+	}
+}
+
 void CBoss1Shot1::CollisionStage(const Vector2 & over)
 {
 	m_Pos += over;
