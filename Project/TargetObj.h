@@ -5,7 +5,7 @@ class CTargetObj :
 {
 protected:
 	int		m_Type;
-	int		m_Status;
+	//int		m_Status;
 public:
 	CTargetObj();
 	virtual ~CTargetObj();
