@@ -4,7 +4,9 @@ class CPole :
 	public CTargetObj
 {
 public:
-	CPole();
-	~CPole();
+	CPole(void);
+	~CPole(void);
+	void Initialize(void) override;
+	virtual bool OverValue(CRectangle rec, Vector2 & out) override;
 };
 
