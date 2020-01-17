@@ -14,6 +14,14 @@ m_bBoss(false)
 	CCordinate::SetMainCameraPos(&m_Pos);
 }
 
+void CCamera2D::Initialize(void)
+{
+	m_bStart = false;
+	m_bCenter = false;
+	m_KeepCount = 0;
+	m_bBoss = false;
+}
+
 void CCamera2D::Update(const Vector2& centerPos, const CRectangle& prec, const CRectangle& srec)
 {
 	m_sPos = m_Pos;
