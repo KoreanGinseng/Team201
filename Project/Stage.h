@@ -61,7 +61,7 @@ private:
 	static int	m_sXCount;
 	static int	m_sYCount;
 
-	char*		m_pChipData;
+	UCHAR*		m_pChipData;
 	char*		m_pMapObjData;
 	char*		m_pBackChipData;
 	char*		m_pEnemyData;
@@ -84,6 +84,7 @@ private:
 	std::string IsExt(const char* pName);
 	CTexturePtr TextureLoad(char* pName);
 	int			ChipDataLoad(char* str, char* pData);
+	int			ChipDataLoad(char* str, UCHAR* pData);
 public:
 	CStage(void);
 	~CStage(void) {}
