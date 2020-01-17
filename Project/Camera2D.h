@@ -23,6 +23,7 @@ private:
 public:
 	CCamera2D(void);
 	~CCamera2D(void) {}
+	void Initialize(void);
 	void Update(const Vector2& centerPos, const CRectangle& prec, const CRectangle& srec);
 
 	void AddScroll(const Vector2& scroll) { m_Pos += scroll; }
