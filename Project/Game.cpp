@@ -10,7 +10,7 @@
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 			"Stage-R-1.txt",
-			"Stage-R-1.txt",
+			"Stage-R-2.txt",
 			"Stage-R-1.txt",
 			"Stage-R-1.txt",
 			//"TEISHUTSUYOU.txt",
@@ -96,6 +96,10 @@ void CGame::Initialize()
 	//ゲーム開始時間リセット
 	g_pTimeManager->Reset();
 	g_pSoundManager->PlayBGM("Stage1_BGM.mp3");
+
+	m_MainCamera.Initialize();
+
+	CCordinate::SetBossFlag(false);
 }
 
 //更新
@@ -417,7 +421,14 @@ void CGame::Collosion(void)
 		//if (m_Player.OverValue(CShot::GetShotLists()->GetData(i)->GetRect(), over))
 		if (CShot::GetShotLists()->GetData(i)->OverValue(m_Player.GetRect(), over))
 		{
-			CShot::GetShotLists()->GetData(i)->CollisionPlayer(over);
+			if (CShot::GetShotLists()->GetData(i)->GetStatus() == SUBSTATUS_STOP)
+			{
+				CShot::GetShotLists()->GetData(i)->CollisionPlayer(over);
+			}
+			else
+			{
+				m_Player.Dmg(1);
+			}
 		}
 	}
 #pragma endregion
