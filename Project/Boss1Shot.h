@@ -11,6 +11,7 @@ public:
 	void Initialize(void) override;
 	void Update(void) override;
 	void Fire(const Vector2& pos) override;
+	virtual void	CollisionPlayer(const Vector2& over) override;
 	void CollisionStage(const Vector2& over) override;
 };
 
