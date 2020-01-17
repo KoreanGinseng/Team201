@@ -61,6 +61,25 @@ int CStage::ChipDataLoad(char * str, char * pData)
 	return count;
 }
 
+int CStage::ChipDataLoad(char * str, UCHAR * pData)
+{
+	//チップデータの読み込み
+	int count = 0;
+	for (int y = 0; y < m_YCount; y++)
+	{
+		for (int x = 0; x < m_XCount; x++)
+		{
+			str = strtok(NULL, ",");
+			pData[y*m_XCount + x] = atoi(str);
+			if (pData[y*m_XCount + x] > 0)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
 //コンストラクタ
 CStage::CStage() :
 	m_pBackTexture(nullptr),
@@ -137,7 +156,7 @@ bool CStage::Load(const char* pName) {
 	m_sYCount = m_YCount;
 
 	//マップチップ用のメモリ確保
-	m_pChipData = (char*)malloc(m_XCount*m_YCount);
+	m_pChipData = (UCHAR*)malloc(m_XCount*m_YCount);
 	m_pMapObjData = (char*)malloc(m_XCount*m_YCount);
 	m_pBackChipData = (char*)malloc(m_XCount*m_YCount);
 	m_pEnemyData = (char*)malloc(m_XCount*m_YCount);
@@ -445,7 +464,7 @@ void CStage::RenderChip(const Vector2& scroll)
 		{
 			//描画するチップ番号
 			//チップ番号０は描画しない
-			char cn = m_pChipData[y*m_XCount + x] - 1;
+			int cn = m_pChipData[y*m_XCount + x] - 1;
 			if (cn < 0)
 			{
 				continue;
@@ -529,7 +548,7 @@ bool CStage::OverValue(CRectangle r, Vector2& o) {
 		{
 			//描画するチップ番号
 			//チップ番号０は当たり判定しない
-			char cn = m_pChipData[y*m_XCount + x] - 1;
+			int cn = m_pChipData[y*m_XCount + x] - 1;
 			if (cn < 0)
 			{
 				continue;
