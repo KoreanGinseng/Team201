@@ -84,6 +84,7 @@ public:
 	void   SetClime(const bool& b)					//フラグのセット
 	{ m_bClime = b; }
 	bool   Dmg(CEnemy& ene);						//ダメージの処理
+	bool   Dmg(const int& dmg);						//ダメージの処理
 	void SetCntrl(const bool& b) { m_bCntrl = b; }	//操作フラグのセット
 	void Heal(const int& h) { m_HP += h; }
 };
