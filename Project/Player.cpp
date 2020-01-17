@@ -47,8 +47,8 @@ void CPlayer::Initialize(void)
 	m_Pos = Vector2(960, 768);
 	m_Pos = Vector2(4000, 192);
 	m_Pos = Vector2(200, 768);
-	m_Pos = Vector2(6510, 192);
 	m_Pos = Vector2(8810, 192);
+	m_Pos = Vector2(6510, 192);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -635,6 +635,21 @@ bool CPlayer::Dmg(CEnemy& ene)
 			m_bReverse = true;
 		}
 		//m_Motion.ChangeMotion(MOTION_DAMAGE);
+	}
+	return true;
+}
+
+bool CPlayer::Dmg(const int & dmg)
+{
+	if (m_DamageWait > 0)
+	{
+		return false;
+	}
+	m_HP -= dmg;
+	m_DamageWait = 60;
+	if (m_HP < 0)
+	{
+		m_bDead = true;
 	}
 	return true;
 }
