@@ -34,7 +34,7 @@ void CShot::SetShot(const bool & b)
 
 void CShot::CollisionPlayer(const Vector2& over)
 {
-	m_Move.x += over.x;
+	m_Move.x += over.x * 10.0f;
 	//m_Pos.x += over.x;
 }
 
