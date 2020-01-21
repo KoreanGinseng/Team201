@@ -133,7 +133,22 @@ void CTitle::Render()
 	float sy1 = g_pGraphics->GetTargetHeight() * 0.5f + 200;
 	float sx2 = (g_pGraphics->GetTargetWidth() - fontSize * 4) * 0.5f - fontSize;
 	float sy2 = g_pGraphics->GetTargetHeight() * 0.5f + 300;
+	float sx3 = (g_pGraphics->GetTargetWidth() - fontSize * 2 * 12) * 0.5f - fontSize * 2;
+	float sy3 = g_pGraphics->GetTargetHeight() * 0.5f/* - 300*/;
 	CGraphicsUtilities::RenderFillRect(sx1, sy1 + 100 * m_SelectNo, sx1 + fontSize * (9 + 2), sy1 + 64 + 100 * m_SelectNo, MOF_ARGB(m_Alpha, 180, 180, 180));
+	for (int i = 1; i <= 10; i++)
+	{
+		String(sx3 + i, sy3, fontSize * 2, "TIMEOPERATOR", MOF_COLOR_BLACK);
+	}
+	for (int i = 1; i <= 10; i++)
+	{
+		String(sx3 - i, sy3, fontSize * 2, "TIMEOPERATOR", MOF_COLOR_BLACK);
+	}
+	String(sx3, sy3, fontSize * 2, "TIMEOPERATOR");
+	g_pGraphics->SetBlending(Blending::BLEND_ADD);
+	String(sx3, sy3, fontSize * 2, "TIMEOPERATOR", MOF_XRGB(201, 140, 53));
+	g_pGraphics->SetBlending(Blending::BLEND_NORMAL);
+
 	String(sx1, sy1, fontSize, "GAMESTART");
 	String(sx2, sy2, fontSize, "EXIT");
 }

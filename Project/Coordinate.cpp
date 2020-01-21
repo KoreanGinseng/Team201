@@ -66,6 +66,15 @@ void String(int sx, int sy, int fontsize, const char * str)
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
 		sx += fontsize;
+
+		if (str[i] == 'O' || str[i] == 'M')
+		{
+			sx -= 10 * fontsize / 64.0;
+		}
+		else if (str[i] == 'R')
+		{
+			sx -= 5 * fontsize / 64.0;
+		}
 		g_pTextureManager->GetTexture(FileName[TEXTURE_FONT])->RenderScale(sx, sy, fontsize / 64.0, SRect);
 	}
 }
@@ -78,6 +87,14 @@ void String(int sx, int sy, int fontsize, const char * str, MofU32 color)
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
 		sx += fontsize;
+		if (str[i] == 'O' || str[i] == 'M')
+		{
+			sx -= 10 * fontsize / 64.0;
+		}
+		else if (str[i] == 'R')
+		{
+			sx -= 5 * fontsize / 64.0;
+		}
 		g_pTextureManager->GetTexture(FileName[TEXTURE_FONT])->RenderScale(sx, sy, fontsize / 64.0, SRect, color);
 	}
 }
@@ -94,6 +111,14 @@ void String(int sx, int sy, int fontsize, const int& time)
 		CRectangle SRect(X * 64, Y * 64,
 			X * 64 + 64, Y * 64 + 64);
 		sx += fontsize;
+		if (str[i] == 'O' || str[i] == 'M')
+		{
+			sx -= 10 * fontsize / 64.0;
+		}
+		else if (str[i] == 'R')
+		{
+			sx -= 5 * fontsize / 64.0;
+		}
 		g_pTextureManager->GetTexture(FileName[TEXTURE_FONT])->RenderScale(sx - size * fontsize, sy, fontsize / 64.0, SRect);
 	}
 }
