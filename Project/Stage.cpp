@@ -267,7 +267,12 @@ bool CStage::Load(const char* pName) {
 //èâä˙âª
 void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem*>* pItemArray, CDynamicArray<CTargetObj*>* pTargetObjArray, CDynamicArray<CMapObj*>* pMapObjArray, CDynamicArray<CBackChip*>* pBackChipArray)
 {
+	float PoleScale[] = {
+		1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.8f, 0.4f, 1.0f,
+	};
+
 	int n = 0;
+	int PoleCount = 0;
 	for (int y = 0; y < m_YCount; y++)
 	{
 		for (int x = 0; x < m_XCount; x++)
@@ -346,7 +351,10 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case OBJECT_TREE01:		(*pTargetObjArray)[n] = NEW CTree01();		break;
 			case OBJECT_SAVEPOINT:	(*pTargetObjArray)[n] = NEW CSavePosint();	break;
 			case OBJECT_CAMERACNTRL:(*pTargetObjArray)[n] = NEW CCameraCntrl();	break;
-			case OBJECT_POLE:		(*pTargetObjArray)[n] = NEW CPole();		break;
+			case OBJECT_POLE:
+				(*pTargetObjArray)[n] = NEW CPole();
+				static_cast<CPole*>((*pTargetObjArray)[n])->SetPoleScale(PoleScale[PoleCount++]);
+				break;
 			case OBJECT_HAMMER:		(*pTargetObjArray)[n] = NEW CHammer();		break;
 			case OBJECT_DOOR:		(*pTargetObjArray)[n] = NEW CDoor();		break;
 			case OBJECT_TRESURE:	(*pTargetObjArray)[n] = NEW CTreasure();	break;
@@ -446,8 +454,13 @@ void CStage::RenderBack(const Vector2& scroll)
 	int sch = g_pGraphics->GetTargetHeight();
 	int wn = m_pBackTexture->GetWidth();
 	int hn = m_pBackTexture->GetHeight();
-	for (float y = ((int)-scroll.y / 4 % hn) - hn; y < sch; y += hn) {
-		for (float x = ((int)-scroll.x / 4 % wn) - wn; x < scw; x += wn) {
+	int scrlrate = 4;
+	if (wn >= 3840)
+	{
+		scrlrate = 8;
+	}
+	for (float y = ((int)-scroll.y / scrlrate % hn) - hn; y < sch; y += hn) {
+		for (float x = ((int)-scroll.x / scrlrate % wn) - wn; x < scw; x += wn) {
 			m_pBackTexture->Render(x, y + 2);
 		}
 	}

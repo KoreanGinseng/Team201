@@ -9,8 +9,8 @@
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"Stage-R-1.txt",
 			"Stage-R-2.txt",
+			"Stage-R-1.txt",
 			"Stage-R-1.txt",
 			"Stage-R-1.txt",
 			//"TEISHUTSUYOU.txt",
