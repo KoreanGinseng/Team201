@@ -120,8 +120,14 @@ constexpr	char*	FileName[] = {
 	"SavePoint.bin",
 	"CameraPoint.bin",
 	"Object_Pole01.bin",
-	"ObjAnim07.bin",
-	"ObjAnim08.bin",
+	"Hummer.bin",
+	"Door.bin",
+	"Object_Tresure.bin",
+	"suitti.bin",
+	"Renga.bin",
+	"Object_Floor01.bin",
+	"Object_Floor04.bin",
+	"HEAL.bin",
 
 	//EFFECT
 	"Effect_Explosion.bin",
@@ -254,6 +260,12 @@ typedef enum tag_ANIMATIONDATA {
 	ANIMATION_OBJ_6,
 	ANIMATION_OBJ_7,
 	ANIMATION_OBJ_8,
+	ANIMATION_OBJ_9,
+	ANIMATION_OBJ_10,
+	ANIMATION_OBJ_11,
+	ANIMATION_OBJ_12,
+	ANIMATION_OBJ_13,
+	ANIMATION_OBJ_14,
 
 	ANIMATION_COUNT,
 }ANIMATIONDATA;
