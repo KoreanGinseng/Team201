@@ -145,6 +145,14 @@ constexpr	char*	FileName[] = {
 	"RectSavePoint.txt",
 	"RectCameraPoint.txt",
 	"RectPole.txt",
+	"RectHummer.txt",
+	"RectDoor.txt",
+	"RectTresure.txt",
+	"RectPushSwitch.txt",
+	"RectRenga.txt",
+	"RectMoveFloor1.txt",
+	"RectMoveFloor4.txt",
+	"RectHeal.txt",
 };
 
 //ENUM
@@ -299,6 +307,16 @@ enum tag_RECTDATA {
 	RECT_OBJ_4,
 	RECT_OBJ_5,
 	RECT_OBJ_6,
+	RECT_OBJ_7,
+	RECT_OBJ_8,
+	RECT_OBJ_9,
+	RECT_OBJ_10,
+	RECT_OBJ_11,
+
+	RECT_OBJ_12,
+	RECT_OBJ_13,
+	
+	RECT_OBJ_14,
 
 	RECT_OBJ_COUNT,
 };

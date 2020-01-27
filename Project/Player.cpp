@@ -356,6 +356,12 @@ void CPlayer::Skill(void)
 	m_KeyConfig.skillStop   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_S)     : (g_pGamePad->IsKeyPush(XINPUT_Y));
 	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
 	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
+
+	m_bSkillEne = false;
+	m_bSkillObjBack = false;
+	m_bSkillObjNomal = false;
+	m_bSkillObjTrip = false;
+
 	//LTボタンを押した場合、スキルが発動
 	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && m_bCntrl)
 	{
@@ -422,6 +428,30 @@ void CPlayer::Skill(void)
 					{
 						m_SkillTarget[i]->SetTarget(false);
 					}
+				}
+			}
+		}
+		if (m_SkillTarget.size() > 0)
+		{
+			if (m_SkillTarget[m_Target]->GetSubType() == SUB_ENE)
+			{
+				m_bSkillEne = true;
+			}
+			else
+			{
+				switch (m_SkillTarget[m_Target]->GetStatus())
+				{
+				case SUBSTATUS_NOMAL:
+					m_bSkillObjNomal = true;
+					break;
+				case SUBSTATUS_BACK:
+					m_bSkillObjBack = true;
+					break;
+				case SUBSTATUS_TRIP:
+					m_bSkillObjTrip = true;
+					break;
+				default:
+					break;
 				}
 			}
 		}

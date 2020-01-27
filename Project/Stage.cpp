@@ -393,11 +393,47 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			case OBJECT_HEAL:		(*pTargetObjArray)[n] = NEW CHeal();		break;
 			default: break;
 			}
-			(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
+			switch (on)
+			{
+			case OBJECT_MOVEFLOOR1:	
+			case OBJECT_MOVEFLOOR2:
+			case OBJECT_MOVEFLOOR3:
+				(*pTargetObjArray).GetData(n)->CreateMotion("Object_Floor01.bin");
+				break;
+			case OBJECT_MOVEFLOOR4:
+			case OBJECT_MOVEFLOOR5:
+			case OBJECT_MOVEFLOOR6:
+				(*pTargetObjArray).GetData(n)->CreateMotion("Object_Floor04.bin");
+				break;
+			case OBJECT_HEAL:
+				(*pTargetObjArray).GetData(n)->CreateMotion("HEAL.bin");
+				break;
+			default:
+				(*pTargetObjArray).GetData(n)->CreateMotion(FileName[ANIMATION_OBJ_1 + on]);
+				break;
+			}
 			(*pTargetObjArray).GetData(n)->SetTexture(m_pObjectTexture[on]);
 			(*pTargetObjArray).GetData(n)->SetPos(x * m_ChipSize, y * m_ChipSize);
 			(*pTargetObjArray).GetData(n)->SetStatus(m_pObjEndData[y * m_XCount + x]);
-			(*pTargetObjArray).GetData(n)->LoadRect(FileName[RECT_OBJ_1 + on]);
+			switch (on)
+			{
+			case OBJECT_MOVEFLOOR1:
+			case OBJECT_MOVEFLOOR2:
+			case OBJECT_MOVEFLOOR3:
+				(*pTargetObjArray).GetData(n)->LoadRect("RectMoveFloor1.txt");
+				break;
+			case OBJECT_MOVEFLOOR4:
+			case OBJECT_MOVEFLOOR5:
+			case OBJECT_MOVEFLOOR6:
+				(*pTargetObjArray).GetData(n)->LoadRect("RectMoveFloor4.txt");
+				break;
+			case OBJECT_HEAL:
+				(*pTargetObjArray).GetData(n)->LoadRect("RectHeal.txt");
+				break;
+			default:
+				(*pTargetObjArray).GetData(n)->LoadRect(FileName[RECT_OBJ_1 + on]);
+				break;
+			}
 			(*pTargetObjArray).GetData(n++)->Initialize();
 		}
 	}

@@ -24,5 +24,6 @@ public:
 	virtual	void	Update(void) override = 0;
 	virtual void	Render(const Vector2& screenPos) override;
 	int		GetStatus(void) const { return m_SubStatus; }
+	int		GetSubType(void) const { return m_SubType; }
 	bool	IsSelectTarget(void) const { return m_bSelectTarget; }
 };

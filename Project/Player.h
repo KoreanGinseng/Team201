@@ -59,6 +59,11 @@ private:
 	CCircle						m_SkillCircle;		//スキルの円
 	bool						m_bCntrl;			//操作可能フラグ
 
+	bool						m_bSkillObjNomal;
+	bool						m_bSkillObjBack;
+	bool						m_bSkillObjTrip;
+	bool						m_bSkillEne;
+
 public:
 	CPlayer(void);			//コンストラクタ
 	~CPlayer(void);			//デストラクタ
@@ -87,5 +92,11 @@ public:
 	bool   Dmg(const int& dmg);						//ダメージの処理
 	void SetCntrl(const bool& b) { m_bCntrl = b; }	//操作フラグのセット
 	void Heal(const int& h) { m_HP += h; }
+
+	bool IsJump(void) const { return m_bJump; }
+	bool IsObjNomal(void) const { return m_bSkillObjNomal; }
+	bool IsObjBack(void) const { return m_bSkillObjBack; }
+	bool IsObjTrip(void) const { return m_bSkillObjTrip; }
+	bool IsEne(void) const { return m_bSkillEne; }
 };
 

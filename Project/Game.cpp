@@ -9,7 +9,8 @@
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"Stage-R-2.txt",
+			"Stage-R-2-test.txt",
+			//"Stage-R-2.txt",
 			"Stage-R-1.txt",
 			"Stage-R-1.txt",
 			"Stage-R-1.txt",
@@ -348,6 +349,29 @@ void CGame::RenderUI(void)
 			pt3->RenderScale(0 + 35 * (i + 1) - 5 - 100, 800, 0.4f);
 		}
 	}
+	String(0, 0, 32, "A :JUMP", m_Player.IsJump() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
+	if (m_Player.IsTrigger())
+	{
+		if (!m_Player.IsEne())
+		{
+			String(0, 32, 32, "X :BACK", m_Player.IsObjBack() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
+			String(0, 64, 32, "Y :STOP", MOF_XRGB(128, 128, 128));
+			String(0, 96, 32, "B :TRIP", m_Player.IsObjTrip() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
+		}
+		else
+		{
+			String(0, 32, 32, "X :BACK", MOF_XRGB(128, 128, 128));
+			String(0, 64, 32, "Y :STOP", !m_Player.IsEne() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
+			String(0, 96, 32, "B :TRIP", MOF_XRGB(128, 128, 128));
+		}
+	}
+	else
+	{
+		String(0, 32, 32, "X :BACK", MOF_XRGB(128, 128, 128));
+		String(0, 64, 32, "Y :STOP", MOF_XRGB(128, 128, 128));
+		String(0, 96, 32, "B :TRIP", MOF_XRGB(128, 128, 128));
+	}
+	String(0, 128, 32, "LT:SKILL", m_Player.IsTrigger() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
 }
 
 void CGame::UpdateDebug() {
