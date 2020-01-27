@@ -16,6 +16,7 @@ private:
 	Vector2					m_BodyPos[BODY_COUNT];
 	CTexturePtr				m_pBodyTexture[BODY_COUNT * 2];
 	CTexturePtr				m_pDeadTexture;
+	bool					m_bDeadM;
 public:
 	CEnemyBoss2(void);
 	~CEnemyBoss2(void);

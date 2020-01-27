@@ -50,6 +50,7 @@ void CEnemyBoss2::Initialize(void)
 	m_BodyPos[BODY_HEAD] = m_Pos - Vector2(0,200);
 	m_BodyPos[BODY_BODY] = m_Pos - Vector2(0, 200) + Vector2(0, 5) * 1.8f;
 	m_BodyPos[BODY_DOWN] = m_Pos - Vector2(0, 200) + Vector2(0, 100) * 1.8f;
+	m_bDeadM = false;
 }
 
 void CEnemyBoss2::Update(void)
@@ -58,12 +59,47 @@ void CEnemyBoss2::Update(void)
 	{
 		itr.AddTimer(CUtilities::GetFrameSecond());
 	}
+	if (m_bBodyDead[BODY_DOWN] && m_bBodyDead[BODY_BODY] && m_bBodyDead[BODY_HEAD])
+	{
+		m_bDeadM = true;
+	}
+	if (m_bDeadM)
+	{
+		m_DeadMotion.AddTimer(CUtilities::GetFrameSecond());
+		for (auto& itr : m_BodyPos)
+		{
+			itr += Vector2(0, 3);
+		}
+		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 1)
+		{
+			m_bDead = true;
+		}
+		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 0)
+		{
+			m_DeadMotion.ChangeMotion(1);
+		}
+	}
+#ifdef _DEBUG
+	if (g_pInput->IsKeyPush(MOFKEY_NUMPAD7))
+	{
+		m_bBodyDead[BODY_DOWN] = true;
+	}
+	if (g_pInput->IsKeyPush(MOFKEY_NUMPAD8))
+	{
+		m_bBodyDead[BODY_BODY] = true;
+	}
+	if (g_pInput->IsKeyPush(MOFKEY_NUMPAD9))
+	{
+		m_bBodyDead[BODY_HEAD] = true;
+	}
+#endif // _DEBUG
+
 }
 
 void CEnemyBoss2::Render(const Vector2 & screenPos)
 {
 	Vector2 scroll = CCamera2D::GetSScroll();
-	if (!m_bDead)
+	if (!m_bDeadM)
 	{
 		(m_bBodyDead[BODY_DOWN] ? m_pBodyTexture[BODY_COUNT + BODY_DOWN] : m_pBodyTexture[BODY_DOWN])
 			->RenderScale(m_BodyPos[BODY_DOWN].x - scroll.x, m_BodyPos[BODY_DOWN].y - scroll.y, 1.8f, m_BodyMotion[BODY_DOWN].GetSrcRect());
@@ -74,14 +110,14 @@ void CEnemyBoss2::Render(const Vector2 & screenPos)
 	}
 	else
 	{
-		m_pDeadTexture->Render(m_BodyPos[BODY_HEAD].x - scroll.x, m_BodyPos[BODY_HEAD].y - scroll.y, m_DeadMotion.GetSrcRect());
+		m_pDeadTexture->RenderScale(m_BodyPos[BODY_HEAD].x - scroll.x - 100, m_BodyPos[BODY_HEAD].y - scroll.y, 1.8f, m_DeadMotion.GetSrcRect());
 	}
 }
 
 void CEnemyBoss2::RenderCircle(const Vector2 & screenPos)
 {
 	Vector2 scroll = CCamera2D::GetSScroll();
-	if (!m_bDead)
+	if (!m_bDeadM)
 	{
 		(m_bBodyDead[BODY_DOWN] ? m_pBodyTexture[BODY_COUNT + BODY_DOWN] : m_pBodyTexture[BODY_DOWN])
 			->RenderScale(m_BodyPos[BODY_DOWN].x - scroll.x, m_BodyPos[BODY_DOWN].y - scroll.y, 1.8f, m_BodyMotion[BODY_DOWN].GetSrcRect(), MOF_ARGB(128, 255, 255, 255));
@@ -92,7 +128,7 @@ void CEnemyBoss2::RenderCircle(const Vector2 & screenPos)
 	}
 	else
 	{
-		m_pDeadTexture->Render(m_BodyPos[BODY_HEAD].x - scroll.x, m_BodyPos[BODY_HEAD].y - scroll.y, m_DeadMotion.GetSrcRect(), MOF_ARGB(128, 255, 255, 255));
+		m_pDeadTexture->RenderScale(m_BodyPos[BODY_HEAD].x - scroll.x - 100, m_BodyPos[BODY_HEAD].y - scroll.y, 1.8f, m_DeadMotion.GetSrcRect(), MOF_ARGB(128, 255, 255, 255));
 	}
 }
 
