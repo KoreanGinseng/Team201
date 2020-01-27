@@ -41,3 +41,7 @@ void CCameraCntrl::Update(void)
 		m_bCntrl = true;
 	}
 }
+
+void CCameraCntrl::Render(const Vector2 & screenPos)
+{
+}

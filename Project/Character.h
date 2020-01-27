@@ -41,5 +41,6 @@ public:
 	void SetCollisionFlag(const bool& b);					//当たり判定をするかどうかのフラグ設定
 	bool IsCollisionFlag(void) const;						//当たり判定をするかどうかのフラグ取得
 	bool IsStageOver(void);									//ステージの範囲外に出ているかどうかを調べる
+	virtual Vector2 GetMove(void) const;
 };
 

@@ -189,3 +189,8 @@ bool CCharacter::IsStageOver(void)
 		GetRect().Bottom < CCordinate::GetStageRect().Top || m_Pos.y > CCordinate::GetStageRect().Bottom
 		);
 }
+
+Vector2 CCharacter::GetMove(void) const
+{
+	return m_Move;
+}

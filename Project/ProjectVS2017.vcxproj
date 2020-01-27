@@ -138,6 +138,7 @@
     <ClCompile Include="Pole.cpp" />
     <ClCompile Include="PushSwitch.cpp" />
     <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="RayShot.cpp" />
     <ClCompile Include="Renga.cpp" />
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SavePosint.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Pole.h" />
     <ClInclude Include="PushSwitch.h" />
     <ClInclude Include="Ranking.h" />
+    <ClInclude Include="RayShot.h" />
     <ClInclude Include="Renga.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Rope.h" />

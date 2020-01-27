@@ -12,6 +12,7 @@ public:
 	virtual ~CCameraCntrl(void);
 	void Initialize(void) override;
 	void Update(void) override;
+	virtual void Render(const Vector2& screenPos) override;
 	bool IsCntrl(void) const { return m_bCntrl; }
 	bool IsEndCntrl(void) const { return m_bEndCntrl; }
 	void SetEnd(const bool& b) { m_bEndCntrl = b; }

@@ -71,3 +71,8 @@ CDynamicArray<CShot*>* CShot::GetShotLists(void)
 {
 	return &m_ShotLists;
 }
+
+int CShot::GetShotType(void) const
+{
+	return m_ShotType;
+}

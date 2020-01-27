@@ -20,3 +20,7 @@ void CSavePosint::Update(void)
 		CCordinate::SetSavePoint(m_Pos);
 	}
 }
+
+void CSavePosint::Render(const Vector2 & screenPos)
+{
+}

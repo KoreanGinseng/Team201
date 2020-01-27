@@ -6,6 +6,7 @@ CBoss1Shot1::CBoss1Shot1(void) :
 CShot()
 {
 	m_bSelectTarget = true;
+	m_ShotType = SHOT_BOUND;
 }
 
 

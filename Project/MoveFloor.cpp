@@ -2,7 +2,8 @@
 
 
 
-CMoveFloor::CMoveFloor(void)
+CMoveFloor::CMoveFloor(void) :
+CTargetObj()
 {
 }
 
@@ -48,6 +49,7 @@ void CMoveFloor::Initialize(void)
 		"Object_Floor06.png",
 	};
 	m_pTexture = g_pTextureManager->GetTexture(file[3 * m_RectType + m_ColorType]);
+	m_Type = OBJECT_MOVEFLOOR1 + (3 * m_RectType + m_ColorType);
 }
 
 void CMoveFloor::Update(void)
@@ -116,4 +118,60 @@ void CMoveFloor::SetColorType(const int & t)
 void CMoveFloor::SetRectType(const int & t)
 {
 	m_RectType = t;
+}
+
+bool CMoveFloor::OverValue(CRectangle rec, Vector2 & out)
+{
+	bool re = false;
+	CRectangle rect = GetRectArray(0);
+	CRectangle prec = rec;
+	if (!rect.CollisionRect(prec))
+	{
+		return re;
+	}
+	CRectangle br = prec;
+	br.Expansion(-6, 0);
+	br.Top = br.Bottom - 1;
+	if (rect.CollisionRect(br))
+	{
+		re = true;
+		float result = br.Bottom - rect.Top;
+		out.y -= result;
+		prec.Top -= result;
+		prec.Bottom -= result;
+	}
+	CRectangle rr = prec;
+	rr.Expansion(0, -6);
+	rr.Left = rr.Right - 1;
+	CRectangle lr = prec;
+	lr.Expansion(0, -6);
+	lr.Right = lr.Left + 1;
+	if (rect.CollisionRect(rr))
+	{
+		re = true;
+		float result = rr.Right - rect.Left;
+		out.x -= result;
+		prec.Left -= result;
+		prec.Right -= result;
+	}
+	if (rect.CollisionRect(lr))
+	{
+		re = true;
+		float result = rect.Right - lr.Left;
+		out.x += result;
+		prec.Left += result;
+		prec.Right += result;
+	}
+	CRectangle tr = prec;
+	tr.Expansion(-6, 0);
+	tr.Bottom = tr.Top + 1;
+	if (rect.CollisionRect(tr))
+	{
+		re = true;
+		float result = tr.Top - rect.Bottom;
+		out.y -= result;
+		prec.Top -= result;
+		prec.Bottom -= result;
+	}
+	return re;
 }

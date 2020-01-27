@@ -7,5 +7,6 @@ public:
 	CSavePosint();
 	virtual ~CSavePosint();
 	virtual void Update(void) override;
+	virtual void Render(const Vector2& screenPos) override;
 };
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "Enemy.h"
+#include "RayShot.h"
+
 class CEnemyBoss2 :
 	public CEnemy
 {
@@ -17,6 +19,7 @@ private:
 	CTexturePtr				m_pBodyTexture[BODY_COUNT * 2];
 	CTexturePtr				m_pDeadTexture;
 	bool					m_bDeadM;
+	CRayShot				m_RayShot;
 public:
 	CEnemyBoss2(void);
 	~CEnemyBoss2(void);
@@ -27,5 +30,6 @@ public:
 	virtual void Render(const Vector2& screenPos) override;	//•`‰æ
 	virtual void RenderCircle(const Vector2& screenPos);	//Circle•`‰æ
 	virtual void Release(void) override;					//‰ð•ú
+	bool CollisionRayShot(const CCircle& shot);
 };
 

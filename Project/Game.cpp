@@ -492,17 +492,13 @@ void CGame::Collosion(void)
 							pe->GetBoundShotArray()->GetData(0)->CollisionStage(shotOver);
 						}
 					}
-				}
-				for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
-				{
-					if (m_pEnemyArray[i]->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
+					for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
 					{
-						m_pEnemyArray[i]->Dmg(1);
+						if (m_pEnemyArray[i]->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
+						{
+							m_pEnemyArray[i]->Dmg(1);
+						}
 					}
-					//if (CShot::GetShotLists()->GetData(sc)->GetRect().CollisionRect(m_pEnemyArray[i]->GetRectArray(j)))
-					//{
-
-					//}
 				}
 			}
 
@@ -556,6 +552,22 @@ void CGame::Collosion(void)
 						m_pEnemyArray[k]->CollisionStage(over);
 						m_pEnemyArray[i]->Reverse(-over);
 					}
+				}
+			}
+		}
+
+		if (m_pEnemyArray[i]->GetEnemyType() == ENEMY_BOSS_2)
+		{
+			CEnemyBoss2* pe = static_cast<CEnemyBoss2*>(m_pEnemyArray[i]);
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_RAY)
+				{
+					continue;
+				}
+				if (pe->CollisionRayShot(static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->GetShotCircle()))
+				{
+					//static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->Refrect();
 				}
 			}
 		}
@@ -628,6 +640,22 @@ void CGame::Collosion(void)
 				//}
 				//–„‚Ü‚è’l‚¾‚¯–ß‚·
 				m_Player.CollisionStage(over);
+			}
+		}
+
+		//SHOT
+		if (m_pTargetObjArray[i]->GetObjType() >= OBJECT_MOVEFLOOR1 && m_pTargetObjArray[i]->GetObjType() <= OBJECT_MOVEFLOOR6)
+		{
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_RAY)
+				{
+					continue;
+				}
+				if (CollisionRectCircle(m_pTargetObjArray[i]->GetRect(), static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->GetShotCircle()))
+				{
+					static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->Refrect();
+				}
 			}
 		}
 
