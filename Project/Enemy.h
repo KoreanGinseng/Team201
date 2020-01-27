@@ -17,6 +17,7 @@ public:
 	virtual void Move(void);
 	virtual void Animation(void);
 	virtual bool OverValue(CRectangle rec, Vector2& out) override;
+	virtual void CreateMotion(const char* pName) override;
 	void CollisionStage(const Vector2 & over);
 	void Reverse(const Vector2 & over);
 	int	 GetEnemyType(void) const { return m_EnemyType; }

@@ -166,6 +166,11 @@ bool CEnemy::OverValue(CRectangle rec, Vector2 & out)
 	return re;
 }
 
+void CEnemy::CreateMotion(const char * pName)
+{
+	CCharacter::CreateMotion(pName);
+}
+
 void CEnemy::CollisionStage(const Vector2 & over)
 {
 	m_Pos += over;

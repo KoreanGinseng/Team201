@@ -25,7 +25,7 @@ public:
 	virtual void Render(const Vector2& screenPos) override;	//描画
 	virtual void RenderCircle(const Vector2& screenPos);	//Circle描画
 	virtual void Release(void) override;					//解放
-	void CreateMotion(const char* pName);					//モーションの作成
+	virtual void CreateMotion(const char* pName);			//モーションの作成
 	void LoadRect(const char* pName);						//当たり判定用矩形読み込み
 	bool IsDead(void) const { return m_bDead; }				//死亡フラグ取得
 	int	 GetHp(void) { return m_HP; }						//HPの取得

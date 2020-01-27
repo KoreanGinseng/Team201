@@ -98,6 +98,18 @@ MofBool CGameApp::Update(void) {
 			{
 				gStageNo++;
 			}
+			if (gStageNo > 3)
+			{
+				n = SCENENO_GAMECLEAR;
+				gStageNo = 0;
+			}
+		}
+		else if (gpScene->GetSceneName() == SCENENO_TITLE)
+		{
+			if (n == SCENENO_GAME)
+			{
+				gStageNo = 0;
+			}
 		}
 		gpScene->Release();
 		NewPointerRelease(gpScene);
