@@ -3,12 +3,12 @@
 
 
 CEnemyPoison::CEnemyPoison() :
-CEnemy(),
-m_bDmg(false),
-m_DmgScale(Vector2(1,1)),
-m_bAttack(false),
-m_pPoisonTexture(nullptr),
-m_PoisonMotion()
+	CEnemy(),
+	m_bDmg(false),
+	m_DmgScale(Vector2(1, 1)),
+	m_bAttack(false),
+	m_pPoisonTexture(nullptr),
+	m_PoisonMotion()
 {
 	m_EnemyType = ENEMY_POISUNMASH;
 	m_Spd.x = -3.0f;
@@ -146,13 +146,16 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 		m_ShotArray[i]->Render(sp);
 	}
 #ifdef _DEBUG
-	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
-	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
-	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	if (gbDebug)
 	{
-		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
-			screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
-		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+		{
+			CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
+				screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		}
 	}
 #endif // _DEBUG
 }

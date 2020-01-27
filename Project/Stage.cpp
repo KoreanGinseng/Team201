@@ -8,7 +8,7 @@
 //INCLUDE
 #include	"Stage.h"
 float CStage::m_sChipSize = 0;
-int CStage::m_sXCount = 0;
+int	CStage::m_sXCount = 0;
 int CStage::m_sYCount = 0;
 
 std::string CStage::IsExt(const char * pName)

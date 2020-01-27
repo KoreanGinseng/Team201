@@ -38,18 +38,21 @@ void CPole::Render(const Vector2 & screenPos)
 	Vector2 scroll = CCamera2D::GetSScroll();
 
 #ifdef _DEBUG
-	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
-	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
-	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	if (gbDebug)
 	{
-		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left,
-			screenPos.y + m_SrcRectArray[i].Top + m_SrcRectArray[i].GetHeight() * (1.0f - m_PoleScale),
-			screenPos.x + m_SrcRectArray[i].Right - m_SrcRectArray[i].GetWidth() * (1.0f - m_PoleScale),
-			screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
-		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+		{
+			CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left,
+				screenPos.y + m_SrcRectArray[i].Top + m_SrcRectArray[i].GetHeight() * (1.0f - m_PoleScale),
+				screenPos.x + m_SrcRectArray[i].Right - m_SrcRectArray[i].GetWidth() * (1.0f - m_PoleScale),
+				screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		}
+		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 60, "SubStatus : %d", m_SubStatus);
+		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 90, "Scale     : %.1f", m_PoleScale);
 	}
-	CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 60, "SubStatus : %d", m_SubStatus);
-	CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 90, "Scale     : %.1f", m_PoleScale);
 #endif // _DEBUG
 
 	CRectangle sRect = GetRect();

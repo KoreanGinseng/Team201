@@ -23,6 +23,8 @@ CLoading*			gpLoading = nullptr;
 CXGamePad*			gpXGpad = nullptr;
 static int			gStageNo = 0;
 
+bool				gbDebug = false;
+
 /*************************************************************************//*!
 		@brief			アプリケーションの初期化
 		@param			None
@@ -64,6 +66,11 @@ MofBool CGameApp::Update(void) {
 	//キーの更新
 	g_pInput->RefreshKey();
 	g_pGamePad->RefreshKey();
+
+	if (g_pInput->IsKeyPush(MOFKEY_F1))
+	{
+		gbDebug = !gbDebug;
+	}
 
 	if (!gpLoading->IsSceneStart())
 	{

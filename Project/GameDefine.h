@@ -48,6 +48,8 @@ using RectArray = CDynamicArray<CRectangle>;
 #define		g_pSoundManager		CSoundManager::GetSound()
 #define		g_pEffectManager	CEffectManager::GetEffect()
 
+extern bool					gbDebug;
+
 constexpr	char			picture[] = "picture";
 constexpr	char			anim[] = "anim";
 

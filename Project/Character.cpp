@@ -37,14 +37,17 @@ void CCharacter::Render(const Vector2& screenPos)
 	m_pTexture->Render(screenPos.x, screenPos.y, r);
 
 #ifdef _DEBUG
-	Vector2 scroll = CCamera2D::GetSScroll();
-	CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
-	CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
-	for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+	if (gbDebug)
 	{
-		CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
-			screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
-		CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		Vector2 scroll = CCamera2D::GetSScroll();
+		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+		{
+			CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
+				screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+		}
 	}
 #endif // _DEBUG
 }
