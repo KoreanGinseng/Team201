@@ -164,7 +164,7 @@ void CTitle::UpdateDebug() {
 void CTitle::RenderDebug()
 {
 
-	CGraphicsUtilities::RenderString(0, 100, "タイトル");
+	//CGraphicsUtilities::RenderString(0, 100, "タイトル");
 
 }
 

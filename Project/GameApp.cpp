@@ -45,7 +45,7 @@ MofBool CGameApp::Initialize(void) {
 	xc.No = 0;
 	g_pGamePad->Create(&xc);
 
-	//gpScene = NEW CGame();
+	//gpScene = NEW CGameClear();
 	gpScene = NEW CTitle();
 
 	gpLoading = NEW CLoading();
@@ -66,6 +66,7 @@ MofBool CGameApp::Update(void) {
 	//キーの更新
 	g_pInput->RefreshKey();
 	g_pGamePad->RefreshKey();
+	g_pEffectManager->Update();
 
 	if (g_pInput->IsKeyPush(MOFKEY_F1))
 	{
@@ -155,7 +156,7 @@ MofBool CGameApp::Render(void) {
 	//描画開始
 	g_pGraphics->RenderStart();
 	//画面のクリア
-	g_pGraphics->ClearTarget(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0);
+	g_pGraphics->ClearTarget(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0);
 
 	if (!gpLoading->IsSceneStart())
 	{
@@ -168,6 +169,12 @@ MofBool CGameApp::Render(void) {
 	gpScene->Render();
 	gpScene->RenderUI();
 	gpScene->EffectRender();
+
+	g_pEffectManager->Render();
+	if (g_pInput->IsKeyHold(MOFKEY_NUMPAD0))
+	{
+		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
+	}
 
 	//描画の終了
 	g_pGraphics->RenderEnd();

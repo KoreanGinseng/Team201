@@ -46,9 +46,9 @@ void CPlayer::Initialize(void)
 	m_Pos = Vector2(9600, 768);
 	m_Pos = Vector2(4000, 192);
 	m_Pos = Vector2(960, 768);
-	m_Pos = Vector2(200, 768);
 	m_Pos = Vector2(6510, 192);
 	m_Pos = Vector2(8810, 192);
+	m_Pos = Vector2(200, 768);
 	//HP‚Ì‰Šú‰»
 	m_HP = PLAYER_MAXHP;
 	m_bClime = false;
@@ -104,6 +104,17 @@ void CPlayer::Update(void)
 	{
 		m_bDead = true;
 	}
+
+#ifdef _DEBUG
+	Vector2 mousePos;
+	g_pInput->GetMousePos(mousePos);
+	if (g_pInput->IsKeyHold(MOFKEY_LSHIFT))
+	{
+		m_Pos = CCamera2D::GetSScroll() + mousePos;
+	}
+#endif // _DEBUG
+
+
 }
 
 //•`‰æ

@@ -133,6 +133,9 @@ constexpr	char*	FileName[] = {
 
 	//EFFECT
 	"Effect_Explosion.bin",
+	"Effect_Back.bin",
+	"Effect_Skip.bin",
+	"Effect_Stop.bin",
 
 	//SOUNDSE
 	"TestJump.mp3",
@@ -282,6 +285,9 @@ typedef enum tag_ANIMATIONDATA {
 
 typedef enum tag_EFFECRDATA {
 	EFFECTDATA_EXPROSION = ANIMATION_COUNT,
+	EFFECTDATA_BACK,
+	EFFECTDATA_SKIP,
+	EFFECTDATA_STOP,
 
 	EFFECTDATA_COUNT,
 }EFFECTDATA;
@@ -327,6 +333,9 @@ enum tag_RECTDATA {
 enum tag_EFFECTTYPE {
 
 	EFFECT_EXPROSION,
+	EFFECT_BACK,
+	EFFECT_SKIP,
+	EFFECT_STOP,
 
 	EFFECT_TYPECOUNT,
 

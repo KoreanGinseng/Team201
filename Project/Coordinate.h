@@ -19,6 +19,11 @@ private:
 	static Vector2	  m_SavePos;
 	static bool		  m_bCameraCntrl;
 	static bool		  m_bBoss;
+	static bool		  m_bKey;
+	static bool		  m_bStop;
+	static bool		  m_bSkip;
+	static bool		  m_bBack;
+
 public:
 	static Vector2 GetSavePoint(void) { return m_SavePos; }
 	static void SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
@@ -38,6 +43,16 @@ public:
 	static void SetCameraCntrl(const bool& b) { m_bCameraCntrl = b; }
 	static bool IsBoss(void) { return m_bBoss; }
 	static void SetBossFlag(const bool& b) { m_bBoss = b; }
+	static bool IsKey(void) { return m_bKey; }
+	static void SetKey(const bool& b) { m_bKey = b; }
+
+	static void SetStop(const bool& b) { m_bStop = b; }
+	static void SetSkip(const bool& b) { m_bSkip = b; }
+	static void SetBack(const bool& b) { m_bBack = b; }
+
+	static bool IsStopUI(void) { return m_bStop; }
+	static bool IsSkipUI(void) { return m_bSkip; }
+	static bool IsBackUI(void) { return m_bBack; }
 };
 
 #define NewPointerRelease(p)	\

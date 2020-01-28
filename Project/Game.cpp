@@ -9,14 +9,16 @@
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
-			"Stage-R-2-test.txt",
-			"Stage-R-1-test.txt",
-			//"Stage-R-2.txt",
-			"Stage-R-1.txt",
-			"Stage-R-1.txt",
-			//"TEISHUTSUYOU.txt",
-			//"TestMap1226.txt",
-			//"ENEMOVESTAGE2.txt",
+	//"Stage-R-2-test.txt",
+	"Stage-R-1-test.txt",
+	"Stage-R-2-test2.txt",
+	"Stage-R-3-test.txt",
+	"Stage-R-4-test.txt",
+	//"Stage-R-2.txt",
+	//"Stage-R-1.txt",
+	//"TEISHUTSUYOU.txt",
+	//"TestMap1226.txt",
+	//"ENEMOVESTAGE2.txt",
 };
 
 //コンストラクタ
@@ -28,7 +30,8 @@ CGame::CGame() :
 	m_pTargetObjArray(),
 	m_pMapObjArray(),
 	m_bClear(false),
-	m_StageNo(0)
+	m_StageNo(0),
+	m_CAlpha(0)
 {
 }
 
@@ -101,11 +104,16 @@ void CGame::Initialize()
 	m_MainCamera.Initialize();
 
 	CCordinate::SetBossFlag(false);
+	m_CAlpha = 0;
 }
 
 //更新
 void CGame::Update()
 {
+
+	CCordinate::SetBack(false);
+	CCordinate::SetSkip(false);
+	CCordinate::SetStop(false);
 
 	//ゲームオーバーへ
 	if (m_Player.IsDead() && !IsStart())
@@ -116,7 +124,8 @@ void CGame::Update()
 	}
 
 	//デバッグ用
-	UpdateDebug();
+	//UpdateDebug();
+
 
 	//F4キーでポーズ
 	if (g_pInput->IsKeyPush(MOFKEY_F4))
@@ -231,16 +240,23 @@ void CGame::Update()
 		}
 		if (ene->IsDead())
 		{
-			m_pEffect->Out(10);
-			m_NextSceneNo = SCENENO_GAME;
-			g_pSoundManager->GetSoundBGM("Stage1_BGM.mp3")->Stop();
+			if (m_StageNo == 3)
+			{
+				m_bClear = true;
+			}
+			else
+			{
+				m_pEffect->Out(10);
+				m_NextSceneNo = SCENENO_GAME;
+				g_pSoundManager->GetSoundBGM("Stage1_BGM.mp3")->Stop();
+			}
 		}
 	}
 
 }
 
 //描画
-void CGame::Render()
+void CGame::Render(void)
 {
 	//goriosi
 	g_pTextureManager->GetTexture("空.png")->Render(0, 0);
@@ -317,14 +333,6 @@ void CGame::Render()
 		Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_pItemArray[i]->GetPos());
 		m_pItemArray[i]->RenderCircle(screenPos);
 	}
-
-	//ポーズ中ならポーズ画面の描画
-	if (m_bPoase)
-	{
-		//ゲーム画面が灰色になるやつ
-		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
-	}
-
 }
 
 void CGame::RenderUI(void)
@@ -335,6 +343,20 @@ void CGame::RenderUI(void)
 	pt->RenderScale(0.0f, g_pGraphics->GetTargetHeight() - pt->GetHeight() * 0.4f + 100, 0.4f);
 	CTexturePtr pt2 = g_pTextureManager->GetTexture("UI_SKILL.png");
 	pt2->RenderScale(g_pGraphics->GetTargetWidth() - pt2->GetWidth() * 0.4f, g_pGraphics->GetTargetHeight() - pt2->GetHeight() * 0.4f + 100, 0.4f);
+
+	if (CCordinate::IsBackUI())
+	{
+		g_pTextureManager->GetTexture("Skill_UI_Back.png")->RenderScale(1570, 917, 0.4f);
+	}
+	if (CCordinate::IsSkipUI())
+	{
+		g_pTextureManager->GetTexture("Skill_UI_Skip.png")->RenderScale(1686, 917, 0.4f);
+	}
+	if (CCordinate::IsStopUI())
+	{
+		g_pTextureManager->GetTexture("Skill_UI_Stop.png")->RenderScale(1626, 917, 0.4f);
+	}
+
 	int hp = m_Player.GetHp();
 	CTexturePtr pt3 = g_pTextureManager->GetTexture("HP_H.png");
 	CTexturePtr pt4 = g_pTextureManager->GetTexture("HP.png");
@@ -372,6 +394,33 @@ void CGame::RenderUI(void)
 		String(0, 96, 32, "B :TRIP", MOF_XRGB(128, 128, 128));
 	}
 	String(0, 128, 32, "LT:SKILL", m_Player.IsTrigger() ? MOF_XRGB(128, 128, 128) : MOF_COLOR_WHITE);
+
+	String(320, 0, 32, "F4:PAUSE");
+	String(320, 32, 32, "LB:PREV");
+	String(320, 64, 32, "RB:NEXT");
+	if (m_bClear)
+	{
+		int alp = m_CAlpha++;
+		if (alp > 255)
+		{
+			alp = 255;
+		}
+		if (m_CAlpha > 300 + 255)
+		{
+			m_pEffect->Out(10);
+			m_NextSceneNo = SCENENO_GAME;
+		}
+		g_pTextureManager->GetTexture("fin.png")->Render(0, 0, MOF_ARGB(alp, 255, 255, 255));
+	}
+
+
+	//ポーズ中ならポーズ画面の描画
+	if (m_bPoase)
+	{
+		//ゲーム画面が灰色になるやつ
+		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(128, 128, 128, 128));
+		String((g_pGraphics->GetTargetWidth() - 64 * 5) * 0.5f - 64, 340 - 32, 64, "PAUSE");
+	}
 }
 
 void CGame::UpdateDebug() {
@@ -619,6 +668,12 @@ void CGame::Collosion(void)
 		m_Player.SetClime(false);
 		if (m_pTargetObjArray[i]->OverValue(m_Player.GetRect(), over))
 		{
+			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_DOOR && CCordinate::IsKey())
+			{
+				static_cast<CDoor*>(m_pTargetObjArray[i])->OpenTheDoor();
+				m_NextSceneNo = SCENENO_GAME;
+				m_pEffect->Out(10);
+			}
 			//ぶつかったオブジェクトがロープの場合
 			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_ROPE && m_pTargetObjArray[i]->GetStatus() == SUBSTATUS_BACK)
 			{

@@ -29,6 +29,7 @@ private:
 
 	bool				m_bPoase;
 	bool				m_bClear;
+	int					m_CAlpha;
 
 	CPlayer						m_Player;
 	CDynamicArray<CEnemy*>		m_pEnemyArray;

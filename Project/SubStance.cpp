@@ -18,6 +18,9 @@ void CSubstance::Stop(void)
 		m_bAnimStop = true;
 		m_Move = Vector2(0, 0);
 		m_WaitCount = m_OffsetWait;
+		std::string texName = g_pAnimManager->GetAnimation("Effect_Stop.bin")->GetTextureName();
+		g_pEffectManager->Start("Effect_Stop.bin", m_Pos - CCamera2D::GetSScroll() - Vector2(600 * 0.5f, 500 * 0.5f));
+		CCordinate::SetStop(true);
 		//g_pSoundManager->GetResource("")->Play();
 	}
 	else
@@ -41,6 +44,10 @@ void CSubstance::Back(void)
 			//g_pSoundManager->GetResource("")->Play();
 		}
 		m_Motion.ChangeMotion(m_SubStatus);
+
+		std::string texName = g_pAnimManager->GetAnimation("Effect_back.bin")->GetTextureName();
+		g_pEffectManager->Start("Effect_Back.bin", m_Pos - CCamera2D::GetSScroll() - Vector2(600 * 0.5f, 500 * 0.5f));
+		CCordinate::SetBack(true);
 	}
 }
 void CSubstance::Trip(void)
@@ -58,6 +65,10 @@ void CSubstance::Trip(void)
 			//g_pSoundManager->GetResource("")->Play();
 		}
 		m_Motion.ChangeMotion(m_SubStatus);
+
+		std::string texName = g_pAnimManager->GetAnimation("Effect_Skip.bin")->GetTextureName();
+		g_pEffectManager->Start("Effect_Skip.bin", m_Pos - CCamera2D::GetSScroll() - Vector2(600 * 0.5f, 500 * 0.5f));
+		CCordinate::SetSkip(true);
 	}
 }
 

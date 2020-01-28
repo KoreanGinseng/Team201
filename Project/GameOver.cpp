@@ -62,12 +62,13 @@ void CGameOver::Initialize() {
  *****************************************************************/
 void CGameOver::Update() {
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
+	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_pEffect->IsStart())
 	{
-		m_NextSceneNo = SCENENO_GAME;
+		m_NextSceneNo = SCENENO_TITLE;
+		m_pEffect->Out(10);
 	}
 
-	UpdateDebug();
+	//UpdateDebug();
 
 }
 
@@ -78,6 +79,16 @@ void CGameOver::Update() {
  * @return なし
  *****************************************************************/
 void CGameOver::Render() {
+
+	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER");
+	String((g_pGraphics->GetTargetWidth() - 64 * 12) * 0.5f - 64, 740 - 32, 64, "PRESS RETURN");
+	String((g_pGraphics->GetTargetWidth() - 64 * 13) * 0.5f - 64, 840 - 32, 64, "BACK TO TITLE");
+	
+	g_pGraphics->SetBlending(Blending::BLEND_SUB);
+	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER", MOF_XRGB(128, 128, 0));
+	String((g_pGraphics->GetTargetWidth() - 64 * 12) * 0.5f - 64, 740 - 32, 64, "PRESS RETURN", MOF_XRGB(128, 128, 0));
+	String((g_pGraphics->GetTargetWidth() - 64 * 13) * 0.5f - 64, 840 - 32, 64, "BACK TO TITLE", MOF_XRGB(128, 128, 0));
+	g_pGraphics->SetBlending(Blending::BLEND_NORMAL);
 
 	RenderDebug();
 }
@@ -117,9 +128,7 @@ void CGameOver::UpdateDebug() {
  *****************************************************************/
 void CGameOver::RenderDebug() {
 
-	CGraphicsUtilities::RenderString(0, 100, "ゲームオーバー");
-	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER");
-	String((g_pGraphics->GetTargetWidth() - 128 * 8) * 0.5f - 128, 540 - 64, 128, "GAMEOVER", MOF_ARGB(128, 0, 0, 255));
+	//CGraphicsUtilities::RenderString(0, 100, "ゲームオーバー");
 
 }
 

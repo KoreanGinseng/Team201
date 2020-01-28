@@ -5,7 +5,7 @@
  *	@date			2019/09/29
  *****************************************************************/
 
-//INCLUDE
+ //INCLUDE
 #include	"Stage.h"
 float CStage::m_sChipSize = 0;
 int	CStage::m_sXCount = 0;
@@ -128,7 +128,7 @@ bool CStage::Load(const char* pName) {
 	pstr = strtok(pBuffer, ",");
 	//if (!m_BackTexture.Load(pstr)) {
 	m_pBackTexture = g_pTextureManager->GetTexture(pstr);
-	if (m_pBackTexture == nullptr) 
+	if (m_pBackTexture == nullptr)
 	{
 		free(pBuffer);
 		pBuffer = nullptr;
@@ -181,10 +181,10 @@ bool CStage::Load(const char* pName) {
 			return FALSE;
 		}
 	}
-	
+
 	//チップデータの読み込み
 	m_MapObjCount = ChipDataLoad(pstr, m_pMapObjData);
-	
+
 	//背景パーツテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	int m_BackChipTextureCount = atoi(pstr);
@@ -199,7 +199,7 @@ bool CStage::Load(const char* pName) {
 			return FALSE;
 		}
 	}
-	
+
 	//チップデータの読み込み
 	m_BackChipCount = ChipDataLoad(pstr, m_pBackChipData);
 
@@ -207,7 +207,7 @@ bool CStage::Load(const char* pName) {
 	pstr = strtok(NULL, ",");
 	m_EnemyTextureCount = atoi(pstr);
 
-	for (int i = 0; i < m_EnemyTextureCount; i++) 
+	for (int i = 0; i < m_EnemyTextureCount; i++)
 	{
 		pstr = strtok(NULL, ",");
 		m_pEnemyTexture.push_back(TextureLoad(pstr));
@@ -241,7 +241,7 @@ bool CStage::Load(const char* pName) {
 	//オブジェクトテクスチャの読み込み
 	pstr = strtok(NULL, ",");
 	m_ObjectTextureCount = atoi(pstr);
-	for (int i = 0; i < m_ObjectTextureCount; i++) 
+	for (int i = 0; i < m_ObjectTextureCount; i++)
 	{
 		pstr = strtok(NULL, ",");
 		m_pObjectTexture.push_back(TextureLoad(pstr));
@@ -395,7 +395,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 			}
 			switch (on)
 			{
-			case OBJECT_MOVEFLOOR1:	
+			case OBJECT_MOVEFLOOR1:
 			case OBJECT_MOVEFLOOR2:
 			case OBJECT_MOVEFLOOR3:
 				(*pTargetObjArray).GetData(n)->CreateMotion("Object_Floor01.bin");
@@ -491,14 +491,41 @@ void CStage::RenderBack(const Vector2& scroll)
 	int wn = m_pBackTexture->GetWidth();
 	int hn = m_pBackTexture->GetHeight();
 	int scrlrate = 4;
+	int offSetY = 0;
+	bool stage3 = false;
 	if (wn >= 3840)
 	{
 		scrlrate = 8;
 	}
+	if (wn <= 811)
+	{
+		offSetY = 96;
+		stage3 = true;
+	}
+	bool rastBoss = false;
+	if (m_XCount == 30)
+	{
+		rastBoss = true;
+	}
 	for (float y = ((int)-scroll.y / scrlrate % hn) - hn; y < sch; y += hn) {
 		for (float x = ((int)-scroll.x / scrlrate % wn) - wn; x < scw; x += wn) {
-			m_pBackTexture->Render(x, y + 2);
+			m_pBackTexture->Render(x, y + 2 + offSetY);
 		}
+	}
+	if (stage3)
+	{
+		for (float y = ((int)-scroll.y / scrlrate % hn) - hn; y < sch; y += hn) {
+			for (float x = ((int)-scroll.x / scrlrate % wn) - wn; x < scw; x += wn) {
+				g_pGraphics->SetBlending(BLEND_SUB);
+				m_pBackTexture->Render(x, y + 2 + offSetY, MOF_XRGB(128, 128, 128));
+				g_pGraphics->SetBlending(BLEND_NORMAL);
+			}
+		}
+	}
+	if (rastBoss)
+	{
+		g_pTextureManager->GetTexture("bg4.png")->Render(0, 0);
+		g_pTextureManager->GetTexture("ORI.png")->Render(0, -10);
 	}
 }
 

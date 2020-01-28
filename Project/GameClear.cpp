@@ -101,11 +101,13 @@ void CGameClear::UpdateDebug() {
 void CGameClear::Render() {
 
 	RenderDebug();
-
+	g_pTextureManager->GetTexture("arigatou.png")->Render(0, 0);
 }
 
  void CGameClear::RenderUI()
  {
+	 String((g_pGraphics->GetTargetWidth() - 64 * 12) * 0.5f - 64, 740 - 32, 64, "PRESS RETURN");
+	 String((g_pGraphics->GetTargetWidth() - 64 * 13) * 0.5f - 64, 840 - 32, 64, "BACK TO TITLE");
  }
 
 /*****************************************************************
@@ -116,7 +118,7 @@ void CGameClear::Render() {
  *****************************************************************/
 void CGameClear::RenderDebug() {
 
-	CGraphicsUtilities::RenderString(0, 100, "ゲームクリア");
+	//CGraphicsUtilities::RenderString(0, 100, "ゲームクリア");
 }
 
 /*****************************************************************

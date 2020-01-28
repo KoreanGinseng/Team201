@@ -61,6 +61,27 @@ void CEnemyBoss2::Initialize(void)
 
 void CEnemyBoss2::Update(void)
 {
+	if (m_bDeadM)
+	{
+		m_DeadMotion.AddTimer(CUtilities::GetFrameSecond());
+		for (auto& itr : m_BodyPos)
+		{
+			itr += Vector2(0, 3);
+		}
+		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 1)
+		{
+			m_bDead = true;
+		}
+		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 0)
+		{
+			m_DeadMotion.ChangeMotion(1);
+		}
+	}
+	if (!CCordinate::IsBoss() || CCordinate::IsCameraCntrl())
+	{
+		return;
+	}
+
 	if (m_DamageWait > 0)
 	{
 		m_DamageWait--;
@@ -95,22 +116,6 @@ void CEnemyBoss2::Update(void)
 	if (m_bBodyDead[BODY_DOWN] && m_bBodyDead[BODY_BODY] && m_bBodyDead[BODY_HEAD])
 	{
 		m_bDeadM = true;
-	}
-	if (m_bDeadM)
-	{
-		m_DeadMotion.AddTimer(CUtilities::GetFrameSecond());
-		for (auto& itr : m_BodyPos)
-		{
-			itr += Vector2(0, 3);
-		}
-		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 1)
-		{
-			m_bDead = true;
-		}
-		if (m_DeadMotion.IsEndMotion() && m_DeadMotion.GetMotionNo() == 0)
-		{
-			m_DeadMotion.ChangeMotion(1);
-		}
 	}
 #ifdef _DEBUG
 	if (g_pInput->IsKeyPush(MOFKEY_NUMPAD7))
