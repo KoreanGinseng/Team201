@@ -10,8 +10,8 @@
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 	//"Stage-R-2-test.txt",
-	"Stage-R-1-test.txt",
 	"Stage-R-2-test2.txt",
+	"Stage-R-1-test.txt",
 	"Stage-R-3-test.txt",
 	"Stage-R-4-test.txt",
 	//"Stage-R-2.txt",
@@ -647,9 +647,11 @@ void CGame::Collosion(void)
 				{
 					continue;
 				}
-				if (pe->CollisionRayShot(static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->GetShotCircle()))
+				CDynamicArray<CCircle>* prc = static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->GetShotCircle();
+				for (int rc = 0; rc < prc->GetArrayCount(); rc++)
 				{
-					//static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->Refrect();
+					CCircle prcc = prc->GetData(rc);
+					pe->CollisionRayShot(prcc);
 				}
 			}
 		}
@@ -741,9 +743,22 @@ void CGame::Collosion(void)
 				{
 					continue;
 				}
-				if (CollisionRectCircle(m_pTargetObjArray[i]->GetRect(), static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->GetShotCircle()))
+				CRayShot* prs = static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc));
+				CDynamicArray<CCircle>* prc = prs->GetShotCircle();
+				for (int rc = 0; rc < prc->GetArrayCount(); rc++)
 				{
-					static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->Refrect();
+					if (prs->IsRef())
+					{
+						if (rc < prs->GetTempCount())
+						{
+							continue;
+						}
+					}
+					CCircle prcc = prc->GetData(rc);
+					if (CollisionRectCircle(m_pTargetObjArray[i]->GetRect(), prcc))
+					{
+						static_cast<CRayShot*>(CShot::GetShotLists()->GetData(sc))->Refrect(Vector2(prcc.x, prcc.y));
+					}
 				}
 			}
 		}

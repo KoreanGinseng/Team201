@@ -49,14 +49,14 @@ void CEnemyBoss2::Initialize(void)
 	{
 		itr = false;
 	}
-	m_BodyPos[BODY_HEAD] = m_Pos - Vector2(0, 200);
-	m_BodyPos[BODY_BODY] = m_Pos - Vector2(0, 200) + Vector2(0, 5) * 1.8f;
-	m_BodyPos[BODY_DOWN] = m_Pos - Vector2(0, 200) + Vector2(0, 100) * 1.8f;
-	m_bDeadM = false;
-	m_RayShot.Initialize();
 	m_SrcRectArray.Add(m_BodyMotion[0].GetSrcRect() * 1.8f);
 	m_SrcRectArray.Add(m_BodyMotion[1].GetSrcRect() * 1.8f);
 	m_SrcRectArray.Add(m_BodyMotion[2].GetSrcRect() * 1.8f);
+	m_BodyPos[BODY_HEAD] = m_Pos;
+	m_BodyPos[BODY_BODY] = m_BodyPos[BODY_HEAD] + Vector2(0, m_SrcRectArray[1].GetHeight()) - Vector2(0, 60);
+	m_BodyPos[BODY_DOWN] = m_BodyPos[BODY_BODY] + Vector2(0, m_SrcRectArray[2].GetHeight()) - Vector2(0, 70);
+	m_bDeadM = false;
+	m_RayShot.Initialize();
 }
 
 void CEnemyBoss2::Update(void)
@@ -101,7 +101,9 @@ void CEnemyBoss2::Update(void)
 		{
 			continue;
 		}
-		m_RayShot.Fire(m_BodyPos[i] + m_BodyMotion[i].GetSrcRect().GetCenter());
+		int texH = g_pTextureManager->GetTexture("RayShot.png")->GetHeight();
+		Vector2 center(-texH, m_SrcRectArray[i + 1].GetHeight() * 0.5f);
+		m_RayShot.Fire(m_BodyPos[i] + center);
 	}
 
 	if (m_RayShot.IsShot())
@@ -161,13 +163,16 @@ void CEnemyBoss2::Render(const Vector2 & screenPos)
 #ifdef _DEBUG
 	if (gbDebug)
 	{
-		Vector2 scroll = CCamera2D::GetSScroll();
-		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
-		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
-		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
+		for (int i = 0; i < 3; i++)
 		{
-			CGraphicsUtilities::RenderRect(m_BodyPos[0].x - scroll.x + m_SrcRectArray[i].Left, m_BodyPos[0].y - scroll.y + m_SrcRectArray[i].Top,
-				m_BodyPos[0].x - scroll.x + m_SrcRectArray[i].Right, m_BodyPos[0].y - scroll.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
+			CRectangle rect = m_SrcRectArray[i + 1];
+			Vector2 pos = m_BodyPos[i] - scroll;
+			CGraphicsUtilities::RenderRect(pos.x, pos.y, pos.x + rect.GetWidth(), pos.y + rect.GetHeight(), MOF_COLOR_BLUE);
+
+			Vector2 center(m_SrcRectArray[i + 1].GetWidth() * 0.5f, m_SrcRectArray[i + 1].GetHeight() * 0.5f);
+			Vector2 cp = m_BodyPos[i] + center - scroll;
+			CGraphicsUtilities::RenderFillCircle(cp.x, cp.y, 10, MOF_COLOR_BLUE);
+
 		}
 	}
 #endif // _DEBUG
@@ -210,17 +215,13 @@ bool CEnemyBoss2::CollisionRayShot(const CCircle& shot)
 {
 	bool re = false;
 	CRectangle rect[3] = {
-		CRectangle(m_BodyPos[0].x + m_SrcRectArray[0].Left, m_BodyPos[0].y + m_SrcRectArray[0].Top,	m_BodyPos[0].x + m_SrcRectArray[0].Right, m_BodyPos[0].y + m_SrcRectArray[0].Bottom),
-		CRectangle(m_BodyPos[1].x + m_SrcRectArray[1].Left, m_BodyPos[1].y + m_SrcRectArray[1].Top,	m_BodyPos[1].x + m_SrcRectArray[1].Right, m_BodyPos[1].y + m_SrcRectArray[1].Bottom),
-		CRectangle(m_BodyPos[2].x + m_SrcRectArray[2].Left, m_BodyPos[2].y + m_SrcRectArray[2].Top,	m_BodyPos[2].x + m_SrcRectArray[2].Right, m_BodyPos[2].y + m_SrcRectArray[2].Bottom)
+		CRectangle(m_BodyPos[0].x, m_BodyPos[0].y,	m_BodyPos[0].x + m_SrcRectArray[1].GetWidth(), m_BodyPos[0].y + m_SrcRectArray[1].GetHeight()),
+		CRectangle(m_BodyPos[1].x, m_BodyPos[1].y,	m_BodyPos[1].x + m_SrcRectArray[2].GetWidth(), m_BodyPos[1].y + m_SrcRectArray[2].GetHeight()),
+		CRectangle(m_BodyPos[2].x, m_BodyPos[2].y,	m_BodyPos[2].x + m_SrcRectArray[3].GetWidth(), m_BodyPos[2].y + m_SrcRectArray[3].GetHeight())
 	};
 	for (int i = 0; i < BODY_COUNT; i++)
 	{
 		if (!CollisionRectCircle(rect[i], shot))
-		{
-			continue;
-		}
-		if (m_RayShot.GetMove().x < 0)
 		{
 			continue;
 		}
