@@ -100,31 +100,61 @@ CDynamicArray<CShot*>* CEnemyBoss::GetBoundShotArray(void)
 
 void CEnemyBoss::Move(void)
 {
-	if (m_BoundShotArray.GetArrayCount() < 1)
+	if (m_Motion.GetMotionNo() != 2)
 	{
-		if (!m_bCameraMove)
+		if (m_BoundShotArray.GetArrayCount() < 1)
 		{
-			m_BoundShotArray.Add(NEW CBoss1Shot1());
+			m_Motion.ChangeMotion(1);
+			if (!m_bCameraMove)
+			{
+				m_BoundShotArray.Add(NEW CBoss1Shot1());
+				m_BoundShotArray[0]->Initialize();
+				m_BoundShotArray[0]->Fire(m_Pos);
+			}
+		}
+		else if(!m_BoundShotArray[0]->IsShot())
+		{
+			m_Motion.ChangeMotion(1);
 			m_BoundShotArray[0]->Initialize();
 			m_BoundShotArray[0]->Fire(m_Pos);
 		}
-	}
-	else if(!m_BoundShotArray[0]->IsShot())
-	{
-		m_BoundShotArray[0]->Initialize();
-		m_BoundShotArray[0]->Fire(m_Pos);
 	}
 
 	for (int i = 0; i < m_BoundShotArray.GetArrayCount(); i++)
 	{
 		m_BoundShotArray[i]->Update();
 	}
-
+	if (m_Motion.GetMotionNo() == 1 && m_Motion.IsEndMotion())
+	{
+		m_Motion.ChangeMotion(0);
+	}
+	if (m_Motion.GetMotionNo() == 2 && m_Motion.IsEndMotion())
+	{
+		m_bDead = true;
+	}
+	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 }
 
 void CEnemyBoss::Animation(void)
 {
-	CEnemy::Animation();
+	//m_Motion.AddTimer(CUtilities::GetFrameSecond());
+}
+
+bool CEnemyBoss::Dmg(const int & dmg)
+{
+	if (m_DamageWait > 0)
+	{
+		return false;
+	}
+	m_HP -= dmg;
+	m_DamageWait = 60;
+	if (m_HP < 0)
+	{
+		m_Motion.ChangeMotion(2);
+	}
+
+	g_pSoundManager->PlaySE("Dmg.mp3");
+	return true;
 }
 
 

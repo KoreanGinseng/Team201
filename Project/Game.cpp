@@ -10,8 +10,8 @@
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 	//"Stage-R-2-test.txt",
-	"Stage-R-2-test2.txt",
 	"Stage-R-1-test.txt",
+	"Stage-R-2-test2.txt",
 	"Stage-R-3-test.txt",
 	"Stage-R-4-test.txt",
 	//"Stage-R-2.txt",
@@ -113,6 +113,7 @@ void CGame::Initialize()
 	m_MainCamera.Initialize();
 
 	CCordinate::SetBossFlag(false);
+	CCordinate::SetKey(false);
 	m_CAlpha = 0;
 }
 
@@ -475,10 +476,6 @@ void CGame::SetStageNo(const int & no)
 //デバッグ描画
 void CGame::RenderDebug()
 {
-	//Vector2 screenPos = ScreenTransration(m_MainCamera.GetScroll(), m_Player.GetPos());
-	//m_Player.RenderDebug(screenPos);
-
-	//CGraphicsUtilities::RenderString(0, 30, "%.1f,%.1f", m_MainCamera.GetScroll().x, m_MainCamera.GetScroll().y);
 }
 
 //解放
@@ -576,9 +573,11 @@ void CGame::Collosion(void)
 					}
 					for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
 					{
-						if (m_pEnemyArray[i]->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
+						if (pe->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
 						{
-							m_pEnemyArray[i]->Dmg(1);
+							pe->Dmg(1);
+							CShot::GetShotLists()->GetData(sc)->SetShot(false);
+							g_pEffectManager->Start("Explosion_B.bin", pe->GetPos() - CCamera2D::GetSScroll());
 						}
 					}
 				}

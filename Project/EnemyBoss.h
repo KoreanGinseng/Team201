@@ -18,5 +18,6 @@ public:
 	CDynamicArray<CShot*>*	GetBoundShotArray(void);
 	void Move(void) override;
 	void Animation(void) override;
+	virtual bool Dmg(const int& dmg) override;
 };
 
