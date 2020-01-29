@@ -99,7 +99,16 @@ void CGame::Initialize()
 
 	//ゲーム開始時間リセット
 	g_pTimeManager->Reset();
-	g_pSoundManager->PlayBGM("Stage1_BGM.mp3");
+
+	const char* BgmFile[] = {
+		"Stage1_BGM.mp3",
+		"Stage2_BGM.mp3",
+		"Stage3_BGM.mp3",
+		"Stage4_BGM.mp3",
+	};
+	g_pSoundManager->StopBGM();
+	g_pSoundManager->SetVolumeBGM("Stage1_BGM.mp3", 0.7f);
+	g_pSoundManager->PlayBGM(BgmFile[m_StageNo]);
 
 	m_MainCamera.Initialize();
 
@@ -131,6 +140,8 @@ void CGame::Update()
 	if (g_pInput->IsKeyPush(MOFKEY_F4))
 	{
 		m_bPoase = !m_bPoase;
+
+		g_pSoundManager->PlaySE("Enter.mp3");
 	}
 
 	// ESCAPEキーで終了
@@ -215,6 +226,22 @@ void CGame::Update()
 	if (m_MainCamera.IsBoss())
 	{
 		CCordinate::SetBossFlag(true);
+		if (m_StageNo == 0)
+		{
+			if (!g_pSoundManager->GetSoundBGM("Boss1_BGM.mp3")->IsPlay())
+			{
+				g_pSoundManager->StopBGM();
+				g_pSoundManager->PlayBGM("Boss1_BGM.mp3");
+			}
+		}
+		if (m_StageNo == 1)
+		{
+			if (!g_pSoundManager->GetSoundBGM("Boss2_BGM.mp3")->IsPlay())
+			{
+				g_pSoundManager->StopBGM();
+				g_pSoundManager->PlayBGM("Boss2_BGM.mp3");
+			}
+		}
 		m_MainCamera.SetScrollX(m_Stage[m_StageNo].GetStageRect().Right - g_pGraphics->GetTargetWidth());
 	}
 
@@ -242,6 +269,11 @@ void CGame::Update()
 		{
 			if (m_StageNo == 3)
 			{
+				if (!m_bClear)
+				{
+					g_pSoundManager->StopBGM();
+					g_pSoundManager->PlayBGM("Clear_BGM.mp3");
+				}
 				m_bClear = true;
 			}
 			else
@@ -405,12 +437,13 @@ void CGame::RenderUI(void)
 		{
 			alp = 255;
 		}
-		if (m_CAlpha > 300 + 255)
+		if (m_CAlpha > 30 + 255)
 		{
 			m_pEffect->Out(10);
 			m_NextSceneNo = SCENENO_GAME;
 		}
-		g_pTextureManager->GetTexture("fin.png")->Render(0, 0, MOF_ARGB(alp, 255, 255, 255));
+		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB( alp, 255, 255, 255));
+		//g_pTextureManager->GetTexture("fin.png")->Render(0, 0, MOF_ARGB(alp, 255, 255, 255));
 	}
 
 
@@ -671,6 +704,7 @@ void CGame::Collosion(void)
 			if (m_pTargetObjArray[i]->GetObjType() == OBJECT_DOOR && CCordinate::IsKey())
 			{
 				static_cast<CDoor*>(m_pTargetObjArray[i])->OpenTheDoor();
+				g_pSoundManager->PlaySE("Door.mp3");
 				m_NextSceneNo = SCENENO_GAME;
 				m_pEffect->Out(10);
 			}

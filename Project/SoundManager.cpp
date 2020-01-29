@@ -161,3 +161,11 @@ void CSoundManager::Release(void)
 	}
 	CSoundManager::GetSound()->m_ResourceBGM.clear();
 }
+
+void CSoundManager::StopBGM(void)
+{
+	for (auto& itr : CSoundManager::GetSound()->m_ResourceBGM)
+	{
+		itr.second->Stop();
+	}
+}

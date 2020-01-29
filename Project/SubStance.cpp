@@ -21,11 +21,7 @@ void CSubstance::Stop(void)
 		std::string texName = g_pAnimManager->GetAnimation("Effect_Stop.bin")->GetTextureName();
 		g_pEffectManager->Start("Effect_Stop.bin", m_Pos - CCamera2D::GetSScroll() - Vector2(600 * 0.5f, 500 * 0.5f));
 		CCordinate::SetStop(true);
-		//g_pSoundManager->GetResource("")->Play();
-	}
-	else
-	{
-		//g_pSoundManager->GetResource("")->Play();
+		g_pSoundManager->GetSoundSE("SkillActivate.mp3")->Play();
 	}
 }
 
@@ -36,12 +32,12 @@ void CSubstance::Back(void)
 		if (m_SubStatus == SUBSTATUS_NOMAL)
 		{
 			m_SubStatus = SUBSTATUS_BACK;
-			//g_pSoundManager->GetResource("")->Play();
+			g_pSoundManager->GetSoundSE("SkillActivate.mp3")->Play();
 		}
 		else
 		{
 			m_SubStatus = SUBSTATUS_NOMAL;
-			//g_pSoundManager->GetResource("")->Play();
+			g_pSoundManager->GetSoundSE("SkillActivate.mp3")->Play();
 		}
 		m_Motion.ChangeMotion(m_SubStatus);
 
@@ -57,12 +53,12 @@ void CSubstance::Trip(void)
 		if (m_SubStatus == SUBSTATUS_NOMAL)
 		{
 			m_SubStatus = SUBSTATUS_TRIP;
- 			//g_pSoundManager->GetResource("")->Play();
+			g_pSoundManager->GetSoundSE("SkillActivate.mp3")->Play();
 		}
 		else
 		{
 			m_SubStatus = SUBSTATUS_NOMAL;
-			//g_pSoundManager->GetResource("")->Play();
+			g_pSoundManager->GetSoundSE("SkillActivate.mp3")->Play();
 		}
 		m_Motion.ChangeMotion(m_SubStatus);
 

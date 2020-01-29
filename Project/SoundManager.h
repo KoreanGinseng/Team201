@@ -26,5 +26,7 @@ public:
 	static bool LoadBGM(const std::string& str);							//! “Ç
 	static void Update(void);												//! ƒTƒEƒ“ƒh§Œä
 	static void Release(void);												//! ‰ğ•ú
+
+	static void StopBGM(void);
 };
 

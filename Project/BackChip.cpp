@@ -17,7 +17,7 @@ CBackChip::~CBackChip()
 void CBackChip::Initialize(void)
 {
 	m_StartPos = m_Pos;
-	m_Move = Vector2(CUtilities::Random(10, 30), 0);
+	m_Move = Vector2(CUtilities::Random(1, 3), 0);
 }
 
 void CBackChip::Update(void)

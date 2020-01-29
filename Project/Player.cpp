@@ -279,6 +279,7 @@ void CPlayer::Move(void)
 	{
 		m_bJump = true;
 		m_Move.y = PLAYER_JUMPPOW;
+		g_pSoundManager->PlaySE("jump09.mp3");
 	}
 	else if (m_KeyConfig.clime && m_bClime)
 	{
@@ -379,6 +380,10 @@ void CPlayer::Skill(void)
 	//LTボタンを押した場合、スキルが発動
 	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && m_bCntrl)
 	{
+		if (!g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->IsPlay())
+		{
+			g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->Play();
+		}
 		m_bTrigger = true;
 		if (!m_SkillTarget.empty())
 		{
@@ -489,9 +494,16 @@ void CPlayer::Skill(void)
 		{
 			m_Skillrang = PLAYER_MAXSKILLRANGE;
 		}
+
+		//if (!g_pSoundManager->GetSoundSE("Skill.mp3")->IsPlay())
+		//{
+		//	//g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->SetLoop(TRUE);
+		//	g_pSoundManager->PlaySE("Skill.mp3");
+		//}
 	}
 	else 
 	{
+		g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->Stop();
 		//離したまたは押してない状態で
 		//ターゲット範囲が0より大きい場合
 		if (m_Skillrang > 0.0f)
@@ -680,6 +692,7 @@ bool CPlayer::Dmg(CEnemy& ene)
 		}
 		//m_Motion.ChangeMotion(MOTION_DAMAGE);
 	}
+	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
 }
 
@@ -695,5 +708,7 @@ bool CPlayer::Dmg(const int & dmg)
 	{
 		m_bDead = true;
 	}
+
+	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
 }

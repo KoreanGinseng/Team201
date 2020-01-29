@@ -67,6 +67,7 @@ MofBool CGameApp::Update(void) {
 	g_pInput->RefreshKey();
 	g_pGamePad->RefreshKey();
 	g_pEffectManager->Update();
+	g_pSoundManager->Update();
 
 	if (g_pInput->IsKeyPush(MOFKEY_F1))
 	{

@@ -49,6 +49,8 @@ void CTitle::Initialize(void)
 	m_Rect = CRectangle(sx1, sy1, sx1 + fontSize * (9 + 2), sy1 + 64);
 	m_bAlphaUp = false;
 	m_Alpha = 0;
+	g_pSoundManager->StopBGM();
+	g_pSoundManager->SetVolumeBGM("Title_BGM.mp3", 0.7f);
 	g_pSoundManager->PlayBGM("Title_BGM.mp3");
 }
 
@@ -58,6 +60,8 @@ void CTitle::Update(void)
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
 	{
 		m_NextSceneNo = SCENENO_GAME;
+
+		g_pSoundManager->PlaySE("Enter.mp3");
 	}
 
 	UpdateDebug();
@@ -123,6 +127,8 @@ void CTitle::Update(void)
 //•`‰æ
 void CTitle::Render()
 {
+	g_pTextureManager->GetTexture("bg6.png")->Render(0, 0);
+
 	RenderDebug();
 	float scale = 0.4f;
 	float x = (g_pGraphics->GetTargetWidth() - m_pTexture->GetWidth() * scale) * 0.5f;

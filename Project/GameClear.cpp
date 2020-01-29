@@ -78,19 +78,21 @@ void CGameClear::Update() {
 *****************************************************************/
 void CGameClear::UpdateDebug() {
 
-	if (g_pInput->IsKeyPush(MOFKEY_Q)) {
-		m_NextSceneNo = SCENENO_GAME;
-	}
+	//if (g_pInput->IsKeyPush(MOFKEY_Q)) {
+	//	m_NextSceneNo = SCENENO_GAME;
+	//}
 
 	if (g_pInput->IsKeyPush(MOFKEY_RETURN) && !m_pEffect->IsStart()) {
 		m_pEffect->Out(10);
-	}
-	else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
-
-	}
-	if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
 		m_NextSceneNo = SCENENO_TITLE;
+
+		g_pSoundManager->PlaySE("Enter.mp3");
 	}
+	//else if (g_pInput->IsKeyPush(MOFKEY_SPACE)) {
+
+	//}
+	//if (m_pEffect->IsEnd() && m_pEffect->IsStart()) {
+	//}
 }
 /*****************************************************************
  * @fn

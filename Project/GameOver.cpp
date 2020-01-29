@@ -52,6 +52,8 @@ bool CGameOver::Load() {
 void CGameOver::Initialize() {
 	//‘JˆÚæ‚Ì‰Šú‰»
 	m_NextSceneNo = SCENENO_GAMEOVER;
+	g_pSoundManager->StopBGM();
+	g_pSoundManager->PlayBGM("Sad_Jingle.mp3");
 }
 
 /*****************************************************************
@@ -66,6 +68,8 @@ void CGameOver::Update() {
 	{
 		m_NextSceneNo = SCENENO_TITLE;
 		m_pEffect->Out(10);
+
+		g_pSoundManager->PlaySE("Enter.mp3");
 	}
 
 	//UpdateDebug();

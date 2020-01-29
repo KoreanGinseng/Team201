@@ -228,6 +228,8 @@ bool CEnemy::Dmg(const CRectangle & pre, const int& preWait)
 		m_bReverse = true;
 	}
 	//m_Motion.ChangeMotion(MOTION_DAMAGE);
+
+	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
 }
 
@@ -243,6 +245,8 @@ bool CEnemy::Dmg(const int & dmg)
 	{
 		m_bDead = true;
 	}
+
+	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
 }
 

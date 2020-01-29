@@ -187,6 +187,7 @@ bool CEnemyMash::Dmg(const int & dmg)
 		m_HP = 0;
 		m_bDmg = true;
 	}
+	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
 }
 
