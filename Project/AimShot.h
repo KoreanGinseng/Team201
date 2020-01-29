@@ -12,5 +12,6 @@ public:
 	virtual void Initialize(void) override;
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
+	CRectangle GetRect(void) override;
 };
 

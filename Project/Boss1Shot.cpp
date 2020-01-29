@@ -3,7 +3,7 @@
 
 
 CBoss1Shot1::CBoss1Shot1(void) :
-CShot()
+	CShot()
 {
 	m_bSelectTarget = true;
 	m_ShotType = SHOT_BOUND;
@@ -34,7 +34,7 @@ void CBoss1Shot1::Update(void)
 	}
 
 	m_Pos += m_Move;
-	
+
 	if (m_bAnimStop)
 	{
 		m_WaitCount--;
@@ -45,7 +45,7 @@ void CBoss1Shot1::Update(void)
 			m_SubStatus = SUBSTATUS_NOMAL;
 		}
 	}
-	
+
 	if (m_Pos.x > CCordinate::GetStageRect().Right)
 	{
 		m_bShot = false;
@@ -109,7 +109,7 @@ CRectangle CBoss1Shot1::GetRect(void)
 {
 	if (m_Bound > 0)
 	{
-		return CRectangle();
+		return CRectangle(m_ExPos.x, m_ExPos.y, m_ExPos.x + m_Motion.GetSrcRect().GetWidth(), m_ExPos.y + m_Motion.GetSrcRect().GetHeight());
 	}
 	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_pTexture->GetWidth() * 0.5f, m_Pos.y + m_pTexture->GetHeight() * 0.5f);
 }

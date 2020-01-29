@@ -34,9 +34,24 @@ void CAimShot::Initialize(void)
 
 void CAimShot::Update(void)
 {
+	if (!m_bShot)
+	{
+		return;
+	}
 	m_Pos += m_Move;
 }
 
 void CAimShot::Render(const Vector2 & screenPos)
 {
+	if (!m_bShot)
+	{
+		return;
+	}
+	Vector2 scroll = CCamera2D::GetSScroll();
+	m_pTexture->RenderScale(m_Pos.x - scroll.x, m_Pos.y - scroll.y, 0.5f);
+}
+
+CRectangle CAimShot::GetRect(void)
+{
+	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_pTexture->GetWidth(), m_Pos.y + m_pTexture->GetHeight());
 }

@@ -573,11 +573,18 @@ void CGame::Collosion(void)
 					}
 					for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
 					{
+						if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_BOUND)
+						{
+							continue;
+						}
 						if (pe->GetRectArray(j).CollisionRect(CShot::GetShotLists()->GetData(sc)->GetRect()))
 						{
 							pe->Dmg(1);
 							CShot::GetShotLists()->GetData(sc)->SetShot(false);
-							g_pEffectManager->Start("Explosion_B.bin", pe->GetPos() - CCamera2D::GetSScroll());
+							Vector2 effectPos = pe->GetPos() - CCamera2D::GetSScroll();
+							effectPos.y -= 90;
+							effectPos.x -= 30;
+							g_pEffectManager->Start("Explosion_B.bin", effectPos);
 						}
 					}
 				}

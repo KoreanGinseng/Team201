@@ -22,6 +22,7 @@ void CEnemyBoss::Initialize(void)
 	m_HP = 2;
 	m_bShotA = false;
 	m_Motion.ChangeMotion(0);
+	m_AnimShot.SetTexture(g_pTextureManager->GetTexture("Boss1Shot.png"));
 }
 
 void CEnemyBoss::Render(const Vector2 & screenPos)
@@ -48,6 +49,7 @@ void CEnemyBoss::Render(const Vector2 & screenPos)
 		Vector2 sp = ScreenTransration(scroll, m_BoundShotArray[i]->GetPos());
 		m_BoundShotArray[i]->Render(sp);
 	}
+	m_AnimShot.Render(Vector2());
 #ifdef _DEBUG
 	if (gbDebug)
 	{
@@ -129,6 +131,8 @@ void CEnemyBoss::Move(void)
 	{
 		m_BoundShotArray[i]->Update();
 	}
+	m_AnimShot.Update();
+
 	if (m_Motion.GetMotionNo() == 1 && m_Motion.IsEndMotion())
 	{
 		m_Motion.ChangeMotion(0);
@@ -153,6 +157,7 @@ bool CEnemyBoss::Dmg(const int & dmg)
 	}
 	m_HP -= dmg;
 	m_DamageWait = 60;
+	m_bShotA = false;
 	if (m_HP < 0)
 	{
 		m_Motion.ChangeMotion(2);
