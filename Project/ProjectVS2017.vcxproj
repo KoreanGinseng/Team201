@@ -99,6 +99,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AimShot.cpp" />
     <ClCompile Include="AnimationData.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="BackChip.cpp" />
@@ -162,6 +163,7 @@
     <ResourceCompile Include="Version.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimShot.h" />
     <ClInclude Include="AnimationData.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="BackChip.h" />

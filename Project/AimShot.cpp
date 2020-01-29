@@ -14,6 +14,7 @@ CAimShot::~CAimShot(void)
 
 void CAimShot::Fire(const Vector2 & startPos)
 {
+	m_bShot = true;
 	m_Pos = startPos;
 	Vector2 d = Vector2(
 		CCordinate::GetPlayerPos().x + 192 * 0.5f,
@@ -26,8 +27,14 @@ void CAimShot::Fire(const Vector2 & startPos)
 	m_RotateRad = atan2f(d.y, d.x);
 }
 
+void CAimShot::Initialize(void)
+{
+	m_bShot = false;
+}
+
 void CAimShot::Update(void)
 {
+	m_Pos += m_Move;
 }
 
 void CAimShot::Render(const Vector2 & screenPos)

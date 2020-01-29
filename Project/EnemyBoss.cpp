@@ -20,6 +20,8 @@ void CEnemyBoss::Initialize(void)
 {
 	CEnemy::Initialize();
 	m_HP = 2;
+	m_bShotA = false;
+	m_Motion.ChangeMotion(0);
 }
 
 void CEnemyBoss::Render(const Vector2 & screenPos)
@@ -88,11 +90,6 @@ CRectangle CEnemyBoss::GetSrcAddRect(void)
 	return rec;
 }
 
-CDynamicArray<CShot*>* CEnemyBoss::GetAnimShotArray(void)
-{
-	return &m_AnimShotArray;
-}
-
 CDynamicArray<CShot*>* CEnemyBoss::GetBoundShotArray(void)
 {
 	return &m_BoundShotArray;
@@ -110,13 +107,21 @@ void CEnemyBoss::Move(void)
 				m_BoundShotArray.Add(NEW CBoss1Shot1());
 				m_BoundShotArray[0]->Initialize();
 				m_BoundShotArray[0]->Fire(m_Pos);
+				m_bShotA = true;
 			}
 		}
-		else if(!m_BoundShotArray[0]->IsShot())
+		else if(!m_BoundShotArray[0]->IsShot() && m_Motion.GetMotionNo() == 0)
 		{
 			m_Motion.ChangeMotion(1);
 			m_BoundShotArray[0]->Initialize();
 			m_BoundShotArray[0]->Fire(m_Pos);
+			m_bShotA = true;
+		}
+		if (m_bShotA && m_Motion.GetMotionNo() == 0)
+		{
+			m_Motion.ChangeMotion(1);
+			m_AnimShot.Fire(m_Pos);
+			m_bShotA = false;
 		}
 	}
 

@@ -46,6 +46,11 @@ void CBoss1Shot1::Update(void)
 		}
 	}
 	
+	if (m_Pos.x > CCordinate::GetStageRect().Right)
+	{
+		m_bShot = false;
+	}
+
 	if (m_Bound > 0)
 	{
 		if (!m_bAnimStop)
@@ -93,7 +98,8 @@ void CBoss1Shot1::CollisionStage(const Vector2 & over)
 	m_Pos += over;
 	if (over.y < 0 && m_Move.y > 0)
 	{
-		m_Move.y = -6 + m_Bound++;
+		m_Bound++;
+		//m_Move.y = -6 + m_Bound;
 
 		m_ExPos = m_Pos;
 	}
@@ -101,5 +107,9 @@ void CBoss1Shot1::CollisionStage(const Vector2 & over)
 
 CRectangle CBoss1Shot1::GetRect(void)
 {
+	if (m_Bound > 0)
+	{
+		return CRectangle();
+	}
 	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_pTexture->GetWidth() * 0.5f, m_Pos.y + m_pTexture->GetHeight() * 0.5f);
 }

@@ -9,6 +9,7 @@ public:
 	CAimShot(void);
 	virtual ~CAimShot(void);
 	virtual void Fire(const Vector2& startPos) override;
+	virtual void Initialize(void) override;
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
 };
