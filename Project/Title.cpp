@@ -28,7 +28,10 @@ bool CTitle::Load(void)
 	m_pEffect = new CEffectFade();
 	m_pEffect->In(10);
 	g_pSoundManager->LoadBGM("Title_BGM.mp3");
-
+	if (!m_Movie.Load("op_test.wmv"))
+	{
+		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -52,19 +55,12 @@ void CTitle::Initialize(void)
 	g_pSoundManager->StopBGM();
 	g_pSoundManager->SetVolumeBGM("Title_BGM.mp3", 0.7f);
 	g_pSoundManager->PlayBGM("Title_BGM.mp3");
+	m_bMovie = false;
 }
 
 //XV
 void CTitle::Update(void)
 {
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN))
-	{
-		m_NextSceneNo = SCENENO_GAME;
-
-		g_pSoundManager->PlaySE("Enter.mp3");
-	}
-
-	UpdateDebug();
 	
 	if (m_bAlphaUp)
 	{
@@ -99,13 +95,15 @@ void CTitle::Update(void)
 		}
 	}
 
-	if (g_pInput->IsKeyPush(MOFKEY_RETURN) || g_pGamePad->IsKeyPush(XINPUT_A))
+	if ((g_pInput->IsKeyPush(MOFKEY_RETURN) || g_pGamePad->IsKeyPush(XINPUT_A)) && !m_bMovie)
 	{
 		switch (m_SelectNo)
 		{
 		case 0:
 		{
-			m_pEffect->Out(10);
+			g_pSoundManager->PlaySE("Enter.mp3");
+			m_Movie.Play();
+			m_bMovie = true;
 			break;
 		}
 		case 1:
@@ -122,10 +120,25 @@ void CTitle::Update(void)
 		m_NextSceneNo = SCENENO_GAME;
 		g_pSoundManager->GetSoundBGM("Title_BGM.mp3")->Stop();
 	}
+	if (m_bMovie)
+	{
+		if (g_pInput->IsKeyPush(MOFKEY_NUMPAD0))
+		{
+			m_Movie.Stop();
+		}
+		m_Movie.Update();
+		if (!m_Movie.IsPlay())
+		{
+			m_Movie.Stop();
+			m_NextSceneNo = SCENENO_GAME;
+			m_pEffect->Out(10);
+		}
+	}
+
 }
 
 //•`‰æ
-void CTitle::Render()
+void CTitle::Render(void)
 {
 	g_pTextureManager->GetTexture("bg6.png")->Render(0, 0);
 
@@ -157,6 +170,11 @@ void CTitle::Render()
 
 	String(sx1, sy1, fontSize, "GAMESTART");
 	String(sx2, sy2, fontSize, "EXIT");
+
+	if (m_bMovie)
+	{
+		m_Movie.Render(0, 0);
+	}
 }
 
 void CTitle::RenderUI()
@@ -184,5 +202,5 @@ void CTitle::Release()
 		m_pEffect = nullptr;
 
 	}
-
+	m_Movie.Release();
 }

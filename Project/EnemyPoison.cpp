@@ -2,7 +2,7 @@
 
 
 
-CEnemyPoison::CEnemyPoison() :
+CEnemyPoison::CEnemyPoison(void) :
 	CEnemy(),
 	m_bDmg(false),
 	m_DmgScale(Vector2(1, 1)),
@@ -16,7 +16,7 @@ CEnemyPoison::CEnemyPoison() :
 }
 
 
-CEnemyPoison::~CEnemyPoison()
+CEnemyPoison::~CEnemyPoison(void)
 {
 }
 
@@ -38,6 +38,11 @@ void CEnemyPoison::Update(void)
 			m_bShow = true;
 		}
 		return;
+	}
+
+	for (int i = 0; i < m_ShotArray.GetArrayCount(); i++)
+	{
+		m_ShotArray[i]->Update();
 	}
 
 	if (m_bDmg)
@@ -76,11 +81,6 @@ void CEnemyPoison::Update(void)
 	}
 
 	m_Pos += m_Move;
-
-	for (int i = 0; i < m_ShotArray.GetArrayCount(); i++)
-	{
-		m_ShotArray[i]->Update();
-	}
 
 	if (!m_bAnimStop)
 	{
@@ -125,6 +125,7 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 		return;
 	}
 	CRectangle r = GetSrcRect();
+	float dx = r.GetWidth() * 0.5f;
 	if (!m_bReverse)
 	{
 		r.Left = GetSrcRect().Right;
@@ -133,7 +134,17 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 
 	if (m_bDmg)
 	{
-		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
+		m_pTexture->RenderScale(screenPos.x + dx, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
+		if (m_DmgScale.y <= 0)
+		{
+			CRectangle rect = GetRect();
+			Vector2 scroll = CCamera2D::GetSScroll();
+			Vector2 pos = rect.GetTopLeft() - scroll;
+			CTexturePtr pt = g_pTextureManager->GetTexture("Poison_Dmg.png");
+			float xw = (pt->GetWidth() * 0.6f - rect.GetWidth()) * 0.5f;
+			float yh = (pt->GetHeight() * 0.5f - rect.GetHeight()) * 0.5f;
+			pt->RenderScale(pos.x - xw, pos.y - yh, 0.6f, 0.5f);
+		}
 	}
 	else
 	{
@@ -155,6 +166,7 @@ void CEnemyPoison::Render(const Vector2 & screenPos)
 			CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
 				screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
 			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
+			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 60, "%d", m_Motion.GetFrameNo());
 		}
 	}
 #endif // _DEBUG
@@ -167,15 +179,15 @@ void CEnemyPoison::RenderCircle(const Vector2 & screenPos)
 		return;
 	}
 	CRectangle r = GetSrcRect();
+	float dx = r.GetWidth() * 0.5f;
 	if (!m_bReverse)
 	{
 		r.Left = GetSrcRect().Right;
 		r.Right = GetSrcRect().Left;
 	}
-
 	if (m_bDmg)
 	{
-		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
+		m_pTexture->RenderScale(screenPos.x + dx, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
 	}
 	else
 	{
@@ -185,6 +197,11 @@ void CEnemyPoison::RenderCircle(const Vector2 & screenPos)
 
 void CEnemyPoison::Move(void)
 {
+	if (m_Motion.GetFrameNo() >= 9 && m_Motion.GetMotionNo() == 1)
+	{
+		Vector2 shotPos = m_Pos + Vector2(-10, 30);
+		m_ShotArray[0]->Fire(shotPos);
+	}
 	m_Move.x += m_Spd.x;
 
 	m_Move.x = MOF_CLIPING(m_Move.x, -MASH_MAXSPD, MASH_MAXSPD);
@@ -197,13 +214,13 @@ void CEnemyPoison::Move(void)
 		{
 			m_ShotArray.Add(NEW CPoisonShot());
 			m_ShotArray[0]->Initialize();
-			m_ShotArray[0]->Fire(m_Pos);
+			m_Motion.ChangeMotion(1);
 		}
-		else if (!m_ShotArray[0]->IsShot())
+		else if (!m_ShotArray[0]->IsShot() && m_Motion.GetMotionNo() == 0)
 		{
-			m_ShotArray[0]->Fire(m_Pos);
+			m_Motion.ChangeMotion(1);
 		}
-		m_bAttack = false;
+		//m_bAttack = false;
 		return;
 	}
 	if (m_bReverse)
@@ -215,20 +232,15 @@ void CEnemyPoison::Move(void)
 			m_bAttack = true;
 		}
 	}
-
 }
 
 void CEnemyPoison::Animation(void)
 {
-	if (m_bAttack /*&& m_Motion.GetMotionNo() != ANIM_ATTACK*/)
+	if (m_Motion.GetMotionNo() == 1 && m_Motion.IsEndMotion())
 	{
-		//m_Motion.ChangeMotion();
+		m_Motion.ChangeMotion(0);
+		m_bAttack = false;
 	}
-	//if (m_Motion.GetMotionNo() == ANIM_ATTACK && m_Motion.IsEndMotion())
-	//{
-	//	m_Motion.ChangeMotion();
-	//	m_bAttack = false;
-	//}
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
 }
 

@@ -5,6 +5,7 @@ class CAimShot : public CShot
 private:
 	Vector2 m_TargetPos;
 	float	m_RotateRad;
+	float	m_TexScale;
 public:
 	CAimShot(void);
 	virtual ~CAimShot(void);
@@ -13,5 +14,9 @@ public:
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
 	CRectangle GetRect(void) override;
+	float GetRad(void) const;
+	float GetScale(void) const;
+	void SetScale(const float& s);
+	void SetSpd(const Vector2& spd);
 };
 

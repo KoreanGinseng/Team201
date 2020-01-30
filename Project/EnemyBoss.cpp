@@ -23,6 +23,8 @@ void CEnemyBoss::Initialize(void)
 	m_bShotA = false;
 	m_Motion.ChangeMotion(0);
 	m_AnimShot.SetTexture(g_pTextureManager->GetTexture("Boss1Shot.png"));
+	m_AnimShot.SetScale(0.5f);
+	m_AnimShot.SetSpd(Vector2(12, 12));
 }
 
 void CEnemyBoss::Render(const Vector2 & screenPos)

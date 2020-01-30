@@ -660,11 +660,16 @@ bool CPlayer::Dmg(CEnemy& ene)
 	CRectangle prec = GetRect();
 	CRectangle erec = ene.GetRect();
 
+	if (!prec.CollisionRect(erec))
+	{
+		return false;
+	}
+
 	if (ene.GetEnemyType() == ENEMY_MASH || ene.GetEnemyType() == ENEMY_POISUNMASH)
 	{
 		if (prec.Bottom - 5 < erec.Top && prec.Bottom + 5 > erec.Top)
 		{
-			m_Move.y = PLAYER_JUMPPOW / 2;
+			m_Move.y = PLAYER_JUMPPOW * 0.5f;
 			ene.Dmg(1);
 			return false;
 		}

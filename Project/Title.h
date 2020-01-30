@@ -16,6 +16,7 @@ class CTitle :
 private:
 	CTexturePtr	m_pTexture;
 	CMovie		m_Movie;
+	bool		m_bMovie;
 	int			m_SelectNo;
 	MofU32		m_RectColor;
 	CRectangle	m_Rect;

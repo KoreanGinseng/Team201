@@ -10,8 +10,9 @@
 
 const char*		g_StageFileName[STAGE_COUNT] = {
 	//"Stage-R-2-test.txt",
+	"EnemyTestStage.txt",
 	"Stage-R-1-test.txt",
-	"Stage-R-2-test2.txt",
+	//"Stage-R-2-test2.txt",
 	"Stage-R-3-test.txt",
 	"Stage-R-4-test.txt",
 	//"Stage-R-2.txt",
@@ -520,6 +521,10 @@ void CGame::Collosion(void)
 
 	for (int i = 0; i < CShot::GetShotLists()->GetArrayCount(); i++)
 	{
+		if (!CShot::GetShotLists()->GetData(i)->IsShot())
+		{
+			continue;
+		}
 		over = Vector2(0, 0);
 		//if (m_Player.OverValue(CShot::GetShotLists()->GetData(i)->GetRect(), over))
 		if (CShot::GetShotLists()->GetData(i)->OverValue(m_Player.GetRect(), over))
@@ -539,7 +544,6 @@ void CGame::Collosion(void)
 #pragma region 敵が当たる側
 	//敵との当たり判定
 	//敵の数だけループ
-	//for (int i = 0; i < m_Stage[m_StageNo].GetEnemyCount(); i++)
 	for (int i = 0; i < m_pEnemyArray.GetArrayCount(); i++)
 	{
 		//非表示か死亡の場合スキップ
@@ -617,7 +621,6 @@ void CGame::Collosion(void)
 			over = Vector2(0, 0);
 
 			//他の敵との埋まりを求める
-			//for (int k = 0; k < m_Stage[m_StageNo].GetEnemyCount(); k++)
 			for (int k = 0; k < m_pEnemyArray.GetArrayCount(); k++)
 			{
 				if (k == i)
@@ -666,7 +669,6 @@ void CGame::Collosion(void)
 
 #pragma region アイテムが当たる側
 	//アイテムとの当たり判定
-	//for (int i = 0; i < m_Stage[m_StageNo].GetItemCount(); i++)
 	for (int i = 0; i < m_pItemArray.GetArrayCount(); i++)
 	{
 		//非表示ならスキップ
@@ -694,7 +696,6 @@ void CGame::Collosion(void)
 #pragma region オブジェクトが当たる側
 	//オブジェクトとの当たり判定
 	//オブジェクトの数だけ当たり判定をする
-	//for (int i = 0; i < m_Stage[m_StageNo].GetObjectCount(); i++)
 	for (int i = 0; i < m_pTargetObjArray.GetArrayCount(); i++)
 	{
 		//非表示ならスキップ
@@ -731,10 +732,7 @@ void CGame::Collosion(void)
 			else
 			{
 				//通常の動きにする
-				////スキルが使われている状態なら当たり判定を行わない
-				//if (!m_pTargetObjArray[i]->GetStatus())
-				//{
-				//}
+				//スキルが使われている状態なら当たり判定を行わない
 				//埋まり値だけ戻す
 				m_Player.CollisionStage(over);
 			}
@@ -787,9 +785,6 @@ void CGame::Collosion(void)
 				else
 				{
 					////スキルが使われている状態なら当たり判定を行わない
-					//if (!m_pTargetObjArray[i]->GetStatus())
-					//{
-					//}
 					m_pEnemyArray[j]->CollisionStage(over);
 				}
 			}

@@ -112,6 +112,7 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 		return;
 	}
 	CRectangle r = GetSrcRect();
+	float dx = r.GetWidth() * 0.5f;
 	if (!m_bReverse)
 	{
 		r.Left = GetSrcRect().Right;
@@ -120,8 +121,8 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 
 	if (m_bDmg)
 	{
-		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
-		//m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight() / 2, m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_CENTERCENTER);
+
+		m_pTexture->RenderScale(screenPos.x + dx, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_BOTTOMCENTER);
 	}
 	else
 	{
@@ -132,8 +133,9 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 	if (gbDebug)
 	{
 		Vector2 scroll = CCamera2D::GetSScroll();
-		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
-		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
+		//CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
+		CRectangle rec(GetRect());
+		CGraphicsUtilities::RenderRect(rec - scroll, MOF_COLOR_RED);
 		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
 		{
 			CGraphicsUtilities::RenderRect(screenPos.x + m_SrcRectArray[i].Left, screenPos.y + m_SrcRectArray[i].Top,
@@ -151,6 +153,7 @@ void CEnemyMash::RenderCircle(const Vector2 & screenPos)
 		return;
 	}
 	CRectangle r = GetSrcRect();
+	float dx = r.GetWidth() * 0.5f;
 	if (!m_bReverse)
 	{
 		r.Left = GetSrcRect().Right;
@@ -158,8 +161,7 @@ void CEnemyMash::RenderCircle(const Vector2 & screenPos)
 	}
 	if (m_bDmg)
 	{
-		m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
-		//m_pTexture->RenderScale(screenPos.x + r.GetWidth() / 2, screenPos.y + r.GetHeight() / 2, m_DmgScale.x, m_DmgScale.y, r, TEXTUREALIGNMENT_CENTERCENTER);
+		m_pTexture->RenderScale(screenPos.x + dx, screenPos.y + r.GetHeight(), m_DmgScale.x, m_DmgScale.y, r, MOF_ARGB(128, 255, 255, 255), TEXTUREALIGNMENT_BOTTOMCENTER);
 	}
 	else
 	{
