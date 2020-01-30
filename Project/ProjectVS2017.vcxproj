@@ -151,6 +151,7 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="SubStance.cpp" />
+    <ClCompile Include="Taihou.cpp" />
     <ClCompile Include="TargetObj.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Substance.h" />
+    <ClInclude Include="Taihou.h" />
     <ClInclude Include="TargetObj.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TimeManager.h" />

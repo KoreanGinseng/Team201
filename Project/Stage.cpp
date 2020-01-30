@@ -305,6 +305,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 				(*pEnemyArray)[n] = NEW CEnemyBoss3();
 				(*pEnemyArray)[n]->SetBoss();
 				break;
+			case ENEMY_BOSS_3 + 1:	(*pEnemyArray)[n] = NEW CTaihou(); break;
 			default: break;
 			}
 			(*pEnemyArray)[n]->SetPos(x * m_ChipSize, y * m_ChipSize);
