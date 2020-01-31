@@ -6,6 +6,7 @@ CAimShot::CAimShot(void) :
 CShot()
 {
 	m_TexScale = 1.0f;
+	m_ShotType = SHOT_AIM;
 }
 
 

@@ -789,6 +789,28 @@ void CGame::Collosion(void)
 				}
 			}
 		}
+		//AIM
+		if (m_pTargetObjArray[i]->GetObjType() == OBJECT_HAMMER && m_pTargetObjArray[i]->GetStatus() != SUBSTATUS_STOP)
+		{
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_AIM)
+				{
+					continue;
+				}
+				over = Vector2(0, 0);
+				CAimShot* pas = static_cast<CAimShot*>(CShot::GetShotLists()->GetData(sc));
+				if (m_pTargetObjArray[i]->OverValue(pas->GetRect(), over))
+				{
+					float movex = 20.0f;
+					if (over.x < 0)
+					{
+						movex *= -1;
+					}
+					pas->SetMove(Vector2(movex, 0));
+				}
+			}
+		}
 
 		//“G‚Ì”‚¾‚¯ƒ‹[ƒv
 		for (int j = 0; j < m_pEnemyArray.GetArrayCount(); j++)
