@@ -106,5 +106,7 @@ public:
 
 	bool IsAttack(void) const;
 	CRectangle GetAttackRect(void);
+
+	void CollisionHummer(Vector2& over);
 };
 

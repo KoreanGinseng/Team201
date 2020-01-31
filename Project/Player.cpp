@@ -784,3 +784,16 @@ CRectangle CPlayer::GetAttackRect(void)
 	}
 	return rect;
 }
+
+void CPlayer::CollisionHummer(Vector2 & over)
+{
+	if (over.x < 0)
+	{
+		m_Move.x = -30.0f;
+	}
+	else
+	{
+		m_Move.x = 30.0f;
+	}
+	m_Move.y = -8.0f;
+}

@@ -5,6 +5,7 @@
 CHeal::CHeal(void)
 {
 	m_bSelectTarget = false;
+	m_Type = OBJECT_HEAL;
 }
 
 

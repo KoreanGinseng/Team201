@@ -748,6 +748,10 @@ void CGame::Collosion(void)
 				m_Player.Heal(1);
 			}
 			//ƒ[ƒvˆÈŠO‚Ìê‡
+			else if (m_pTargetObjArray[i]->GetObjType() == OBJECT_HAMMER && m_pTargetObjArray[i]->GetStatus() != SUBSTATUS_STOP)
+			{
+				m_Player.CollisionHummer(over);
+			}
 			else
 			{
 				//’Êí‚Ì“®‚«‚É‚·‚é
