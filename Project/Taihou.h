@@ -10,6 +10,9 @@ private:
 
 	float		m_Radian;
 
+	int		m_ShotWait;
+	int		m_OffsetShotWait;
+
 public:
 	CTaihou(void);
 	virtual ~CTaihou(void);

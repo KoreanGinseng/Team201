@@ -115,6 +115,10 @@ void CPlayer::Update(void)
 	{
 		m_Pos = CCamera2D::GetSScroll() + mousePos;
 	}
+	if (g_pInput->IsKeyHold(MOFKEY_NUMPADPLUS))
+	{
+		m_HP = 15;
+	}
 #endif // _DEBUG
 
 

@@ -87,6 +87,7 @@ CEnemyBoss3::CEnemyBoss3(void) :
 	CEnemy()
 {
 	m_EnemyType = ENEMY_BOSS_3;
+	m_bSelectTarget = false;
 }
 
 

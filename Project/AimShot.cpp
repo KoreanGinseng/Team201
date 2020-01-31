@@ -40,6 +40,10 @@ void CAimShot::Update(void)
 		return;
 	}
 	m_Pos += m_Move;
+	if (IsStageOver())
+	{
+		m_bShot = false;
+	}
 }
 
 void CAimShot::Render(const Vector2 & screenPos)
