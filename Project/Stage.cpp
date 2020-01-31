@@ -476,6 +476,12 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 	}
 
 	CCordinate::SetStageRect(GetStageRect());
+
+
+	if (m_XCount == 30)
+	{
+		CCordinate::SetLastBoss(true);
+	}
 }
 
 
@@ -507,6 +513,7 @@ void CStage::RenderBack(const Vector2& scroll)
 	if (m_XCount == 30)
 	{
 		rastBoss = true;
+		CCordinate::SetLastBoss(true);
 	}
 	for (float y = ((int)-scroll.y / scrlrate % hn) - hn; y < sch; y += hn) {
 		for (float x = ((int)-scroll.x / scrlrate % wn) - wn; x < scw; x += wn) {

@@ -23,7 +23,8 @@ private:
 	static bool		  m_bStop;
 	static bool		  m_bSkip;
 	static bool		  m_bBack;
-
+	static bool		  m_bPlayerContrl;
+	static bool		  m_bLastBoss;
 public:
 	static Vector2 GetSavePoint(void) { return m_SavePos; }
 	static void SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
@@ -53,6 +54,12 @@ public:
 	static bool IsStopUI(void) { return m_bStop; }
 	static bool IsSkipUI(void) { return m_bSkip; }
 	static bool IsBackUI(void) { return m_bBack; }
+
+	static void SetPlayerCntrl(const bool& b) { m_bPlayerContrl = b; }
+	static bool IsPlayerCntrl(void) { return m_bPlayerContrl; }
+
+	static void SetLastBoss(const bool& b) { m_bLastBoss = b; }
+	static bool IsLastBoss(void) { return m_bLastBoss; }
 };
 
 #define NewPointerRelease(p)	\

@@ -43,11 +43,6 @@ void CPlayer::Initialize(void)
 	m_bDead = false;
 	m_bReverse = false;
 	//座標の初期化
-	m_Pos = Vector2(9600, 768);
-	m_Pos = Vector2(4000, 192);
-	m_Pos = Vector2(960, 768);
-	m_Pos = Vector2(6510, 192);
-	m_Pos = Vector2(8810, 192);
 	m_Pos = Vector2(200, 768);
 	//HPの初期化
 	m_HP = PLAYER_MAXHP;
@@ -57,9 +52,17 @@ void CPlayer::Initialize(void)
 	m_Target = 0;
 	m_bTrigger = false;
 	m_DamageWait = 0;
+	m_bAttack = false;
 	if (g_pInput->GetGamePadCount())
 	{
 		m_bKey = false;
+	}
+
+	if (CCordinate::IsLastBoss())
+	{
+		CAnimationData* pData = g_pAnimManager->GetAnimation("PlayerAnim002.bin");
+		m_SordMotion.Create(pData->GetAnim(), pData->GetAnimCount());
+		m_pTexture = g_pTextureManager->GetTexture(pData->GetTextureName());
 	}
 }
 
@@ -127,6 +130,11 @@ void CPlayer::Render(const Vector2& screenPos)
 	}
 
 	CRectangle dr = GetSrcRect();
+	if (CCordinate::IsLastBoss())
+	{
+		dr = m_SordMotion.GetSrcRect();
+	}
+
 	//反転フラグが立っているとき描画矩形を反転
 	if (m_bReverse)
 	{
@@ -180,6 +188,7 @@ void CPlayer::Release(void)
 	CCharacter::Release();
 	m_SkillTarget.clear();
 	m_pTexture = nullptr;
+	m_SordMotion.Release();
 }
 
 void CPlayer::Move(void)
@@ -324,9 +333,16 @@ void CPlayer::Animation(void)
 	{
 		m_Motion.ChangeMotion(ANIM_SKILLSTANCE);
 	}
-	else if (m_Motion.GetMotionNo() != ANIM_WAIT && !m_bJump && !m_bMove && !m_bTrigger)
+	else if (m_Motion.GetMotionNo() != ANIM_WAIT && !m_bJump && !m_bMove && !m_bTrigger && !m_bAttack)
 	{
 		m_Motion.ChangeMotion(ANIM_WAIT);
+	}
+	if (m_bAttack && CCordinate::IsLastBoss() && !m_bJump && !m_bTrigger)
+	{
+		if (m_SordMotion.GetMotionNo() != ANIM_COUNT)
+		{
+			m_SordMotion.ChangeMotion(ANIM_COUNT);
+		}
 	}
 
 	m_Motion.AddTimer(CUtilities::GetFrameSecond());
@@ -371,14 +387,27 @@ void CPlayer::Skill(void)
 	m_KeyConfig.skillStop   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_S)     : (g_pGamePad->IsKeyPush(XINPUT_Y));
 	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
 	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
+	m_KeyConfig.attack = m_bKey ? g_pInput->IsKeyPull(MOFKEY_C) : g_pGamePad->IsKeyPull(XINPUT_R_TRIGGER);
 
 	m_bSkillEne = false;
 	m_bSkillObjBack = false;
 	m_bSkillObjNomal = false;
 	m_bSkillObjTrip = false;
 
+	if (m_KeyConfig.attack && m_bCntrl && CCordinate::IsLastBoss())
+	{
+		m_bAttack = true;
+	}
+	if (m_bAttack)
+	{
+		if (m_SordMotion.GetMotionNo() == ANIM_COUNT && m_SordMotion.IsEndMotion())
+		{
+			m_bAttack = false;
+		}
+	}
+
 	//LTボタンを押した場合、スキルが発動
-	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && m_bCntrl)
+	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && m_bCntrl && !m_bAttack)
 	{
 		if (!g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->IsPlay())
 		{

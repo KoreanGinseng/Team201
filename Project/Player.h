@@ -46,6 +46,7 @@ private:
 		bool	skillBack;
 		bool	skillStop;
 		bool	skillSkip;
+		bool	attack;
 	};
 
 	KeyConfig					m_KeyConfig;		//キーコンフィグ
@@ -63,6 +64,10 @@ private:
 	bool						m_bSkillObjBack;
 	bool						m_bSkillObjTrip;
 	bool						m_bSkillEne;
+
+	CSpriteMotionController		m_SordMotion;
+
+	bool						m_bAttack;
 
 public:
 	CPlayer(void);			//コンストラクタ

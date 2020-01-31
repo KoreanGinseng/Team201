@@ -36,10 +36,11 @@ void CEnemyBoss3::Update(void)
 {
 	if (!m_bBossChange)
 	{
-
+		CCordinate::SetPlayerCntrl(true);
 
 		return;
 	}
+	CCordinate::SetPlayerCntrl(false);
 
 	if (!m_bMoveHand)
 	{

@@ -10,6 +10,8 @@ bool CCordinate::m_bKey = false;
 bool CCordinate::m_bSkip = false;
 bool CCordinate::m_bBack = false;
 bool CCordinate::m_bStop = false;
+bool CCordinate::m_bPlayerContrl = false;
+bool CCordinate::m_bLastBoss = false;
 
 Vector2 WorldTransration(Vector2 cp, Vector2 sp) {
 	return Vector2(sp.x + cp.x, sp.y + cp.y);
