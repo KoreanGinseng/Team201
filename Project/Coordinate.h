@@ -25,6 +25,7 @@ private:
 	static bool		  m_bBack;
 	static bool		  m_bPlayerContrl;
 	static bool		  m_bLastBoss;
+	static int*		  m_BossFlashAlpha;
 public:
 	static Vector2 GetSavePoint(void) { return m_SavePos; }
 	static void SetSavePoint(const Vector2& pos) { m_SavePos = pos; }
@@ -60,6 +61,10 @@ public:
 
 	static void SetLastBoss(const bool& b) { m_bLastBoss = b; }
 	static bool IsLastBoss(void) { return m_bLastBoss; }
+
+	static void SetBossFlash(int* alpha) { m_BossFlashAlpha = alpha; }
+	static int GetAlpha(void) { return m_bLastBoss ? *m_BossFlashAlpha : 0; }
+
 };
 
 #define NewPointerRelease(p)	\

@@ -103,5 +103,8 @@ public:
 	bool IsObjBack(void) const { return m_bSkillObjBack; }
 	bool IsObjTrip(void) const { return m_bSkillObjTrip; }
 	bool IsEne(void) const { return m_bSkillEne; }
+
+	bool IsAttack(void) const;
+	CRectangle GetAttackRect(void);
 };
 

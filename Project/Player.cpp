@@ -5,22 +5,22 @@
  *	@date			2019/09/29
  *****************************************************************/
 
-//INCLUDE
+ //INCLUDE
 #include "Player.h"
 
 
 //コンストラクタ
 CPlayer::CPlayer(void) :
-CCharacter(),
-m_bKey(true),
-m_bJump(false),
-m_SkillTarget(),
-m_bTrigger(false),
-m_bClime(false),
-m_Target(0),
-m_Skillrang(0),
-m_SkillCircle(),
-m_bCntrl(true)
+	CCharacter(),
+	m_bKey(true),
+	m_bJump(false),
+	m_SkillTarget(),
+	m_bTrigger(false),
+	m_bClime(false),
+	m_Target(0),
+	m_Skillrang(0),
+	m_SkillCircle(),
+	m_bCntrl(true)
 {
 	CCordinate::SetPlayerPos(&m_Pos);
 }
@@ -156,6 +156,7 @@ void CPlayer::Render(const Vector2& screenPos)
 				screenPos.x + m_SrcRectArray[i].Right, screenPos.y + m_SrcRectArray[i].Bottom, MOF_COLOR_BLUE);
 			CGraphicsUtilities::RenderString(screenPos.x, screenPos.y - 30, "%.1f , %.1f", m_Pos.x, m_Pos.y);
 		}
+		CGraphicsUtilities::RenderRect(GetAttackRect() - scroll, MOF_COLOR_GREEN);
 	}
 #endif // _DEBUG
 }
@@ -163,6 +164,10 @@ void CPlayer::Render(const Vector2& screenPos)
 void CPlayer::RenderCircle(const Vector2 & screenPos)
 {
 	CRectangle dr = GetSrcRect();
+	if (CCordinate::IsLastBoss())
+	{
+		dr = m_SordMotion.GetSrcRect();
+	}
 	//反転フラグが立っているとき描画矩形を反転
 	if (m_bReverse)
 	{
@@ -193,13 +198,13 @@ void CPlayer::Release(void)
 
 void CPlayer::Move(void)
 {
-	m_KeyConfig.moveRight   = m_bKey ? g_pInput->IsKeyHold(MOFKEY_RIGHT)  : (g_pGamePad->GetStickHorizontal() > 0.8f);
-	m_KeyConfig.moveLeft    = m_bKey ? g_pInput->IsKeyHold(MOFKEY_LEFT)   : (g_pGamePad->GetStickHorizontal() < -0.8f);
-	m_KeyConfig.jump        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)     : (g_pGamePad->IsKeyPush(XINPUT_A));
-	m_KeyConfig.clime       = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP)     : (g_pGamePad->GetStickVertical() > 0.8f);
-	m_KeyConfig.fall        = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN)   : (g_pGamePad->GetStickVertical() < -0.8f);
+	m_KeyConfig.moveRight = m_bKey ? g_pInput->IsKeyHold(MOFKEY_RIGHT) : (g_pGamePad->GetStickHorizontal() > 0.8f);
+	m_KeyConfig.moveLeft = m_bKey ? g_pInput->IsKeyHold(MOFKEY_LEFT) : (g_pGamePad->GetStickHorizontal() < -0.8f);
+	m_KeyConfig.jump = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP) : (g_pGamePad->IsKeyPush(XINPUT_A));
+	m_KeyConfig.clime = m_bKey ? g_pInput->IsKeyHold(MOFKEY_UP) : (g_pGamePad->GetStickVertical() > 0.8f);
+	m_KeyConfig.fall = m_bKey ? g_pInput->IsKeyHold(MOFKEY_DOWN) : (g_pGamePad->GetStickVertical() < -0.8f);
 
-	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime)
+	if (m_KeyConfig.skillStance && !m_bMove && !m_bJump && !m_bClime && !m_bAttack)
 	{
 		//移動量が0なら処理に入らない
 		//移動量が存在する場合、徐々に移動量を0にする
@@ -236,7 +241,7 @@ void CPlayer::Move(void)
 	}
 
 	//右スティックを倒した場合、倒した方向に移動
-	if (m_KeyConfig.moveRight && m_bCntrl)
+	if (m_KeyConfig.moveRight && m_bCntrl && !m_bAttack)
 	{
 		m_Move.x += PLAYER_SPEED;
 		m_bMove = true;
@@ -246,7 +251,7 @@ void CPlayer::Move(void)
 			m_Move.x = PLAYER_MAXSPEED;
 		}
 	}
-	else if (m_KeyConfig.moveLeft && m_bCntrl)
+	else if (m_KeyConfig.moveLeft && m_bCntrl && !m_bAttack)
 	{
 		m_Move.x -= PLAYER_SPEED;
 		m_bMove = true;
@@ -284,7 +289,7 @@ void CPlayer::Move(void)
 	}
 
 	//Aボタンを押下かつジャンプフラグがたっていない場合ジャンプする
-	if (m_KeyConfig.jump && !m_bJump && !m_bClime && m_bCntrl)
+	if (m_KeyConfig.jump && !m_bJump && !m_bClime && m_bCntrl && !m_bAttack)
 	{
 		m_bJump = true;
 		m_Move.y = PLAYER_JUMPPOW;
@@ -317,35 +322,43 @@ void CPlayer::Move(void)
 //アニメーション処理
 void CPlayer::Animation(void)
 {
-	if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPUP && m_Move.y < 0)
+	CSpriteMotionController* pMotion;
+	if (CCordinate::IsLastBoss())
 	{
-		m_Motion.ChangeMotion(ANIM_JUMPUP);
+		pMotion = &m_SordMotion;
 	}
-	else if (m_bJump && m_Motion.GetMotionNo() != ANIM_JUMPDOWN && m_Move.y >= 0)
+	else
 	{
-		m_Motion.ChangeMotion(ANIM_JUMPDOWN);
+		pMotion = &m_Motion;
 	}
-	else if (m_bMove && m_Motion.GetMotionNo() != ANIM_MOVE && !m_bJump)
+	if (m_bJump && pMotion->GetMotionNo() != ANIM_JUMPUP && m_Move.y < 0)
 	{
-		m_Motion.ChangeMotion(ANIM_MOVE);
+		pMotion->ChangeMotion(ANIM_JUMPUP);
 	}
-	else if (m_bTrigger && m_Motion.GetMotionNo() != ANIM_SKILLSTANCE && !m_bJump && !m_bMove)
+	else if (m_bJump && pMotion->GetMotionNo() != ANIM_JUMPDOWN && m_Move.y >= 0)
 	{
-		m_Motion.ChangeMotion(ANIM_SKILLSTANCE);
+		pMotion->ChangeMotion(ANIM_JUMPDOWN);
 	}
-	else if (m_Motion.GetMotionNo() != ANIM_WAIT && !m_bJump && !m_bMove && !m_bTrigger && !m_bAttack)
+	else if (m_bMove && pMotion->GetMotionNo() != ANIM_MOVE && !m_bJump)
 	{
-		m_Motion.ChangeMotion(ANIM_WAIT);
+		pMotion->ChangeMotion(ANIM_MOVE);
 	}
-	if (m_bAttack && CCordinate::IsLastBoss() && !m_bJump && !m_bTrigger)
+	else if (m_bTrigger && pMotion->GetMotionNo() != ANIM_SKILLSTANCE && !m_bJump && !m_bMove)
 	{
-		if (m_SordMotion.GetMotionNo() != ANIM_COUNT)
+		pMotion->ChangeMotion(ANIM_SKILLSTANCE);
+	}
+	else if (pMotion->GetMotionNo() != ANIM_WAIT && !m_bJump && !m_bMove && !m_bTrigger && !m_bAttack)
+	{
+		pMotion->ChangeMotion(ANIM_WAIT);
+	}
+	if (m_bAttack && CCordinate::IsLastBoss() && !m_bJump && !m_bTrigger && !m_bMove)
+	{
+		if (pMotion->GetMotionNo() != ANIM_COUNT)
 		{
-			m_SordMotion.ChangeMotion(ANIM_COUNT);
+			pMotion->ChangeMotion(ANIM_COUNT);
 		}
 	}
-
-	m_Motion.AddTimer(CUtilities::GetFrameSecond());
+	pMotion->AddTimer(CUtilities::GetFrameSecond());
 }
 
 //当たり判定
@@ -381,11 +394,11 @@ CRectangle CPlayer::GetRect(void)
 void CPlayer::Skill(void)
 {
 	m_KeyConfig.skillStance = m_bKey ? g_pInput->IsKeyHold(MOFKEY_SPACE) : g_pGamePad->IsKeyHold(XINPUT_L_TRIGGER);
-	m_KeyConfig.selectNext  = m_bKey ? g_pInput->IsKeyPush(MOFKEY_X)     : g_pGamePad->IsKeyPush(XINPUT_R_BTN);
-	m_KeyConfig.selectBack  = m_bKey ? g_pInput->IsKeyPush(MOFKEY_Z)     : g_pGamePad->IsKeyPush(XINPUT_L_BTN);
-	m_KeyConfig.skillBack   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_A)     : (g_pGamePad->IsKeyPush(XINPUT_X));
-	m_KeyConfig.skillStop   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_S)     : (g_pGamePad->IsKeyPush(XINPUT_Y));
-	m_KeyConfig.skillSkip   = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D)     : (g_pGamePad->IsKeyPush(XINPUT_B));
+	m_KeyConfig.selectNext = m_bKey ? g_pInput->IsKeyPush(MOFKEY_X) : g_pGamePad->IsKeyPush(XINPUT_R_BTN);
+	m_KeyConfig.selectBack = m_bKey ? g_pInput->IsKeyPush(MOFKEY_Z) : g_pGamePad->IsKeyPush(XINPUT_L_BTN);
+	m_KeyConfig.skillBack = m_bKey ? g_pInput->IsKeyPush(MOFKEY_A) : (g_pGamePad->IsKeyPush(XINPUT_X));
+	m_KeyConfig.skillStop = m_bKey ? g_pInput->IsKeyPush(MOFKEY_S) : (g_pGamePad->IsKeyPush(XINPUT_Y));
+	m_KeyConfig.skillSkip = m_bKey ? g_pInput->IsKeyPush(MOFKEY_D) : (g_pGamePad->IsKeyPush(XINPUT_B));
 	m_KeyConfig.skillStancePull = m_bKey ? g_pInput->IsKeyPull(MOFKEY_SPACE) : g_pGamePad->IsKeyPull(XINPUT_L_TRIGGER);
 	m_KeyConfig.attack = m_bKey ? g_pInput->IsKeyPull(MOFKEY_C) : g_pGamePad->IsKeyPull(XINPUT_R_TRIGGER);
 
@@ -394,7 +407,7 @@ void CPlayer::Skill(void)
 	m_bSkillObjNomal = false;
 	m_bSkillObjTrip = false;
 
-	if (m_KeyConfig.attack && m_bCntrl && CCordinate::IsLastBoss())
+	if (m_KeyConfig.attack && m_bCntrl && CCordinate::IsLastBoss() && !m_bMove && !m_bJump && !m_bTrigger)
 	{
 		m_bAttack = true;
 	}
@@ -530,7 +543,7 @@ void CPlayer::Skill(void)
 		//	g_pSoundManager->PlaySE("Skill.mp3");
 		//}
 	}
-	else 
+	else
 	{
 		g_pSoundManager->GetSoundSE("Skill.mp3")->GetSoundBuffer()->Stop();
 		//離したまたは押してない状態で
@@ -541,7 +554,7 @@ void CPlayer::Skill(void)
 			m_Skillrang = 0.0f;
 			m_Target = 0;
 			//ベクトルに要素が入っている場合
-			if (!m_SkillTarget.empty()) 
+			if (!m_SkillTarget.empty())
 			{
 				//全てのターゲットフラグを下ろし、要素を全てクリアする
 				for (int i = 0; i < m_SkillTarget.size(); i++)
@@ -637,35 +650,35 @@ void CPlayer::TargetSelect(CDynamicArray<CEnemy*>* peneArray, CDynamicArray<CTar
 	//一つずつv と　v++を比較してソートする
 	element.sort(
 		[&](CSubstance*& v1, CSubstance*& v2)
-		{
-			CRectangle rec1 = v1->GetRect();
-			CRectangle rec2 = v2->GetRect();
+	{
+		CRectangle rec1 = v1->GetRect();
+		CRectangle rec2 = v2->GetRect();
 
-			Vector2 cv1 = rec1.GetCenter();
-			Vector2 cv2 = rec2.GetCenter();
+		Vector2 cv1 = rec1.GetCenter();
+		Vector2 cv2 = rec2.GetCenter();
 
-			float dx1 = cv1.x - stx;
-			float dy1 = cv1.y - sty;
-			float d1 = (dx1*dx1 + dy1 * dy1);
+		float dx1 = cv1.x - stx;
+		float dy1 = cv1.y - sty;
+		float d1 = (dx1*dx1 + dy1 * dy1);
 
-			float dx2 = cv2.x - stx;
-			float dy2 = cv2.y - sty;
-			float d2 = (dx2*dx2 + dy2 * dy2);
-			if (d1 > d2) {
-				return false;
-			}
-			return true;
+		float dx2 = cv2.x - stx;
+		float dy2 = cv2.y - sty;
+		float d2 = (dx2*dx2 + dy2 * dy2);
+		if (d1 > d2) {
+			return false;
 		}
+		return true;
+	}
 	);
 
 	//ソートされた敵かオブジェクトをベクトルに入れる
-	for (auto itr = element.cbegin(); itr != element.cend(); ++itr) 
+	for (auto itr = element.cbegin(); itr != element.cend(); ++itr)
 	{
 		m_SkillTarget.push_back(*itr);
 	}
 
-	
-	if (m_Target > m_SkillTarget.size()-1)
+
+	if (m_Target > m_SkillTarget.size() - 1)
 	{
 		m_Target = m_SkillTarget.size() - 1;
 	}
@@ -745,4 +758,25 @@ bool CPlayer::Dmg(const int & dmg)
 
 	g_pSoundManager->PlaySE("Dmg.mp3");
 	return true;
+}
+
+bool CPlayer::IsAttack(void) const
+{
+	return m_bAttack;
+}
+
+CRectangle CPlayer::GetAttackRect(void)
+{
+	CRectangle rect(0, 0, 0, 0);
+	if (m_bAttack)
+	{
+		rect = CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_SordMotion.GetSrcRect().GetWidth(), m_Pos.y + m_SordMotion.GetSrcRect().GetHeight());
+		rect.Expansion(-80, -40);
+		rect.Left += 100;
+		if (m_bReverse)
+		{
+			rect -= Vector2(100, 0);
+		}
+	}
+	return rect;
 }

@@ -477,7 +477,7 @@ void CStage::Initialize(CDynamicArray<CEnemy*>* pEnemyArray, CDynamicArray<CItem
 
 	CCordinate::SetStageRect(GetStageRect());
 
-
+	CCordinate::SetLastBoss(false);
 	if (m_XCount == 30)
 	{
 		CCordinate::SetLastBoss(true);

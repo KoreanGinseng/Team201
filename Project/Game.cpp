@@ -453,7 +453,11 @@ void CGame::RenderUI(void)
 		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB( alp, 255, 255, 255));
 		//g_pTextureManager->GetTexture("fin.png")->Render(0, 0, MOF_ARGB(alp, 255, 255, 255));
 	}
-
+	int flashAlpha = CCordinate::GetAlpha();
+	if (flashAlpha > 0)
+	{
+		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_ARGB(flashAlpha, 255, 255, 255));
+	}
 
 	//ポーズ中ならポーズ画面の描画
 	if (m_bPoase)
@@ -605,6 +609,15 @@ void CGame::Collosion(void)
 			over = Vector2(0, 0);
 
 			//プレイヤーとの埋まりを求める
+			if (m_Player.IsAttack())
+			{
+				if (m_pEnemyArray[i]->OverValue(m_Player.GetAttackRect(), over))
+				{
+					m_pEnemyArray[i]->Dmg(1);
+				}
+			}
+			//埋まり値の値をリセット
+			over = Vector2(0, 0);
 			if (m_pEnemyArray[i]->OverValue(m_Player.GetRect(), over))
 			{
 				//敵がスキルで止まっているなら埋まり値だけ戻す

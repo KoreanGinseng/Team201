@@ -120,6 +120,7 @@
     <ClCompile Include="EnemyMash.cpp" />
     <ClCompile Include="EnemyOct.cpp" />
     <ClCompile Include="EnemyPoison.cpp" />
+    <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Heal.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="SceneEffectBase.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shot.cpp" />
+    <ClCompile Include="SordShot.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -186,6 +188,7 @@
     <ClInclude Include="EnemyMash.h" />
     <ClInclude Include="EnemyOct.h" />
     <ClInclude Include="EnemyPoison.h" />
+    <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="Hammer.h" />
     <ClInclude Include="Heal.h" />
     <ClInclude Include="Item.h" />
@@ -216,6 +219,7 @@
     <ClInclude Include="SceneEffectBase.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Shot.h" />
+    <ClInclude Include="SordShot.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
