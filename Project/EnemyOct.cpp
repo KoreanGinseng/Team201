@@ -18,7 +18,7 @@ CEnemyOct::~CEnemyOct(void)
 void CEnemyOct::Initialize(void)
 {
 	m_bDead = false;
-	m_bShow = true;
+	m_bShow = false;
 	m_AimShot.SetTexture(g_pTextureManager->GetTexture("Oct_Shot.png"));
 	CAnimationData* pData = g_pAnimManager->GetAnimation("Effect_Beem.bin");
 	int c = pData->GetAnimCount();
@@ -31,7 +31,14 @@ void CEnemyOct::Initialize(void)
 
 void CEnemyOct::Update(void)
 {
-
+	if (CCamera2D::GetSScroll().x + g_pGraphics->GetTargetWidth() > m_Pos.x)
+	{
+		m_bShow = true;
+	}
+	if (!m_bShow)
+	{
+		return;
+	}
 	if (m_bShotEffect)
 	{
 		m_ShotMotion.AddTimer(CUtilities::GetFrameSecond() * 2.0f);
@@ -114,6 +121,10 @@ void CEnemyOct::Render(const Vector2 & screenPos)
 		CGraphicsUtilities::RenderRect(rect - scroll, MOF_COLOR_BLUE);
 	}
 #endif
+	if (m_bTarget)
+	{
+		CGraphicsUtilities::RenderRect(GetRect() - scroll, MOF_COLOR_GREEN);
+	}
 }
 
 CRectangle CEnemyOct::GetRect(void)

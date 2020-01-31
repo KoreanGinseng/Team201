@@ -19,5 +19,6 @@ public:
 	void SetColorType(const int& t);
 	void SetRectType(const int& t);
 	bool OverValue(CRectangle rec, Vector2 & out) override;
+	CRectangle GetRect(void) override;
 };
 

@@ -3,7 +3,7 @@
 
 
 CPole::CPole(void) :
-CTargetObj()
+	CTargetObj()
 {
 	m_Type = OBJECT_POLE;
 	m_bReverse = true;
@@ -58,7 +58,7 @@ void CPole::Render(const Vector2 & screenPos)
 	CRectangle sRect = GetRect();
 	if (m_bTarget)
 	{
-		CGraphicsUtilities::RenderRect(sRect.Left - scroll.x, sRect.Top - scroll.y, sRect.Right - scroll.x, sRect.Bottom - scroll.y, MOF_COLOR_GREEN);
+		CGraphicsUtilities::RenderRect(sRect - scroll, MOF_COLOR_GREEN);
 	}
 }
 
@@ -116,4 +116,9 @@ bool CPole::OverValue(CRectangle rec, Vector2 & out)
 void CPole::SetPoleScale(const float & scale)
 {
 	m_PoleScale = scale;
+}
+
+CRectangle CPole::GetRect(void)
+{
+	return CRectangle(m_Pos.x + m_SrcRectArray[0].Left, m_Pos.y + m_SrcRectArray[0].Top + m_SrcRectArray[0].GetHeight() * (1.0f - m_PoleScale), m_Pos.x + m_SrcRectArray[0].Right - m_SrcRectArray[0].GetWidth() * (1.0f - m_PoleScale), m_Pos.y + m_SrcRectArray[0].Bottom);
 }

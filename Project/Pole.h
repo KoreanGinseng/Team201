@@ -12,5 +12,6 @@ public:
 	void Render(const Vector2& screenPos) override;
 	virtual bool OverValue(CRectangle rec, Vector2 & out) override;
 	virtual void SetPoleScale(const float& scale);
+	CRectangle GetRect(void) override;
 };
 

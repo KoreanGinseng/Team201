@@ -19,6 +19,8 @@ public:
 	void Initialize(void) override;
 	void Update(void) override;
 	void Render(const Vector2& screenPos) override;
+	void RenderCircle(const Vector2& screenPos) override;
 	void CreateMotion(const char* pName) override;
+	CRectangle GetRect(void) override;
 };
 

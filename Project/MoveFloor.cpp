@@ -175,3 +175,8 @@ bool CMoveFloor::OverValue(CRectangle rec, Vector2 & out)
 	}
 	return re;
 }
+
+CRectangle CMoveFloor::GetRect(void)
+{
+	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_pTexture->GetWidth(), m_Pos.y + m_pTexture->GetHeight());
+}

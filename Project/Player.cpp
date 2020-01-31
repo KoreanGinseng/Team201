@@ -69,6 +69,11 @@ void CPlayer::Initialize(void)
 //更新
 void CPlayer::Update(void)
 {
+	if (m_HP > 6)
+	{
+		m_HP = 6;
+	}
+
 	//スキル
 	Skill();
 
@@ -789,11 +794,11 @@ void CPlayer::CollisionHummer(Vector2 & over)
 {
 	if (over.x < 0)
 	{
-		m_Move.x = -30.0f;
+		m_Move.x = -10.0f;
 	}
 	else
 	{
-		m_Move.x = 30.0f;
+		m_Move.x = 10.0f;
 	}
 	m_Move.y = -8.0f;
 }

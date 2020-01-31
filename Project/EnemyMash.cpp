@@ -111,6 +111,7 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 	{
 		return;
 	}
+	Vector2 scroll = CCamera2D::GetSScroll();
 	CRectangle r = GetSrcRect();
 	float dx = r.GetWidth() * 0.5f;
 	if (!m_bReverse)
@@ -128,11 +129,13 @@ void CEnemyMash::Render(const Vector2 & screenPos)
 	{
 		m_pTexture->Render(screenPos.x, screenPos.y, r);
 	}
-
+	if (m_bTarget)
+	{
+		CGraphicsUtilities::RenderRect(GetRect() - scroll, MOF_COLOR_GREEN);
+	}
 #ifdef _DEBUG
 	if (gbDebug)
 	{
-		Vector2 scroll = CCamera2D::GetSScroll();
 		//CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 		CRectangle rec(GetRect());
 		CGraphicsUtilities::RenderRect(rec - scroll, MOF_COLOR_RED);

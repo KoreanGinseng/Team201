@@ -53,8 +53,15 @@ void CAimShot::Render(const Vector2 & screenPos)
 	{
 		return;
 	}
+	CRectangle rec(0, 0, m_pTexture->GetWidth(), m_pTexture->GetHeight());
+	if (m_Move.x > 0)
+	{
+		float tmp = rec.Left;
+		rec.Left = rec.Right;
+		rec.Right = tmp;
+	}
 	Vector2 scroll = CCamera2D::GetSScroll();
-	m_pTexture->RenderScaleRotate(m_Pos.x - scroll.x, m_Pos.y - scroll.y, m_TexScale, m_RotateRad - MOF_ToRadian(180));
+	m_pTexture->RenderScaleRotate(m_Pos.x - scroll.x, m_Pos.y - scroll.y, m_TexScale, m_RotateRad * (m_Move.x > 0) ? 1 : -1 - MOF_ToRadian(180), rec);
 #ifdef _DEBUG
 	if (gbDebug)
 	{

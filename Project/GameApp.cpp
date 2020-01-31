@@ -46,8 +46,8 @@ MofBool CGameApp::Initialize(void) {
 	g_pGamePad->Create(&xc);
 
 	//gpScene = NEW CGameClear();
-	//gpScene = NEW CTitle();
-	gpScene = NEW CGame();
+	gpScene = NEW CTitle();
+	//gpScene = NEW CGame();
 
 	gpLoading = NEW CLoading();
 	gpLoading->SetStartUp(TRUE);
@@ -101,7 +101,7 @@ MofBool CGameApp::Update(void) {
 			{
 				gStageNo++;
 			}
-			if (gStageNo > 3)
+			if (gStageNo > STAGE_COUNT - 1)
 			{
 				n = SCENENO_GAMECLEAR;
 				gStageNo = 0;
@@ -173,10 +173,6 @@ MofBool CGameApp::Render(void) {
 	gpScene->EffectRender();
 
 	g_pEffectManager->Render();
-	if (g_pInput->IsKeyHold(MOFKEY_NUMPAD0))
-	{
-		CGraphicsUtilities::RenderFillRect(0, 0, g_pGraphics->GetTargetWidth(), g_pGraphics->GetTargetHeight(), MOF_COLOR_WHITE);
-	}
 
 	//•`‰æ‚ÌI—¹
 	g_pGraphics->RenderEnd();

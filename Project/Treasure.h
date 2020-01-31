@@ -9,6 +9,8 @@ public:
 	CTreasure(void);
 	virtual ~CTreasure(void);
 	virtual void Render(const Vector2& screenPos) override;
+	virtual void RenderCircle(const Vector2& screenPos) override;
 	virtual bool OverValue(CRectangle rect, Vector2& out) override;
+	CRectangle GetRect(void) override;
 };
 

@@ -53,8 +53,12 @@ void CTreasure::Render(const Vector2 & screenPos)
 
 	if (!m_bKey && m_Motion.GetMotionNo() == 2)
 	{
-		g_pTextureManager->GetTexture("Key.png")->RenderScale(screenPos.x + m_Motion.GetSrcRect().GetWidth() * 0.5f, screenPos.x + m_Motion.GetSrcRect().GetHeight() * 0.5f + 200, 0.3f, TEXALIGN_CENTERCENTER);
+		g_pTextureManager->GetTexture("Key.png")->RenderScale(m_Pos.x - scroll.x, m_Pos.y - scroll.y, 0.3f);
 	}
+}
+
+void CTreasure::RenderCircle(const Vector2 & screenPos)
+{
 }
 
 bool CTreasure::OverValue(CRectangle rect, Vector2 & out)
@@ -71,4 +75,10 @@ bool CTreasure::OverValue(CRectangle rect, Vector2 & out)
 		CCordinate::SetKey(true);
 	}
 	return re;
+}
+
+CRectangle CTreasure::GetRect(void)
+{
+	
+	return CRectangle(m_Pos.x, m_Pos.y, m_Pos.x + m_Motion.GetSrcRect().GetWidth(), m_Pos.y + m_Motion.GetSrcRect().GetHeight());
 }

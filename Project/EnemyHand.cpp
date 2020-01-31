@@ -52,10 +52,10 @@ void CEnemyHand::Render(const Vector2 & screenPos)
 	}
 	m_pTexture->Render(screenPos.x, screenPos.y, r);
 
+	Vector2 scroll = CCamera2D::GetSScroll();
 #ifdef _DEBUG
 	if (gbDebug)
 	{
-		Vector2 scroll = CCamera2D::GetSScroll();
 		CRectangle rec(-scroll.x + GetRect().Left, -scroll.y + GetRect().Top, -scroll.x + GetRect().Right, -scroll.y + GetRect().Bottom);
 		CGraphicsUtilities::RenderRect(rec, MOF_COLOR_RED);
 		for (int i = 0; i < GetRectArray().GetArrayCount(); i++)
@@ -66,6 +66,10 @@ void CEnemyHand::Render(const Vector2 & screenPos)
 		}
 	}
 #endif // _DEBUG
+	if (m_bTarget)
+	{
+		CGraphicsUtilities::RenderRect(GetRect() - scroll, MOF_COLOR_GREEN);
+	}
 }
 
 void CEnemyHand::RenderCircle(const Vector2 & screenPos)

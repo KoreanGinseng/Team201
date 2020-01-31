@@ -51,15 +51,13 @@ void CHammer::Render(const Vector2 & screenPos)
 #ifdef _DEBUG
 	if (gbDebug)
 	{
-		for (int i = 0; i < m_SrcRectArray.GetArrayCount(); i++)
-		{
-			CRectangle rect = m_SrcRectArray[i];
-			CGraphicsUtilities::RenderRect(rect + m_HummerPos - scroll, MOF_COLOR_BLUE);
-		}
 		CGraphicsUtilities::RenderRect(GetRect() - scroll, MOF_COLOR_BLUE);
 	}
 #endif // _DEBUG
-
+	if (m_bTarget)
+	{
+		CGraphicsUtilities::RenderRect(GetRect() - scroll, MOF_COLOR_GREEN);
+	}
 }
 
 Vector2 CHammer::GetRectCenter(void)

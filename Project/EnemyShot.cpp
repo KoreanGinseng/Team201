@@ -69,6 +69,12 @@ void CEnemyShot::Update(void)
 		m_pEnemy->SetDead(true);
 		m_bShot = false;
 	}
+	m_pEnemy->Update();
+
+	if (static_cast<CEnemyPoison*>(m_pEnemy)->IsDmg())
+	{
+		return;
+	}
 
 	m_WarpTime--;
 	if (m_WarpTime < 0)
@@ -82,7 +88,6 @@ void CEnemyShot::Update(void)
 		m_Pos.x = m_WarpPos[m_No].x + m_EneMove.x;
 		m_pEnemy->SetPos(Vector2(m_Pos.x, m_pEnemy->GetPos().y));
 	}
-	m_pEnemy->Update();
 	m_EneMove += m_pEnemy->GetMove();
 	if (m_EneMove.y > GRAVITYMAX)
 	{

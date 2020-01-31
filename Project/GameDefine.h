@@ -23,7 +23,8 @@ using RectArray = CDynamicArray<CRectangle>;
 
 #define		GAMEFPS			60		//! ゲームに設定されているFPSの値
 
-#define		STAGE_COUNT		4		//! ゲームステージ数
+//#define		STAGE_COUNT		4		//! ゲームステージ数
+#define		STAGE_COUNT		3		//! ゲームステージ数
 #define		START_STAGE		0		//! ゲーム開始ステージ番号
 
 #define		GRAVITY			0.3f	//! ゲーム内重力

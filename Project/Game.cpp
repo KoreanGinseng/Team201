@@ -9,14 +9,15 @@
 #include "Game.h"
 
 const char*		g_StageFileName[STAGE_COUNT] = {
+	"Stage-R-1.txt",
+	"Stage-R-2.txt",
+	//"Stage-R-3.txt",
 	//"Stage-R-2-test.txt",
-	"EnemyTestStage.txt",
-	"Stage-R-1-test.txt",
+	//"EnemyTestStage.txt",
+	//"Stage-R-1-test.txt",
 	//"Stage-R-2-test2.txt",
-	"Stage-R-3-test.txt",
+	//"Stage-R-3-test.txt",
 	"Stage-R-4-test.txt",
-	//"Stage-R-2.txt",
-	//"Stage-R-1.txt",
 	//"TEISHUTSUYOU.txt",
 	//"TestMap1226.txt",
 	//"ENEMOVESTAGE2.txt",
@@ -788,6 +789,19 @@ void CGame::Collosion(void)
 					}
 				}
 			}
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_AIM)
+				{
+					continue;
+				}
+				over = Vector2(0, 0);
+				CAimShot* pas = static_cast<CAimShot*>(CShot::GetShotLists()->GetData(sc));
+				if (m_pTargetObjArray[i]->GetRect().CollisionRect(pas->GetRect()))
+				{
+					pas->SetMove(Vector2(pas->GetMove().x * -1, 0));
+				}
+			}
 		}
 		//AIM
 		if (m_pTargetObjArray[i]->GetObjType() == OBJECT_HAMMER && m_pTargetObjArray[i]->GetStatus() != SUBSTATUS_STOP)
@@ -808,6 +822,50 @@ void CGame::Collosion(void)
 						movex *= -1;
 					}
 					pas->SetMove(Vector2(movex, 0));
+				}
+			}
+		}
+		if (m_pTargetObjArray[i]->GetObjType() == OBJECT_RENGA)
+		{
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_AIM)
+				{
+					continue;
+				}
+				over = Vector2(0, 0);
+				CAimShot* pas = static_cast<CAimShot*>(CShot::GetShotLists()->GetData(sc));
+				if (m_pTargetObjArray[i]->OverValue(pas->GetRect(), over))
+				{
+					if (pas->GetMove().x < 20.0f)
+					{
+						pas->SetShot(false);
+					}
+					else
+					{
+						m_pTargetObjArray[i]->SetShow(false);
+						pas->SetShot(false);
+					}
+				}
+			}
+		}
+		if (m_pTargetObjArray[i]->GetObjType() == OBJECT_PUSHSWITCH)
+		{
+			for (int sc = 0; sc < CShot::GetShotLists()->GetArrayCount(); sc++)
+			{
+				if (CShot::GetShotLists()->GetData(sc)->GetShotType() != SHOT_AIM)
+				{
+					continue;
+				}
+				over = Vector2(0, 0);
+				CAimShot* pas = static_cast<CAimShot*>(CShot::GetShotLists()->GetData(sc));
+				if (m_pTargetObjArray[i]->OverValue(pas->GetRect(), over))
+				{
+					if (static_cast<CPushSwitch*>(m_pTargetObjArray[i])->GetWay() == 0)
+					{
+						static_cast<CPushSwitch*>(m_pTargetObjArray[i])->SetOnPlayer(true);
+						pas->SetShot(false);
+					}
 				}
 			}
 		}
