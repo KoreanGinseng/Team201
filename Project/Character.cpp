@@ -2,7 +2,7 @@
 
 
 
-CCharacter::CCharacter() :
+CCharacter::CCharacter(void) :
 CObject(),
 m_HP(1),
 m_Move(),
@@ -17,7 +17,7 @@ m_bCollision(true)
 }
 
 
-CCharacter::~CCharacter()
+CCharacter::~CCharacter(void)
 {
 	Release();
 }
@@ -193,4 +193,24 @@ bool CCharacter::IsStageOver(void)
 Vector2 CCharacter::GetMove(void) const
 {
 	return m_Move;
+}
+
+void CCharacter::SetDead(const bool & b)
+{
+	m_bDead = b;
+}
+
+void CCharacter::SetReverse(const bool & b)
+{
+	m_bReverse = b;
+}
+
+bool CCharacter::IsReverse(void) const
+{
+	return m_bReverse;
+}
+
+void CCharacter::SetMove(const Vector2 & move)
+{
+	m_Move = move;
 }

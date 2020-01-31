@@ -35,25 +35,47 @@ void CEnemyBoss3::AttackReset(void)
 
 void CEnemyBoss3::Attack(void)
 {
-	switch (m_AttackList[m_AttackNo])
+	if (!m_bShotStart)
 	{
-	case 0:
-	{
-
-	}
-	case 1:
-	{
-
-	}
-	case 2:
-	{
-
-	}
+		switch (m_AttackList[m_AttackNo])
+		{
+		//SORD
+		case 0:
+		{
+			if (!m_SordShot.IsShot())
+			{
+				m_SordShot.Fire(m_Pos);
+				m_bShotStart = true;
+			}
+			break;
+		}
+		//ENEMY
+		case 1:
+		{
+			if (!m_EneShot.IsShot())
+			{
+				m_EneShot.Fire(m_Pos + Vector2(-30, 30));
+				m_bShotStart = true;
+			}
+			break;
+		}
+		//SHOCKWAVE
+		case 2:
+		{
+			if (!m_SordShot.IsShot())
+			{
+				m_SordShot.Fire(m_Pos);
+				m_bShotStart = true;
+			}
+			break;
+		}
+		}
 	}
 
 	if (m_bBossAttack)
 	{
 		m_AttackNo++;
+		m_bBossAttack = false;
 		if (m_AttackNo >= 3)
 		{
 			AttackReset();
@@ -101,11 +123,17 @@ void CEnemyBoss3::Initialize(void)
 	m_SrcRectArray.Add(CRectangle(250, 700, 1000, 1000));
 
 	AttackReset();
-	
+
 	m_bBossAttack = false;
 
+	m_bShotStart = false;
+	m_EneShot.Initialize();
+	m_EneShot.SetWorpTime(1);
+	m_SordShot.Initialize();
+	m_SordShot.SetWorpTime(10);
+
 	//DEBUG
-	m_bBossChange = true;
+	//m_bBossChange = true;
 
 }
 
@@ -114,6 +142,48 @@ void CEnemyBoss3::Update(void)
 	if (m_DamageWait > 0)
 	{
 		m_DamageWait--;
+	}
+	if (m_SordShot.IsShot())
+	{
+		m_SordShot.Update();
+	}
+	if (m_EneShot.IsShot())
+	{
+		m_EneShot.Update();
+	}
+
+	if (m_bShotStart)
+	{
+		switch (m_AttackList[m_AttackNo])
+		{
+		case 0:
+		{
+			if (!m_SordShot.IsShot())
+			{
+				m_bBossAttack = true;
+				m_bShotStart = false;
+			}
+			break;
+		}
+		case 1:
+		{
+			if (!m_EneShot.IsShot())
+			{
+				m_bBossAttack = true;
+				m_bShotStart = false;
+			}
+			break;
+		}
+		case 2:
+		{
+			if (!m_SordShot.IsShot())
+			{
+				m_bBossAttack = true;
+				m_bShotStart = false;
+			}
+			break;
+		}
+		}
 	}
 
 	if (!m_bBossChange || (m_bBossChange && m_FlashAlpha > 0))
@@ -175,6 +245,9 @@ void CEnemyBoss3::Update(void)
 
 void CEnemyBoss3::Render(const Vector2 & screenPos)
 {
+	m_SordShot.Render(Vector2());
+	m_EneShot.Render(Vector2());
+
 	if (m_DamageWait % 2 != 0)
 	{
 		return;
@@ -219,4 +292,9 @@ CRectangle CEnemyBoss3::GetSrcAddRect(void)
 {
 	CRectangle rect(350, 50, 700, 360);
 	return rect;
+}
+
+void CEnemyBoss3::SetEnemyArray(CDynamicArray<CEnemy*>* pArray)
+{
+	m_EneShot.SetArray(pArray);
 }

@@ -339,3 +339,13 @@ bool CEnemyPoison::OverValue(CRectangle rec, Vector2 & out)
 
 	return re;
 }
+
+void CEnemyPoison::SetDead(const bool & b)
+{
+	m_bDead = b;
+	m_bDmg = b;
+	if (!b)
+	{
+		m_DmgScale = Vector2(1, 1);
+	}
+}

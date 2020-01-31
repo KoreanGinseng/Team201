@@ -42,5 +42,10 @@ public:
 	bool IsCollisionFlag(void) const;						//当たり判定をするかどうかのフラグ取得
 	bool IsStageOver(void);									//ステージの範囲外に出ているかどうかを調べる
 	virtual Vector2 GetMove(void) const;
+
+	virtual void SetDead(const bool& b);
+	virtual void SetReverse(const bool& b);
+	virtual bool IsReverse(void) const;
+	virtual void SetMove(const Vector2& move);
 };
 

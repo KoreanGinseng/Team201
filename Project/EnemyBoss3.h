@@ -29,6 +29,8 @@ private:
 	CSordShot m_SordShot;
 	CEnemyShot m_EneShot;
 
+	bool m_bShotStart;
+
 	void AttackReset(void);
 
 	void Attack(void);
@@ -42,5 +44,6 @@ public:
 	virtual void RenderCircle(const Vector2& screenPos) override;
 	CRectangle GetRect(void) override;
 	CRectangle GetSrcAddRect(void) override;
+	void SetEnemyArray(CDynamicArray<CEnemy*>* pArray);
 };
 

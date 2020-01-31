@@ -26,4 +26,6 @@ public:
 	int		GetStatus(void) const { return m_SubStatus; }
 	int		GetSubType(void) const { return m_SubType; }
 	bool	IsSelectTarget(void) const { return m_bSelectTarget; }
+	bool	IsAnimStop(void) const { return m_bAnimStop; }
+	void	SetAnimStop(const bool& b) { m_bAnimStop = b; if (!b) m_SubStatus = SUBSTATUS_NOMAL; }
 };

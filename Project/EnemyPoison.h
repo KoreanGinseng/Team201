@@ -26,5 +26,6 @@ public:
 	bool Dmg(const int& dmg) override;
 	bool OverValue(CRectangle rec, Vector2& out) override;
 	bool IsDmg(void) const { return m_bDmg; }
+	void SetDead(const bool& b) override;
 };
 
