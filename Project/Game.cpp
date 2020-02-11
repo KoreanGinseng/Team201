@@ -276,7 +276,7 @@ void CGame::Update()
 		}
 		if (ene->IsDead())
 		{
-			if (m_StageNo == 3)
+			if (m_StageNo == 2)
 			{
 				if (!m_bClear)
 				{

@@ -28,7 +28,7 @@ bool CTitle::Load(void)
 	m_pEffect = new CEffectFade();
 	m_pEffect->In(10);
 	g_pSoundManager->LoadBGM("Title_BGM.mp3");
-	if (!m_Movie.Load("op_test.wmv"))
+	if (!m_Movie.Load("op.wmv"))
 	{
 		return FALSE;
 	}
